@@ -1,0 +1,185 @@
+@font-face {
+    font-family: 'Gill Sans Light';
+    src: url('/fonts/GillSansMTPro-Light.otf');
+    font-weight: normal;
+  }
+
+.fadeIn {
+    opacity: 1;
+}
+
+.fadeOut {
+    opacity: 0;
+}
+  
+
+.floorLayoutContainer {
+    position: relative;
+    font-family: 'Gill Sans Light';
+    background-color: rgba(0, 29, 32, 1);
+    height: 100vh;
+    width: 100%;
+}
+
+.transitionContainer {
+    opacity: 1;
+    transform: scale(1);
+    font-family: 'Gill Sans Light';
+}
+
+.topLogoContainer,
+.buttonsContainer,
+.filterContainer,
+.menuContainer,
+.bottomLogoContainer 
+{
+    display: none;
+}
+
+.topLogoContainer,
+.buttonsContainer,
+.filterContainer,
+.menuContainer
+{
+    position: fixed;
+    z-index: 10;
+    user-select: none;
+    font-family: 'Gill Sans Light';
+
+}
+  
+.menuContainer {
+    top: 3rem;
+    right: 3rem;
+    height: 3.8rem;
+    min-width: 35rem;
+    display: grid;
+    align-items: center;
+    justify-content: center;
+    grid-template-columns: 0.8fr 0.1fr 0.1fr;
+}
+
+.longvideoTab
+{
+    align-items: center;
+    justify-content: center;
+    background-color: #FCF7EB;
+    color:  #006d77 ;
+    border: none;
+    height: 2.5rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    border-radius: 0.3rem;
+    /* cursor: pointer; */
+    display: grid;
+    column-gap: 0.4rem;
+    grid-template-columns: auto auto auto auto;
+    transition: all 0.3s ease-in-out;
+}
+
+.videosubTab
+{
+    /* border: 1px saddlebrown solid; */
+    padding: 0.1rem;
+    padding-left: 0.5rem;
+    padding-right: 0.3rem;
+    border-radius: 0.5rem;
+    display: grid;
+    grid-template-columns: 1fr 0.7fr;
+    transition: all 0.3s ease-in-out;
+}
+
+.videosubTab:hover
+{
+    cursor: pointer;
+    /* background: #e2f9fe; */
+}
+
+
+.videosubTabTitle
+{
+    padding-right: 0.4rem;
+    display: flex;
+    font-size: 0.75rem;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.4rem;
+    /* font-weight: 600; */
+}
+
+.videosubTabIcon
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color:#ffffff;
+    border-radius: 50%;
+    background-color: #FCF7EB;
+    height: 1.8rem;
+    width: 1.8rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+    /* border: 1px solid red; */
+    /* padding: 3px; */
+}
+
+
+.menuContainerInside
+{
+  display: flex;
+  align-items: center;
+  flex-direction: row-reverse;
+  /* justify-content: center; */
+  /* border: 1px solid red; */
+}
+
+.callContainer
+{
+  position: absolute;
+  bottom: 3rem;
+  right: 3rem;
+  height: 2.8rem;
+  width: 2.8rem;
+  background: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+  transform: translateY(-20px) scale(0.98);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.callContainer:hover {
+  cursor: pointer;
+  transform: translateY(-20px) scale(1);
+}
+
+.mapsViewBox {
+    padding-top: 0.3rem;
+  }
+  
+  .mapsViewBox img {
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1)); /* Subtle icon shadow */
+  }
+
+
+  .Harsukhlogo {
+    position: fixed;
+    top: 2rem;
+    left: 3rem;
+    overflow: hidden;
+    transition: all 0.3s ease;
+  }
+  
+  .AlyamarLogo {
+    position: fixed;
+    bottom: -5rem;
+    left: 0rem;
+    overflow: hidden;
+    transition: all 0.3s ease;
+  }
+  
+
+
+

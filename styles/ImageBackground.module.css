@@ -1,0 +1,1043 @@
+.backgroundImageContainer {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.backgroundImage {
+  position: absolute;
+  object-fit: cover;
+}
+
+#masker {
+  position: absolute;
+  pointer-events: none;
+}
+  
+  #masker {
+    position: absolute;
+    pointer-events: none;
+  }
+  
+  .st0 {
+    opacity: 0;
+    fill: #ffffff;
+    cursor: pointer;
+    -moz-transition: all 0.84s ease-out;
+    -o-transition: all 0.84s ease-out;
+    -webkit-transition: all 0.84s ease-out;
+    -ms-transition: all 0.84s ease-out;
+    transition: all 0.84s ease-out;  pointer-events: all;
+  }
+  
+  .st1Hovers {
+    opacity: 0.5;
+    cursor: pointer;
+    fill: #ffffff;
+    stroke: "#0000ff";
+    stroke-width: 2px;
+    -moz-transition: all 0.84s ease-out;
+    -o-transition: all 0.84s ease-out;
+    -webkit-transition: all 0.84s ease-out;
+    -ms-transition: all 0.84s ease-out;
+    transition: all 0.84s ease-out;  pointer-events: all;
+  }
+
+  .st0:hover {
+    opacity: 0.5;
+    fill: #ffffff;
+    stroke: "#0000ff";
+    stroke-width: 2px;
+  }
+  
+  @media (max-width: 768px) {
+    .backgroundImageContainer {
+      overflow-x: auto;
+      overflow-y: hidden;
+      -webkit-overflow-scrolling: touch;
+    }
+  }
+
+  .topLogoContainer,
+  .buttonsContainer,
+  .filterContainer,
+  .menuContainer{
+    position: fixed;
+    z-index: 10;
+    user-select: none;
+  }
+  
+  .topLogoContainer {
+    top: 1rem;
+    left: 3.5rem;
+  }
+  
+  .menuContainer {
+    top: 3rem;
+    right: 3rem;
+    height: 3.7rem;
+    width: 18rem;
+    /* border: 3px solid red; */
+    display: grid;
+    align-items: center;
+    justify-content: center;
+    grid-template-columns: 0.8fr 0.4fr 0.4fr 0.4fr;
+  }
+  
+  .bottomLogoContainer {
+    position: fixed;
+    bottom: -35px;
+    left: 3rem;
+  }
+
+  .blur {
+    filter: blur(2px);
+    background-color: #000;
+  }
+
+.loadingOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(197, 166, 151, 0.7); /* Matches the layout background color with some transparency */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+@font-face {
+  font-family: 'Gill Sans Light';
+  src: url('/fonts/GillSansMTPro-Light.otf');
+  font-weight: normal;
+}
+
+
+.transitionContainer {
+  /* transition: opacity 0.1s cubic-bezier(0,.84,.56,1.02), transform 0.2s ease-in-out; */
+  opacity: 1;
+  transform: scale(1);
+  font-family: 'Gill Sans Light';
+
+}
+
+.fadeIn {
+  opacity: 1;
+}
+
+.fadeOut {
+  opacity: 0;
+}
+
+.seasonButtonLeft
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color:#ffffff;
+    border-radius: 0.7rem;
+    padding: 5px;
+    /* height: 80%; */
+}
+
+.seasonButtonLeft:hover
+{
+    background-color: #0f8192;
+}
+
+.seasonButtonTitle
+{
+    display: flex;
+    font-size: 0.7rem;
+    /* padding-top: 0.5rem; */
+    /* background-color: #e01aaba; */
+    /* border-left: 1px solid #c2c2c2; */
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem 0.6rem;
+    border-radius: 0.4rem;
+
+}
+
+.seasonButtonRight
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color:#ffffff;
+    border-radius: 0.7rem;
+    padding: 5px;
+}
+
+.seasonButtonRight:hover
+{
+    background-color: #0f8192;
+}
+
+
+.buttonFilters
+{
+    background-color: #006d77;
+    color: #ffffff;
+    /* height: 6vh; */
+    /* width: 10vw; */
+    padding: 0.1rem 0.2rem;
+    border: none;
+    border-radius: 0.7rem;
+    cursor: pointer;
+    display: grid;
+    /* padding: 0.2rem 0rem; */
+    grid-template-columns: 0.7fr 1fr;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+.buttonFilters.hide {
+  opacity: 0;
+  transform: translateX(-20px);
+  pointer-events: none;
+}
+
+.buttonPressedFilters
+{
+    background-color: #006d77;
+    color: #ffffff;
+    /* height: 6vh; */
+    /* width: 10vw; */
+    /* height: 10vh;
+    width: 100vw; */
+
+    top: 1rem;
+    left: 17rem;
+    position: absolute;
+    /* padding: 0.1rem 0.2rem; */
+    border: none;
+    /* border-radius: 0.7rem; */
+    cursor: pointer;
+    display: flex;
+    border-radius: 0.7rem;
+    opacity: 0;
+    transform: translateX(-20px);
+    transition: opacity 0.3s ease, transform 0.3s ease;}
+
+
+.buttonPressedFilters.show {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.filtersPressedButtonLeft
+{
+  padding: 0.7rem 1.3rem;
+  display: flex;
+  align-items: center;
+  flex-direction: row-reverse;
+}
+
+/* ------------------- */
+/* ------------------- */
+/* ------------------- */
+
+.buttonsContainer {
+  top: 8rem;
+  left: 3rem;
+  font-size: 0.8rem;
+  height: 13vh;
+  padding: 0.2rem;
+  height: 20vh;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.buttonsContainer.hide {
+  opacity: 0;
+  transform: translateX(-20px);
+  pointer-events: none;
+}
+
+.elevationBox
+{
+  background-color: white;
+  color: #006d77;
+  width: 7.5vw;
+  height: 5vh;
+  border: none;
+  border-radius: 0.2rem;
+  font-size: 0.68rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  user-select: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 109, 119, 0.1);
+}
+
+.elevationBox.open {
+  height: 10vh;
+}
+
+
+.evelationButton
+{
+  display: grid;
+  grid-template-columns: 0.2fr 1fr 0.3fr;
+  /* padding: 0.3rem; */
+  padding-left: 0.8rem;
+  padding-right: 0.8rem;
+  width: 9vw;
+  height: 5.5vh;
+}
+
+.elevationButtonLeft
+{
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.elevationButtonTitle
+{
+  height: 100%;
+  width: 100%;
+  display: flex;
+  /* justify-content: center; */
+  padding-left: 0.6rem;
+  align-items: center;
+  font-size: 0.68rem;
+  /* font-weight: 600; */
+}
+
+.elevationButtonRight
+{
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.filterContainer
+{
+  
+  top: 11.5rem;
+  left: 3rem;
+  font-size: 0.8rem;
+  height: 3vh;
+  /* padding: 0.2rem; */
+  height: 20vh;
+  /* border: 1px solid #006d77; */
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.filtersBox
+{
+  background-color: white;
+  color: #006d77;
+  width: 8.45vw;
+  height: 5vh;
+  border: none;
+  border-radius: 0.2rem;
+  font-size: 0.9rem;
+  display: grid;
+  grid-template-columns: 0.7fr 1fr;
+  justify-content: center;
+  align-items: center;
+  user-select: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 109, 119, 0.1);
+}
+
+.filtersBox.hide {
+  opacity: 0;
+  transform: translateX(-20px);
+  pointer-events: none;
+}
+
+.filtersButtonLeft
+{
+    padding-right: 0.5rem;
+    display: flex;
+    align-items: center;
+    flex-direction: row-reverse;
+}
+
+.filtersButtonTitle
+{
+    display: flex;
+    font-size: 0.68rem;
+    /* font-weight: 600; */
+    align-items: center;
+}
+
+  .button {
+    background-color: #006d77;
+    color: #ffffff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 0.7rem;
+    cursor: pointer;
+  }
+
+.menuContainerInside
+{
+  display: flex;
+  align-items: center;
+  flex-direction: row-reverse;
+  /* justify-content: center; */
+  /* border: 1px solid red; */
+}
+
+  
+.amenitiesButton
+{
+    align-items: center;
+    justify-content: center;
+    background-color: #ffffff;
+    color:  #006d77 ;
+    border: none;
+    height: 2.5rem;
+    border-radius: 0.3rem;
+    cursor: pointer;
+    display: grid;
+    grid-template-columns: 0.6fr 1fr;
+    transition: all 0.3s ease-in-out;
+}
+
+.amenitiesButtonLeft
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color:#ffffff;
+    border-radius: 0.7rem;
+    padding: 3px;
+    /* height: 80%; */
+}
+
+.amenitiesButtonTitle
+{
+    display: flex;
+    font-size: 0.68rem;
+    align-items: center;
+    border-radius: 0.4rem;
+    /* font-weight: 600; */
+}
+.menuButton {
+  background-color: #ffffff;
+  color: #000000; /* Initial color for the SVG */
+  width: 2.8rem;
+  height: 2.8rem;
+  border: none;
+  border-radius: 50%;
+  font-size: 0.9rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  align-self: center;
+  user-select: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 109, 119, 0.1);
+}
+
+.menuButton:hover {
+  background-color: #00555e;
+  color: #ffffff; /* Color for the SVG on hover */
+  transform: translateY(-2px);
+  box-shadow: 0 6px 8px rgba(0, 109, 119, 0.2);
+}
+
+
+.favButton
+{
+  background-color: #ffffff;
+  color: #006d77;
+  width: 2rem;
+  height: 2rem;
+  border: none;
+  border-radius: 50%;
+  font-size: 0.9rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  align-self: center;
+  user-select: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 109, 119, 0.1);
+}
+
+.favButton:hover {
+  background-color: #00555e;
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 8px rgba(0, 109, 119, 0.2);
+}
+
+
+.menuOptionContainer {
+  position: absolute;
+  top: 8rem;
+  right: 7rem;
+  padding: 0.8rem;
+  min-width: 13.5rem;
+  background: white;
+  border-radius: 0.3rem 0 0.3rem 0.3rem;
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+  display: grid;
+  grid-template-rows: repeat(5, 1fr);
+  gap: 0.7rem;
+  align-items: center;
+  opacity: 0;
+  transform: translateY(20px) scale(0.95);
+  transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+
+.slideIn {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.menuBox
+{
+    width: 100%;
+    color: #0f8192;
+    height: 100%;
+    padding: 0.5rem 1.3rem;
+    border-radius: 0.7rem;
+    display: grid;
+    grid-template-columns: 0.3fr 1fr;;
+    user-select: none;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.menuBox:hover
+{
+    cursor: pointer;
+}
+
+.menuBoxIcon
+{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.menuBoxTitle
+{
+  font-size: 0.68rem;
+  /* font-weight: 600; */
+    display: flex;
+    align-items: center;
+}
+
+.menuBoxContactIcons
+{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    column-gap: 0.7rem;
+}
+
+.menuBoxContactIconbox
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid gray;
+    height: 6vh;
+    background-color: white;
+    border-radius: 0.7rem;
+}
+
+.menuBoxContactIconbox:hover
+{
+  cursor: pointer;
+}
+
+
+
+.slideIn {
+  opacity: 1;
+  transform: translateX(0);
+  transition: transform 0.5s ease-out;
+}
+
+.slideOut {
+  opacity: 0;
+  transform: translateX(-100%);
+  transition: transform 0.5s ease-in;
+}
+
+
+.ContactedContainer {
+  position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    min-height: 100vh;
+    background: rgba(0, 0, 0, 0.5); /* Optional: for a semi-transparent background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: fadeIn 0.3s ease-in-out;
+
+}
+
+.filterBars
+{
+    position: absolute;
+    height: 50vh;
+    width: 12vw;
+    top: 35vh;
+    left: 2rem;
+    background-color: white;
+    border-radius: 0.3rem 0rem 0.3rem 0.3rem ;
+    padding: 0.5rem;
+    /* padding-top: 0.rem; */
+    /* transform: translateX(-100%);
+    transition: transform 0.3s ease; 
+    background-color: #006d77 ;
+    display: grid;
+    grid-template-rows:  0.15fr fr 1fr; */
+}
+
+
+
+.buttonfilterContainer
+{
+  /* display: grid;
+  grid-template-rows: 1fr 1fr; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width:100%;
+  height: 6vh;
+}
+
+.btnFilter
+{
+    /* background-color: #ffffff; */
+    color:  #006d77 ;;
+    border: 1px solid red;  
+    border-radius: 0.7rem;
+    /* cursor: pointer; */
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    transition: all 0.3s ease-in-out;
+}
+
+.filterBtn
+{
+  font-size: 0.68rem;
+
+}
+
+
+/* 
+.seasonsButton:hover
+{
+    
+    background-color: #0f90a4;
+} */
+
+.seasonButtonLeft
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color:#ffffff;
+    border-radius: 0.7rem;
+    /* padding: 5px; */
+    /* height: 80%; */
+}
+
+.seasonButtonLeft:hover
+{
+    background-color: #0f8192;
+}
+
+.seasonButtonTitle
+{
+    display: flex;
+    font-size: 0.68rem;
+    /* padding-top: 0.5rem; */
+    /* background-color: #e01aaba; */
+    /* border-left: 1px solid #c2c2c2; */
+    align-items: center;
+    justify-content: center;
+}
+
+.seasonButtonRight
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color:#ffffff;
+    border-radius: 0.7rem;
+    padding: 5px;
+}
+
+.seasonButtonRight:hover
+{
+    background-color: #0f8192;
+}
+
+
+.fadeOut {
+  opacity: 0;
+  transition: opacity 0.5s ease-out;
+}
+
+/* Fade in the filter and season buttons */
+.fadeIn {
+  opacity: 1;
+  transition: opacity 0.5s ease-in;
+}
+
+
+.filterBoxtabs
+{
+  align-items: center;
+  justify-content: center;
+  display: grid;
+  height: 100%;
+  grid-template-columns: 1fr 1fr 1fr;
+
+}
+
+
+.backViewButton
+{
+  user-select: none;
+    position: absolute;
+    bottom: 6vh; 
+    right: 47vw;
+    align-items: center;
+    justify-content: center;
+    background-color: #ffffff;
+    color:  #006d77 ;
+    border: none;
+    height: 2.4rem;
+    padding: 0.4rem 0.6rem;
+    width: 8vw;
+    border-radius: 0.3rem;
+    cursor: pointer;
+    display: grid;
+    grid-template-columns: 0.5fr 1fr;
+    transition: all 0.3s ease-in-out;
+}
+
+.backViewButtonLeft
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color:#ffffff;
+    border-radius: 0.7rem;
+    padding: 3px;
+    /* height: 80%; */
+}
+
+.backViewButtonTitle
+{
+    display: flex;
+    font-size: 0.68rem;
+    align-items: center;
+    border-radius: 0.4rem;
+    /* font-weight: 600; */
+}
+
+
+
+.tab
+{
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  font-size: 0.8rem;
+  transition: color 0.3s ease;
+  height: 4vh;
+  user-select: none;
+}
+
+.tab:hover
+{
+  cursor: pointer;
+}
+
+.tab.active {
+  border-bottom: #f1f1f1 solid 1px; 
+}
+
+.tab::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: transparent;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  transform: scaleX(0);
+  transform-origin: right;
+}
+
+.tab.active::after {
+  background-color: #000;
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+.filterFloorBox
+{
+  border: 1px solid red;
+  display: grid;
+  grid-template-rows: 0.9fr 1fr;
+  row-gap: 0.5rem;
+  width:100%;
+  height: 100%;
+  padding: 0.5rem;
+}
+.filterFloorBoxInside {
+  display: grid;
+  grid-template-rows: repeat(6, 1fr);
+  row-gap: 0.3rem;
+  font-size: 0.8rem;
+  padding: 0.5rem;
+  height: 100%;
+  border-radius: 0.5rem;
+  color: #e4e4e4;
+}
+
+.floorBoxTabTitle {
+  display: flex;
+  justify-content: center;
+  color: #1f1f1fc5; 
+  background-color: #ffffff; 
+  border-radius: 0;
+  align-items: center;
+  user-select: none;
+  transition: all 0.2s ease-in-out, opacity 0.2s ease-in-out;
+  padding: 0.2rem;
+}
+
+.filterFloorBoxInside div:first-child {
+  border-top-left-radius: 0.5rem;
+  border-top-right-radius: 0.5rem;
+}
+
+.filterFloorBoxInside div:last-child {
+  border-bottom-left-radius: 0.5rem;
+  border-bottom-right-radius: 0.5rem;
+}
+
+.floorBoxTabTitle:hover {
+  cursor: pointer;
+  color: white;
+  background-color: #008b96; 
+}
+
+.layoutContainer{
+  position: absolute;
+}
+
+.tooltip {
+  position: fixed;
+  z-index: 1000;
+  pointer-events: none;
+}
+
+.tooltipContent {
+  border-right: 1px solid #6a6a6a;
+  display: flex;
+  align-items: center;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  padding: 7px;
+}
+
+.tooltipLetter {
+  /* background-color: purple; */
+  color: #006d77;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  margin-right: 5px;
+}
+
+.tooltipInfo {
+  display: flex;
+  flex-direction: column;
+}
+
+.tooltipFloor {
+  /* font-weight: bold; */
+  font-size: 0.7rem;
+  color: #1f1f1f
+}
+
+.tooltipUnits {
+  color: green;
+  font-size: 0.7rem;
+}
+
+
+@media (max-width: 768px) {
+  .backgroundImageContainer {
+    padding-bottom: 80px; /* Make room for the bottom navbar */
+  }
+
+ .bottomNavbar {
+  display: flex;
+  position: fixed;
+  bottom: 0;
+  border-radius: 0rem;
+  left: 0;
+  right: 0;
+  background-color: rgb(0, 109, 119,0.9);
+  height: 60px;
+  justify-content: space-around;
+  align-items: center;
+  z-index: 1000;
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.3);
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  transition: background-color 0.3s ease;
+}
+
+.bottomNavbar:hover {
+  background-color: #005b66;
+}
+
+.bottomNavbar .navbarItem {
+  color: #edf6f9;
+  text-decoration: none;
+  font-size: 0.8rem;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.bottomNavbar .navbarItem:hover {
+  /* color: #aff7ff; */
+  transform: scale(0.9);
+}
+
+.bottomNavbar .navbarItem:active {
+  /* color: #aff7ff; */
+}
+
+.bottomNavbar .navbarIcon {
+  font-size: 0.9rem;
+}
+
+.bottomNavbar .navbarIcon:hover {
+  /* color: #005b66; */
+  transform: scale(0.9);
+}
+
+
+
+
+  .navbarItem {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: white;
+    font-size: 0.85rem;
+  }
+
+  .navbarIcon {
+    width: 24px;
+    height: 24px;
+    margin-bottom: 4px;
+  }
+
+  /* Hide desktop elements */
+  .topLogoContainer,
+  .buttonsContainer,
+  .filterContainer,
+  .menuContainer,
+  .bottomLogoContainer {
+    display: none;
+  }
+
+  .filterBar {
+    position: fixed;
+    left: 0;
+    right: 0;
+    height: 60vh;
+    width: 100%;
+    transform: translateY(100%);
+  }
+
+  .filterBar.show {
+    transform: translateY(0);
+  }
+}
+.mapsViewContainer {
+  position: absolute;
+  bottom: 7rem;
+  right: 3rem;
+  height: 3rem; 
+  width: 3rem;
+  background: linear-gradient(135deg, #ffffff, #f0f0f0); 
+  border: 1px solid #dcdcdc; 
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transform: translateY(-20px) scale(0.98);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.mapsViewContainer:hover {
+  cursor: pointer;
+  transform: translateY(-22px) scale(1.05); /* Slightly larger hover effect */
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15); /* Enhanced shadow on hover */
+}
+
+.mapsViewBox {
+  padding-top: 0.3rem;
+}
+
+.mapsViewBox img {
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1)); /* Subtle icon shadow */
+}
+
+
+.callContainer
+{
+  position: absolute;
+  bottom: 3rem;
+  right: 3rem;
+  height: 2.8rem;
+  width: 2.8rem;
+  background: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+  transform: translateY(-20px) scale(0.98);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+
+.callContainer:hover {
+  cursor: pointer;
+  transform: translateY(-20px) scale(1);
+}

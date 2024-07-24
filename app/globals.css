@@ -1,14 +1,27 @@
+
+
+@font-face {
+  font-family: 'GillSans';
+  src: url('/fonts/GillSansDisplayMTPro-BdCn.otf') format('otf'),
+       url('/fonts/GillSansMTPro-Medium.otf') format('otf'),
+       url('/fonts/GillSansDisplayMTPro-BdCn.ttf') format('truetype'),
+       url('/fonts/GillSansMTPro-Medium.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+}
 :root {
   --max-width: 1100px;
   --border-radius: 12px;
-  --font-mono: ui-monospace, Menlo, Monaco, "Cascadia Mono", "Segoe UI Mono",
+  --font-sans: 'GillSans', sans-serif;
+
+  /* --font-mono: ui-monospace, Menlo, Monaco, "Cascadia Mono", "Segoe UI Mono",
     "Roboto Mono", "Oxygen Mono", "Ubuntu Monospace", "Source Code Pro",
     "Fira Mono", "Droid Sans Mono", "Courier New", monospace;
 
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-
+  --background-end-rgb: 255, 255, 255; */
+/* 
   --primary-glow: conic-gradient(
     from 180deg at 50% 50%,
     #16abff33 0deg,
@@ -20,7 +33,7 @@
   --secondary-glow: radial-gradient(
     rgba(255, 255, 255, 1),
     rgba(255, 255, 255, 0)
-  );
+  ); */
 
   --tile-start-rgb: 239, 245, 249;
   --tile-end-rgb: 228, 232, 233;

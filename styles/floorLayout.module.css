@@ -1,0 +1,155 @@
+@font-face {
+    font-family: 'Gill Sans Light';
+    src: url('/fonts/GillSansMTPro-Light.otf');
+    font-weight: normal;
+  }
+
+.fadeIn {
+    opacity: 1;
+}
+
+.fadeOut {
+    opacity: 0;
+}
+  
+
+.floorLayoutContainer {
+    position: relative;
+    font-family: 'Gill Sans Light';
+    background-color: rgba(0, 29, 32, 1);
+    height: 100vh;
+    width: 100%;
+}
+
+.transitionContainer {
+    opacity: 1;
+    transform: scale(1);
+    font-family: 'Gill Sans Light';
+}
+
+.topLogoContainer,
+.buttonsContainer,
+.filterContainer,
+.menuContainer,
+.bottomLogoContainer 
+{
+    display: none;
+}
+
+.topLogoContainer,
+.buttonsContainer,
+.filterContainer,
+.menuContainer
+{
+    position: fixed;
+    z-index: 10;
+    user-select: none;
+    font-family: 'Gill Sans Light';
+
+}
+  
+.menuContainer {
+    top: 3rem;
+    right: 3rem;
+    height: 3.7rem;
+    width: 18rem;
+    display: grid;
+    align-items: center;
+    justify-content: center;
+    grid-template-columns: 0.8fr 0.4fr 0.4fr 0.4fr;
+}
+  
+.amenitiesButton
+{
+    align-items: center;
+    justify-content: center;
+    background-color: #ffffff;
+    color:  #006d77 ;
+    border: none;
+    height: 2.5rem;
+    border-radius: 0.3rem;
+    cursor: pointer;
+    display: grid;
+    grid-template-columns: 0.6fr 1fr;
+    transition: all 0.3s ease-in-out;
+}
+
+.amenitiesButtonLeft
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color:#ffffff;
+    border-radius: 0.7rem;
+    padding: 3px;
+    /* height: 80%; */
+}
+
+.amenitiesButtonTitle
+{
+    display: flex;
+    font-size: 0.75rem;
+    align-items: center;
+    border-radius: 0.4rem;
+    /* font-weight: 600; */
+}
+
+.menuContainerInside
+{
+  display: flex;
+  align-items: center;
+  flex-direction: row-reverse;
+  /* justify-content: center; */
+  /* border: 1px solid red; */
+}
+
+.callContainer
+{
+  position: absolute;
+  bottom: 3rem;
+  right: 3rem;
+  height: 2.8rem;
+  width: 2.8rem;
+  background: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+  transform: translateY(-20px) scale(0.98);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.callContainer:hover {
+  cursor: pointer;
+  transform: translateY(-20px) scale(1);
+}
+
+.mapsViewBox {
+    padding-top: 0.3rem;
+  }
+  
+  .mapsViewBox img {
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1)); /* Subtle icon shadow */
+  }
+
+
+  .Harsukhlogo {
+    position: fixed;
+    top: 2rem;
+    left: 3rem;
+    overflow: hidden;
+    transition: all 0.3s ease;
+  }
+  
+  .bottomLogoContainer {
+    position: absolute;
+    bottom: 3rem;
+    left: 2rem;
+    overflow: hidden;
+    transition: all 0.3s ease;
+  }
+  
+
+
+

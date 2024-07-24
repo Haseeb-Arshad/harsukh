@@ -1,0 +1,166 @@
+
+/* Elevation Button */
+/* 
+.elevationButton {
+  position: fixed;
+  top: 5.5rem;
+  left: 1rem;
+  background-color: rgba(0, 109, 119, 0.8);
+  backdrop-filter: blur(10px);
+  border-radius: 0.4rem;
+  color: white;
+  cursor: pointer;
+  user-select: none;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: all 0.3s ease;
+  padding: 0.1rem 0.1rem;
+}
+
+.elevationButton:hover {
+  cursor: pointer;
+}
+
+.filtersButton {
+  display: flex;
+  align-items: center;
+  padding: 0.5rem 0.6rem;
+  font-size: 0.7rem;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.filtersButton:hover {
+  background-color: rgba(0, 109, 119, 0.1);
+}
+.elevationBar.open {
+  position: fixed;
+  max-height: 10rem; 
+  opacity: 1;
+  padding: 0.4rem 0.5rem;
+}
+
+.floorBar.open {
+  max-height: 320px; 
+  opacity: 1;
+  padding: 0.4rem 0.5rem;
+}
+
+
+.floorButton {
+  padding: 0.5rem 1rem;
+  background-color: transparent;
+  color: white;
+  border-radius: 0.2rem;
+  font-size: 0.65rem;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0px 0px 3px rgba(255, 255, 255, 0.3);
+
+}
+
+.floorButton::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background-color: rgba(0, 109, 119, 0.1);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: width 0.3s ease, height 0.3s ease;
+}
+
+.floorButton:hover::after {
+  width: 300%;
+  height: 300%;
+}
+
+.floorButton.active {
+  background-color: rgba(255, 255, 255, 0.2);
+} */
+
+
+
+/* 
+
+
+  .topLogoContainer {
+    display: flex; 
+    top: 0;
+    left: 3rem;
+  }
+  
+  .buttonsContainer {
+    top: 7rem;
+    left: 3.5rem;
+  }
+  
+  .menuContainer {
+    bottom: 20px;
+    right: 20px;
+  }
+  
+  .bottomLogoContainer {
+    bottom: -20px;
+    left: 50px;
+  }
+  
+
+  .topLogoContainer
+  {
+      position: absolute;
+      top: 0rem;
+      left: 3rem;
+      display: flex; 
+  }
+
+.buttonsContainer {
+    position: absolute;
+    top: 7rem;
+    left: 3.5rem;
+    font-size: 0.8rem;
+    height: 15vh;
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .menuContainer {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    display: flex;
+    gap: 10px;
+  }
+
+
+.bottomLogoContainer {
+    position: absolute;
+    bottom: -20px;
+    left: 50px;
+    display: flex;
+} */
+
+/* ---  Button --- */
+/* .seasonsButton
+{
+    background-color: #006d77;
+    color: #ffffff;
+    border: none;
+    border-radius: 0.4rem;
+    cursor: pointer;
+    display: grid;
+    grid-template-columns: 1fr 0.3fr;
+    transition: all 0.3s ease-in-out;
+} */
+/* 
+.seasonsButton:hover
+{
+    
+    background-color: #0f90a4;
+} */
+
+

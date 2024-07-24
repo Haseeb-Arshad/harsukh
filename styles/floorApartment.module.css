@@ -1,0 +1,587 @@
+@font-face {
+  font-family: 'Gill Sans Light';
+  src: url('/fonts/GillSansMTPro-Light.otf');
+  font-weight: normal;
+}
+
+
+
+
+.roadViewContainer
+{
+    position: absolute;
+    top: 3rem;
+    right: 45rem;
+    height: 3.7rem;
+    width: 8rem;
+    display: grid;
+    align-items: center;
+    justify-content: center;
+    grid-template-columns: 0.4fr 1fr;
+}
+
+.hillViewContainer
+{
+    position: absolute;
+    bottom: 3rem;
+    right: 45rem;
+    height: 3.7rem;
+    width: 8rem;
+    display: grid;
+    align-items: center;
+    justify-content: center;
+    grid-template-columns: 0.4fr 1fr;
+}
+
+.roadViewIcon
+{
+    display: flex;
+    align-items: center;
+    /* justify-content: center; */
+    flex-direction: row-reverse;
+}
+
+.roadViewTitle
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+}
+
+/* Floor Menu */
+
+.floorContainer
+{
+    position: relative;
+  font-family: 'Gill Sans Light';
+
+}
+
+
+.floorMenu
+{
+    position: fixed;
+    top: 2rem;
+    left: 1rem;
+    padding: 3rem 2rem;
+    background-color: #006d77;
+    border-radius: 0.5rem;
+}
+
+.floorButtonsContainer {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 10px;
+}
+
+.elevationButton, .floorButton {
+  background-color: #027d7d;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  width: 200px;
+  text-align: left;
+}
+
+
+.elevationButton {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  
+}
+
+.floorButton:hover, .elevationButton:hover {
+  background-color: #025f5f;
+}
+
+.zoomControls {
+
+  /* background-color: rgb(0, 109, 119, 0.8); */
+  position: absolute;
+  /* background: transparent; */
+  top: 16rem;
+  left: 92rem;
+  display: grid;
+  grid-template-rows: 1fr 1fr 1fr;
+  row-gap: 2rem;
+  height: 0vh;
+  border-radius: 30px;
+  /* box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08); */
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+  z-index: 1000;
+  /* gap: 10px; */
+}
+
+
+@font-face {
+  font-family: 'Gill Sans Light';
+  src: url('/fonts/GillSansMTPro-Light.otf');
+  font-weight: normal;
+}
+
+.popupMenu {
+  font-family: 'Gill Sans Light';
+  user-select: none;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  /* background-color: #ef4444; */
+  color: white;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  width: 14rem;
+  /* box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); */
+  z-index: 1001;
+  animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+.popupButtons {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.explorePlanButton, .enterVRButton {
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  cursor: pointer;
+  width: 6vw;
+  transition: background-color 0.3s, transform 0.1s;
+}
+
+.explorePlanButton {
+  background-color: #006d77;
+  color: white;
+}
+
+.enterVRButton {
+  background-color: white;
+  color: gray;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.explorePlanButton:hover, .enterVRButton:hover {
+  transform: scale(1.05);
+}
+
+.explorePlanButton:active, .enterVRButton:active {
+  transform: scale(0.95);
+}
+
+.unitInfo {
+  font-size: 0.875rem;
+  background-color: white;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+
+}
+
+.apartmentLabel {
+  fill: white;
+  font-size: 24px;
+  font-weight: bold;
+  text-anchor: middle;
+  pointer-events: none;
+}
+
+.st1Hovers {
+  opacity: 0.5;
+  fill: #ffffff;
+  stroke: #0000ff;
+  stroke-width: 2px;
+}
+
+.unitHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+  color: black;
+}
+
+/* .unitHeaderTitle
+{
+
+} */
+
+.unitHeader .unitHeaderTitle {
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.unitStatus {
+  color: #44ef9f;
+  font-weight: 500;
+}
+
+.starIcon {
+  color: #9ca3af;
+}
+
+.unitDetails {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  color: #9ca3af;
+}
+
+.unitDetails > div {
+  display: flex;
+  justify-content: space-between;
+}
+
+.unitDetails > div > span:first-child {
+  color: #9ca3af;
+}
+
+
+/* position: absolute;
+
+top: 15rem;
+left: 10rem;
+display: flex;
+flex-direction: column;
+z-index: 1000;
+background-color: rgb(0, 109, 119, 0.8);
+backdrop-filter: blur(10px);
+border-radius: 30px;
+padding: 5px;
+box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+transition: all 0.3s ease;
+} */
+
+
+
+
+.floorbuttonsPart {
+  position: absolute;
+
+  top: 15rem;
+  left: 10rem;
+  display: flex;
+  flex-direction: column;
+  z-index: 1000;
+  backdrop-filter: blur(10px);
+  border-radius: 30px;
+  padding: 5px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+}
+
+.floorbuttonsPart:hover {
+  box-shadow: 0 7px 14px rgba(0, 0, 0, 0.1), 0 3px 6px rgba(0, 0, 0, 0.08);
+}
+
+.zoomDivs
+{
+  width: 100%;
+  height: 100%;
+  /* border: 1px solid green; */
+}
+
+.ZoomInbuttonStyle {
+  position: absolute;
+
+  user-select: none;
+  background-color: transparent;
+  border-radius: 30px;
+  /* margin-left: 20rem; */
+  /* top: 20rem; */
+  /* right: 10rem; */
+  /* padding-left: 5px; */
+  align-items: center;
+  justify-content: center;
+  border: none;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
+  background-color: #ffffff;
+  color: #006d77;
+}
+
+.ZoomInbuttonStyle::after {
+  
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  /* background-color: rgba(4, 209, 227, 0.2); */
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: width 0.3s ease, height 0.3s ease;
+}
+
+.ZoomInbuttonStyle:hover::after {
+  width: 200%;
+  height: 200%;
+}
+
+.ZoomInbuttonStyle:active {
+  transform: scale(0.95);
+}
+
+.ZoomInbuttonStyle img {
+  z-index: 1;
+  transition: all 0.2s ease;
+}
+
+.ZoomInbuttonStyle:hover img {
+  transform: scale(1.1);
+}
+
+
+.ZoonOutbuttonStyle {
+  position: absolute;
+
+  user-select: none;
+  background-color: transparent;
+  border-radius: 30px;
+  /* margin-left: 20rem; */
+  /* top: 20rem; */
+  /* right: 10rem; */
+  /* padding-left: 5px; */
+  margin-top: 0.8rem;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
+  background-color: #303D3E;
+  color: white;
+}
+
+.ZoonOutbuttonStyle::after {
+  
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background-color: rgba(4, 209, 227, 0.2);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: width 0.3s ease, height 0.3s ease;
+}
+
+.ZoonOutbuttonStyle:hover::after {
+  width: 200%;
+  height: 200%;
+}
+
+.ZoonOutbuttonStyle:active {
+  transform: scale(0.95);
+}
+
+.ZoonOutbuttonStyle img {
+  z-index: 1;
+  transition: all 0.2s ease;
+}
+
+.ZoonOutbuttonStyle:hover img {
+  transform: scale(1.1);
+}
+
+
+
+
+
+.zoomButtonOut
+{
+
+}
+
+
+/* styles/floorTransition.module.css */
+.floorContainer {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    transition: opacity 300ms ease-in-out;
+  }
+  
+  .fadeIn {
+    opacity: 1;
+  }
+  
+  .fadeOut {
+    opacity: 0;
+  }
+
+
+.st0 {
+    position: absolute;
+    opacity: 0;
+    fill: #ffffff;
+    cursor: pointer;
+    -moz-transition: all 0.84s ease-out;
+    -o-transition: all 0.84s ease-out;
+    -webkit-transition: all 0.84s ease-out;
+    -ms-transition: all 0.84s ease-out;
+    transition: all 0.84s ease-out;  pointer-events: all;
+  }
+  
+  .st0:hover {
+    opacity: 0.5;
+    cursor: pointer;
+    fill: #ffffff;
+    stroke: "#0000ff";
+    stroke-width: 2px;
+    -moz-transition: all 0.84s ease-out;
+    -o-transition: all 0.84s ease-out;
+    -webkit-transition: all 0.84s ease-out;
+    -ms-transition: all 0.84s ease-out;
+    transition: all 0.84s ease-out;  pointer-events: all;
+  }
+
+
+
+  .st1Hovers {
+    opacity: 0.5;
+    cursor: pointer;
+    fill: #ffffff;
+    stroke: "#0000ff";
+    stroke-width: 2px;
+    -moz-transition: all 0.84s ease-out;
+    -o-transition: all 0.84s ease-out;
+    -webkit-transition: all 0.84s ease-out;
+    -ms-transition: all 0.84s ease-out;
+    transition: all 0.84s ease-out;  pointer-events: all;
+  }
+
+  /* .st0 {
+    fill: red;
+    stroke: #ff0000;
+    stroke-width: 2;
+  } */
+
+
+  .polygonOverlay {
+
+    position: absolute;
+    opacity: 1;
+    fill: #ffffff;
+    cursor: pointer;
+    -moz-transition: all 0.84s ease-out;
+    -o-transition: all 0.84s ease-out;
+    -webkit-transition: all 0.84s ease-out;
+    -ms-transition: all 0.84s ease-out;
+    transition: all 0.84s ease-out;  pointer-events: all;
+
+    /* position: absolute;
+    background-color: rgba(255, 0, 0, 0.5);
+    border: 2px solid #ff0000;
+    pointer-events: none; */
+  }
+  /* ------------------ */
+
+  .imageWrapper {
+    position: relative;
+    width: 85%;
+    height: 85%;
+  }
+  
+  .responsiveSvg {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+  }
+  
+  @media (min-width: 1024px) and (max-width: 1366px) {
+    .responsiveSvg {
+      transform: scale(0.9);
+      top: -5%;
+      left: -5%;
+    }
+  }
+
+  .floorOverlay {
+    position: absolute;
+    top: 0%;
+    left: 8.9%;
+    width: 82%;
+    height: 100%;
+    pointer-events: none;
+  }
+
+
+  @media (max-width: 768px) {
+    .imageWrapper {
+      width: 95%;
+      height: 95%;
+    }
+  
+    .floorOverlay {
+      left: 2.5%;
+      width: 95%;
+    }
+  
+    .floorbuttonsPart {
+
+      position: absolute;
+      right: 20px;
+      top: 15rem;
+      display: flex;
+      flex-direction: column;
+      z-index: 1000;
+      background-color: rgb(0, 109, 119, 0.8);
+      backdrop-filter: blur(10px);
+      border-radius: 30px;
+      padding: 1px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+      transition: all 0.3s ease;
+
+      /* bottom: 10px;
+      right: 10px; */
+    }
+  }
+
+
+
+  .svgOverlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+  }

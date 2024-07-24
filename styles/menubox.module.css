@@ -1,0 +1,98 @@
+.menuOptionContainer {
+    position: absolute;
+    top: 7rem;
+    right: 4rem;
+    padding: 0.5rem 1rem;
+    min-width: 13.5rem;
+    background: linear-gradient(135deg, #ffffff, #f0f0f0); /* Luxurious gradient */
+    border-radius: 0.3rem 0 0.3rem 0.3rem;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    display: grid;
+    grid-template-rows: repeat(4, 1fr) 1.5fr;
+    gap: 0.3rem;
+    align-items: center;
+    transform: translateY(-20px) scale(0.95);
+    opacity: 0;
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    backdrop-filter: blur(5px);
+  }
+  
+  .menuOptionContainer.active {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+  
+  .menuBox {
+    width: 100%;
+    color: #006d77;
+    height: 100%;
+    border-radius: 0.7rem;
+    display: grid;
+    grid-template-columns: 0.3fr 1fr;
+    user-select: none;
+    transition: all 0.2s ease;
+    padding: 0.4rem;
+  }
+  
+  .menuBox:hover {
+    cursor: pointer;
+    background-color: rgba(0, 109, 119, 0.1);
+    transform: translateX(5px);
+  }
+  
+  .menuBoxIcon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .menuBoxTitle {
+    font-size: 0.8rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+  }
+  
+  .menuBoxContactIcons {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    column-gap: 0.7rem;
+    border-top: 1px solid #acacac;
+    padding-top: 0.7rem;
+  }
+  
+  .menuBoxContactIconbox {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 109, 119, 0.9);
+    height: 2.4rem;
+    width: 2.4rem;
+    border-radius: 50%;
+    transition: all 0.2s ease;
+  }
+  
+  .menuBoxContactIconbox:hover {
+    cursor: pointer;
+    transform: scale(1.1);
+    box-shadow: 0 2px 8px rgba(0, 109, 119, 0.3);
+  }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
+  .menuBox, .menuBoxContactIconbox {
+    animation: fadeIn 0.3s ease forwards;
+    opacity: 0;
+  }
+  
+  .menuBox:nth-child(1) { animation-delay: 0.1s; }
+  .menuBox:nth-child(2) { animation-delay: 0.2s; }
+  .menuBox:nth-child(3) { animation-delay: 0.3s; }
+  .menuBox:nth-child(4) { animation-delay: 0.4s; }
+  .menuBoxContactIconbox:nth-child(1) { animation-delay: 0.5s; }
+  .menuBoxContactIconbox:nth-child(2) { animation-delay: 0.6s; }
+  .menuBoxContactIconbox:nth-child(3) { animation-delay: 0.7s; }
+  .menuBoxContactIconbox:nth-child(4) { animation-delay: 0.8s; }
