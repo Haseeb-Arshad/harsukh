@@ -1,0 +1,369 @@
+
+@font-face {
+  font-family: 'Gill Sans Medium';
+  src: url('/fonts/GillSansMTPro-Medium.otf');
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: 'Gill Sans Condensed';
+  src: url('/fonts/GillSansMTPro-Condensed.otf');
+  font-weight: normal;
+}
+@font-face {
+  font-family: 'Gill Sans Book';
+  src: url('/fonts/GillSansMTPro-Book.otf');
+  font-weight: normal;
+}
+@font-face {
+  font-family: 'Gill Sans Light';
+  src: url('/fonts/GillSansMTPro-Light.otf');
+  font-weight: normal;
+}
+@font-face {
+  font-family: 'Gill Sans BdCn';
+  src: url('/fonts/GillSansDisplayMTPro-BdCn.otf');
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: 'Gill Sans Heavy';
+  src: url('/fonts/GillSansMTPro-Heavy.otf');
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: 'Gill Sans BdCn';
+  src: url('/fonts/GillSansMTPro-BdCn.otf');
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: 'Gill Sans ShawdowLight';
+  src: url('/fonts/GillSansShadowedMTPro-Light.otf');
+  font-weight: normal;
+}
+
+
+.Harsukhlogo {
+  position: fixed;
+  top: 0rem;
+  left: 2rem;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.bottomLogoContainer {
+  position: absolute;
+  bottom: 0rem;
+  left: 2rem;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.container {
+  font-family: 'Gill Sans Light';
+
+  position: fixed;
+  top: 11.5rem;
+  left: 3rem;
+  background-color: #F7F7F7;
+  /* background-color: rgba(255, 255, 255, 0.8); */
+  backdrop-filter: blur(10px);
+  border-radius: 0.3rem;
+  color: #006d77;
+  cursor: pointer;
+  user-select: none;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: all 0.3s ease;
+  width: 8.5vw;
+  padding: 0.1rem 0.1rem;
+}
+
+.container:hover {
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+}
+
+.floorLabel
+{
+  width: 100%;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 0.5rem;
+  cursor:auto;
+}
+
+
+.filtersButton {
+  min-width: 8vw;
+  display: grid;
+  align-items: center;
+  grid-template-columns: 0.3fr 1fr;
+  padding: 0.4rem 0.1rem 0.4rem 0.2rem;
+  height: 5vh;
+  font-size: 0.7rem;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.filtersButton:hover {
+  background-color: rgba(0, 109, 119, 0.1);
+}
+
+.elevationButtonLeft
+{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* border: 1px solid #006d77; */
+  height: 120%;
+  width: 100%;
+  border-radius: 0.3rem;
+  transition: 0.3s ease all;
+}
+
+.elevationButtonLeft:hover
+{
+  cursor: pointer;
+  background-color: rgb(0, 109, 119, 0.4);
+}
+
+.elevationButtonRight
+{
+  height: 100%;
+  padding-left: 0.5rem;
+  border-left: rgba(0, 0, 0, 0.2) solid 1px;
+  display: grid;
+  grid-template-columns: 1fr 0.5fr;
+}
+
+.elevationButtonTitle
+{
+  /* border: 1px solid red; */
+}
+
+.elevationButtonDownArrow
+{
+  /* border: 1px solid red; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.floorBar {
+  display: grid;
+  grid-template-rows: auto;
+  row-gap: 0.25rem;
+  font-size: 0.7rem;
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+  /* color: #bla */
+  min-width: 7.1vw;
+  transition: max-height 0.3s ease-out, opacity 0.3s ease-out, padding 0.3s ease-out;
+}
+
+.floorBar.open {
+  max-height: 320px; 
+  opacity: 1;
+  padding: 0.4rem 0.3rem;
+}
+
+
+
+.dropDownfloorButton {
+  padding: 0.5rem 1rem;
+  background-color: transparent;
+  color: #006d77;
+  border-radius: 0.2rem;
+  font-size: 0.65rem;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0px 0px 3px rgba(255, 255, 255, 0.3);
+
+}
+
+
+.floorButton {
+  padding: 0.5rem 1rem;
+  background-color: transparent;
+  color: #006d77;
+  border-radius: 0.2rem;
+  font-size: 0.68rem;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0px 0px 3px rgba(255, 255, 255, 0.3);
+
+}
+
+.floorButton::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background-color: rgba(0, 109, 119, 0.1);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: width 0.3s ease, height 0.3s ease;
+}
+
+.floorButton:hover::after {
+  width: 300%;
+  height: 300%;
+}
+
+.floorButton.active {
+  background-color: #006d77;
+  color: white;
+  /* rgba(39, 39, 39, 0.2); */
+}
+
+/* --------------- */
+
+
+.elevationButton {
+  position: fixed;
+  /* top: 5.5rem;
+  left: 4rem; */
+  z-index: 10000;
+  top: 8rem;
+  left: 3rem;
+  background-color: rgb(255, 255, 255);
+  backdrop-filter: blur(10px);
+  border-radius: 0.2rem;
+  color: #006d77;
+  cursor: pointer;
+  /* display: flex; */
+  user-select: none;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: all 0.3s ease;
+  padding: 0rem 0.2rem;
+}
+
+.elevationButton:hover {
+  cursor: pointer;
+}
+
+.eventsButtoninside {
+  height: 100%;
+  display: grid;
+  grid-template-columns: 0.8fr 0.2fr;
+  font-size: 0.8rem;
+}
+
+.elevationButtonTitle {
+  height: 100%;
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+}
+
+.elevationButtonArrow {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.elevationBar {
+  display: grid;
+  grid-template-rows: auto;
+  row-gap: 0.3rem;
+  font-size: 0.7rem;
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+  transition: max-height 0.3s ease-out, opacity 0.3s ease-out, padding 0.3s ease-out;
+}
+
+.elevationBar.open {
+  position: fixed;
+  max-height: 10rem; 
+  /* background-color: royalblue; */
+  opacity: 1;
+  padding: 0.4rem 0.5rem;
+}
+
+.ElevationBtn {
+  padding: 0.6rem 1rem;
+  background-color: transparent;
+  color: #006d77;
+  border-radius: 0.5rem;
+  font-size: 0.65rem;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  position: relative;
+  overflow: hidden;
+}
+
+.ElevationBtn::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background-color: rgba(0, 109, 119, 0.1);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: width 0.3s ease, height 0.3s ease;
+}
+
+.ElevationBtn:hover::after {
+  width: 300%;
+  height: 300%;
+}
+
+.ElevationBtn.active {
+  background-color: rgba(0, 109, 119, 0.2);
+}
+
+
+/* ----------------- */
+
+/* 
+
+.elevationDropdown {
+  position: absolute;
+  top: 100%;
+  left: 1rem;
+  background-color: rgba(255, 255, 255, 0.9);
+  border-radius: 1rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: all 0.3s ease;
+  padding: 0.5rem 0;
+  z-index: 1;
+}
+
+.elevationItem {
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.elevationItem:hover {
+  background-color: rgba(0, 109, 119, 0.1);
+} */
+
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

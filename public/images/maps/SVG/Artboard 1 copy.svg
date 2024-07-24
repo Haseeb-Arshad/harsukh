@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 921.64 500">
+  <defs>
+    <style>
+      .cls-1 {
+        filter: url(#drop-shadow-2);
+      }
+
+      .cls-1, .cls-2, .cls-3 {
+        fill: #fff;
+        font-family: GillSansMTPro-Medium, 'Gill Sans MT Pro';
+        font-size: 75px;
+        font-weight: 500;
+      }
+
+      .cls-4 {
+        fill: #fbf7eb;
+        stroke-width: 0px;
+      }
+
+      .cls-5 {
+        stroke-width: 3px;
+      }
+
+      .cls-5, .cls-6 {
+        stroke: #fff;
+      }
+
+      .cls-5, .cls-6, .cls-7 {
+        fill: none;
+        stroke-miterlimit: 10;
+      }
+
+      .cls-7 {
+        stroke: #fbf7eb;
+        stroke-width: 5px;
+      }
+
+      .cls-2 {
+        filter: url(#drop-shadow-10);
+      }
+
+      .cls-8 {
+        clip-path: url(#clippath);
+      }
+
+      .cls-3 {
+        filter: url(#drop-shadow-11);
+      }
+    </style>
+    <clipPath id="clippath">
+      <rect class="cls-6" x="-3401.64" y="-60.31" width="7372" height="3072"/>
+    </clipPath>
+    <filter id="drop-shadow-2" filterUnits="userSpaceOnUse">
+      <feOffset dx="1" dy="1"/>
+      <feGaussianBlur result="blur" stdDeviation="2"/>
+      <feFlood flood-color="#010101" flood-opacity=".75"/>
+      <feComposite in2="blur" operator="in"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <filter id="drop-shadow-10" filterUnits="userSpaceOnUse">
+      <feOffset dx="1" dy="1"/>
+      <feGaussianBlur result="blur-2" stdDeviation="2"/>
+      <feFlood flood-color="#010101" flood-opacity=".75"/>
+      <feComposite in2="blur-2" operator="in"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <filter id="drop-shadow-11" filterUnits="userSpaceOnUse">
+      <feOffset dx="1" dy="1"/>
+      <feGaussianBlur result="blur-3" stdDeviation="2"/>
+      <feFlood flood-color="#010101" flood-opacity=".75"/>
+      <feComposite in2="blur-3" operator="in"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g id="Layer_2" data-name="Layer 2">
+    <g>
+      <g class="cls-8">
+        <text class="cls-1" transform="translate(380.72 347.87)"><tspan x="0" y="0">Ayubia Chairlift</tspan></text>
+      </g>
+      <rect class="cls-6" x="-3401.64" y="-60.31" width="7372" height="3072"/>
+    </g>
+    <polyline class="cls-5" points="157.33 242.68 356.16 244.01 375.79 285.06"/>
+    <circle class="cls-7" cx="96.08" cy="242.68" r="61.38"/>
+    <path class="cls-4" d="M109.41,217.45c1.44,0,2.61-1.17,2.61-2.61v-2.61h23.46v-5.21h-23.46v-2.61c0-1.44-1.17-2.61-2.61-2.61h-26.06c-1.44,0-2.61,1.17-2.61,2.61v2.61h-23.46v5.21h23.46v2.61c0,1.44,1.17,2.61,2.61,2.61h5.21v10.42h-11.57c-3.59,0-6.71,2.44-7.59,5.92l-1.13,4.5h-3.18c-4.31,0-7.82,3.51-7.82,7.82v26.06c0,4.31,3.51,7.82,7.82,7.82h62.55c4.31,0,7.82-3.51,7.82-7.82v-26.06c0-4.31-3.51-7.82-7.82-7.82h-3.18l-1.13-4.5c-.87-3.49-3.99-5.92-7.59-5.92h-11.57v-10.42h5.21ZM85.95,207.02h20.85v5.21h-20.85v-5.21ZM65.11,243.51h13.03v18.24h-15.64v-15.64c0-1.44,1.17-2.61,2.61-2.61ZM109.41,274.78h-10.42v-31.27h10.42v31.27ZM93.77,274.78h-10.42v-31.27h10.42v31.27ZM62.5,272.18v-5.21h15.64v7.82h-13.03c-1.44,0-2.61-1.17-2.61-2.61ZM127.65,274.78h-13.03v-7.82h15.64v5.21c0,1.44-1.17,2.61-2.61,2.61ZM130.26,246.12v15.64h-15.64v-18.24h13.03c1.44,0,2.61,1.17,2.61,2.61ZM118.29,235.06l.81,3.24h-45.45l.81-3.24c.29-1.16,1.33-1.97,2.53-1.97h38.77c1.2,0,2.24.81,2.53,1.97ZM98.99,227.87h-5.21v-10.42h5.21v10.42Z"/>
+  </g>
+  <g id="Layer_5" data-name="Layer 5">
+    <text class="cls-2" transform="translate(380.36 347.87)"><tspan x="0" y="0">Ayubia Chairlift</tspan></text>
+  </g>
+  <g id="Layer_6" data-name="Layer 6">
+    <text class="cls-3" transform="translate(379.29 347.87)"><tspan x="0" y="0">Ayubia Chairlift</tspan></text>
+  </g>
+</svg>

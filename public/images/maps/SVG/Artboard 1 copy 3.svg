@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 746.18 500">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #fbf7eb;
+        stroke-width: 0px;
+      }
+
+      .cls-2 {
+        filter: url(#drop-shadow-9);
+      }
+
+      .cls-2, .cls-3 {
+        fill: #fff;
+        font-family: GillSansMTPro-Medium, 'Gill Sans MT Pro';
+        font-size: 75px;
+        font-weight: 500;
+      }
+
+      .cls-4 {
+        stroke-width: 3px;
+      }
+
+      .cls-4, .cls-5 {
+        stroke: #fff;
+      }
+
+      .cls-4, .cls-5, .cls-6 {
+        fill: none;
+        stroke-miterlimit: 10;
+      }
+
+      .cls-6 {
+        stroke: #fbf7eb;
+        stroke-width: 5px;
+      }
+
+      .cls-3 {
+        filter: url(#drop-shadow-6);
+      }
+    </style>
+    <filter id="drop-shadow-6" filterUnits="userSpaceOnUse">
+      <feOffset dx="1" dy="1"/>
+      <feGaussianBlur result="blur" stdDeviation="2"/>
+      <feFlood flood-color="#010101" flood-opacity=".75"/>
+      <feComposite in2="blur" operator="in"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <filter id="drop-shadow-9" filterUnits="userSpaceOnUse">
+      <feOffset dx="1" dy="1"/>
+      <feGaussianBlur result="blur-2" stdDeviation="2"/>
+      <feFlood flood-color="#010101" flood-opacity=".75"/>
+      <feComposite in2="blur-2" operator="in"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g id="Layer_2" data-name="Layer 2">
+    <rect class="cls-5" x="-2625.47" y="-360.99" width="7372" height="3072"/>
+    <polyline class="cls-4" points="544.41 348.66 345.61 351.85 325.04 311.25"/>
+    <g>
+      <g>
+        <path class="cls-1" d="M644.24,337.1l-10.02-3.87v-4.38c0-1.43-1.16-2.6-2.6-2.6s-2.6,1.16-2.6,2.6v54.53h-9.09v-10.39h1.3c1.43,0,2.6-1.16,2.6-2.6s-1.16-2.6-2.6-2.6h-28.57c-1.43,0-2.6,1.16-2.6,2.6s1.16,2.6,2.6,2.6h1.3v10.39h-9.09v-54.53c0-1.43-1.16-2.6-2.6-2.6s-2.6,1.16-2.6,2.6v4.38l-10.02,3.87c-1,.39-1.66,1.35-1.66,2.42v46.46c0,1.43,1.16,2.6,2.6,2.6h72.71c1.43,0,2.6-1.16,2.6-2.6v-46.46c0-1.07-.66-2.04-1.66-2.42ZM573.19,341.31l6.49-2.5v44.59h-6.49v-42.08ZM614.74,383.39h-5.19v-10.39h5.19v10.39ZM599.15,373.01h5.19v10.39h-5.19v-10.39ZM640.7,383.39h-6.49v-44.59l6.49,2.5v42.08Z"/>
+        <path class="cls-1" d="M605.65,336.65h2.6c1.43,0,2.6-1.16,2.6-2.6s-1.16-2.6-2.6-2.6h-2.6c-1.43,0-2.6,1.16-2.6,2.6s1.16,2.6,2.6,2.6Z"/>
+        <path class="cls-1" d="M592.66,336.65h2.6c1.43,0,2.6-1.16,2.6-2.6s-1.16-2.6-2.6-2.6h-2.6c-1.43,0-2.6,1.16-2.6,2.6s1.16,2.6,2.6,2.6Z"/>
+        <path class="cls-1" d="M618.63,336.65h2.6c1.43,0,2.6-1.16,2.6-2.6s-1.16-2.6-2.6-2.6h-2.6c-1.43,0-2.6,1.16-2.6,2.6s1.16,2.6,2.6,2.6Z"/>
+        <path class="cls-1" d="M605.65,349.63h2.6c1.43,0,2.6-1.16,2.6-2.6s-1.16-2.6-2.6-2.6h-2.6c-1.43,0-2.6,1.16-2.6,2.6s1.16,2.6,2.6,2.6Z"/>
+        <path class="cls-1" d="M592.66,349.63h2.6c1.43,0,2.6-1.16,2.6-2.6s-1.16-2.6-2.6-2.6h-2.6c-1.43,0-2.6,1.16-2.6,2.6s1.16,2.6,2.6,2.6Z"/>
+        <path class="cls-1" d="M618.63,349.63h2.6c1.43,0,2.6-1.16,2.6-2.6s-1.16-2.6-2.6-2.6h-2.6c-1.43,0-2.6,1.16-2.6,2.6s1.16,2.6,2.6,2.6Z"/>
+        <path class="cls-1" d="M605.65,362.62h2.6c1.43,0,2.6-1.16,2.6-2.6s-1.16-2.6-2.6-2.6h-2.6c-1.43,0-2.6,1.16-2.6,2.6s1.16,2.6,2.6,2.6Z"/>
+        <path class="cls-1" d="M592.66,362.62h2.6c1.43,0,2.6-1.16,2.6-2.6s-1.16-2.6-2.6-2.6h-2.6c-1.43,0-2.6,1.16-2.6,2.6s1.16,2.6,2.6,2.6Z"/>
+        <path class="cls-1" d="M618.63,362.62h2.6c1.43,0,2.6-1.16,2.6-2.6s-1.16-2.6-2.6-2.6h-2.6c-1.43,0-2.6,1.16-2.6,2.6s1.16,2.6,2.6,2.6Z"/>
+      </g>
+      <path class="cls-1" d="M639.41,313.28c0-1.43-1.16-2.6-2.6-2.6h-59.73c-1.43,0-2.6,1.16-2.6,2.6v7.79h64.92v-7.79Z"/>
+      <circle class="cls-6" cx="606.94" cy="349.63" r="61"/>
+    </g>
+    <text class="cls-3" transform="translate(34.81 212.55)"><tspan x="0" y="0">Faletti’s Grand</tspan><tspan x="119.14" y="80">Ayubia</tspan></text>
+  </g>
+  <g id="Layer_4" data-name="Layer 4">
+    <text class="cls-2" transform="translate(35.27 213.22)"><tspan x="0" y="0">Faletti’s Grand</tspan><tspan x="119.14" y="80">Ayubia</tspan></text>
+  </g>
+</svg>
