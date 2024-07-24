@@ -197,7 +197,7 @@ const Floor = ({ imageName, imageLink }) => {
         <div ref={viewerRef} style={{ width: '100%', height: '100vh', visibility: isLoading ? 'hidden' : 'visible' }} />
         
         
-        {activePolygon && (
+        {activePolygon && ( 
           <div 
             className={styles.popupMenu}
             style={{ 
