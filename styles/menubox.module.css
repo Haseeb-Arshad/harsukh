@@ -1,10 +1,20 @@
+
+@font-face {
+  font-family: 'Gill Sans Light';
+  src: url('/fonts/GillSansMTPro-Light.otf');
+  font-weight: normal;
+}
+
+
 .menuOptionContainer {
+  font-family: 'Gill Sans Light';
+
     position: absolute;
     top: 7rem;
-    right: 4rem;
-    padding: 0.5rem 1rem;
+    right: 3rem;
+    padding: 0.5rem 0.6rem;
     min-width: 13.5rem;
-    background: linear-gradient(135deg, #ffffff, #f0f0f0); /* Luxurious gradient */
+    background: linear-gradient(135deg, #FCF7EB, #f0f0f0); /* Luxurious gradient */
     border-radius: 0.3rem 0 0.3rem 0.3rem;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
     display: grid;
@@ -55,6 +65,8 @@
   
   .menuBoxContactIcons {
     display: grid;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
     grid-template-columns: repeat(4, 1fr);
     column-gap: 0.7rem;
     border-top: 1px solid #acacac;
@@ -66,8 +78,8 @@
     align-items: center;
     justify-content: center;
     background: rgba(0, 109, 119, 0.9);
-    height: 2.4rem;
-    width: 2.4rem;
+    height: 2.3rem;
+    width: 2.3rem;
     border-radius: 50%;
     transition: all 0.2s ease;
   }

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="chandaTopHill" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 5494.76 3090.8">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #fff;
+        filter: url(#drop-shadow-1);
+        font-family: GillSansMTPro-Medium, 'Gill Sans MT Pro';
+        font-size: 75px;
+        font-weight: 500;
+      }
+
+      .cls-2 {
+        fill: #faf7eb;
+        stroke-width: 0px;
+      }
+
+      .cls-3 {
+        stroke: #fff;
+        stroke-width: 3px;
+      }
+
+      .cls-3, .cls-4 {
+        fill: none;
+        stroke-miterlimit: 10;
+      }
+
+      .cls-4 {
+        stroke: #faf7eb;
+        stroke-width: 5px;
+      }
+    </style>
+    <filter id="drop-shadow-1" filterUnits="userSpaceOnUse">
+      <feOffset dx="1" dy="1"/>
+      <feGaussianBlur result="blur" stdDeviation="2"/>
+      <feFlood flood-color="#000" flood-opacity=".75"/>
+      <feComposite in2="blur" operator="in"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g id="Layer_1" data-name="Layer 1">
+    <text class="cls-1" transform="translate(89.15 1057.46)"><tspan x="0" y="0">Chanda Top Hill</tspan></text>
+    <polyline class="cls-3" points="634.93 781.76 634.93 980.59 594.01 1000.5"/>
+  </g>
+  <g id="Layer_5" data-name="Layer 5">
+    <path class="cls-2" d="M637.52,688.28l-2.37,4.31c-5.64,10.25-11.27,20.5-16.91,30.75l-4.97-4.97-1.71,2.85c-5.06,8.44-10.13,16.89-15.2,25.33l-2.36,3.93h81.13l-1.55-3.62c-2.59-6.05-5.19-12.1-7.78-18.15l-1.51-3.52-5.36,5.36c-6.4-12.63-12.8-25.25-19.2-37.88l-2.22-4.38ZM637.33,699.38c2.63,5.18,5.26,10.37,7.88,15.55l-2.01,1.72-5.91-5.07-5.91,5.07-2.41-2.07c2.79-5.07,5.57-10.13,8.36-15.2ZM637.3,718.42l5.91,5.07,4.42-3.78c2.77,5.46,5.53,10.92,8.3,16.38l1.62,3.2,5.01-5.01c1.57,3.67,3.15,7.34,4.72,11.02h-64.1c3.71-6.19,7.42-12.37,11.13-18.55l5.16,5.16,1.67-3.02c1.77-3.21,3.53-6.42,5.3-9.63l4.96,4.25,5.91-5.07Z"/>
+    <circle class="cls-4" cx="634.57" cy="719.37" r="61"/>
+  </g>
+</svg>

@@ -91,9 +91,10 @@ const Floor = ({ imageName, imageLink }) => {
               if (dataTip) {
                 setActivePolygon({
                   id: dataTip,
-                  status: 'Available', // You might want to fetch this data dynamically
+                  // status: 'Available',
                   bedroom: 3,
-                  type: 'B',
+                  netArea: '150',
+                  grossArea: '300',
                   totalArea: '184.60'
                 });
                 const rect = e.target.getBoundingClientRect();
@@ -127,14 +128,14 @@ const Floor = ({ imageName, imageLink }) => {
       zoomOutButton.innerHTML = '<img src="/images/icons/zoomOut.svg" alt="Zoom Out" width="24" height="24" />';
       zoomOutButton.onclick = () => viewer.viewport.zoomBy(0.667);
 
-      const resetZoomButton = document.createElement('div');
-      resetZoomButton.className = styles.ZoonOutbuttonStyle;
-      resetZoomButton.innerHTML = '<img src="/images/icons/resetZoom.svg" alt="Reset Zoom" width="24" height="24" />';
-      resetZoomButton.onclick = () => viewer.viewport.goHome();
+      // const resetZoomButton = document.createElement('div');
+      // resetZoomButton.className = styles.ZoonOutbuttonStyle;
+      // resetZoomButton.innerHTML = '<img src="/images/icons/resetZoom.svg" alt="Reset Zoom" width="24" height="24" />';
+      // resetZoomButton.onclick = () => viewer.viewport.goHome();
 
       zoomControls.appendChild(zoomInButton);
       zoomControls.appendChild(zoomOutButton);
-      zoomControls.appendChild(resetZoomButton);
+      // zoomControls.appendChild(resetZoomButton);
 
       viewer.addControl(zoomControls, {
         anchor: OpenSeadragon.ControlAnchor.TOP_LEFT
@@ -189,6 +190,18 @@ const Floor = ({ imageName, imageLink }) => {
     <Suspense fallback={<div className={styles.loadingOverlay}><Loading /></div>}>
       
       
+      <div className={styles.zoomReset}>
+        <div className={styles.zoomResetInside}>
+          Zoom Out
+        </div>
+      </div>
+
+      <div className={styles.backToBuilding}>
+        <div className={styles.backToBuildingInside}>
+          Back to Building
+        </div>
+      </div>
+
 
       <div className={styles.floorContainer}>
       
@@ -215,14 +228,15 @@ const Floor = ({ imageName, imageLink }) => {
             </div>
             <div className={styles.unitInfo}>
               <div className={styles.unitHeader}>
-                <div className={styles.unitHeaderTitle}>Unit {activePolygon.id}</div>
+                <div className={styles.unitHeaderTitle}> {activePolygon.id}</div>
                 <span className={styles.unitStatus}>{activePolygon.status}</span>
                 <span className={styles.starIcon}>☆</span>
               </div>
               <div className={styles.unitDetails}>
-                <div><span>Bedroom</span><span >{activePolygon.bedroom}</span></div>
-                <div><span>Type</span><span>{activePolygon.type}</span></div>
-                <div><span>Total Area</span><span>{activePolygon.totalArea} Sq. M.</span></div>
+                <div><span>Bedrooms</span><span >{activePolygon.bedroom}</span></div>
+                <div><span>Net Area</span><span>{activePolygon.type}</span></div>
+                <div><span>Gross Area</span><span>{activePolygon.type}</span></div>
+                <div><span>Price</span><span>{activePolygon.totalArea} sq. ft.</span></div>
               </div>
             </div>
           </div>

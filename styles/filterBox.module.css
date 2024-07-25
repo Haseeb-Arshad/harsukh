@@ -48,7 +48,7 @@
   
   .activeTab {
     background-color: #006d77;
-    color: white;
+    color: #FCF7EB;
     transform: scale(1.05);
     box-shadow: 0 2px 8px rgba(0, 109, 119, 0.2);
   }
@@ -80,7 +80,7 @@
     background-color: rgb(0, 109, 119);
     /* background: rgba(247, 247, 247, 1); */
 
-    color: white;
+    color: #FCF7EB;
     /* font-weight: bold; */
   }
   

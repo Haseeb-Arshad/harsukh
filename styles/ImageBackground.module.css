@@ -22,7 +22,7 @@
   
   .st0 {
     opacity: 0;
-    fill: #ffffff;
+    fill: #FCF7EB;
     cursor: pointer;
     -moz-transition: all 0.84s ease-out;
     -o-transition: all 0.84s ease-out;
@@ -34,7 +34,7 @@
   .st1Hovers {
     opacity: 0.5;
     cursor: pointer;
-    fill: #ffffff;
+    fill: #FCF7EB;
     stroke: "#0000ff";
     stroke-width: 2px;
     -moz-transition: all 0.84s ease-out;
@@ -46,7 +46,7 @@
 
   .st0:hover {
     opacity: 0.5;
-    fill: #ffffff;
+    fill: #FCF7EB;
     stroke: "#0000ff";
     stroke-width: 2px;
   }
@@ -86,9 +86,10 @@
   }
   
   .bottomLogoContainer {
+    user-select: none;
     position: fixed;
-    bottom: -35px;
-    left: 3rem;
+    bottom: -90px;
+    left: -0.5rem;
   }
 
   .blur {
@@ -137,7 +138,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    color:#ffffff;
+    color:#FCF7EB;
     border-radius: 0.7rem;
     padding: 5px;
     /* height: 80%; */
@@ -167,7 +168,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    color:#ffffff;
+    color:#FCF7EB;
     border-radius: 0.7rem;
     padding: 5px;
 }
@@ -181,7 +182,7 @@
 .buttonFilters
 {
     background-color: #006d77;
-    color: #ffffff;
+    color: #FCF7EB;
     /* height: 6vh; */
     /* width: 10vw; */
     padding: 0.1rem 0.2rem;
@@ -202,7 +203,7 @@
 .buttonPressedFilters
 {
     background-color: #006d77;
-    color: #ffffff;
+    color: #FCF7EB;
     /* height: 6vh; */
     /* width: 10vw; */
     /* height: 10vh;
@@ -334,7 +335,7 @@
 
 .filtersBox
 {
-  background-color: white;
+  background-color: #FCF7EB;
   color: #006d77;
   width: 8.45vw;
   height: 5vh;
@@ -375,7 +376,7 @@
 
   .button {
     background-color: #006d77;
-    color: #ffffff;
+    color: #FCF7EB;
     padding: 10px 20px;
     border: none;
     border-radius: 0.7rem;
@@ -396,7 +397,7 @@
 {
     align-items: center;
     justify-content: center;
-    background-color: #ffffff;
+    background-color: #FCF7EB;
     color:  #006d77 ;
     border: none;
     height: 2.5rem;
@@ -412,7 +413,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    color:#ffffff;
+    color:#FCF7EB;
     border-radius: 0.7rem;
     padding: 3px;
     /* height: 80%; */
@@ -427,7 +428,7 @@
     /* font-weight: 600; */
 }
 .menuButton {
-  background-color: #ffffff;
+  background-color: #FCF7EB;
   color: #000000; /* Initial color for the SVG */
   width: 2.8rem;
   height: 2.8rem;
@@ -447,7 +448,7 @@
 
 .menuButton:hover {
   background-color: #00555e;
-  color: #ffffff; /* Color for the SVG on hover */
+  color: #FCF7EB; /* Color for the SVG on hover */
   transform: translateY(-2px);
   box-shadow: 0 6px 8px rgba(0, 109, 119, 0.2);
 }
@@ -455,7 +456,7 @@
 
 .favButton
 {
-  background-color: #ffffff;
+  background-color: #FCF7EB;
   color: #006d77;
   width: 2rem;
   height: 2rem;
@@ -487,7 +488,7 @@
   right: 7rem;
   padding: 0.8rem;
   min-width: 13.5rem;
-  background: white;
+  background: #FCF7EB;
   border-radius: 0.3rem 0 0.3rem 0.3rem;
   box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
   display: grid;
@@ -552,7 +553,7 @@
     justify-content: center;
     border: 1px solid gray;
     height: 6vh;
-    background-color: white;
+    background-color: #FCF7EB;
     border-radius: 0.7rem;
 }
 
@@ -597,7 +598,7 @@
     width: 12vw;
     top: 35vh;
     left: 2rem;
-    background-color: white;
+    background-color: #FCF7EB;
     border-radius: 0.3rem 0rem 0.3rem 0.3rem ;
     padding: 0.5rem;
     /* padding-top: 0.rem; */
@@ -623,7 +624,7 @@
 
 .btnFilter
 {
-    /* background-color: #ffffff; */
+    /* background-color: #FCF7EB; */
     color:  #006d77 ;;
     border: 1px solid red;  
     border-radius: 0.7rem;
@@ -652,7 +653,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    color:#ffffff;
+    color:#FCF7EB;
     border-radius: 0.7rem;
     /* padding: 5px; */
     /* height: 80%; */
@@ -679,7 +680,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    color:#ffffff;
+    color:#FCF7EB;
     border-radius: 0.7rem;
     padding: 5px;
 }
@@ -721,7 +722,7 @@
     right: 47vw;
     align-items: center;
     justify-content: center;
-    background-color: #ffffff;
+    background-color: #FCF7EB;
     color:  #006d77 ;
     border: none;
     height: 2.4rem;
@@ -739,7 +740,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    color:#ffffff;
+    color:#FCF7EB;
     border-radius: 0.7rem;
     padding: 3px;
     /* height: 80%; */
@@ -773,7 +774,7 @@
 }
 
 .tab.active {
-  border-bottom: #f1f1f1 solid 1px; 
+  border-bottom: #FCF7EB solid 1px; 
 }
 
 .tab::after {
@@ -820,7 +821,7 @@
   display: flex;
   justify-content: center;
   color: #1f1f1fc5; 
-  background-color: #ffffff; 
+  background-color: #FCF7EB; 
   border-radius: 0;
   align-items: center;
   user-select: none;
@@ -855,7 +856,7 @@
 }
 
 .tooltipContent {
-  border-right: 1px solid #6a6a6a;
+  border-right: 0.5px solid rgba(106, 106, 106, 0.3);
   display: flex;
   align-items: center;
   background-color: white;
@@ -992,7 +993,7 @@
   right: 3rem;
   height: 3rem; 
   width: 3rem;
-  background: linear-gradient(135deg, #ffffff, #f0f0f0); 
+  background: linear-gradient(135deg, #FCF7EB, #f0f0f0); 
   border: 1px solid #dcdcdc; 
   border-radius: 50%;
   display: flex;

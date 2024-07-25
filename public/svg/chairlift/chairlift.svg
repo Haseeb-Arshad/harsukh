@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="chairLift" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 5494.76 3090.8">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #fff;
+        filter: url(#drop-shadow-1);
+        font-family: GillSansMTPro-Medium, 'Gill Sans MT Pro';
+        font-size: 75px;
+        font-weight: 500;
+      }
+
+      .cls-2 {
+        fill: #faf7eb;
+        stroke-width: 0px;
+      }
+
+      .cls-3 {
+        stroke: #fff;
+        stroke-width: 3px;
+      }
+
+      .cls-3, .cls-4 {
+        fill: none;
+        stroke-miterlimit: 10;
+      }
+
+      .cls-4 {
+        stroke: #faf7eb;
+        stroke-width: 5px;
+      }
+    </style>
+    <filter id="drop-shadow-1" filterUnits="userSpaceOnUse">
+      <feOffset dx="1" dy="1"/>
+      <feGaussianBlur result="blur" stdDeviation="2"/>
+      <feFlood flood-color="#000" flood-opacity=".75"/>
+      <feComposite in2="blur" operator="in"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g id="Layer_1" data-name="Layer 1">
+    <text class="cls-1" transform="translate(3265.94 425.29)"><tspan x="0" y="0">Ayubia Chairlift</tspan></text>
+    <polyline class="cls-3" points="5135.54 1651.86 5135.08 1850.69 5094.11 1870.51"/>
+    <polyline class="cls-3" points="3042.56 320.1 3241.38 321.43 3261.02 362.48"/>
+  </g>
+  <g id="Layer_2" data-name="Layer 2">
+    <circle class="cls-4" cx="2981.31" cy="320.1" r="61.38"/>
+    <path class="cls-2" d="M2994.63,294.87c1.44,0,2.61-1.17,2.61-2.61v-2.61h23.46v-5.21h-23.46v-2.61c0-1.44-1.17-2.61-2.61-2.61h-26.06c-1.44,0-2.61,1.17-2.61,2.61v2.61h-23.46v5.21h23.46v2.61c0,1.44,1.17,2.61,2.61,2.61h5.21v10.42h-11.57c-3.59,0-6.71,2.44-7.59,5.92l-1.13,4.5h-3.18c-4.31,0-7.82,3.51-7.82,7.82v26.06c0,4.31,3.51,7.82,7.82,7.82h62.55c4.31,0,7.82-3.51,7.82-7.82v-26.06c0-4.31-3.51-7.82-7.82-7.82h-3.18l-1.13-4.5c-.87-3.49-3.99-5.92-7.59-5.92h-11.57v-10.42h5.21ZM2971.18,284.45h20.85v5.21h-20.85v-5.21ZM2950.33,320.93h13.03v18.24h-15.64v-15.64c0-1.44,1.17-2.61,2.61-2.61ZM2994.63,352.21h-10.42v-31.27h10.42v31.27ZM2979,352.21h-10.42v-31.27h10.42v31.27ZM2947.72,349.6v-5.21h15.64v7.82h-13.03c-1.44,0-2.61-1.17-2.61-2.61ZM3012.88,352.21h-13.03v-7.82h15.64v5.21c0,1.44-1.17,2.61-2.61,2.61ZM3015.48,323.54v15.64h-15.64v-18.24h13.03c1.44,0,2.61,1.17,2.61,2.61ZM3003.52,312.48l.81,3.24h-45.45l.81-3.24c.29-1.16,1.33-1.97,2.53-1.97h38.77c1.2,0,2.24.81,2.53,1.97ZM2984.21,305.3h-5.21v-10.42h5.21v10.42Z"/>
+  </g>
+</svg>

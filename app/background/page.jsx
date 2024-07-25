@@ -511,7 +511,7 @@ const toggleLanguage = () => {
       {/* <TopbarMenu/> */}
 
             <div className={styles.bottomLogoContainer}>
-              <Image src="/Webpage/floors/MainLogo.png" quality={100} alt="bird" height={190} width={190} />
+              <Image src="/Webpage/floors/MainLogo.png" quality={100} alt="Almaymar" height={300} width={300} />
             </div>
 
             <div className={styles.mapsViewContainer}>
