@@ -77,7 +77,7 @@ const Page = () => {
 
       {/* <Loading /> */}
 {/*  */}
-      {/* <FloorMenu /> */}
+      <FloorMenu />
 
       </Suspense>
      

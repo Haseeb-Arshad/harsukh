@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="roadLabel" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 5494.76 3090.8">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #096069;
+        font-family: GillSansMTPro-Medium, 'Gill Sans MT Pro';
+        font-size: 41.15px;
+        font-weight: 500;
+        stroke: #fff;
+        stroke-miterlimit: 10;
+      }
+    </style>
+  </defs>
+  <text class="cls-1" transform="translate(2869.92 1370.41) rotate(-86.05)"><tspan x="0" y="0">Ayubia Rd</tspan></text>
+  <text class="cls-1" transform="translate(3048.36 859.57) rotate(-49.99)"><tspan x="0" y="0">Ayubia Rd</tspan></text>
+  <text class="cls-1" transform="translate(3134.25 149.07) rotate(-126.27)"><tspan x="0" y="0">Ayubia Rd</tspan></text>
+  <text class="cls-1" transform="translate(1761.66 1538.97) rotate(-16.36)"><tspan x="0" y="0">Abbottabad Rd</tspan></text>
+  <text class="cls-1" transform="translate(2552.59 2042.21) rotate(-44.44)"><tspan x="0" y="0">Abbottabad Rd</tspan></text>
+  <text class="cls-1" transform="translate(2146.3 2692.78) rotate(-51.28)"><tspan x="0" y="0">Abbottabad Rd</tspan></text>
+  <text class="cls-1" transform="translate(1459.82 1063.86) rotate(-39.54)"><tspan x="0" y="0">Abbottabad Rd</tspan></text>
+  <text class="cls-1" transform="translate(1607.49 268.75) rotate(22.49)"><tspan x="0" y="0">Abbottabad Rd</tspan></text>
+</svg>

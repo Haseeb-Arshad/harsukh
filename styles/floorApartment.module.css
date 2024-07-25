@@ -49,6 +49,53 @@
     font-size: 0.8rem;
 }
 
+.zoomReset
+{
+  position: absolute;
+  background-color: #FCF7EB;
+  border-radius: 0.3rem;
+  bottom: 3rem;
+  left: 40vw;
+  color: #006d77;
+  height: 5.5vh;
+  width: 8rem;
+  z-index: 1000;
+}
+
+.backToBuilding
+{
+  position: absolute;
+  background-color: #FCF7EB;
+  border-radius: 0.3rem;
+  bottom: 3rem;
+  right: 40vw;
+  color: #006d77;
+  height: 5.5vh;
+  width: 8rem;
+  z-index: 1000;
+
+}
+
+.zoomResetInside
+{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 2.5rem;
+  font-size: 0.8rem;
+  padding: 0.8rem;
+  
+}
+
+.backToBuildingInside
+{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 2.5rem;
+  font-size: 0.8rem;
+}
+
 /* Floor Menu */
 
 .floorContainer
@@ -81,7 +128,7 @@
 
 .elevationButton, .floorButton {
   background-color: #027d7d;
-  color: white;
+  color: #FCF7EB;
   border: none;
   padding: 10px 20px;
   cursor: pointer;
@@ -107,7 +154,7 @@
   position: absolute;
   /* background: transparent; */
   top: 16rem;
-  left: 92rem;
+  left: 90.5rem;
   display: grid;
   grid-template-rows: 1fr 1fr 1fr;
   row-gap: 2rem;
@@ -133,7 +180,7 @@
   position: absolute;
   transform: translate(-50%, -50%);
   /* background-color: #ef4444; */
-  color: white;
+  color: #FCF7EB;
   border-radius: 0.5rem;
   padding: 1rem;
   width: 14rem;
@@ -171,11 +218,11 @@
 
 .explorePlanButton {
   background-color: #006d77;
-  color: white;
+  color: #FCF7EB;
 }
 
 .enterVRButton {
-  background-color: white;
+  background-color: #FCF7EB;
   color: gray;
   display: flex;
   align-items: center;
@@ -192,7 +239,7 @@
 
 .unitInfo {
   font-size: 0.875rem;
-  background-color: white;
+  background-color: #FCF7EB;
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
   border-radius: 0.5rem;
   padding: 0.5rem;
@@ -200,7 +247,7 @@
 }
 
 .apartmentLabel {
-  fill: white;
+  fill: #FCF7EB;
   font-size: 24px;
   font-weight: bold;
   text-anchor: middle;
@@ -209,7 +256,7 @@
 
 .st1Hovers {
   opacity: 0.5;
-  fill: #ffffff;
+  fill: #FCF7EB;
   stroke: #0000ff;
   stroke-width: 2px;
 }
@@ -228,7 +275,7 @@
 } */
 
 .unitHeader .unitHeaderTitle {
-  font-size: 1rem;
+  font-size: 0.9rem;
   font-weight: 600;
 }
 
@@ -324,7 +371,7 @@ transition: all 0.3s ease;
   transition: all 0.2s ease;
   position: relative;
   overflow: hidden;
-  background-color: #ffffff;
+  background-color: #FCF7EB;
   color: #006d77;
 }
 
@@ -385,7 +432,7 @@ transition: all 0.3s ease;
   position: relative;
   overflow: hidden;
   background-color: #303D3E;
-  color: white;
+  color: #FCF7EB;
 }
 
 .ZoonOutbuttonStyle::after {
@@ -450,7 +497,7 @@ transition: all 0.3s ease;
 .st0 {
     position: absolute;
     opacity: 0;
-    fill: #ffffff;
+    fill: #FCF7EB;
     cursor: pointer;
     -moz-transition: all 0.84s ease-out;
     -o-transition: all 0.84s ease-out;
@@ -462,7 +509,7 @@ transition: all 0.3s ease;
   .st0:hover {
     opacity: 0.5;
     cursor: pointer;
-    fill: #ffffff;
+    fill: #FCF7EB;
     stroke: "#0000ff";
     stroke-width: 2px;
     -moz-transition: all 0.84s ease-out;
@@ -477,7 +524,7 @@ transition: all 0.3s ease;
   .st1Hovers {
     opacity: 0.5;
     cursor: pointer;
-    fill: #ffffff;
+    fill: #FCF7EB;
     stroke: "#0000ff";
     stroke-width: 2px;
     -moz-transition: all 0.84s ease-out;
@@ -498,7 +545,7 @@ transition: all 0.3s ease;
 
     position: absolute;
     opacity: 1;
-    fill: #ffffff;
+    fill: #FCF7EB;
     cursor: pointer;
     -moz-transition: all 0.84s ease-out;
     -o-transition: all 0.84s ease-out;

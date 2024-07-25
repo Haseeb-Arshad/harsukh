@@ -92,38 +92,13 @@ const Layout = ({children}) =>
 
   return (     
     <div style={{ position: 'relative', background: 'rgba(0, 29, 32, 1)' , height: '100vh', width: '100%'}}>
-      {/* <Suspense fallback={
-        <div className={styles.loadingOverlay}>
-          <Loading />
-        </div>
-      }> */}
-      {/* <div style={{ position: 'absolute', blur:'300px', background: 'white' , opacity:'0.4', borderRadius: '50%', height: '30vh', width: '30vw'}}>
 
-      </div> */}
         <div className={`${styles.transitionContainer} ${isTransitioning ? styles.fadeOut : styles.fadeIn}`}>
           {children}
         </div>
-      {/* </Suspense>      */}
 
       <FloorMenu />
 
-      {/* <div className={styles.roadViewContainer}>
-        <div className={styles.roadViewIcon}>
-          <Image src="/images/icons/roadViewIcon.svg" quality={100} alt="Road View Icon" height={19} width={19} />
-        </div>
-        <div className={styles.roadViewTitle}>
-          Road View
-        </div>
-      </div>
-
-      <div className={styles.hillViewContainer}>
-        <div className={styles.roadViewIcon}>
-          <Image src="/images/icons/hillViewIcon.svg" quality={100} alt="Road View Icon" height={21} width={21} />
-        </div>
-        <div className={styles.roadViewTitle}>
-          Hill View
-        </div>
-      </div> */}
 
       <div className={styles.menuContainer}>
         <div className={styles.amenitiesButton} onClick={handleAmenities}>

@@ -63,7 +63,7 @@
 {
     align-items: center;
     justify-content: center;
-    background-color: #ffffff;
+    background-color: #FCF7EB;
     color:  #006d77 ;
     border: none;
     height: 2.5rem;
@@ -79,7 +79,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    color:#ffffff;
+    color:#FCF7EB;
     border-radius: 0.7rem;
     padding: 3px;
     /* height: 80%; */
@@ -110,7 +110,7 @@
   right: 3rem;
   height: 2.8rem;
   width: 2.8rem;
-  background: white;
+  background: #FCF7EB;
   border-radius: 50%;
   display: flex;
   align-items: center;

@@ -47,16 +47,16 @@
 
 .Harsukhlogo {
   position: fixed;
-  top: 0rem;
-  left: 2rem;
+  top: 1rem;
+  left: 3rem;
   overflow: hidden;
   transition: all 0.3s ease;
 }
 
 .bottomLogoContainer {
   position: absolute;
-  bottom: 0rem;
-  left: 2rem;
+  bottom: -5.5rem;
+  left: -0.5rem;
   overflow: hidden;
   transition: all 0.3s ease;
 }
@@ -67,7 +67,7 @@
   position: fixed;
   top: 11.5rem;
   left: 3rem;
-  background-color: #F7F7F7;
+  background-color: #FCF7EB;
   /* background-color: rgba(255, 255, 255, 0.8); */
   backdrop-filter: blur(10px);
   border-radius: 0.3rem;
@@ -78,7 +78,7 @@
   overflow: hidden;
   transition: all 0.3s ease;
   width: 8.5vw;
-  padding: 0.1rem 0.1rem;
+  padding: 0.4rem 0.4rem;
 }
 
 .container:hover {
@@ -89,6 +89,10 @@
 {
   width: 100%;
   font-size: 0.9rem;
+  font-weight: 600;
+  border-bottom: 0.5px solid rgba(106, 106, 106, 0.3);
+
+  color: gray;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -141,12 +145,10 @@
 
 .elevationButtonTitle
 {
-  /* border: 1px solid red; */
 }
 
 .elevationButtonDownArrow
 {
-  /* border: 1px solid red; */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -160,7 +162,6 @@
   overflow: hidden;
   max-height: 0;
   opacity: 0;
-  /* color: #bla */
   min-width: 7.1vw;
   transition: max-height 0.3s ease-out, opacity 0.3s ease-out, padding 0.3s ease-out;
 }
@@ -169,6 +170,8 @@
   max-height: 320px; 
   opacity: 1;
   padding: 0.4rem 0.3rem;
+  transition: max-height 0.3s ease-in, opacity 0.3s ease-in, padding 0.3s ease-in;
+
 }
 
 
@@ -178,7 +181,7 @@
   background-color: transparent;
   color: #006d77;
   border-radius: 0.2rem;
-  font-size: 0.65rem;
+  font-size: 0.7rem;
   cursor: pointer;
   transition: all 0.3s ease-in-out;
   position: relative;
@@ -193,12 +196,13 @@
   background-color: transparent;
   color: #006d77;
   border-radius: 0.2rem;
-  font-size: 0.68rem;
+  font-size: 0.75rem;
   cursor: pointer;
   transition: all 0.3s ease-in-out;
   position: relative;
   overflow: hidden;
   box-shadow: 0px 0px 3px rgba(255, 255, 255, 0.3);
+  transition: background-color 0.3s, color 0.3s;
 
 }
 
@@ -215,14 +219,16 @@
   transition: width 0.3s ease, height 0.3s ease;
 }
 
-.floorButton:hover::after {
+/* .floorButton:hover::after {
   width: 300%;
   height: 300%;
-}
+} */
 
 .floorButton.active {
   background-color: #006d77;
-  color: white;
+  color: #FCF7EB;
+  transition: background-color 0.3s, color 0.3s;
+
   /* rgba(39, 39, 39, 0.2); */
 }
 
@@ -236,7 +242,8 @@
   z-index: 10000;
   top: 8rem;
   left: 3rem;
-  background-color: rgb(255, 255, 255);
+  background-color: #FCF7EB;
+   /* rgb(255, 255, 255); */
   backdrop-filter: blur(10px);
   border-radius: 0.2rem;
   color: #006d77;
@@ -327,35 +334,6 @@
 .ElevationBtn.active {
   background-color: rgba(0, 109, 119, 0.2);
 }
-
-
-/* ----------------- */
-
-/* 
-
-.elevationDropdown {
-  position: absolute;
-  top: 100%;
-  left: 1rem;
-  background-color: rgba(255, 255, 255, 0.9);
-  border-radius: 1rem;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
-  transition: all 0.3s ease;
-  padding: 0.5rem 0;
-  z-index: 1;
-}
-
-.elevationItem {
-  padding: 0.5rem 1rem;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-.elevationItem:hover {
-  background-color: rgba(0, 109, 119, 0.1);
-} */
-
 
 @keyframes slideDown {
   from {
