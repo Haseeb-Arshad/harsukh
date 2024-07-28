@@ -52,12 +52,34 @@
     top: 3rem;
     right: 3rem;
     height: 3.7rem;
-    width: 18rem;
+    width: 16rem;
     display: grid;
     align-items: center;
     justify-content: center;
-    grid-template-columns: 0.8fr 0.4fr 0.4fr 0.4fr;
+    grid-template-columns: 0.8fr 0.4fr 0.4fr;
 }
+
+
+.bottomLogoContainer {
+  user-select: none;
+  position: fixed;
+  bottom: -12vh;
+  /* left: 3rem; */
+  left: 0rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.bottomLogoContainerTitle
+{
+  position: absolute;
+  font-family: 'Gill Sans Medium';
+  font-size: 0.9rem;
+  bottom: 10.5rem;
+  left: 3rem;
+  color: #FCF7EB;
+}
+
   
 .amenitiesButton
 {
@@ -106,7 +128,7 @@
 .callContainer
 {
   position: absolute;
-  bottom: 3rem;
+  bottom: 1.6rem;
   right: 3rem;
   height: 2.8rem;
   width: 2.8rem;
@@ -142,14 +164,20 @@
     transition: all 0.3s ease;
   }
   
-  .bottomLogoContainer {
+  /* .bottomLogoContainer {
     position: absolute;
     bottom: 3rem;
     left: 2rem;
     overflow: hidden;
     transition: all 0.3s ease;
-  }
+  } */
   
+.reservedContainer
+{
+  position: absolute;
+  top: 16vh;
+  right: 7rem;
+}
 
 
 

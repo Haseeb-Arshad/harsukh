@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from '@/styles/buttonIcons.module.css';
+import styles from '@/styles/ImageBackground.module.css';
 
 const MenuIcon = () => (
     <svg width="30px" height="30px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -7,10 +7,13 @@ const MenuIcon = () => (
     </svg>
 );
 
-const FavButton = ({ handleMenu }) => (
-    <div className={styles.menuButton} onClick={handleMenu}>
+const FavButton = ({ handleMenu, inActive, count }) => (
+    <>
+    <div className={`${styles.menuButton} ${inActive ? styles.active : ''}`} onClick={handleMenu}>
       <MenuIcon />
     </div>
+    {count > 0 && <div className={`${styles.countBadge} ${inActive ? styles.active : ''}`}>{count}</div>}
+    </>
 );
 
 export default FavButton;

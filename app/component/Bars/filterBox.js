@@ -1,66 +1,66 @@
-import React, { useState, useEffect } from 'react';
+'use client';
+import React, { useState, forwardRef } from 'react';
 import styles from '@/styles/filterBox.module.css';
 
-const FilterBox = ({isVisible}) => {
+const FilterBox = forwardRef(({ isVisible }, ref) => {
   const [activeTab, setActiveTab] = useState('Amenities');
   const [selectedAmenities, setSelectedAmenities] = useState(['2 Bed Apartments']);
-  // const [isVisible, setIsVisible] = useState(false);
 
   const tabs = ['Amenities', 'Booked', 'Sold'];
   const amenities = [
-    'Studio Apartments',
+    'Studio',
     '1 Bed Apartments',
     '2 Bed Apartments',
     '3 Bed Apartments',
     'Pent Houses'
   ];
 
-  // useEffect(() => {
-  //   setIsVisible(true);
-  // }, []);
-
   const handleTabClick = (tab) => {
     setActiveTab(tab);
   };
 
   const handleAmenityClick = (amenity) => {
-    setSelectedAmenities(prev => {
+    setSelectedAmenities((prev) => {
       if (prev.includes(amenity)) {
-        return prev.filter(a => a !== amenity);
+        return prev.filter((a) => a !== amenity);
       } else {
         return [...prev, amenity];
       }
     });
   };
 
+  const handleResetFilter = () => {
+    setSelectedAmenities([]);
+  };
+
   return (
-    <div className={`${styles.filterBox} ${isVisible ? styles.visible : ''}`}>
-      {/* <div className={styles.tabBar}>
-        {tabs.map((tab, index) => (
-          <div
-            key={tab}
-            className={`${styles.tab} ${activeTab === tab ? styles.activeTab : ''}`}
-            onClick={() => handleTabClick(tab)}
-            style={{ animationDelay: `${index * 0.1}s` }}
-          >
-            {tab}
-          </div>
-        ))}
-      </div> */}
-     { isVisible && <div className={styles.amenitiesList}>
-        {amenities.map((amenity, index) => (
-          <div
-            key={amenity}
-            className={`${styles.amenity} ${selectedAmenities.includes(amenity) ? styles.selectedAmenity : ''}`}
-            onClick={() => handleAmenityClick(amenity)}
-            // style={{ animationDelay: `${(index + tabs.length) * 0.06}s` }}
-          >
-            {amenity}
-          </div>
-        ))}
-      </div>}
+    <div ref={ref} className={`${styles.filterBox} ${isVisible ? styles.visible : ''}`}>
+      {isVisible && (
+        <div className={styles.filterBoxInside}>
+          <>
+            <div className={styles.amenitiesList}>
+              {amenities.map((amenity) => (
+                <div
+                  key={amenity}
+                  className={`${styles.amenity} ${selectedAmenities.includes(amenity) ? styles.selectedAmenity : ''}`}
+                  onClick={() => handleAmenityClick(amenity)}
+                >
+                  {amenity}
+                </div>
+              ))}
+            </div>
+            <div className={styles.resetButtonContainer}>
+              <div onClick={handleResetFilter} className={styles.resetButton}>
+                Reset Filter
+              </div>
+            </div>
+          </>
+        </div>
+      )}
     </div>
   );
-};
+});
+
+FilterBox.displayName = 'FilterBox'; // Add display name
 
 export default FilterBox;
