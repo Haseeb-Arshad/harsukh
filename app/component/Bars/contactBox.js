@@ -1,96 +1,79 @@
-'use client'
-import React, { useState } from 'react'
-import styles from '@/styles/contactBox.module.css';
-import Image from 'next/image';
+import React, { useState } from 'react';
+import styles from '@/styles/Floor/RegisterReq.module.css';
 
-const ContactBox = ({onClose}) => {
+const RegisterRequestForm = () => {
+  const [formData, setFormData] = useState({
+    firstName: '',
+    lastName: '',
+    phoneNumber: '',
+    email: '',
+  });
 
-    const [leaveType, setLeaveType] = useState('Sick')
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log('Form submitted:', formData);
+  };
 
   return (
-    <>
-    <div className={styles.main}>
-        <div className={styles.submain}>
-            <div className={styles.requestTop}>
-                <div className={styles.requestTopright}>
-                    <div onClick={onClose} className={styles.requestClose}>
-                        <Image src="/images/icons/closeIcon.svg" alt="close" width={20} height={20} />
-                    </div>
-                </div>
-
-                <div className={styles.requestTitle}>
-                    Request Register
-                </div>
-
-            </div>
-            <div className={styles.requestContent}>
-                <div className={styles.requestContentTop}>
-                    <div className={styles.requestNameTitle}>
-                        <div className={styles.firstName}>
-                            First Name:
-                        </div>
-                        <div>
-                            <input placeholder='First Name' ></input>
-                        </div>
-                    </div>
-
-                    <div className={styles.requestNameTitle}>
-                        <div className={styles.firstName}>
-                            Last Name:
-                        </div>
-                        <div>
-                            <input placeholder='Last Name' ></input>
-                        </div>
-                    </div>
-                    
-
-
-                    {/* <div className={styles.firstName}>
-                        Leave Type:
-                    </div>
-                    <div className={styles.requesttype}>
-                        <div className={styles.requesttypebuttons}>
-                            <div className={`${styles.requesttypebuttonbox} ${leaveType === 'Sick' ? styles.selected : ''}`} onClick={() => setLeaveType('Sick')}>
-                                Sick
-                            </div>
-                        </div>
-                        <div className={styles.requesttypebuttons}>
-                            <div className={`${styles.requesttypebuttonbox} ${leaveType === 'Vacation' ? styles.selected : ''}`} onClick={() => setLeaveType('Vacation')}>
-                                Vacation
-                            </div>
-                        </div>
-                        <div className={styles.requesttypebuttons}>
-                            <div className={`${styles.requesttypebuttonbox} ${leaveType === 'Others' ? styles.selected : ''}`} onClick={() => setLeaveType('Others')}>
-                                Others
-                            </div>
-                        </div>
-                    </div> */}
-                </div>
-                {/* <div className={styles.requestContentMiddle}>
-                    <div className={styles.requestDateTitle}>
-                        Select Date:
-                    </div>
-                    <div className={styles.requestDate}>
-                        
-                    </div>
-                </div>
-                <div className={styles.requestContentBottom}>
-                    <div className={styles.requestReasonTitle}>
-                        Reason:
-                    </div>
-                    <div className={styles.requestReason}>
-
-                    </div>
-                </div> */}
-            </div>
-            <div className={styles.requestButton}>
-                <div className={styles.requestSubmit}>Request</div>
-            </div>
+    <div className={styles.formContainer}>
+      <h2 className={styles.formTitle}>Register Request</h2>
+      <div className={styles.apartmentInfo}>
+        <h3>Apartment no. 23</h3>
+        <table>
+          <tbody>
+            <tr><td>Floor</td><td>Third Floor</td></tr>
+            <tr><td>Bedrooms</td><td>2</td></tr>
+            <tr><td>Net Area</td><td>150 sq.ft</td></tr>
+            <tr><td>Gross Area</td><td>300 sq.ft</td></tr>
+            <tr><td>Price</td><td>Rs. 23,500,000</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <form onSubmit={handleSubmit}>
+        <div className={styles.inputGroup}>
+          <input
+            type="text"
+            name="firstName"
+            placeholder="First Name"
+            value={formData.firstName}
+            onChange={handleChange}
+            required
+          />
+          <input
+            type="text"
+            name="lastName"
+            placeholder="Last Name"
+            value={formData.lastName}
+            onChange={handleChange}
+            required
+          />
         </div>
+        <div className={styles.inputGroup}>
+          <input
+            type="tel"
+            name="phoneNumber"
+            placeholder="Phone Number"
+            value={formData.phoneNumber}
+            onChange={handleChange}
+            required
+          />
+          <input
+            type="email"
+            name="email"
+            placeholder="Email"
+            value={formData.email}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <button type="submit" className={styles.submitButton}>Submit</button>
+      </form>
     </div>
-    </>
-  )
-}
+  );
+};
 
-export default ContactBox
+export default RegisterRequestForm;

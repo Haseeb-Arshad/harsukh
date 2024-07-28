@@ -1,9 +1,10 @@
 'use client';
-import React, { Suspense, useState, useEffect } from 'react';
+import React, { Suspense, useState, useEffect, useRef } from 'react';
 import { usePathname } from 'next/navigation';
 import Loading from '@/app/[floor]/Loading';
-import styles2 from "@/styles/floorMenu.module.css";
-import styles from "@/styles/mapsLayout.module.css";
+import styles2 from "@/styles/Floor/floorMenu.module.css";
+import styles from "@/styles/maps/mapsLayout.module.css";
+import ElevStyles from "@/styles/elevation.module.css";
 import Image from 'next/image';
 import FloorMenu from '../component/floorMenu';
 import { useSelector, useDispatch } from 'react-redux';
@@ -13,6 +14,9 @@ import MenubarButton from '@/app/component/Icons/menuBarBtn';
 import FavButton from '@/app/component/Icons/favButton';
 import BackgroundMode from '@/app/component/Icons/BackgroundMode';
 import MenuBox from '@/app/component/Bars/menuBox';
+
+
+import { toggleVisibility } from '@/state/mapView/mapViewState'; // Adjust the import path as needed
 
 // Import translations
 import en from '../locales/en.json';
@@ -31,6 +35,7 @@ const Layout = ({children}) =>
   // const [translations, setTranslations] = useState(en);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const pathname = usePathname();
+  const svgVisibility = useSelector((state) => state.svgVisibility);
 
   const languageState = useSelector((state) => {
     const languageState = state.language.lang.find((site) => site.id === '1');
@@ -104,9 +109,31 @@ const Layout = ({children}) =>
   const [isElevationOpen, setIsElevationOpen] = useState(false);
   const [elevationArray, setElevationArray] = 
   useState([
+    {id:'2', label: 'Map View', route:'/mapview'},
     {id:'1', label: 'Elevation', route:'/'},
+
   ]);
 
+
+  const elevationRef = useRef(null);
+
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (elevationRef.current && !elevationRef.current.contains(event.target)) {
+        setIsElevationOpen(false);
+      }
+    }
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
+
+  const toggleSVGVisibility = (element) => {
+    dispatch(toggleVisibility({ element }));
+  };
 
 
 
@@ -137,27 +164,27 @@ const Layout = ({children}) =>
       </div>
 
       <div className={styles.menuContainer}>
-        <div className={styles.longvideoTab} onClick={handleAmenities}>
+        <div className={`${styles.longvideoTab}`} onClick={handleAmenities}>
         
-            <div className={styles.videosubTab}>
+            <div className={`${styles.videosubTab}  ${svgVisibility.landmarks ? styles.active : ''} `}  onClick={() =>{ console.log("LandMarks"); toggleSVGVisibility('landmarks')}}>
                 
-                <div className={styles.videosubTabTitle}>
+                <div className={styles.videosubTabTitle} >
                     Landmarks
                 </div>
                 <div className={styles.videosubTabIcon}>
                     <Image src="/images/icons/landmarkIcon.svg" quality={100} alt="Menu" height={16} width={16} />
                 </div>
             </div>
-            <div className={styles.videosubTab}>
+            <div className={`${styles.videosubTab}  ${svgVisibility.roads? styles.active : ''} `}  onClick={() =>{ console.log("LandMarks"); toggleSVGVisibility('roads')}}>
                 
                 <div className={styles.videosubTabTitle}>
                      Roads
                 </div>
-                <div className={styles.videosubTabIcon}>
+                <div className={styles.videosubTabIcon}  >
                     <Image src="/images/icons/roadIcon.svg" color='#006d77' quality={100} alt="Menu" height={16} width={16} />
                 </div>
             </div>
-            <div className={styles.videosubTab}>
+            {/* <div className={styles.videosubTab}>
                 
                 <div className={styles.videosubTabTitle}>
                     Retail
@@ -165,8 +192,8 @@ const Layout = ({children}) =>
                 <div className={styles.videosubTabIcon}>
                     <Image src="/images/icons/landmarkIcon.svg" quality={100} alt="Menu" height={16} width={16} />
                 </div>
-            </div>
-            <div className={styles.videosubTab}>
+            </div> */}
+            <div className={`${styles.videosubTab}  ${svgVisibility.radius? styles.active : ''} `} onClick={() =>{ console.log("LandMarks"); toggleSVGVisibility('radius')}}>
                 <div className={styles.videosubTabTitle}>
                     Radius
                 </div>
@@ -176,9 +203,9 @@ const Layout = ({children}) =>
             </div>
 
         </div>
-        <div className={styles.menuContainerInside}>
+        {/* <div className={styles.menuContainerInside}>
             <BackgroundMode handleMenu={handleBackgroundMode}/>
-        </div>
+        </div> */}
      
         <div className={styles.menuContainerInside} >
           <MenubarButton handleMenu={handleMenu}/>
@@ -193,44 +220,47 @@ const Layout = ({children}) =>
       </div>
 
     
-
-      <div className={styles2.elevationButton}>
-        <div
-          className={`${styles2.filtersButton} ${isElevationOpen ? styles2.open : ''}`}
-          onClick={elevationDropdown}
+      <div className={styles.elevationContainer}>
+        <div className={ElevStyles.elevationButtonBox} ref={elevationRef}                
+         onClick={elevationDropdown}
         >
-          <div className={styles2.elevationButtonLeft} onClick={() => router.push('/')}>
-            <Image src="/images/icons/LeftArrow.svg" quality={100} alt="Elevation" height={16} width={16} />
-          </div>
           <div
-            className={styles2.elevationButtonRight}
-            onMouseEnter={() => setIsElevationOpen(true)}
-            onMouseLeave={() => setIsElevationOpen(false)}
-          >
-            <div className={styles2.elevationButtonTitle}>{translations.elevation || 'Elevation'}</div>
-            <div className={styles2.elevationButtonDownArrow}>
-              <Image src="/images/icons/downFillArrow.svg" quality={100} alt="Elevation" height={7} width={7} />
+              className={`${ElevStyles.elevationBtnGrid} ${isElevationOpen ? ElevStyles.open : ''}`}
+            >
+              <div className={ElevStyles.elevationMapBtnLeft}>
+                {/* <Image src="/images/icons/LeftArrow.svg" quality={100} alt="Elevation" height={16} width={16} /> */}
+              </div>
+              <div
+                className={ElevStyles.elevationBtnRight}
+              >
+                <div className={ElevStyles.elevationMapBtnTitle}>
+                  { !isElevationOpen?
+                      translations.mapview || 'Map View'
+                    : 
+                    "Location"
+                  }
+                </div>
+                <div className={ElevStyles.elevationBtnDownArrow}>
+                  <Image src="/images/icons/downFillArrow.svg" quality={100} alt="Elevation" height={7} width={7} />
+                </div>
+              </div>
+            </div>
+            
+            <div
+              className={`${ElevStyles.dropDownElevationBox} ${isElevationOpen ? ElevStyles.open : ''}`}
+            >
+              {elevationArray.map((item) => (
+                <div
+                  key={item.id}
+                  onClick={() => handleElevationItemClick(item.route)}
+                  className={`${ElevStyles.dropDownfloorButton} ${item.label === 'Map View' ? ElevStyles.active : ''}`}
+                >
+                  {translations[item.label.toLowerCase()] || item.label}
+                </div>
+              ))}
             </div>
           </div>
-        </div>
-        
-        <div
-          className={`${styles2.floorBar} ${isElevationOpen ? styles2.open : ''}`}
-          onMouseEnter={() => setIsElevationOpen(true)}
-          onMouseLeave={() => setIsElevationOpen(false)}
-        >
-          {elevationArray.map((item) => (
-            <div
-              key={item.id}
-              onClick={() => handleElevationItemClick(item.route)}
-              className={`${styles2.dropDownfloorButton} ${item.label === 'Elevation' ? styles2.active : ''}`}
-            >
-              {translations[item.label.toLowerCase()] || item.label}
-            </div>
-          ))}
-        </div>
       </div>
-
 
     </div>   
   )

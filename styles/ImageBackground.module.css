@@ -1,3 +1,18 @@
+
+
+@font-face {
+  font-family: 'Gill Sans Light';
+  src: url('/fonts/GillSansMTPro-Light.otf');
+  font-weight: normal;
+}
+@font-face {
+  font-family: 'Gill Sans Medium';
+  src: url('/fonts/GillSansMTPro-Medium.otf');
+  font-weight: normal;
+}
+
+
+
 .backgroundImageContainer {
   position: relative;
   width: 100%;
@@ -8,7 +23,17 @@
 .backgroundImage {
   position: absolute;
   object-fit: cover;
+  transition: opacity 0.5s ease-in-out;
+
 }
+
+.imageWrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: opacity 0.3s ease-in-out;
+}
+
 
 #masker {
   position: absolute;
@@ -70,27 +95,22 @@
   
   .topLogoContainer {
     top: 1rem;
-    left: 3.5rem;
+    left: 3rem;
   }
   
   .menuContainer {
     top: 3rem;
     right: 3rem;
     height: 3.7rem;
-    width: 18rem;
+    width: 16rem;
     /* border: 3px solid red; */
     display: grid;
     align-items: center;
     justify-content: center;
-    grid-template-columns: 0.8fr 0.4fr 0.4fr 0.4fr;
+    grid-template-columns: 0.8fr  0.4fr 0.4fr;
   }
   
-  .bottomLogoContainer {
-    user-select: none;
-    position: fixed;
-    bottom: -90px;
-    left: -0.5rem;
-  }
+
 
   .blur {
     filter: blur(2px);
@@ -116,6 +136,19 @@
   font-weight: normal;
 }
 
+.placeholder {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #f0f0f0; /* Light grey placeholder */
+  /* Alternatively, use a low-res background image */
+  /* background-image: url('/path-to-low-res-image.jpg'); */
+  background-size: cover;
+  background-position: center;
+}
+
 
 .transitionContainer {
   /* transition: opacity 0.1s cubic-bezier(0,.84,.56,1.02), transform 0.2s ease-in-out; */
@@ -124,6 +157,8 @@
   font-family: 'Gill Sans Light';
 
 }
+
+
 
 .fadeIn {
   opacity: 1;
@@ -255,10 +290,10 @@
   transform: translateX(-20px);
   pointer-events: none;
 }
-
+/* 
 .elevationBox
 {
-  background-color: white;
+  background-color: #FCF7EB;
   color: #006d77;
   width: 7.5vw;
   height: 5vh;
@@ -283,7 +318,6 @@
 {
   display: grid;
   grid-template-columns: 0.2fr 1fr 0.3fr;
-  /* padding: 0.3rem; */
   padding-left: 0.8rem;
   padding-right: 0.8rem;
   width: 9vw;
@@ -304,11 +338,10 @@
   height: 100%;
   width: 100%;
   display: flex;
-  /* justify-content: center; */
+  justify-content: center;
   padding-left: 0.6rem;
   align-items: center;
-  font-size: 0.68rem;
-  /* font-weight: 600; */
+  font-size: 0.78rem;
 }
 
 .elevationButtonRight
@@ -318,60 +351,74 @@
   display: flex;
   justify-content: center;
   align-items: center;
-}
+} */
 
-.filterContainer
-{
-  
-  top: 11.5rem;
-  left: 3rem;
-  font-size: 0.8rem;
-  height: 3vh;
-  /* padding: 0.2rem; */
-  height: 20vh;
-  /* border: 1px solid #006d77; */
-  transition: opacity 0.3s ease, transform 0.3s ease;
-}
 
-.filtersBox
-{
-  background-color: #FCF7EB;
-  color: #006d77;
-  width: 8.45vw;
+ 
+
+.filterElevationContainer {
+  position: absolute;
   height: 5vh;
-  border: none;
+  width: 160px;
+  top: 8rem;
+  left: 3rem;
+  display: flex;
+  flex-direction: column;
+  /* gap: 1rem; */
+  z-index: 1000;
+
+}
+
+
+.filterContainer {
+  margin-top: 3.5rem;
+  width: 100%;
+  height: 40px;
+  width: 160px;
+  background-color: #FCF7EB;
   border-radius: 0.2rem;
-  font-size: 0.9rem;
-  display: grid;
-  grid-template-columns: 0.7fr 1fr;
-  justify-content: center;
+  color: #006d77;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  z-index: 1;
+}
+
+.filtersBox {
+  display: flex;
   align-items: center;
-  user-select: none;
+  height: 40px;
+  padding: 0 0.5rem;
+  font-size: 0.7rem;
   cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 6px rgba(0, 109, 119, 0.1);
+  transition: background-color 0.3s, color 0.3s;
 }
 
-.filtersBox.hide {
-  opacity: 0;
-  transform: translateX(-20px);
-  pointer-events: none;
+.filtersBox:hover {
+  background-color: rgba(0, 109, 119, 0.1);
 }
 
-.filtersButtonLeft
-{
-    padding-right: 0.5rem;
-    display: flex;
-    align-items: center;
-    flex-direction: row-reverse;
+.filtersButtonLeft {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
 }
 
-.filtersButtonTitle
-{
-    display: flex;
-    font-size: 0.68rem;
-    /* font-weight: 600; */
-    align-items: center;
+.filtersButtonTitle {
+  flex: 1;
+  padding-left: 0.5rem;
+}
+
+@media (max-width: 768px) {
+  .filterElevationContainer {
+    width: 200px;
+  }
+}
+
+@media (max-width: 480px) {
+  .filterElevationContainer {
+    width: 180px;
+  }
 }
 
   .button {
@@ -383,6 +430,9 @@
     cursor: pointer;
   }
 
+
+
+
 .menuContainerInside
 {
   display: flex;
@@ -391,8 +441,30 @@
   /* justify-content: center; */
   /* border: 1px solid red; */
 }
-
+/* 
+.menuButton .active
+{
+  background-color: #006d77;
+  color: #FCF7EB;
+} */
   
+.countBadge {
+  position: absolute;
+  top: 5px;
+  right: 3.7rem;
+  background-color: #006d77;
+  color: #FCF7EB;
+  border-radius: 50%;
+  padding: 2px 6px;
+  font-size: 12px;
+}
+
+.countBadge.active {
+  background-color: #FCF7EB;
+  color: #006d77;
+}
+
+
 .amenitiesButton
 {
     align-items: center;
@@ -408,12 +480,24 @@
     transition: all 0.3s ease-in-out;
 }
 
+.amenitiesButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 8px rgba(0, 109, 119, 0.2);
+}
+
+.amenitiesButton.active
+{
+    background-color: #006d77;
+    color:  #FCF7EB ;  
+    height: 2.5rem;
+}
+
 .amenitiesButtonLeft
 {
     display: flex;
     align-items: center;
     justify-content: center;
-    color:#FCF7EB;
+    /* color:#006d77; */
     border-radius: 0.7rem;
     padding: 3px;
     /* height: 80%; */
@@ -429,7 +513,7 @@
 }
 .menuButton {
   background-color: #FCF7EB;
-  color: #000000; /* Initial color for the SVG */
+  color: #006d77; 
   width: 2.8rem;
   height: 2.8rem;
   border: none;
@@ -447,10 +531,15 @@
 }
 
 .menuButton:hover {
-  background-color: #00555e;
-  color: #FCF7EB; /* Color for the SVG on hover */
+  /* background-color: #00555e;
+  color: #FCF7EB; */
   transform: translateY(-2px);
   box-shadow: 0 6px 8px rgba(0, 109, 119, 0.2);
+}
+
+.menuButton.active {
+  background-color: #006d77;
+  color: #FCF7EB; 
 }
 
 
@@ -476,7 +565,7 @@
 
 .favButton:hover {
   background-color: #00555e;
-  color: white;
+  color: #FCF7EB;
   transform: translateY(-2px);
   box-shadow: 0 6px 8px rgba(0, 109, 119, 0.2);
 }
@@ -713,6 +802,14 @@
 
 }
 
+.visible {
+  opacity: 1;
+}
+
+.hidden {
+  opacity: 0;
+}
+
 
 .backViewButton
 {
@@ -725,15 +822,24 @@
     background-color: #FCF7EB;
     color:  #006d77 ;
     border: none;
+
     height: 2.4rem;
-    padding: 0.4rem 0.6rem;
-    width: 8vw;
+    padding: 0.4rem 1rem;
+    min-width: 8vw;
     border-radius: 0.3rem;
     cursor: pointer;
     display: grid;
     grid-template-columns: 0.5fr 1fr;
     transition: all 0.3s ease-in-out;
+    opacity: 1;
+    transition: opacity 0.3s ease-in-out;
 }
+
+.backViewButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
 
 .backViewButtonLeft
 {
@@ -755,6 +861,35 @@
     /* font-weight: 600; */
 }
 
+
+.bottomLogoContainer {
+  user-select: none;
+  position: absolute;
+  bottom: -10vh;
+  /* left: 3rem; */
+  /* top: 10rem;
+  left: 0rem; */
+  display: flex;
+  flex-direction: column;
+}
+
+.bottomLogoContainerTitle
+{
+  position: absolute;
+  font-family: 'Gill Sans Medium';
+  font-size: 0.9rem;
+  bottom: 11rem;
+  left: 3rem;
+  color: #FCF7EB;
+}
+
+
+.reservedContainer
+{
+  position: absolute;
+  top: 16vh;
+  right: 7rem;
+}
 
 
 .tab
@@ -841,8 +976,8 @@
 
 .floorBoxTabTitle:hover {
   cursor: pointer;
-  color: white;
-  background-color: #008b96; 
+  color: #FCF7EB;
+  background-color: #006d77; 
 }
 
 .layoutContainer{
@@ -859,7 +994,7 @@
   border-right: 0.5px solid rgba(106, 106, 106, 0.3);
   display: flex;
   align-items: center;
-  background-color: white;
+  background-color: #FCF7EB;
   border-radius: 8px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   padding: 7px;
@@ -920,11 +1055,12 @@
 }
 
 .bottomNavbar:hover {
-  background-color: #005b66;
+  background-color: #006d77;
 }
 
 .bottomNavbar .navbarItem {
-  color: #edf6f9;
+  color: #FCF7EB;
+  /* #edf6f9; */
   text-decoration: none;
   font-size: 0.8rem;
   transition: color 0.3s ease, transform 0.3s ease;
@@ -955,7 +1091,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    color: white;
+    color: #FCF7EB;
     font-size: 0.85rem;
   }
 
@@ -974,6 +1110,7 @@
     display: none;
   }
 
+ 
   .filterBar {
     position: fixed;
     left: 0;
@@ -987,12 +1124,14 @@
     transform: translateY(0);
   }
 }
+
+
 .mapsViewContainer {
   position: absolute;
   bottom: 7rem;
   right: 3rem;
-  height: 3rem; 
-  width: 3rem;
+  height:  2.65rem;
+  width:  2.65rem;
   background: linear-gradient(135deg, #FCF7EB, #f0f0f0); 
   border: 1px solid #dcdcdc; 
   border-radius: 50%;
@@ -1011,34 +1150,69 @@
   box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15); /* Enhanced shadow on hover */
 }
 
-.mapsViewBox {
-  padding-top: 0.3rem;
-}
-
-.mapsViewBox img {
-  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1)); /* Subtle icon shadow */
-}
-
-
-.callContainer
-{
+.container {
   position: absolute;
-  bottom: 3rem;
-  right: 3rem;
-  height: 2.8rem;
-  width: 2.8rem;
-  background: white;
-  border-radius: 50%;
+  bottom: -0.5rem;
+  right: 0rem;  
+  height: 100px;
+  width: 100px;
+  /* border: 1px solid #dcdcdc;   */
+  display: flex;
+  /* align-items: center;
+  justify-content: center; */
+}
+
+.buttonss {
+  color: #006d77;
+  position: absolute;
+  height: 44px;
+  width: 44px;
+  border: none;
+  margin-top: 2rem;
+  border-radius: 22px;
   display: flex;
   align-items: center;
-  justify-content: center;
-  user-select: none;
-  transform: translateY(-20px) scale(0.98);
-  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  justify-content: flex-start;
+  padding-left: 14px;
+  cursor: pointer;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
+.mapButton {
+  bottom: 110px;
+  right: 48px;
+  background: linear-gradient(135deg, #FCF7EB, #f0f0f0);
+  border: 1px solid #dcdcdc;
+}
 
-.callContainer:hover {
-  cursor: pointer;
-  transform: translateY(-20px) scale(1);
+.callButton {
+  bottom: 48px;
+  right: 48px;
+  background-color: #FCF7EB;
+}
+
+.button:hover {
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+}
+
+.expanded {
+  width: 140px;
+}
+
+.buttonText {
+  margin-left: 8px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: #006d77;
+  white-space: nowrap;
+  font-family: 'Gill Sans Light';
+  font-weight: bold;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.expanded .buttonText {
+  opacity: 1;
 }

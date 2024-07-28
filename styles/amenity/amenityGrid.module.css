@@ -1,0 +1,88 @@
+@font-face {
+    font-family: 'Gill Sans Light';
+    src: url('/fonts/GillSansMTPro-Light.otf');
+    font-weight: normal;
+  }
+  
+  .gridContainer {
+    position: fixed;
+    top: 16vh;
+    right: 11rem;
+    width: 250px;
+    font-family: 'Gill Sans Light';
+    max-height: 500px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 8px;
+    background-color: #FCF7EB;
+    border-radius: 0.3rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .gridContainer::-webkit-scrollbar {
+    width: 6px;
+  }
+  
+  .gridContainer::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 3px;
+  }
+  
+  .gridItem {
+    position: relative;
+    width: 100%;
+    border-radius: 0.3rem;
+    overflow: hidden;
+    opacity: 0;
+    transform: scale(0.95);
+    animation: fadeIn 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  }
+  
+  .gridItem:hover {
+    cursor: pointer;
+    transform: scale(1.02);
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .imageWrapper {
+    position: relative;
+    width: 100%;
+    height: 0;
+    padding-bottom: 56.25%; /* This creates a 16:9 aspect ratio */
+  }
+  
+  .areaName {
+    position: absolute;
+    bottom: 8px;
+    left: 8px;
+    background-color: rgba(0, 0, 0, 0.6);
+    color: #FCF7EB;
+    letter-spacing: 0.05rem;
+    padding: 4px 8px;
+    border-radius: 0.3rem;
+    font-size: 14px;
+    font-weight: bold;
+    opacity: 0;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    transform: translateY(10px);
+  }
+  
+  .gridItem:hover .areaName {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  @keyframes fadeIn {
+    0% {
+      opacity: 0;
+      transform: scale(0.97);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+  

@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from '@/styles/buttonIcons.module.css';
+import styles from '@/styles/ImageBackground.module.css';
 
 const MenuIcon = () => (
   <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -13,10 +13,10 @@ const MenuIcon = () => (
   </svg>
 );
 
-const MenubarButton = ({ handleMenu }) => (
-    <button className={styles.menuButton} onClick={handleMenu}>
+const MenubarButton = ({ handleMenu, inActive }) => (
+    <div className={`${styles.menuButton} ${inActive ? styles.active : ''}`} onClick={handleMenu}>
       <MenuIcon />
-    </button>
+    </div>
 );
 
 export default MenubarButton;

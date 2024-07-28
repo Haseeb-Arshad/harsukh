@@ -6,6 +6,12 @@
     "fullScreen": "Full Screen",
     "exitFullScreen": "Exit Full Screen",
     "contactUs": "Contact Us",
-    "elevation": "Elevation"
-
+    "elevation": "Elevation",
+    "mapview": "Map View",
+    "landmarks": "Landmarks",
+    "roads": "Roads",
+    "radius": "Radius",
+    "amenities": "Amenities",
+    "call": "Call",
+    "harsukh": "Harsukh"
   }

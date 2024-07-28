@@ -1,19 +1,22 @@
 import React, { useEffect, useRef, useState } from 'react';
 import OpenSeadragon from 'openseadragon';
-import styles from '@/styles/floorApartment.module.css';
+import styles from '@/styles/Floor/floorApartment.module.css';
 import { Suspense } from 'react';
 import Loading from '../[floor]/Loading';
 import { useRouter } from 'next/navigation';
+import styles3 from '@/styles/Floor/floorApartment.module.css';
 
 const Apartment = ({ imageName, imageLink }) => {
   const viewerRef = useRef(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isLaptopScreen, setIsLaptopScreen] = useState(false);
   const router = useRouter();
+  const [viewer, setViewer] = useState(null);
 
   useEffect(() => {
     let viewer;
 
+    
     if (viewerRef.current) {
       viewer = OpenSeadragon({
         element: viewerRef.current,
@@ -31,12 +34,14 @@ const Apartment = ({ imageName, imageLink }) => {
         constrainDuringPan: true,
         minZoomImageRatio: 1,
         visibilityRatio: 1,
+        minZoomLevel: 0.8, 
+        maxZoomLevel: 7,  
         wrapHorizontal: false,
         zoomPerScroll: 1.2,
         zoomPerClick: 1.5,
         animationTime: 0.5,
         gestureSettingsMouse: {
-          clickToZoom: false,  // Disable click to zoom
+          clickToZoom: false,
           pinchToZoom: true,
           dblClickToZoom: true,
         },
@@ -45,6 +50,9 @@ const Apartment = ({ imageName, imageLink }) => {
           'Cache-Control': 'max-age=3600',
         },
       });
+
+      setViewer(viewer);
+
 
       viewer.addHandler('tile-loaded', () => {
         setIsLoading(false);
@@ -116,14 +124,14 @@ const Apartment = ({ imageName, imageLink }) => {
       resetZoomButton.innerHTML = '<img src="/images/icons/resetZoom.svg" alt="Reset Zoom" width="24" height="24" />';
       resetZoomButton.onclick = () => viewer.viewport.goHome();
 
-      zoomControls.appendChild(zoomInButton);
-      zoomControls.appendChild(zoomOutButton);
-      zoomControls.appendChild(resetZoomButton);
+      // zoomControls.appendChild(zoomInButton);
+      // zoomControls.appendChild(zoomOutButton);
+      // zoomControls.appendChild(resetZoomButton);
 
       viewer.addControl(zoomControls, {
         anchor: OpenSeadragon.ControlAnchor.TOP_LEFT
       });
-    }
+    }  
 
     return () => {
       if (viewer) {
@@ -132,6 +140,7 @@ const Apartment = ({ imageName, imageLink }) => {
     };
   }, [imageName, imageLink, router]);
 
+  
   useEffect(() => {
     const handleResize = () => {
       setIsLaptopScreen(window.innerWidth >= 1100);
@@ -143,12 +152,68 @@ const Apartment = ({ imageName, imageLink }) => {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
+  
+  const handleResetZoom = () => {
+    if (viewer) {
+      viewer.viewport.goHome();
+    }
+  };
+
+  const handleZoomIn = () => {
+    if (viewer) {
+      const currentZoom = viewer.viewport.getZoom();
+      const maxZoom = viewer.viewport.getMaxZoom();
+      const newZoom = Math.min(currentZoom * 1.5, maxZoom);
+      viewer.viewport.zoomTo(newZoom);
+    }
+  };
+
+  const handleZoomOut = () => {
+    if (viewer) {
+      const currentZoom = viewer.viewport.getZoom();
+      const minZoom = viewer.viewport.getMinZoom();
+      const newZoom = Math.max(currentZoom / 1.5, minZoom);
+      viewer.viewport.zoomTo(newZoom);
+    }
+  };
+  
+
   return (
     <Suspense fallback={<div className={styles.loadingOverlay}><Loading /></div>}>
       <div style={{ position: 'relative' }}>
         {isLoading && <Loading />}
         <div ref={viewerRef} style={{ width: '100%', height: '100vh', visibility: isLoading ? 'hidden' : 'visible' }} />
       </div>
+
+      <div className={styles3.ZoomInbuttonStyle} onClick={handleZoomIn}>         
+          <img src="/images/icons/zoomIn.svg" alt="Zoom Out" width="24" height="24" />         
+        </div>
+
+        <div className={styles3.ZoomOutbuttonStyle} onClick={handleZoomOut}>         
+          <img src="/images/icons/zoomOut.svg" alt="Zoom Out" width="24" height="24" />         
+        </div>
+
+      <div className={styles3.ButtomZoomExitBtns}>
+        <div className={styles3.zoomReset} onClick={handleResetZoom}>
+          <div className={styles3.zoomResetInside}>
+            Zoom Out
+          </div>
+        </div>
+
+        <div className={styles3.backToBuilding} onClick={() => router.push('/')}>
+          <div className={styles3.backToBuildingInside}>
+            Back to Layout
+          </div>
+        </div>
+
+        <div className={styles3.backToBuilding} >
+          <div className={styles3.backToBuildingInside}>
+            Gallery
+          </div>
+        </div>
+      </div>
+    
+
     </Suspense>
   );
 };
