@@ -75,27 +75,29 @@ const Layout = ({children}) =>
   const [translations, setTranslations] = useState(languageState === 'ur' ? ur : en);
 
   const [showPopup, setShowPopup] = useState(false);
+  const [popupMessage, setPopupMessage] = useState('');
+    const [isPopupVisible, setIsPopupVisible] = useState(false);
 
   const handleIconClick = () => {
     if (apartmentInfo) {
-        const isFavorite = favoriteApartments.some(apt => apt.Apartmentno === apartmentInfo.Apartmentno);
-        if (isFavorite) {
-            dispatch(removeFavoriteApartment(apartmentInfo.Apartmentno));
-            setShowPopup(true);
-            setTimeout(() => {
-                setShowPopup(false);
-            }, 5000);
-        } else {
-            dispatch(addFavoriteApartment({ ...apartmentInfo, floor }));
-            setShowPopup(true);
-            setTimeout(() => {
-                setShowPopup(false);
-            }, 5000);
-        }
+      const isFavorite = favoriteApartments.some(apt => apt.Apartmentno === apartmentInfo.Apartmentno);
+      if (isFavorite) {
+        dispatch(removeFavoriteApartment(apartmentInfo.Apartmentno));
+        setPopupMessage('Apartment has been removed from favorites.');
+      } else {
+        dispatch(addFavoriteApartment({ ...apartmentInfo, floor }));
+        setPopupMessage('Apartment has been added to favorites.');
+      }
+      setShowPopup(true);
+      setIsPopupVisible(true);
+      setTimeout(() => {
+        setIsPopupVisible(false);
+      }, 5000); // Start fade out slightly before hiding
+      setTimeout(() => {
+        setShowPopup(false);
+      }, 5000);
     }
   };
-
-
 
   const toggleLanguage = () => {
     setLanguage(!language);
@@ -117,14 +119,46 @@ const Layout = ({children}) =>
     setIsElevationOpen(false);
   };
 
+  const totalFloor = [
+    { id: 'thirdFloor', label: translations.thirdfloor || 'Third Floor' },
+    { id: 'secondFloor', label: translations.secondfloor || 'Second Floor' },
+    { id: 'firstFloor', label: translations.firstfloor || 'First Floor' },
+    { id: 'groundfloor', label: translations.groundfloor || 'Ground Floor' },
+    { id: 'basement1', label: translations.basement1 || 'Vallery Floor 1' },
+    { id: 'basement3', label: translations.basement3 || 'Vallery Floor 3' },
+    { id: 'basement4', label: translations.basement4 || 'Vallery Floor 4' },
+    { id: 'basement5', label: translations.basement5 || 'Vallery Floor 5' },
+    { id: 'basement6', label: translations.basement6 || 'Vallery Floor 6' },
+  ];
+
   const [isElevationOpen, setIsElevationOpen] = useState(false);
-  const [elevationArray, setElevationArray] = 
-  useState([
-    {id:'2', label: 'Map View', route:'/mapview'},
-    {id:'1', label: 'Elevation', route:'/'},
+  const [elevationArray, setElevationArray] = useState([]);
+  const [currentFloorLabel, setCurrentFloor ] = useState(null);
 
-  ]);
+  useEffect(() => {
+    const { floor, apartment } = params;
 
+    // const { floor } = params;
+    const currentFloor = totalFloor.find(item => item.id === floor);
+    const floorLabel = currentFloor ? currentFloor.label : `Floor ${floor}`;
+  
+    setCurrentFloor(floorLabel)
+
+    setElevationArray([
+      { id: '1', label: 'Map View', route: '/mapview' },
+      { id: '2', label: 'Elevation', route: '/' },
+      { id: '3', label: `${floorLabel}`, route: `/${floor}` },
+      { id: '4', label: `Apartment ${apartment}`, route: `/${floor}/${apartment}` },
+
+    ]);
+  }, [params]);
+
+    const handleBackClick = () => {
+        // Extract the floor from the current URL
+        const floor = params.floor;
+        // Navigate to the floor route
+        router.push(`/${floor}`);
+    };
 
     return (
     <>
@@ -138,39 +172,48 @@ const Layout = ({children}) =>
           <div
               className={`${ElevStyles.elevationBtnGrid} ${isElevationOpen ? ElevStyles.open : ''}`}
             >
-              <div className={ElevStyles.elevationBtnLeft} onClick={() => router.push('/mapview')}>
+              <div className={ElevStyles.elevationBtnLeft} onClick={handleBackClick}>
                 <Image src="/images/icons/LeftArrow.svg" quality={100} alt="Elevation" height={16} width={16} />
               </div>
               <div
                 className={ElevStyles.elevationBtnRight}
-                // onMouseEnter={() => setIsElevationOpen(true)}
-                // onMouseLeave={() => setIsElevationOpen(false)}
                 onClick={elevationDropdown}
 
               >
-                <div className={ElevStyles.elevationBtnTitle}>{translations.elevation || 'Elevation'}</div>
+                <div className={ElevStyles.elevationBtnTitle}>
+
+                  { !isElevationOpen?
+                  `Apartment ${params.apartment}`
+                  : 
+                    "Location"
+                  }
+
+                </div>
                 <div className={ElevStyles.elevationBtnDownArrow}>
                   <Image src="/images/icons/downFillArrow.svg" quality={100} alt="Elevation" height={7} width={7} />
                 </div>
               </div>
             </div>
             
-            <div
-              className={`${ElevStyles.dropDownElevationBox} ${isElevationOpen ? ElevStyles.open : ''}`}
-              // onMouseEnter={() => setIsElevationOpen(true)}
-            >
+            <div className={`${ElevStyles.dropDownElevationBox} ${isElevationOpen ? ElevStyles.open : ''}`}>
               {elevationArray.map((item) => (
                 <div
                   key={item.id}
                   onClick={() => handleElevationItemClick(item.route)}
-                  className={`${ElevStyles.dropDownfloorButton} ${item.label === 'Elevation' ? ElevStyles.active : ''}`}
+                  className={`${ElevStyles.dropDownfloorButton} ${item.label.startsWith('Apartment') ? ElevStyles.active : ''}`}
                 >
                   {translations[item.label.toLowerCase()] || item.label}
                 </div>
               ))}
             </div>
+
           </div>
-          </div>
+        </div>
+
+
+
+
+
 
           <div className={styles.apartmentInterestBox}>
             <div className={styles.apartmentInterestInside}>
@@ -182,16 +225,17 @@ const Layout = ({children}) =>
                           Apartment no. {apartmentInfo?.Apartmentno || ''}
                         </div>
                     <div className={styles.apartmentInterestTitleIcon}  onClick={handleIconClick}>
-                    <Image 
-                    // src="/images/icons/favIconFilled.svg"
-                    src={favoriteApartments.some(apt => apt.Apartmentno === apartmentInfo?.Apartmentno) 
-                        ? "/images/icons/favIconFilled.svg" 
-                        : "/images/icons/favIcon.svg"} 
-                    quality={100} 
-                    alt="Favorite" 
-                    height={22} 
-                    width={22} 
-                />                    </div>
+                      <Image 
+                        // src="/images/icons/favIconFilled.svg"
+                        src={favoriteApartments.some(apt => apt.Apartmentno === apartmentInfo?.Apartmentno) 
+                            ? "/images/icons/favIconFilled.svg" 
+                            : "/images/icons/favIcon.svg"} 
+                        quality={100} 
+                        alt="Favorite" 
+                        height={22} 
+                        width={22} 
+                      /> 
+                </div>
 
                 </div>
                 <div className={styles.apartmentInterestList}>
@@ -242,14 +286,23 @@ const Layout = ({children}) =>
           </div>
 
 
-          {showPopup && (
-                <div className={`${styles.popupMenu} ${styles.fadeInOut}`}>
-                  Apartment has been added to favorites.
-                    {/* {favoriteApartments.some(apt => apt.Apartmentno === apartmentInfo?.Apartmentno)
-                        ? "Apartment has been added to favorites."
-                        : "Apartment has been removed from favorites."} */}
-                </div>
-            )}
+         
+      {showPopup && (
+        <div className={`${styles.popupMenu} ${isPopupVisible ? styles.visible : ''}`}>
+          <div className={styles.popupMenuIcon}>
+            <Image 
+              src="/images/icons/favIconFilled.svg"
+              quality={100} 
+              alt="Favorite" 
+              height={30} 
+              width={30}
+            />
+          </div>
+          <div className={styles.popupMenuContent}>
+            {popupMessage}
+          </div>
+        </div>
+      )}
 
     </>
 

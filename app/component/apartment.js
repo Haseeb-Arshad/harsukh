@@ -5,6 +5,8 @@ import { Suspense } from 'react';
 import Loading from '../[floor]/Loading';
 import { useRouter } from 'next/navigation';
 import styles3 from '@/styles/Floor/floorApartment.module.css';
+import { useParams } from 'next/navigation';
+
 
 const Apartment = ({ imageName, imageLink }) => {
   const viewerRef = useRef(null);
@@ -12,7 +14,16 @@ const Apartment = ({ imageName, imageLink }) => {
   const [isLaptopScreen, setIsLaptopScreen] = useState(false);
   const router = useRouter();
   const [viewer, setViewer] = useState(null);
+  const params = useParams();
 
+  const handleBackClick = () => {
+    // Extract the floor from the current URL
+    const floor = params.floor;
+    // Navigate to the floor route
+    router.push(`/${floor}`);
+};
+
+  
   useEffect(() => {
     let viewer;
 
@@ -200,7 +211,7 @@ const Apartment = ({ imageName, imageLink }) => {
           </div>
         </div>
 
-        <div className={styles3.backToBuilding} onClick={() => router.push('/')}>
+        <div className={styles3.backToBuilding} onClick={handleBackClick}>
           <div className={styles3.backToBuildingInside}>
             Back to Layout
           </div>
