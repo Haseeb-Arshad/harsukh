@@ -1,10 +1,13 @@
-import React, { useState, useEffect, useCallback, useMemo } from 'react';
+import React, { useState,  useRef, useEffect, useCallback, useMemo } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
 import Image from 'next/image';
 import styles from '@/styles/Floor/floorMenu.module.css';
 import { useMediaQuery } from 'react-responsive';
 import { useSelector } from 'react-redux';
+import { useParams } from 'next/navigation';
+import ElevStyles from "@/styles/elevation.module.css";
 
+// import totalFloor from './data/TotalFloorData';
 // Import translations
 import en from '../locales/en.json';
 import ur from '../locales/ur.json';
@@ -22,9 +25,13 @@ const FloorMenu = () => {
     return languageState ? languageState.language : 'en';
   });
 
+
+
+  const params = useParams();
+
   const translations = useMemo(() => languageState === 'ur' ? ur : en, [languageState]);
 
-  const floors = useMemo(() => [
+  const totalFloor = [
     { id: 'thirdFloor', label: translations.thirdfloor || 'Third Floor' },
     { id: 'secondFloor', label: translations.secondfloor || 'Second Floor' },
     { id: 'firstFloor', label: translations.firstfloor || 'First Floor' },
@@ -34,6 +41,42 @@ const FloorMenu = () => {
     { id: 'basement4', label: translations.basement4 || 'Vallery Floor 4' },
     { id: 'basement5', label: translations.basement5 || 'Vallery Floor 5' },
     { id: 'basement6', label: translations.basement6 || 'Vallery Floor 6' },
+  ];
+
+  const elevationRef = useRef(null);
+  const [currentFloorLabel, setCurrentFloor ] = useState(null);
+
+  const handleBackClick = () => {
+    // Extract the floor from the current URL
+    // Navigate to the floor route
+    router.push(`/`);
+};
+
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (elevationRef.current && !elevationRef.current.contains(event.target)) {
+        setIsElevationOpen(false);
+      }
+    }
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
+  
+
+  const floors = useMemo(() => [
+    { id: 'thirdFloor', label: translations.thirdfloor || 'Third Floor' },
+    { id: 'secondFloor', label: translations.secondfloor || 'Second Floor' },
+    { id: 'firstFloor', label: translations.firstfloor || 'First Floor' },
+    { id: 'groundfloor', label: translations.groundfloor || 'Ground Floor' },
+    { id: 'basement1', label: translations.basement1 || 'Valley Floor 1' },
+    { id: 'basement3', label: translations.basement3 || 'Valley Floor 3' },
+    { id: 'basement4', label: translations.basement4 || 'Valley Floor 4' },
+    { id: 'basement5', label: translations.basement5 || 'Valley Floor 5' },
+    { id: 'basement6', label: translations.basement6 || 'Valley Floor 6' },
   ], [translations]);
 
   useEffect(() => {
@@ -72,7 +115,33 @@ const FloorMenu = () => {
       </div>
     ));
   }, [floors, handleFloorSelect, selectedFloor]);
+  const [elevationArray, setElevationArray] = useState([]);
 
+
+  const handleElevationItemClick = useCallback((route) => {
+    router.push(route); // Navigate to the selected route
+}, [router]);
+
+  useEffect(() => {
+    const { floor } = params;
+    const currentFloor = totalFloor.find(item => item.id === floor);
+    const floorLabel = currentFloor ? currentFloor.label : `Floor ${floor}`;
+    setCurrentFloor(floorLabel)
+    setElevationArray([
+      { id: '1', label: 'Map View', route: '/mapview' },
+      { id: '2', label: 'Elevation', route: '/' },
+      { id: '3', label: floorLabel, route: `/${floor}` },
+    ]);
+  }, [params, translations]);
+
+  const getCurrentFloorLabel = () => {
+    const currentFloor = totalFloor.find(item => item.id === params.floor);
+    const currentFloorUpdate = currentFloor ? currentFloor.label : `Floor ${params.floor}`
+    setCurrentFloor(currentFloorUpdate)
+    return currentFloorUpdate;
+  };
+
+  
   return (
     <>
       <div className={styles.Harsukhlogo}>
@@ -101,45 +170,51 @@ const FloorMenu = () => {
         </div>
       )}
 
-      <div className={styles.elevationContainer}>
-        <div 
-          className={`${styles.elevationContainerInside} ${isElevationOpen ? styles.open : ''}`} 
-          onClick={elevationDropdown}
-          onMouseEnter={() => setIsElevationOpen(true)}
-          onMouseLeave={() => setIsElevationOpen(false)}
-        >
-          <div className={styles.elevationLeft} onClick={() => router.push('/')}>
-            <Image src="/images/icons/LeftArrow.svg" quality={100} alt="Elevation" height={16} width={16} />
-          </div>
-          <div className={styles.elevationRight}>
-            <div className={styles.elevationButtonTitle}>{translations.elevation || 'Elevation'}</div>
-            <div className={styles.elevationButtonDownArrow}>
-              <Image src="/images/icons/downFillArrow.svg" quality={100} alt="Elevation" height={7} width={7} />
-            </div>
-          </div>
-        </div>
-        
-        <div 
-          className={`${styles.elevfloorBar} ${isElevationOpen ? styles.open : ''}`}
-          onMouseEnter={() => setIsElevationOpen(true)} 
-          onMouseLeave={() => setIsElevationOpen(false)}
-        >
+    <div className={ElevStyles.elevationApContainer}>
+      <div className={ElevStyles.elevationButtonBox}  ref={elevationRef} >
           <div
-            onClick={elevationDropdown}
-            className={`${styles.dropDownfloorButton} ${selectedFloor === '' ? styles.active : ''}`}
-          >
-            {translations.elevation || 'Elevation'}
-          </div>
-          {selectedFloor && (
-            <div
-              onClick={() => handleFloorSelect(floors.find(f => f.id === selectedFloor))}
-              className={`${styles.dropDownfloorButton} ${styles.active}`}
+              className={`${ElevStyles.elevationBtnGrid} ${isElevationOpen ? ElevStyles.open : ''}`}
             >
-              {floors.find(f => f.id === selectedFloor)?.label}
+              <div className={ElevStyles.elevationBtnLeft} onClick={handleBackClick}>
+                <Image src="/images/icons/LeftArrow.svg" quality={100} alt="Elevation" height={16} width={16} />
+              </div>
+              <div
+                className={ElevStyles.elevationBtnRight}
+                onClick={elevationDropdown}
+
+              >
+                <div className={ElevStyles.elevationBtnTitle}>
+
+                  
+                  { !isElevationOpen?
+                 currentFloorLabel
+                  : 
+                    "Location"
+                  }
+                </div>
+                <div className={ElevStyles.elevationBtnDownArrow}>
+                  <Image src="/images/icons/downFillArrow.svg" quality={100} alt="Elevation" height={7} width={7} />
+                </div>
+              </div>
             </div>
-          )}
+            <div className={`${ElevStyles.dropDownElevationBox} ${isElevationOpen ? ElevStyles.open : ''}`}>
+                {elevationArray.map((item) => (
+                  <div
+                    key={item.id}
+                    onClick={() => {
+                      if (item.route !== router.asPath) { // Check if the route is different
+                        handleElevationItemClick(item.route);
+                      }
+                    }}
+                    className={`${ElevStyles.dropDownfloorButton} ${item.route === `/${params.floor}` ? ElevStyles.active : ''}`} // Set active based on current floor
+                  >
+                    {translations[item.label.toLowerCase()] || item.label}
+                  </div>
+                ))}
+              </div>
+
+          </div>
         </div>
-      </div>
 
 
     </>

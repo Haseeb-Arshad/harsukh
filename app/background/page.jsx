@@ -99,41 +99,41 @@ const floorData = {
 
 
 
-const apartmentsData = [
-  {
-    number: 23,
-    floor: 'Third Floor',
-    bedrooms: 2,
-    netArea: 150,
-    grossArea: 300,
-    price: 23500000
-  },
-  {
-    number: 24,
-    floor: 'Second Floor',
-    bedrooms: 2,
-    netArea: 150,
-    grossArea: 300,
-    price: 23500000
-  },
-  {
-    number: 23,
-    floor: 'Third Floor',
-    bedrooms: 2,
-    netArea: 150,
-    grossArea: 300,
-    price: 23500000
-  },
-  {
-    number: 24,
-    floor: 'Second Floor',
-    bedrooms: 2,
-    netArea: 150,
-    grossArea: 300,
-    price: 23500000
-  },
-  // Add more apartment objects as needed
-];
+// const apartmentsData = [
+//   {
+//     number: 23,
+//     floor: 'Third Floor',
+//     bedrooms: 2,
+//     netArea: 150,
+//     grossArea: 300,
+//     price: 23500000
+//   },
+//   {
+//     number: 24,
+//     floor: 'Second Floor',
+//     bedrooms: 2,
+//     netArea: 150,
+//     grossArea: 300,
+//     price: 23500000
+//   },
+//   {
+//     number: 23,
+//     floor: 'Third Floor',
+//     bedrooms: 2,
+//     netArea: 150,
+//     grossArea: 300,
+//     price: 23500000
+//   },
+//   {
+//     number: 24,
+//     floor: 'Second Floor',
+//     bedrooms: 2,
+//     netArea: 150,
+//     grossArea: 300,
+//     price: 23500000
+//   },
+//   // Add more apartment objects as needed
+// ];
 
 
 export default function BackgroundImage() {
@@ -152,6 +152,7 @@ export default function BackgroundImage() {
   const [reservedClicked, setReservedClicked] = useState(false);
 
   const router = useRouter();
+  const favoriteApartments = useSelector((state) => state.favoriteApartments.favoriteApartments);
 
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth <= 768);
@@ -814,7 +815,7 @@ const toggleLanguage = () => {
         reservedClicked &&
         <div className={styles.reservedContainer} ref={apartmentListingRef}>
 
-          <ApartmentListing  apartments={apartmentsData}/>
+          <ApartmentListing  apartments={favoriteApartments}/>
         </div>
       
       }
@@ -842,7 +843,13 @@ const toggleLanguage = () => {
                 onClick={elevationDropdown}
 
               >
-                <div className={ElevStyles.elevationBtnTitle}>{translations.elevation || 'Elevation'}</div>
+                <div className={ElevStyles.elevationBtnTitle}>
+                  { !isElevationOpen?
+                  translations.elevation || 'Elevation'
+                  : 
+                    "Location"
+                  }
+                </div>
                 <div className={ElevStyles.elevationBtnDownArrow}>
                   <Image src="/images/icons/downFillArrow.svg" quality={100} alt="Elevation" height={7} width={7} />
                 </div>

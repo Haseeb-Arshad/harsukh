@@ -11,7 +11,7 @@ import Loading from './Loading';
 import { Suspense } from "react";
 import AmenityGrid from '../component/Amenities/AmenityGrid';
 
-const Floor = dynamic(() => import('../component/Floor/index'), {
+const Floor = dynamic(() => import('../component/floor'), {
   loading: () => <Loading />,
 });
 

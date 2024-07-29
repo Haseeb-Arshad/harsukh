@@ -557,6 +557,23 @@ transition: all 0.3s ease;
     transition: all 0.84s ease-out;  pointer-events: all;
   }
   
+
+  .st1 {
+    position: absolute;
+    opacity: 1;
+    color: rgb(255, 0, 0);
+    fill: #FCF7EB;
+    stroke: #FCF7EB;
+    border: 1px solid #006d77;
+    cursor: pointer;
+    -moz-transition: all 0.84s ease-out;
+    -o-transition: all 0.84s ease-out;
+    -webkit-transition: all 0.84s ease-out;
+    -ms-transition: all 0.84s ease-out;
+    transition: all 0.84s ease-out;  pointer-events: all;
+  }
+  
+
   .st0:hover {
     opacity: 0.5;
     cursor: pointer;

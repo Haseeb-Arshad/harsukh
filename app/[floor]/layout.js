@@ -178,7 +178,7 @@ const Layout = ({children}) =>
     <>
     
 
-    <div style={{ position: 'relative', background: 'rgba(0, 29, 32, 1)' , height: '100vh', width: '100%'}}>
+    <div style={{ position: 'relative', background: '#013A40' , height: '100vh', width: '100%'}}>
 
     {/* <Suspense fallback={
         <div className={styles.loadingOverlay}>
@@ -247,12 +247,12 @@ const Layout = ({children}) =>
 
     </div>   
 
-    {
-        amenityClicked &&
-        <div ref={amenityGridRef}>
+      {
+      amenityClicked &&
+      <div ref={amenityGridRef}>
 
-          <AmenityGrid />
-        </div>
+        <AmenityGrid />
+      </div>
       }
 
     </>
