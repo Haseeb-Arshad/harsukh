@@ -5,10 +5,10 @@ import RightArrow from '../Icons/rightArrow';
 import LeftArrow from '../Icons/leftArrow';
 
 const areas = [
-  { name: 'Parking', image: '/images/Amenity/Parking.png', details: ['/images/gallery/Parking/Parking-1.png', '/images/gallery/Parking/Parking-2.png'] },
-  { name: 'Restaurant', image: '/images/Amenity/Resturant.png', details: ['/images/gallery/Restaurant/Restaurant-1.png', '/images/gallery/Restaurant/Restaurant-2.png', '/images/gallery/Restaurant/Restaurant-3.png', '/images/gallery/Restaurant/Restaurant-4.png', '/images/gallery/Restaurant/Restaurant-5.png', '/images/gallery/Restaurant/Restaurant-6.png'] },
-  { name: 'Lobby', image: '/images/Amenity/Lobby.png', details: ['/images/gallery/Lobby/Corridor.jpg', '/images/gallery/Lobby/lobby-1.png', '/images/gallery/Lobby/lobby-2.png', '/images/gallery/Lobby/lobby-3.png', '/images/gallery/Lobby/lobby-4.png', '/images/gallery/Lobby/lobby-5.png', '/images/gallery/Lobby/lobby-6.jpg', '/images/gallery/Lobby/lobby-7.jpg'] },
-  { name: 'Gym', image: '/images/Amenity/Gym.png', details: ['/images/gallery/Gym/Gym-1.png', '/images/gallery/Gym/Gym-2.png'] },
+  { name: 'Parking', image: '/images/Amenity/Parking.png', details: ['/images/gallery/Parking/Parking-1.webp', '/images/gallery/Parking/Parking-2.webp'] },
+  { name: 'Restaurant', image: '/images/Amenity/Resturant.png', details: ['/images/gallery/Restaurant/Restaurant-1.webp', '/images/gallery/Restaurant/Restaurant-2.webp', '/images/gallery/Restaurant/Restaurant-3.webp', '/images/gallery/Restaurant/Restaurant-4.webp', '/images/gallery/Restaurant/Restaurant-5.webp', '/images/gallery/Restaurant/Restaurant-6.webp'] },
+  { name: 'Lobby', image: '/images/Amenity/Lobby.png', details: ['/images/gallery/Lobby/Corridor.webp', '/images/gallery/Lobby/lobby-1.webp', '/images/gallery/Lobby/lobby-2.webp', '/images/gallery/Lobby/lobby-3.webp', '/images/gallery/Lobby/lobby-4.webp', '/images/gallery/Lobby/lobby-5.webp', '/images/gallery/Lobby/lobby-6.webp', '/images/gallery/Lobby/lobby-7.webp'] },
+  { name: 'Gym', image: '/images/Amenity/Gym.png', details: ['/images/gallery/Gym/Gym-1.webp', '/images/gallery/Gym/Gym-2.webp'] },
 ];
 
 const AmenityGrid = () => {
