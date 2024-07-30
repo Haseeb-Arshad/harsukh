@@ -21,16 +21,20 @@ const Layout = ({children}) =>
     const params = useParams();
 
     const [apartmentInfo, setApartmentInfo] = useState(null);
-
+    const [apartmentNum, setApartmentNum] = useState(0);
     const [floor, setFloor] = useState('');
 
     const favoriteApartments = useSelector((state) => state.favoriteApartments.favoriteApartments);
 
 
     useEffect(() => {
-        const apartmentNumber = params.apartment;
         let foundApartment = null;
         let foundFloor = '';
+
+        const apartmentParam = params.apartment; // e.g., "Apartment1"
+        const match = apartmentParam.match(/\d+/); // Extracts the digits from the string
+        const apartmentNumber = match ? match[0] : null; // Gets the first match or null if no match
+        setApartmentNum(apartmentNumber )
 
         // Search for the apartment in all floors
         for (const floorName in apartmentData) {
@@ -47,7 +51,7 @@ const Layout = ({children}) =>
             setFloor(foundFloor);
         } else {
             // Redirect to apartment 1 if the apartment is not found
-            router.push('/thirdFloor/1');
+            router.push('/thirdFloor/Apartment1');
         }
     }, [params.apartment, router]);
 
@@ -138,6 +142,9 @@ const Layout = ({children}) =>
   useEffect(() => {
     const { floor, apartment } = params;
 
+    const apartmentParam = apartment; // e.g., "Apartment1"
+        const match = apartmentParam.match(/\d+/); // Extracts the digits from the string
+        const apartmentNumber = match ? match[0] : null; 
     // const { floor } = params;
     const currentFloor = totalFloor.find(item => item.id === floor);
     const floorLabel = currentFloor ? currentFloor.label : `Floor ${floor}`;
@@ -148,7 +155,7 @@ const Layout = ({children}) =>
       { id: '1', label: 'Map View', route: '/mapview' },
       { id: '2', label: 'Elevation', route: '/' },
       { id: '3', label: `${floorLabel}`, route: `/${floor}` },
-      { id: '4', label: `Apartment ${apartment}`, route: `/${floor}/${apartment}` },
+      { id: '4', label: `Apartment ${apartmentNumber}`, route: `/${floor}/${apartment}` },
 
     ]);
   }, [params]);
@@ -183,7 +190,7 @@ const Layout = ({children}) =>
                 <div className={ElevStyles.elevationBtnTitle}>
 
                   { !isElevationOpen?
-                  `Apartment ${params.apartment}`
+                  `Apartment ${apartmentNum}`
                   : 
                     "Location"
                   }
@@ -222,7 +229,7 @@ const Layout = ({children}) =>
                 <div className={styles.apartmentInterestTitle}>
                     <div className={styles.apartmentInterestTitleText}>
                         {/* {translations.apartmentInterest || 'Apartment Interest'} */}
-                          Apartment no. {apartmentInfo?.Apartmentno || ''}
+                          Apartment no. {apartmentNum}
                         </div>
                     <div className={styles.apartmentInterestTitleIcon}  onClick={handleIconClick}>
                       <Image 

@@ -598,11 +598,11 @@ const toggleLanguage = () => {
               y="0px" 
               xmlSpace="preserve"
             >
-              <polygon className={styles.st0} data-image="Vallery Floor 6" data-tip="basement6" points="446.78 393.2 591.57 298.53 589.86 396.41 446.78 396.41 446.78 393.2"/>
-              <polygon className={styles.st0} data-image="Vallery Floor 6" data-tip="basement6" points="619.67 303.31 693.04 256.08 695.34 382.19 619.67 382.19 619.67 303.31"/>
-              <rect className={styles.st0} data-image="Vallery Floor 6" data-tip="basement6" x="854.93" y="361.55" width="110.52" height="45.86"/>
+              <polygon className={styles.st0} data-image="Valley Floor 6" data-tip="basement6" points="446.78 393.2 591.57 298.53 589.86 396.41 446.78 396.41 446.78 393.2"/>
+              <polygon className={styles.st0} data-image="Valley Floor 6" data-tip="basement6" points="619.67 303.31 693.04 256.08 695.34 382.19 619.67 382.19 619.67 303.31"/>
+              <rect className={styles.st0} data-image="Valley Floor 6" data-tip="basement6" x="854.93" y="361.55" width="110.52" height="45.86"/>
               <rect className={styles.st0} x="965.45" y="361.55" width="100.89" height="45.86"/>
-              <polygon className={styles.st0} data-image="Vallery Floor 6" data-tip="basement6" points="1207.59 296.89 1207.59 409.25 1347.92 409.25 1347.92 384.48 1207.59 296.89"/>
+              <polygon className={styles.st0} data-image="Valley Floor 6" data-tip="basement6" points="1207.59 296.89 1207.59 409.25 1347.92 409.25 1347.92 384.48 1207.59 296.89"/>
             </svg>
           ) 
           :
@@ -772,7 +772,7 @@ const toggleLanguage = () => {
               <div className={styles.bottomLogoContainerTitle}>
                 A Project by
               </div>
-              <div style={{left: '-0.7rem', bottom:'-0.5rem', position: 'relative'}}>
+              <div style={{left: '-0.7rem', bottom:'-0.5rem', position: 'relative'}} onClick={()=> router.push("https://almaymaar.com/")} >
                 <Image src="/Webpage/floors/MainLogo.png"  quality={100} alt="Almaymar" height={300} width={300} />
               </div>
             </div>
@@ -882,7 +882,7 @@ const toggleLanguage = () => {
               <div className={styles.bottomLogoContainerTitle}>
                 A Project by
               </div>
-              <div style={{left: '-0.7rem', bottom:'-0.5rem', position: 'relative'}}>
+              <div style={{left: '-0.7rem', bottom:'-0.5rem', position: 'relative'}} onClick={()=> router.push("https://almaymaar.com/")}>
                 <Image src="/Webpage/floors/MainLogo.png"  quality={100} alt="Almaymar" height={300} width={300} />
               </div>
             </div>

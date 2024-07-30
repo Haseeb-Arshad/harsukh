@@ -69,10 +69,10 @@
     color:  #006d77 ;
     border: none;
     
-    height: 2.5rem;
+    height: 2.8rem;
     /* padding-left: 1rem; */
     /* padding-right: 1rem; */
-    border-radius: 0.3rem;
+    border-radius: 0.9rem;
     /* cursor: pointer; */
     display: grid;
     column-gap: 0.4rem;
@@ -88,7 +88,6 @@
     padding-right: 0.4rem;
     border-radius: 0.9rem;
     display: flex;
-
     /* display: grid; */
     /* grid-template-columns: 1fr 0.5fr; */
     transition: all 0.3s ease-in-out;
@@ -210,9 +209,5 @@
   /* gap: 1rem; */
   z-index: 1000;
 }
-
-
-
-
 
 

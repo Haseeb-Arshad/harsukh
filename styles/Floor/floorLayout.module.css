@@ -53,6 +53,7 @@
     right: 3rem;
     height: 3.7rem;
     width: 16rem;
+    z-index: 100000000s;
     display: grid;
     align-items: center;
     justify-content: center;
@@ -63,8 +64,9 @@
 .bottomLogoContainer {
   user-select: none;
   position: fixed;
-  bottom: -12vh;
+  bottom: -78px;
   /* left: 3rem; */
+  z-index: 0;
   left: 0rem;
   display: flex;
   flex-direction: column;
@@ -181,3 +183,84 @@
 
 
 
+
+.container {
+  position: absolute;
+  bottom: -0.5rem;
+  right: 0rem;  
+  height: 100px;
+  width: 100px;
+  /* border: 1px solid #dcdcdc;   */
+  display: flex;
+  /* align-items: center;
+  justify-content: center; */
+}
+
+.buttonss {
+  color: #006d77;
+  position: absolute;
+  height: 44px;
+  width: 44px;
+  border: none;
+  margin-top: 2rem;
+  border-radius: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding-left: 14px;
+  cursor: pointer;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.mapButton {
+  bottom: 110px;
+  right: 48px;
+  background: linear-gradient(135deg, #FCF7EB, #f0f0f0);
+  border: 1px solid #dcdcdc;
+}
+
+.callButton {
+  bottom: 48px;
+  right: 48px;
+  background-color: #FCF7EB;
+}
+
+.button:hover {
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+}
+
+.expanded {
+  width: 140px;
+}
+
+.buttonText {
+  margin-left: 8px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: #006d77;
+  white-space: nowrap;
+  font-family: 'Gill Sans Light';
+  font-weight: bold;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.expanded .buttonText {
+  opacity: 1;
+}
+
+.ContactedContainer {
+  position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    min-height: 100vh;
+    background: rgba(0, 0, 0, 0.5); /* Optional: for a semi-transparent background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: fadeIn 0.3s ease-in-out;
+
+}
