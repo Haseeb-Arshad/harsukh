@@ -98,49 +98,12 @@ const floorData = {
 };
 
 
-
-// const apartmentsData = [
-//   {
-//     number: 23,
-//     floor: 'Third Floor',
-//     bedrooms: 2,
-//     netArea: 150,
-//     grossArea: 300,
-//     price: 23500000
-//   },
-//   {
-//     number: 24,
-//     floor: 'Second Floor',
-//     bedrooms: 2,
-//     netArea: 150,
-//     grossArea: 300,
-//     price: 23500000
-//   },
-//   {
-//     number: 23,
-//     floor: 'Third Floor',
-//     bedrooms: 2,
-//     netArea: 150,
-//     grossArea: 300,
-//     price: 23500000
-//   },
-//   {
-//     number: 24,
-//     floor: 'Second Floor',
-//     bedrooms: 2,
-//     netArea: 150,
-//     grossArea: 300,
-//     price: 23500000
-//   },
-//   // Add more apartment objects as needed
-// ];
-
-
 export default function BackgroundImage() {
   const containerRef = useRef(null);
   const imageRef = useRef(null);
   const svgRef = useRef(null);
   const [isMobile, setIsMobile] = useState(false);
+  const [isLaptop, setIsLaptop] = useState(false);
   const [overlay, setOverlay] = useState(true);
   const [activeTab, setActiveTab] = useState('AVAILABLE');
   const [fullScreen, setFullScreen] = useState(false);
@@ -156,6 +119,7 @@ export default function BackgroundImage() {
 
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth <= 768);
+    const checkLaptop = () => setIsLaptop(window.innerWidth > 768);
     checkMobile();
     window.addEventListener('resize', checkMobile);
     return () => window.removeEventListener('resize', checkMobile);
@@ -408,13 +372,6 @@ export default function BackgroundImage() {
     console.log("Background Mode clicked");
   }
 
-  // const [amenityClicked, setAmenityClicked] = useState(false);
-
-  // const handleAmenities = () => {
-  //   setAmenityClicked(!amenityClicked);
-  //   console.log("Amenities clicked");
-  // }
-
 
   const amenityButtonRef = useRef(null);
   const amenityGridRef = useRef(null);
@@ -515,24 +472,6 @@ export default function BackgroundImage() {
 
   const [tooltipContent, setTooltipContent] = useState(null);
   const [tooltipPosition, setTooltipPosition] = useState({ x: 0, y: 0 });
-  
-  // ... (keep all other existing state variables and useEffect hooks)
-
-  
-  // const handlePolygonHover = (event) => {
-  //   const element = event.target;
-  //   const floorName = element.getAttribute('data-image');
-  //   const units = element.getAttribute('data-units') || '0';
-  //   console.log("Floor Name", floorName)
-  //   if (floorName) {
-  //     setTooltipContent({ floorName, units });
-  //     setTooltipPosition({
-  //       x: event.clientX + 15,
-  //       y: event.clientY + 15
-  //     });
-  //   }
-  // };
-
 
   const handlePolygonHover = (event) => {
     const element = event.target;
@@ -558,29 +497,6 @@ export default function BackgroundImage() {
       });
     }
   };
-
-  // const handlePolygonHover = (event) => {
-  //   const element = event.target;
-  //   const floorName = element.getAttribute('data-image');
-  //   if (floorName) {
-  //     const floorKey = Object.keys(floorData).find(key => 
-  //       key.toLowerCase().includes(floorName.toLowerCase().replace('vallery floor ', '').replace('floor', '').trim())
-  //     );
-      
-  //     const floorInfo = floorData[floorKey];
-  //     const totalUnits = floorInfo ? Object.values(floorInfo).reduce((a, b) => a + b, 0) : 0;
-
-  //     setTooltipContent({ 
-  //       floorName, 
-  //       totalUnits,
-  //       details: floorInfo
-  //     });
-  //     setTooltipPosition({
-  //       x: event.clientX + 15,
-  //       y: event.clientY + 15
-  //     });
-  //   }
-  // };
 
 
   const handlePolygonMove = (event) => {
@@ -646,13 +562,6 @@ const toggleLanguage = () => {
     dispatch(modifyLanguage({ language: language ? 'ur' : 'en' }));
   }, [language, dispatch]);
 
-  
-
-  // const elevationDropdown = () => {
-  //   // console.log('elevationDropdown');
-  //     router.push('/');
-  //     setIsElevationOpen(!isElevationOpen);
-  // };
 
 
   return (
@@ -673,30 +582,31 @@ const toggleLanguage = () => {
           className={styles.backgroundImage}
         />
         }
-
-
-
         
-{ overlay && (
-  filterbox ? (
-    <svg
-      ref={svgRef}
-      version="1.1" 
-      id={styles.masker} 
-      xmlns="http://www.w3.org/2000/svg" 
-      xmlnsXlink="http://www.w3.org/1999/xlink"
-      x="0px" 
-      y="0px" 
-      xmlSpace="preserve"
-    >
-      <polygon className={styles.st0} data-image="Vallery Floor 6" data-tip="basement6" points="446.78 393.2 591.57 298.53 589.86 396.41 446.78 396.41 446.78 393.2"/>
-      <polygon className={styles.st0} data-image="Vallery Floor 6" data-tip="basement6" points="619.67 303.31 693.04 256.08 695.34 382.19 619.67 382.19 619.67 303.31"/>
-      <rect className={styles.st0} data-image="Vallery Floor 6" data-tip="basement6" x="854.93" y="361.55" width="110.52" height="45.86"/>
-      <rect className={styles.st0} x="965.45" y="361.55" width="100.89" height="45.86"/>
-      <polygon className={styles.st0} data-image="Vallery Floor 6" data-tip="basement6" points="1207.59 296.89 1207.59 409.25 1347.92 409.25 1347.92 384.48 1207.59 296.89"/>
-    </svg>
-  ) :
-(
+        { overlay && 
+
+        (
+          filterbox ? 
+          (
+            <svg
+              ref={svgRef}
+              version="1.1" 
+              id={styles.masker} 
+              xmlns="http://www.w3.org/2000/svg" 
+              xmlnsXlink="http://www.w3.org/1999/xlink"
+              x="0px" 
+              y="0px" 
+              xmlSpace="preserve"
+            >
+              <polygon className={styles.st0} data-image="Vallery Floor 6" data-tip="basement6" points="446.78 393.2 591.57 298.53 589.86 396.41 446.78 396.41 446.78 393.2"/>
+              <polygon className={styles.st0} data-image="Vallery Floor 6" data-tip="basement6" points="619.67 303.31 693.04 256.08 695.34 382.19 619.67 382.19 619.67 303.31"/>
+              <rect className={styles.st0} data-image="Vallery Floor 6" data-tip="basement6" x="854.93" y="361.55" width="110.52" height="45.86"/>
+              <rect className={styles.st0} x="965.45" y="361.55" width="100.89" height="45.86"/>
+              <polygon className={styles.st0} data-image="Vallery Floor 6" data-tip="basement6" points="1207.59 296.89 1207.59 409.25 1347.92 409.25 1347.92 384.48 1207.59 296.89"/>
+            </svg>
+          ) 
+          :
+          (
             <svg
             ref={svgRef}
             version="1.1" 
@@ -707,15 +617,7 @@ const toggleLanguage = () => {
             y="0px" 
             xmlSpace="preserve"
           >
-          
-          
-            {/* <polygon className={styles.st0} data-image="Vallery Floor 6" data-tip="basement6" points="446.78 393.2 591.57 298.53 589.86 396.41 446.78 396.41 446.78 393.2"/>
-            <polygon className={styles.st0} data-image="Vallery Floor 6" data-tip="basement6" points="619.67 303.31 693.04 256.08 695.34 382.19 619.67 382.19 619.67 303.31"/>
-            <rect className={styles.st0} data-image="Vallery Floor 6" data-tip="basement6" x="854.93" y="361.55" width="110.52" height="45.86"/>
-            <rect className={styles.st0} x="965.45" y="361.55" width="100.89" height="45.86"/>
-            <polygon className={styles.st0} data-image="Vallery Floor 6" data-tip="basement6" points="1207.59 296.89 1207.59 409.25 1347.92 409.25 1347.92 384.48 1207.59 296.89"/>
-           */}
-            
+
             <polygon className={styles.st0} data-image="Valley Floor 6" data-tip="basement6" points="619.67 303.31 693.04 256.08 695.34 382.19 619.67 382.19 619.67 303.31"/>
 
             <polyline data-image="Valley Floor 6" data-tip="basement6" className={styles.st0} points="428.82 874.84 428.82 924.18 687.17 922.66 944.59 917.15 1182.1 917.15 1182.1 867.93 824.98 871.37 680.44 873.59 625.87 873.43 428.82 874.84" />
@@ -735,247 +637,155 @@ const toggleLanguage = () => {
             <polygon  data-image="Second Floor" data-tip="secondFloor"  onMouseEnter={() => setSelectedPath(true)}
                 onMouseLeave={() => setSelectedPath(false)} className={!selectedPath ? styles.st0 : styles.st1Hovers} points="1143.32 416.82 1210.12 416.82 1348.46 416.82 1431.47 416.82 1512.34 468.64 1512.34 473.38 1430.1 473.99 1364.67 473.99 1347.55 465.59 1294.81 465.13 1207.06 458.4 1143.32 458.4 1143.32 416.82"/>
             
-
             <polygon data-image="Third Floor" data-tip="thirdFloor" className={styles.st0} points="1420.24 409.94 1206.3 409.94 1182.61 408.11 1170.53 408.11 1170.53 404.75 1143.32 404.29 1143.32 368.67 1189.79 262.58 1365.89 375.39 1390.96 391.9 1420.24 409.94 783.06 365.95 782.94 405.89 752.75 405.89 743.11 393.97 722.94 393.97 714.68 383.65 618.96 382.47 590.86 395.57 429.43 396.95 429.43 381.89 607.37 263.8 621.13 279.09 709.79 221 711.24 221 783.06 365.95 820.92 401.99 1099.29 401.99 1099.29 331.98 1086.15 272.98 836.36 272.98 820.92 332.29 820.92 401.99"/>
            
           </svg>)
-        
 
-)
-
-        }
-
-
-
-
-
-        {tooltipContent && !backView && (
-          <div 
-            className={styles.tooltip}
-            style={{
-              left: `${tooltipPosition.x}px`,
-              top: `${tooltipPosition.y}px`,
-            }}
-          >
-            <div className={styles.tooltipContent}>
-              <div className={styles.tooltipLetter}>
-                <Image src="/images/icons/apartmentLogo.svg" quality={100} alt="tooltip" height={22} width={22} />
-              </div>
-              <div className={styles.tooltipInfo}>
-                <div className={styles.tooltipFloor}>{tooltipContent.floorName}</div>
-                { tooltipContent.floorName === 'Valley Floor 2'?
-                  <span className={styles.tooltipUnits}>Parking Lot</span>
-                  :
-                  <div className={styles.tooltipUnits}>{tooltipContent.totalUnits} Units</div>
-
+              )
                 }
-                
-                
-                {/* {tooltipContent.details && (
-                  <div className={styles.tooltipDetails} style={{color: 'red'}}>
-                    {Object.entries(tooltipContent.details).map(([type, count]) => 
-                      count > 0 && (
-                        <div key={type} className={styles.tooltipDetailItem}>
-                          {count}
-                        </div>
-                      )
-                    )}
+
+            {tooltipContent && !backView && (
+              <div 
+                className={styles.tooltip}
+                style={{
+                  left: `${tooltipPosition.x}px`,
+                  top: `${tooltipPosition.y}px`,
+                }}
+              >
+                <div className={styles.tooltipContent}>
+                  <div className={styles.tooltipLetter}>
+                    <Image src="/images/icons/apartmentLogo.svg" quality={100} alt="tooltip" height={22} width={22} />
                   </div>
-                )} */}
-              </div>
-            </div>
-          </div>
-        )}
+                  <div className={styles.tooltipInfo}>
+                    <div className={styles.tooltipFloor}>{tooltipContent.floorName}</div>
+                    { tooltipContent.floorName === 'Valley Floor 2'?
+                      <span className={styles.tooltipUnits}>Parking Lot</span>
+                      :
+                      <div className={styles.tooltipUnits}>{tooltipContent.totalUnits} Units</div>
 
-        {/* {tooltipContent && !backView && (
-          <div 
-            className={styles.tooltip}
-            style={{
-              left: `${tooltipPosition.x}px`,
-              top: `${tooltipPosition.y}px`,
-            }}
-          >
-            <div className={styles.tooltipContent}>
-              <div className={styles.tooltipLetter}>
-                <Image src="/images/icons/apartmentLogo.svg" quality={100} alt="tooltip" height={22} width={22} />
+                    }
+                  </div>
+                </div>
               </div>
-              <div className={styles.tooltipInfo}>
-                <div className={styles.tooltipFloor}>{tooltipContent.floorName}</div>
-                <div className={styles.tooltipUnits}>{tooltipContent.units} Units</div>
-              </div>
-            </div>
-          </div>
-        )} */}
+            )}
     
-      </div>
+          </div>
 
 
 
-      {
-        reservedClicked &&
-        <div className={styles.reservedContainer} ref={apartmentListingRef}>
+         
 
-          <ApartmentListing  apartments={favoriteApartments}/>
-        </div>
-      
-      }
+          { !isMobile && <>
 
-      {/* { !filterbox && */}
-        <>
+          {
+            reservedClicked &&
+            <div className={styles.reservedContainer} ref={apartmentListingRef}>
 
-        <div className={styles.topLogoContainer}>
-          <Image src="/Webpage/floors/HarsukhLogo.png" quality={100} alt="bird" height={120} width={190} />
-        </div>
+              <ApartmentListing  apartments={favoriteApartments}/>
+            </div>
+          
+          }
 
-      <div className={styles.filterElevationContainer}>
+          <div className={styles.topLogoContainer}>
+            <Image src="/Webpage/floors/HarsukhLogo.png" quality={100} alt="bird" height={120} width={190} />
+          </div>
 
-        <div className={ElevStyles.elevationButtonBox}  ref={elevationRef} >
-          <div
-              className={`${ElevStyles.elevationBtnGrid} ${isElevationOpen ? ElevStyles.open : ''}`}
-            >
-              <div className={ElevStyles.elevationBtnLeft} onClick={() => router.push('/mapview')}>
-                <Image src="/images/icons/LeftArrow.svg" quality={100} alt="Elevation" height={16} width={16} />
-              </div>
+          <div className={styles.filterElevationContainer}>
+
+            <div className={ElevStyles.elevationButtonBox}  ref={elevationRef} >
               <div
-                className={ElevStyles.elevationBtnRight}
-                // onMouseEnter={() => setIsElevationOpen(true)}
-                // onMouseLeave={() => setIsElevationOpen(false)}
-                onClick={elevationDropdown}
+                  className={`${ElevStyles.elevationBtnGrid} ${isElevationOpen ? ElevStyles.open : ''}`}
+                >
+                <div className={ElevStyles.elevationBtnLeft} onClick={() => router.push('/mapview')}>
+                  <Image src="/images/icons/LeftArrow.svg" quality={100} alt="Elevation" height={16} width={16} />
+                </div>
+                  <div
+                    className={ElevStyles.elevationBtnRight}
+                    // onMouseEnter={() => setIsElevationOpen(true)}
+                    // onMouseLeave={() => setIsElevationOpen(false)}
+                    onClick={elevationDropdown}
+
+                  >
+                    <div className={ElevStyles.elevationBtnTitle}>
+                      { !isElevationOpen?
+                      translations.elevation || 'Elevation'
+                      : 
+                        "Location"
+                      }
+                    </div>
+                    <div className={ElevStyles.elevationBtnDownArrow}>
+                      <Image src="/images/icons/downFillArrow.svg" quality={100} alt="Elevation" height={7} width={7} />
+                    </div>
+                  </div>
+                </div>
+            
+                <div
+                  className={`${ElevStyles.dropDownElevationBox} ${isElevationOpen ? ElevStyles.open : ''}`}
+                  // onMouseEnter={() => setIsElevationOpen(true)}
+                >
+                  {elevationArray.map((item) => (
+                    <div
+                      key={item.id}
+                      onClick={() => handleElevationItemClick(item.route)}
+                      className={`${ElevStyles.dropDownfloorButton} ${item.label === 'Elevation' ? ElevStyles.active : ''}`}
+                    >
+                      {translations[item.label.toLowerCase()] || item.label}
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div
+                className={`${styles.filterContainer}`}
+                onClick={handleFilter}
+                ref={filterContainerRef}
+              >
+                <div className={`${styles.filtersBox}`}>
+                  <div className={styles.filtersButtonLeft}>
+                    <Image
+                      src="/images/icons/filterIcon.svg"
+                      quality={100}
+                      alt="Filter Icon"
+                      height={17}
+                      width={17}
+                    />
+                  </div>
+                  <div className={styles.filtersButtonTitle}>
+                    Filter
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+            
+            <div className={styles.backViewButton} onClick={handleBackView}>
+              <div className={styles.backViewButtonLeft}>
+                <Image src="/images/icons/amenitiesIcon.svg" quality={100} alt="Menu" height={20} width={20} />
+              </div>
+              <div className={styles.backViewButtonTitle}>
+                Rotate View
+              </div>
+            </div>
+
+            <div className={styles.bottomLogoContainer}>
+              <div className={styles.bottomLogoContainerTitle}>
+                A Project by
+              </div>
+              <div style={{left: '-0.7rem', bottom:'-0.5rem', position: 'relative'}}>
+                <Image src="/Webpage/floors/MainLogo.png"  quality={100} alt="Almaymar" height={300} width={300} />
+              </div>
+            </div>
+
+
+            <div className={styles.container}>
+              <div
+                className={`${styles.buttonss} ${styles.mapButton} ${isMapHovered ? styles.expanded : ''}`}
+                onMouseEnter={() => setIsMapHovered(true)}
+                onMouseLeave={() => setIsMapHovered(false)}
+                onClick={handleGetDirections}
 
               >
-                <div className={ElevStyles.elevationBtnTitle}>
-                  { !isElevationOpen?
-                  translations.elevation || 'Elevation'
-                  : 
-                    "Location"
-                  }
-                </div>
-                <div className={ElevStyles.elevationBtnDownArrow}>
-                  <Image src="/images/icons/downFillArrow.svg" quality={100} alt="Elevation" height={7} width={7} />
-                </div>
-              </div>
-            </div>
-            
-            <div
-              className={`${ElevStyles.dropDownElevationBox} ${isElevationOpen ? ElevStyles.open : ''}`}
-              // onMouseEnter={() => setIsElevationOpen(true)}
-            >
-              {elevationArray.map((item) => (
-                <div
-                  key={item.id}
-                  onClick={() => handleElevationItemClick(item.route)}
-                  className={`${ElevStyles.dropDownfloorButton} ${item.label === 'Elevation' ? ElevStyles.active : ''}`}
-                >
-                  {translations[item.label.toLowerCase()] || item.label}
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* --------------------------------------- */}
-
-
-          <div
-            className={`${styles.filterContainer}`}
-            onClick={handleFilter}
-            ref={filterContainerRef}
-          >
-            <div className={`${styles.filtersBox}`}>
-              <div className={styles.filtersButtonLeft}>
-                <Image
-                  src="/images/icons/filterIcon.svg"
-                  quality={100}
-                  alt="Filter Icon"
-                  height={17}
-                  width={17}
-                />
-              </div>
-              <div className={styles.filtersButtonTitle}>
-                Filter
-              </div>
-            </div>
-          </div>
-
-      
-      </div>
-
-        </>
-        <div className={styles.backViewButton} onClick={handleBackView}>
-          <div className={styles.backViewButtonLeft}>
-            <Image src="/images/icons/amenitiesIcon.svg" quality={100} alt="Menu" height={20} width={20} />
-          </div>
-          <div className={styles.backViewButtonTitle}>
-            Rotate View
-          </div>
-        </div>
-
-        <div className={styles.bottomLogoContainer}>
-          <div className={styles.bottomLogoContainerTitle}>
-            A Project by
-          </div>
-          <div style={{left: '-0.7rem', bottom:'-0.5rem', position: 'relative'}}>
-            <Image src="/Webpage/floors/MainLogo.png"  quality={100} alt="Almaymar" height={300} width={300} />
-          </div>
-        </div>
-
-            
-      {isMobile && (
-
-        <div className={`${styles.bottomNavbar} ${showNavbar ? 'show' : ''}`}>
-          <div className={styles.navbarItem} onClick={handleFilter}>
-            <Image src="/images/icons/filterIcon.svg" alt="Filter" width={24} height={24} className={styles.navbarIcon} />
-            <span>Filter</span>
-          </div>
-          <div className={styles.navbarItem}>
-            <Image src="/images/icons/floorIcon.svg" alt="Seasons" width={24} height={24} className={styles.navbarIcon} />
-            <span>Seasons</span>
-          </div>
-          <div className={styles.navbarItem} onClick={handleMenu}>
-            <Image src="/images/icons/menuIcon.svg" alt="Menu" width={20} height={20} className={styles.navbarIcon} />
-            <span>Menu</span>
-          </div>
-        </div>
-      )}
-
-      {/* <TopbarMenu/> */}
-
-       
-
-       
-      <div className={styles.container}>
-      <div
-        className={`${styles.buttonss} ${styles.mapButton} ${isMapHovered ? styles.expanded : ''}`}
-        onMouseEnter={() => setIsMapHovered(true)}
-        onMouseLeave={() => setIsMapHovered(false)}
-        onClick={handleGetDirections}
-
-      >
-        <Image 
-          src="/images/icons/mapsViewIcon.svg" 
-          quality={100} 
-          alt="Maps View Icon" 
-          height={17} 
-          width={17} 
-        />
-        <span className={styles.buttonText}>Get Directions</span>
-      </div>
-
-      <div
-        className={`${styles.buttonss} ${styles.callButton} ${isCallHovered ? styles.expanded : ''}`}
-        onMouseEnter={() => setIsCallHovered(true)}
-        onMouseLeave={() => setIsCallHovered(false)}
-        onClick={handleCall}
-      >
-        <Image src="/images/icons/callIcon.svg" quality={100} alt="Maps View Icon" height={19} width={19} />
-        <span className={styles.buttonText}>Register Request</span>
-      </div>
-    </div>
-
-
-
-{/* 
-            <div className={styles.mapsViewContainer}>
-              <div className={styles.mapsViewBox}>
                 <Image 
                   src="/images/icons/mapsViewIcon.svg" 
                   quality={100} 
@@ -983,31 +793,27 @@ const toggleLanguage = () => {
                   height={17} 
                   width={17} 
                 />
+                <span className={styles.buttonText}>Get Directions</span>
+              </div>
+
+              <div
+                className={`${styles.buttonss} ${styles.callButton} ${isCallHovered ? styles.expanded : ''}`}
+                onMouseEnter={() => setIsCallHovered(true)}
+                onMouseLeave={() => setIsCallHovered(false)}
+                onClick={handleCall}
+              >
+                <Image src="/images/icons/callIcon.svg" quality={100} alt="Maps View Icon" height={19} width={19} />
+                <span className={styles.buttonText}>Register Request</span>
               </div>
             </div>
 
-            <div className={styles.callContainer} onClick={handleCall}>
-              <div className={styles.mapsViewBox}>
-                <Image src="/images/icons/callIcon.svg" quality={100} alt="Maps View Icon" height={19} width={19} />
-              </div>
-            </div> */}
-
             <div className={styles.menuContainer}>
-              {/* <div className={`${styles.amenitiesButton} ${amenityClicked ? styles.active : ''}`} onClick={handleAmenities} ref={amenityButtonRef}>
-                <div className={styles.amenitiesButtonLeft}>
-                  <Image src="/images/icons/amenitiesIcon.svg" quality={100} alt="Menu" height={22} width={22} />
-                </div>
-                <div className={styles.amenitiesButtonTitle}>
-                  Amenities
-                </div>
-              </div> */}
+
               <div ref={amenityButtonRef}>
               <AmenityBtn ref={amenityButtonRef} handleMenu={handleAmenities} inActive={amenityClicked}/>
 
               </div>
-              {/* <div className={styles.menuContainerInside}>
-                  <BackgroundMode handleMenu={handleBackgroundMode}/>
-              </div> */}
+
               <div className={styles.menuContainerInside} ref={favContainerRef}>
                 <FavButton inActive={reservedClicked} handleMenu={handleFavorties}/>
               </div>
@@ -1027,19 +833,116 @@ const toggleLanguage = () => {
                   </div>
                 }
 
-            <>
-            
             {isFilterBoxVisible && (
               <FilterBox ref={filterBoxRef} isVisible={isFilterBoxVisible} />
             )}
-            </>
 
-    </div>
-    { isContacted &&
-      <div className={styles.ContactedContainer}>
-          <ContactBox onClose={handleContactClose}/>
-      </div>
+        </>}
+
+
+          </div>
+
+
+          { isContacted &&
+            <div className={styles.ContactedContainer}>
+                <ContactBox onClose={handleContactClose}/>
+            </div>
+            }
+
+
+
+
+
+                    
+      {isMobile && 
+        (
+
+          <>
+          
+          <div className={styles.topLogoContainer}>
+            <Image src="/Webpage/floors/HarsukhLogo.png" quality={100} alt="bird" height={120} width={190} />
+          </div>
+
+
+          <div className={styles.menuContainerInside} ref={menuContainerRef} >
+                <MenubarButton inActive={menuBox} handleMenu={handleMenu}/>
+              </div>
+
+
+            <div className={styles.backViewButton} onClick={handleBackView}>
+              <div className={styles.backViewButtonLeft}>
+                <Image src="/images/icons/amenitiesIcon.svg" quality={100} alt="Menu" height={20} width={20} />
+              </div>
+              <div className={styles.backViewButtonTitle}>
+                Rotate View
+              </div>
+            </div>
+
+            <div className={styles.bottomLogoContainer}>
+              <div className={styles.bottomLogoContainerTitle}>
+                A Project by
+              </div>
+              <div style={{left: '-0.7rem', bottom:'-0.5rem', position: 'relative'}}>
+                <Image src="/Webpage/floors/MainLogo.png"  quality={100} alt="Almaymar" height={300} width={300} />
+              </div>
+            </div>
+
+            <div className={styles.container}>
+              <div
+                className={`${styles.buttonss} ${styles.mapButton} ${isMapHovered ? styles.expanded : ''}`}
+                onMouseEnter={() => setIsMapHovered(true)}
+                onMouseLeave={() => setIsMapHovered(false)}
+                onClick={handleGetDirections}
+
+              >
+                <Image 
+                  src="/images/icons/mapsViewIcon.svg" 
+                  quality={100} 
+                  alt="Maps View Icon" 
+                  height={17} 
+                  width={17} 
+                />
+                <span className={styles.buttonText}>Get Directions</span>
+              </div>
+
+              <div
+                className={`${styles.buttonss} ${styles.callButton} ${isCallHovered ? styles.expanded : ''}`}
+                onMouseEnter={() => setIsCallHovered(true)}
+                onMouseLeave={() => setIsCallHovered(false)}
+                onClick={handleCall}
+              >
+                <Image src="/images/icons/callIcon.svg" quality={100} alt="Maps View Icon" height={19} width={19} />
+                <span className={styles.buttonText}>Register Request</span>
+              </div>
+            </div>
+
+
+
+{/* 
+        <div className={`${styles.bottomNavbar} ${showNavbar ? 'show' : ''}`}>
+          <div className={styles.navbarItem} onClick={handleFilter}>
+            <Image src="/images/icons/filterIcon.svg" alt="Filter" width={24} height={24} className={styles.navbarIcon} />
+            <span>Filter</span>
+          </div>
+          <div className={styles.navbarItem}>
+            <Image src="/images/icons/floorIcon.svg" alt="Seasons" width={24} height={24} className={styles.navbarIcon} />
+            <span>Seasons</span>
+          </div>
+          <div className={styles.navbarItem} onClick={handleMenu}>
+            <Image src="/images/icons/menuIcon.svg" alt="Menu" width={20} height={20} className={styles.navbarIcon} />
+            <span>Menu</span>
+          </div>
+        </div> */}
+
+          
+          </>
+
+        )
       }
+
+
+
+
     </>
   );
 }

@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import styles from "@/styles/amenity/amenityGrid.module.css"
+import RightArrow from '../Icons/rightArrow';
+import LeftArrow from '../Icons/leftArrow';
 
 const areas = [
-  { name: 'Parking', image: '/images/Amenity/Parking.png', details: ['/images/gallery/Parking/Parking-1.png', '/images/gallery/Parking/Parking-1.png'] },
+  { name: 'Parking', image: '/images/Amenity/Parking.png', details: ['/images/gallery/Parking/Parking-1.png', '/images/gallery/Parking/Parking-2.png'] },
   { name: 'Restaurant', image: '/images/Amenity/Resturant.png', details: ['/images/gallery/Restaurant/Restaurant-1.png', '/images/gallery/Restaurant/Restaurant-2.png', '/images/gallery/Restaurant/Restaurant-3.png', '/images/gallery/Restaurant/Restaurant-4.png', '/images/gallery/Restaurant/Restaurant-5.png', '/images/gallery/Restaurant/Restaurant-6.png'] },
-  { name: 'Lobby', image: '/images/Amenity/Lobby.png', details: ['/images/gallery/Lobby/Corridor.jpg', '/images/gallery/Lobby/lobby-1.png', '/images/gallery/Lobby/lobby-2.png', '/images/gallery/Lobby/lobby-3.png', '/images/gallery/Lobby/lobby-4.png', '/images/gallery/Lobby/lobby-5.png', '/images/gallery/Lobby/lobby-6.png', '/images/gallery/Lobby/lobby-7.png'] },
-  { name: 'Gym', image: '/images/Amenity/Gym.png', details: ['/images/gallery/Lobby/lobby-1.png', '/images/gallery/Lobby/lobby-2.png'] },
+  { name: 'Lobby', image: '/images/Amenity/Lobby.png', details: ['/images/gallery/Lobby/Corridor.jpg', '/images/gallery/Lobby/lobby-1.png', '/images/gallery/Lobby/lobby-2.png', '/images/gallery/Lobby/lobby-3.png', '/images/gallery/Lobby/lobby-4.png', '/images/gallery/Lobby/lobby-5.png', '/images/gallery/Lobby/lobby-6.jpg', '/images/gallery/Lobby/lobby-7.jpg'] },
+  { name: 'Gym', image: '/images/Amenity/Gym.png', details: ['/images/gallery/Gym/Gym-1.png', '/images/gallery/Gym/Gym-2.png'] },
 ];
 
 const AmenityGrid = () => {
@@ -23,24 +25,16 @@ const AmenityGrid = () => {
   };
 
   const nextImage = () => {
-    console.log("Next Image")
-    setCurrentImageIndex((prevIndex) => 
-      (prevIndex + 1) % selectedArea.details.length
-    );
-    console.log(currentImageIndex)
+    if (currentImageIndex < selectedArea.details.length - 1) {
+      setCurrentImageIndex(prevIndex => prevIndex + 1);
+    }
   };
 
   const prevImage = () => {
-    setCurrentImageIndex((prevIndex) => 
-      (prevIndex - 1 + selectedArea.details.length) % selectedArea.details.length
-    );
+    if (currentImageIndex > 0) {
+      setCurrentImageIndex(prevIndex => prevIndex - 1);
+    }
   };
-
-  useEffect(()=>
-    {
-      
-    }, [currentImageIndex]
-  )
 
   return (
     <div className={styles.container}>
@@ -49,7 +43,6 @@ const AmenityGrid = () => {
           <div
             key={area.name}
             className={styles.gridItem}
-            style={{ animationDelay: `${index * 0.1}s` }}
             onClick={() => openImageBox(area)}
           >
             <div className={styles.imageWrapper}>
@@ -69,25 +62,37 @@ const AmenityGrid = () => {
       {selectedArea && (
         <div className={styles.imageBoxOverlay} onClick={closeImageBox}>
           <div className={styles.imageBox} onClick={(e) => e.stopPropagation()}>
-            <button className={styles.closeButton} onClick={closeImageBox}>
+            {/* <button className={styles.closeButton} onClick={closeImageBox}>
               &times;
-            </button>
-
-            {/* <h2>{selectedArea.name}</h2> */}
+            </button> */}
             <div className={styles.imageNavigation}>
-              <div onClick={prevImage} className={styles.navButton}>
-                  Prev
+              <div 
+                className={`${styles.navButton} ${currentImageIndex === 0 ? styles.hidden : ''}`} 
+                onClick={prevImage}
+                aria-label="Previous image"
+              >
+                <LeftArrow />
               </div>
               <div className={styles.singleImageWrapper}>
+              {/* <button className={styles.closeButton} onClick={closeImageBox}>
+              &times;
+            </button> */}
                 <Image
                   src={selectedArea.details[currentImageIndex]}
                   alt={`${selectedArea.name} ${currentImageIndex + 1}`}
                   layout="fill"
-                  objectFit="cover"
+                  objectFit="contain"
+                  quality={100}
                 />
               </div>
-              <div onClick={nextImage} className={styles.navButton}>NEXT</div>
-
+              
+              <div 
+                className={`${styles.navButton} ${currentImageIndex === selectedArea.details.length - 1 ? styles.hidden : ''}`} 
+                onClick={nextImage}
+                aria-label="Next image"
+              >
+                <RightArrow />
+              </div>
             </div>
           </div>
         </div>

@@ -1,0 +1,120 @@
+@font-face {
+  font-family: 'Gill Sans Light';
+  src: url('/fonts/GillSansMTPro-Light.otf');
+  font-weight: normal;
+}
+
+
+.formContainer {
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+    width: 100%;
+    max-width: 500px;
+    margin: 2rem auto;
+    font-family: 'Gill Sans Light';
+  }
+
+  .closeButtonBox
+  {
+    display: flex;
+    flex-direction: row-reverse;
+  }
+
+  .closeButton
+  {
+    height: 25px;
+    width: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .formTitle {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    color: #333;
+  }
+  
+  .apartmentInfo {
+    background-color: #f0f8ff;
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .apartmentInfo h3 {
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+    color: #333;
+  }
+  
+  .apartmentInfo table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .apartmentInfo td {
+    padding: 0.25rem 0;
+  }
+  
+  .apartmentInfo td:first-child {
+    font-weight: bold;
+    color: #555;
+  }
+  
+  .inputGroup {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+  
+  .inputGroup input {
+    flex: 1;
+    padding: 0.75rem;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .inputGroup input:focus {
+    outline: none;
+    border-color: #0071e3;
+    box-shadow: 0 0 0 3px rgba(0, 113, 227, 0.2);
+  }
+  
+  .submitButton {
+    width: 100%;
+    padding: 0.75rem;
+    background-color: #0071e3;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .submitButton:hover {
+    background-color: #005cbd;
+  }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
+  .formContainer {
+    animation: fadeIn 0.5s ease-out;
+  }
+  
+  .inputGroup input, .submitButton {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  
+  .inputGroup input:focus, .submitButton:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
