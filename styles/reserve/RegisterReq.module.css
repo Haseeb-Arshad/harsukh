@@ -3,32 +3,95 @@
   src: url('/fonts/GillSansMTPro-Light.otf');
   font-weight: normal;
 }
-
+/* 
 
 .formContainer {
-    background-color: #ffffff;
-    border-radius: 10px;
+    background-color: #FCF7EB;
+    border-radius: 0.3rem;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     padding: 2rem;
+    height: 60vh;
     width: 100%;
-    max-width: 500px;
+    max-width: 600px;
     margin: 2rem auto;
     font-family: 'Gill Sans Light';
+  } */
+
+  
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+  .formContainer {
+    background-color: #FCF7EB;
+    border-radius: 0.3rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+    height: 60vh;
+    width: 100%;
+    max-width: 600px;
+    margin: 2rem auto;
+    font-family: 'Gill Sans Light';
+    display: flex;
+    flex-direction: column;
+  }
+
+  .formContainer *::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  .formContainer *::-webkit-scrollbar-track {
+    background: transparent;
+    border-radius: 4px;
+  }
+  
+  .formContainer *::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 4px;
+  }
+  
+  .formContainer *::-webkit-scrollbar-thumb:hover {
+    background: #555;
   }
 
   .closeButtonBox
   {
+
     display: flex;
     flex-direction: row-reverse;
+    transition: 0.3s all;
+  }
+
+  .closeButtonBox:hover
+  {
+    cursor: pointer;
   }
 
   .closeButton
   {
     height: 25px;
     width: 25px;
+    background-color: #3a3a3a; 
+    opacity: 0.6;
+
+    border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
+  }
+
+  .closeButtonBox:hover
+  {
+    opacity: 1;
   }
   
   .formTitle {
@@ -38,7 +101,7 @@
   }
   
   .apartmentInfo {
-    background-color: #f0f8ff;
+    background-color: rgba(0, 109, 119, 0.1);
     border-radius: 8px;
     padding: 1rem;
     margin-bottom: 1.5rem;
@@ -64,13 +127,51 @@
     color: #555;
   }
   
+  .inputGrids {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    flex-grow: 1;
+    overflow-y: auto;
+  }
+
   .inputGroup {
     display: flex;
-    gap: 1rem;
+    /* gap: 1rem; */
     margin-bottom: 1rem;
   }
+
+  .inputBox {
+    display: flex;
+    flex-direction: column;
+  }
   
-  .inputGroup input {
+  .inputTitle {
+    font-size: 1rem;
+    color: #3a3a3a;
+    margin-bottom: 0.6rem;
+  }
+  
+  .inputGroup input, .inputGroup textarea {
+    all:initial;
+
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .inputGroup input:focus, .inputGroup textarea:focus {
+    outline: none;
+    border-color: #006d77;
+    box-shadow: 0 0 0 3px rgba(0, 113, 227, 0.2);
+  }
+
+
+  /* .inputGroup input {
+    all:initial;
     flex: 1;
     padding: 0.75rem;
     border: 1px solid #ccc;
@@ -81,14 +182,47 @@
   
   .inputGroup input:focus {
     outline: none;
-    border-color: #0071e3;
+    border-color: #006d77;
     box-shadow: 0 0 0 3px rgba(0, 113, 227, 0.2);
+  }
+   */
+
+
+
+
+   .formFooter {
+    margin-top: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .stepButtons {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1rem;
+  }
+  
+  .stepButton {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: #ccc;
+    margin: 0 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .stepButton.active {
+    width: 20px;
+    background-color: #006d77;
+    border-radius: 5px;
   }
   
   .submitButton {
     width: 100%;
     padding: 0.75rem;
-    background-color: #0071e3;
+    background-color: #006d77;
     color: white;
     border: none;
     border-radius: 6px;
@@ -98,9 +232,28 @@
   }
   
   .submitButton:hover {
-    background-color: #005cbd;
+    background-color: #006d77e0;
   }
-  
+
+
+
+
+  /* .submitButton {
+    width: 100%;
+    padding: 0.75rem;
+    background-color: #006d77;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+   */
+  /* .submitButton:hover {
+    background-color: #006d77e0;
+  }
+   */
   @keyframes fadeIn {
     from { opacity: 0; transform: translateY(10px); }
     to { opacity: 1; transform: translateY(0); }
@@ -118,3 +271,68 @@
     transform: translateY(-2px);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   }
+
+
+
+/* ------------------------------------------------------- */
+/* ------------------------------------------------------- */
+
+
+.card {
+  background-color: rgba(0, 109, 119, 0.1);
+  border-radius: 6px;
+  padding: 15px;
+  margin-bottom: 15px;
+}
+
+.card:last-child {
+  margin-bottom: 0;
+}
+
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.cardHeader h3 {
+  font-size: 0.9rem;
+  color: #3A3A3A;
+  margin: 0;
+}
+
+.deleteButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  /* border: 1px solid #006d77; */
+  border-radius: 50%;
+  padding: 0.3rem;
+  background-color: rgba(0, 109, 119, 0.12);
+
+  padding-left: 0.4rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 5px;
+}
+
+.row span {
+  font-size: 14px;
+  color: #666;
+}
+
+.price {
+  font-weight: bold;
+  color: #333;
+}
+
+
+

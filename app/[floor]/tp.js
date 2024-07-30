@@ -22,6 +22,7 @@ import ApartmentListing from '../component/Reserve/ApartmentListing';
 import AmenityBtn from '../component/Icons/AmenityBtn';
 import AmenityGrid from '../component/Amenities/AmenityGrid';
 import Router from 'next/navigation';
+import ContactBox from '../component/Bars/contactBox';
 
 const Layout = ({children}) => 
 {   
@@ -79,6 +80,30 @@ const Layout = ({children}) =>
     setIsContacted(!isContacted);
     console.log("CALLED");
   }
+
+  const [isContacted, setIsContacted] = useState(false);
+
+  const handleGetDirections = () => {
+    // Coordinates for HARSUKH
+    const destination = '34.0162791,73.3928231';
+    
+    // Check if geolocation is supported by the browser
+    if ('geolocation' in navigator) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        const origin = `${position.coords.latitude},${position.coords.longitude}`;
+        const url = `https://www.google.com/maps/dir/?api=1&origin=${origin}&destination=${destination}`;
+        window.open(url, '_blank');
+      }, () => {
+        // If user denies location access or any error occurs, just open with destination
+        const url = `https://www.google.com/maps/dir/?api=1&destination=${destination}`;
+        window.open(url, '_blank');
+      });
+    } else {
+      // Fallback for browsers that don't support geolocation
+      const url = `https://www.google.com/maps/dir/?api=1&destination=${destination}`;
+      window.open(url, '_blank');
+    }
+  };
   
   const toggleFullScreen = () => {
     if (!document.fullscreenElement) {
@@ -175,6 +200,16 @@ const Layout = ({children}) =>
   const updateAmenityClicked = (value) => {
     setAmenityClicked(value);
   };
+
+  const handleContactClose = () => {
+    setIsContacted(false);
+  };
+
+  const [isMapHovered, setIsMapHovered] = useState(false);
+  const [isCallHovered, setIsCallHovered] = useState(false);
+
+ 
+
   return (     
 
     <>
@@ -233,11 +268,11 @@ const Layout = ({children}) =>
       </div>
 
       <MenuBox isActive={menuBox} handleOverlay={handleOverlay} translations={translations} toggleLanguage={toggleLanguage} overlay={overlay} fullScreen={fullScreen} toggleFullScreen={toggleFullScreen}/>
-      <div className={styles.callContainer} onClick={handleCall}>
+      {/* <div className={styles.callContainer} onClick={handleCall}>
         <div className={styles.mapsViewBox}>
           <Image src="/images/icons/callIcon.svg" quality={100} alt="Maps View Icon" height={19} width={19} />
         </div>
-      </div>
+      </div> */}
 
     </div>   
 
@@ -251,6 +286,34 @@ const Layout = ({children}) =>
     </div>
 
 
+        <div className={styles.container}>
+              <div
+                className={`${styles.buttonss} ${styles.mapButton} ${isMapHovered ? styles.expanded : ''}`}
+                onMouseEnter={() => setIsMapHovered(true)}
+                onMouseLeave={() => setIsMapHovered(false)}
+                onClick={handleGetDirections}
+
+              >
+                <Image 
+                  src="/images/icons/mapsViewIcon.svg" 
+                  quality={100} 
+                  alt="Maps View Icon" 
+                  height={17} 
+                  width={17} 
+                />
+                <span className={styles.buttonText}>Get Directions</span>
+              </div>
+
+              <div
+                className={`${styles.buttonss} ${styles.callButton} ${isCallHovered ? styles.expanded : ''}`}
+                onMouseEnter={() => setIsCallHovered(true)}
+                onMouseLeave={() => setIsCallHovered(false)}
+                onClick={handleCall}
+              >
+                <Image src="/images/icons/callIcon.svg" quality={100} alt="Maps View Icon" height={19} width={19} />
+                <span className={styles.buttonText}>Register Request</span>
+              </div>
+            </div>
 
       {
       amenityClicked &&
@@ -260,7 +323,10 @@ const Layout = ({children}) =>
       </div>
       }
 
+
+
     </>
+      
 
   )
 }
