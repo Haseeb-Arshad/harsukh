@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import styles from '@/styles/Floor/RegisterReq.module.css';
+import styles from '@/styles/reserve/RegisterReq.module.css';
 
-const RegisterRequestForm = () => {
+const RegisterRequestForm = ({onClose}) => {
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -18,8 +18,13 @@ const RegisterRequestForm = () => {
     console.log('Form submitted:', formData);
   };
 
+
+
   return (
     <div className={styles.formContainer}>
+      <div className={styles.closeButtonBox} onClick={onClose}>
+        Close
+      </div>
       <h2 className={styles.formTitle}>Register Request</h2>
       <div className={styles.apartmentInfo}>
         <h3>Apartment no. 23</h3>
