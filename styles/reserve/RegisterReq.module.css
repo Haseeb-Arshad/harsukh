@@ -35,7 +35,9 @@
     background-color: #FCF7EB;
     border-radius: 0.3rem;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    padding: 2rem;
+    padding: 1rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
     height: 60vh;
     width: 100%;
     max-width: 600px;
@@ -65,10 +67,10 @@
 
   .closeButtonBox
   {
-
     display: flex;
     flex-direction: row-reverse;
     transition: 0.3s all;
+    height: 3vh;
   }
 
   .closeButtonBox:hover
@@ -81,7 +83,7 @@
     height: 25px;
     width: 25px;
     background-color: #3a3a3a; 
-    opacity: 0.6;
+    opacity: 0.4;
 
     border-radius: 50%;
     display: flex;
@@ -147,7 +149,7 @@
   }
   
   .inputTitle {
-    font-size: 1rem;
+    font-size: 0.9rem;
     color: #3a3a3a;
     margin-bottom: 0.6rem;
   }
@@ -166,7 +168,7 @@
   .inputGroup input:focus, .inputGroup textarea:focus {
     outline: none;
     border-color: #006d77;
-    box-shadow: 0 0 0 3px rgba(0, 113, 227, 0.2);
+    box-shadow: 0 0 0 3px rgba(0, 113, 227, 0.1);
   }
 
 
@@ -306,7 +308,7 @@
   background: none;
   border: none;
   cursor: pointer;
-  font-size: 16px;
+  font-size: 0.7rem;
   /* border: 1px solid #006d77; */
   border-radius: 50%;
   padding: 0.3rem;

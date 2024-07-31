@@ -22,11 +22,14 @@ import ApartmentListing from '../component/Reserve/ApartmentListing';
 import AmenityBtn from '../component/Icons/AmenityBtn';
 import AmenityGrid from '../component/Amenities/AmenityGrid';
 import Router from 'next/navigation';
+import ContactBox from '../component/Bars/contactBox';
+
 
 const Layout = ({children}) => 
 {   
   const dispatch = useDispatch();
   const router = useRouter();
+  const [isContacted, setIsContacted] = useState(false);
 
   const [menuBox, setMenuBox] = useState(false);
   const [overlay, setOverlay] = useState(true);
@@ -41,6 +44,9 @@ const Layout = ({children}) =>
     const languageState = state.language.lang.find((site) => site.id === '1');
     return languageState ? languageState.language : 'en';
   });
+
+  const [isMapHovered, setIsMapHovered] = useState(false);
+  const [isCallHovered, setIsCallHovered] = useState(false);
 
   const [language, setLanguage] = useState(languageState === 'ur');
   const [translations, setTranslations] = useState(languageState === 'ur' ? ur : en);
@@ -79,6 +85,10 @@ const Layout = ({children}) =>
     setIsContacted(!isContacted);
     console.log("CALLED");
   }
+  const handleContactClose = () => {
+    setIsContacted(false);
+  };
+
   
   const toggleFullScreen = () => {
     if (!document.fullscreenElement) {
@@ -175,6 +185,30 @@ const Layout = ({children}) =>
   const updateAmenityClicked = (value) => {
     setAmenityClicked(value);
   };
+
+  const handleGetDirections = () => {
+    // Coordinates for HARSUKH
+    const destination = '34.0162791,73.3928231';
+    
+    // Check if geolocation is supported by the browser
+    if ('geolocation' in navigator) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        const origin = `${position.coords.latitude},${position.coords.longitude}`;
+        const url = `https://www.google.com/maps/dir/?api=1&origin=${origin}&destination=${destination}`;
+        window.open(url, '_blank');
+      }, () => {
+        // If user denies location access or any error occurs, just open with destination
+        const url = `https://www.google.com/maps/dir/?api=1&destination=${destination}`;
+        window.open(url, '_blank');
+      });
+    } else {
+      // Fallback for browsers that don't support geolocation
+      const url = `https://www.google.com/maps/dir/?api=1&destination=${destination}`;
+      window.open(url, '_blank');
+    }
+  };
+
+
   return (     
 
     <>
@@ -233,32 +267,66 @@ const Layout = ({children}) =>
       </div>
 
       <MenuBox isActive={menuBox} handleOverlay={handleOverlay} translations={translations} toggleLanguage={toggleLanguage} overlay={overlay} fullScreen={fullScreen} toggleFullScreen={toggleFullScreen}/>
-      <div className={styles.callContainer} onClick={handleCall}>
+      {/* <div className={styles.callContainer} onClick={handleCall}>
         <div className={styles.mapsViewBox}>
           <Image src="/images/icons/callIcon.svg" quality={100} alt="Maps View Icon" height={19} width={19} />
         </div>
-      </div>
+      </div> */}
 
-    </div>   
+          <div className={styles.container}>
+              <div
+                className={`${styles.buttonss} ${styles.mapButton} ${isMapHovered ? styles.expanded : ''}`}
+                onMouseEnter={() => setIsMapHovered(true)}
+                onMouseLeave={() => setIsMapHovered(false)}
+                onClick={handleGetDirections}
 
-    <div className={styles.bottomLogoContainer}>
-      <div className={styles.bottomLogoContainerTitle}>
-        A Project by
-      </div>
-      <div style={{left: '-0.7rem', bottom:'-0.5rem', position: 'relative', zIndex: 1}} onClick={()=> router.push("https://almaymaar.com/") }>
-        <Image src="/Webpage/floors/MainLogo.png"  quality={100} alt="Almaymar" height={300} width={300} />
-      </div>
-    </div>
+              >
+                <Image 
+                  src="/images/icons/mapsViewIcon.svg" 
+                  quality={100} 
+                  alt="Maps View Icon" 
+                  height={17} 
+                  width={17} 
+                />
+                <span className={styles.buttonText}>Get Directions</span>
+              </div>
+
+              <div
+                className={`${styles.buttonss} ${styles.callButton} ${isCallHovered ? styles.expanded : ''}`}
+                onMouseEnter={() => setIsCallHovered(true)}
+                onMouseLeave={() => setIsCallHovered(false)}
+                onClick={handleCall}
+              >
+                <Image src="/images/icons/callIcon.svg" quality={100} alt="Maps View Icon" height={19} width={19} />
+                <span className={styles.buttonText}>Register Request</span>
+              </div>
+            </div>
+
+          </div>   
+
+          <div className={styles.bottomLogoContainer}>
+            <div className={styles.bottomLogoContainerTitle}>
+              A Project by
+            </div>
+            <div style={{left: '2.5rem', bottom:'8rem', position: 'relative', zIndex: 1}}onClick={() => window.open("https://almaymaar.com/", '_blank')}>
+              <Image style={{cursor:'pointer'}} src="/Webpage/floors/MainLogo.png"  quality={100} alt="Almaymar" height={28} width={210} />
+            </div>
+          </div>
 
 
+          { isContacted &&
+          <div className={styles.ContactedContainer}>
+              <ContactBox onClose={handleContactClose}/>
+          </div>
+          }
 
-      {
-      amenityClicked &&
-      <div ref={amenityGridRef}>
+          {
+          amenityClicked &&
+          <div ref={amenityGridRef}>
 
-        <AmenityGrid />
-      </div>
-      }
+            <AmenityGrid />
+          </div>
+          }
 
     </>
 

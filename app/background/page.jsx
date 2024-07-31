@@ -114,6 +114,8 @@ export default function BackgroundImage() {
   const [backView, setBackView] = useState(false);
   const [reservedClicked, setReservedClicked] = useState(false);
 
+  const [filterselection, setFilterSelection] = useState(false);
+
   const router = useRouter();
   const favoriteApartments = useSelector((state) => state.favoriteApartments.favoriteApartments);
 
@@ -138,6 +140,8 @@ export default function BackgroundImage() {
       !filterBoxRef.current.contains(event.target)
     ) {
       setIsFilterBoxVisible(false);
+      setFilterBox(false);
+
     }
   }, []);
 
@@ -150,7 +154,10 @@ export default function BackgroundImage() {
 
   const handleFilter = useCallback((event) => {
     event.stopPropagation();
+    console.log("CLICKED")
+    setFilterBox(prevState => !prevState);
     setIsFilterBoxVisible((prev) => !prev);
+    setTooltipContent(null); // Reset tooltip content when filter is toggled
   }, []);
 
   const [isMapHovered, setIsMapHovered] = useState(false);
@@ -159,6 +166,7 @@ export default function BackgroundImage() {
   const favContainerRef = useRef(null);
   const apartmentListingRef = useRef(null);
 
+  
 
   const handleFavClickOutside = useCallback((event) => {
     if (
@@ -184,7 +192,7 @@ export default function BackgroundImage() {
   };
 
 
-
+  const [selectedAmenities, setSelectedAmenities] = useState([]);
 
   const handleGetDirections = () => {
     // Coordinates for HARSUKH
@@ -300,6 +308,21 @@ export default function BackgroundImage() {
   const handleContactClose = () => {
     setIsContacted(false);
   };
+
+  useEffect(()=>
+    {
+      
+      console.log(selectedAmenities.length);
+
+      if(selectedAmenities.length==0)
+      {
+        setFilterSelection(false);
+      }
+      else 
+      setFilterSelection(true);
+  
+    }, [filterbox, selectedAmenities.length ]
+    )
 
 
   const languageState = useSelector((state) => {
@@ -499,6 +522,28 @@ export default function BackgroundImage() {
   };
 
 
+  const handlePolygonHoverFiltered = (event) => {
+    const element = event.target;
+    const floorName = element.getAttribute('data-image');
+    const apartmentNum = element.getAttribute('ApartmentNum');
+    const bedroomCount = element.getAttribute('bedroomCount');
+    const apartmentType = element.getAttribute('apartmentType');
+  
+    if (floorName) {
+      setTooltipContent({ 
+        floorName, 
+        apartmentNum,
+        bedroomCount,
+        apartmentType
+      });
+      setTooltipPosition({
+        x: event.clientX + 15,
+        y: event.clientY + 15
+      });
+    }
+  };
+
+
   const handlePolygonMove = (event) => {
     if (tooltipContent) {
       setTooltipPosition({
@@ -516,22 +561,53 @@ export default function BackgroundImage() {
   useEffect(() => {
     const svg = svgRef.current;
     if (svg) {
-      const elements = svg.querySelectorAll('polygon, polyline, path');
+      const elements = svg.querySelectorAll('polygon, polyline, path, rect');
+      
+      const hoverHandler = filterbox ? handlePolygonHoverFiltered : handlePolygonHover;
+      
       elements.forEach(element => {
-        element.addEventListener('mouseenter', handlePolygonHover);
+        element.addEventListener('mouseenter', hoverHandler);
         element.addEventListener('mousemove', handlePolygonMove);
         element.addEventListener('mouseleave', handlePolygonLeave);
       });
-
+  
       return () => {
         elements.forEach(element => {
-          element.removeEventListener('mouseenter', handlePolygonHover);
+          element.removeEventListener('mouseenter', hoverHandler);
           element.removeEventListener('mousemove', handlePolygonMove);
           element.removeEventListener('mouseleave', handlePolygonLeave);
         });
       };
     }
-  }, [overlay]);
+  }, [overlay, filterbox]);
+
+
+  const handleFilterChange = (amenities) => {
+    setSelectedAmenities(amenities);
+  };
+
+
+  useEffect(() => {
+    if (svgRef.current) {
+      const svgElements = svgRef.current.querySelectorAll('polygon, polyline, path, rect');
+      
+      svgElements.forEach(element => {
+        const bedroomCount = element.getAttribute('bedroomCount');
+        const apartmentType = element.getAttribute('apartmentType');
+        
+        const shouldShow = selectedAmenities.length === 0 || selectedAmenities.some(amenity => {
+          if (amenity === 'Studio') return bedroomCount === '0';
+          if (amenity === '1 Bed Apartments') return bedroomCount === '1';
+          if (amenity === '2 Bed Apartments') return bedroomCount === '2';
+          if (amenity === '3 Bed Apartments') return bedroomCount === '3';
+          if (amenity === 'Pent Houses') return apartmentType === 'Penthouse';
+          return false;
+        });
+
+        element.style.display = shouldShow ? 'block' : 'none';
+      });
+    }
+  }, [selectedAmenities]);
 
   const dispatch = useDispatch();
 
@@ -562,7 +638,12 @@ const toggleLanguage = () => {
     dispatch(modifyLanguage({ language: language ? 'ur' : 'en' }));
   }, [language, dispatch]);
 
+  useEffect(()=>
+  {
+    console.log("KJ")
+  }
 
+  ,[isFilterBarVisible])
 
   return (
     <>
@@ -588,6 +669,8 @@ const toggleLanguage = () => {
         (
           filterbox ? 
           (
+              
+            (
             <svg
               ref={svgRef}
               version="1.1" 
@@ -598,12 +681,107 @@ const toggleLanguage = () => {
               y="0px" 
               xmlSpace="preserve"
             >
-              <polygon className={styles.st0} data-image="Valley Floor 6" data-tip="basement6" points="446.78 393.2 591.57 298.53 589.86 396.41 446.78 396.41 446.78 393.2"/>
-              <polygon className={styles.st0} data-image="Valley Floor 6" data-tip="basement6" points="619.67 303.31 693.04 256.08 695.34 382.19 619.67 382.19 619.67 303.31"/>
-              <rect className={styles.st0} data-image="Valley Floor 6" data-tip="basement6" x="854.93" y="361.55" width="110.52" height="45.86"/>
-              <rect className={styles.st0} x="965.45" y="361.55" width="100.89" height="45.86"/>
-              <polygon className={styles.st0} data-image="Valley Floor 6" data-tip="basement6" points="1207.59 296.89 1207.59 409.25 1347.92 409.25 1347.92 384.48 1207.59 296.89"/>
-            </svg>
+          
+              <polygon  data-image="Third Floor" data-tip="thirdFloor" ApartmentNum="10" bedroomCount="2" apartmentType="Penthouse" className={styles.st2} points="446.78 393.2 591.57 298.53 589.86 396.41 446.78 396.41 446.78 393.2"/>
+              <polygon data-image="Third Floor" data-tip="thirdFloor"  ApartmentNum="9" bedroomCount="2" apartmentType="Penthouse" className={styles.st2} points="619.67 303.31 693.04 256.08 695.34 382.19 619.67 382.19 619.67 303.31"/>
+              <rect data-image="Third Floor" data-tip="thirdFloor"  ApartmentNum="8" bedroomCount="3" apartmentType="Penthouse" className={styles.st2} x="854.93" y="361.55" width="110.52" height="45.86"/>
+              <rect data-image="Third Floor" data-tip="thirdFloor"  ApartmentNum="7" bedroomCount="3" apartmentType="Penthouse" className={styles.st2} x="965.45" y="361.55" width="100.89" height="45.86"/>
+              <polygon  data-image="Third Floor" data-tip="thirdFloor"  ApartmentNum="6" bedroomCount="3" apartmentType="Penthouse" className={styles.st2} points="1207.59 296.89 1207.59 409.25 1347.92 409.25 1347.92 384.48 1207.59 296.89"/>
+
+
+              <polygon  data-image="Second Floor" data-tip="secondFloor"  ApartmentNum="28" bedroomCount="2" apartmentType="Bedroom" className={styles.st2} points="446.78 407.41 446.78 456.25 528.87 456.25 528.87 404.66 446.78 404.66 446.78 407.41"/>
+              <rect data-image="Second Floor" data-tip="secondFloor"  ApartmentNum="27" bedroomCount="2" apartmentType="Bedroom" className={styles.st2} x="528.87" y="404.66" width="62.7" height="51.59"/>
+              <polygon  data-image="Second Floor" data-tip="secondFloor" ApartmentNum="26" bedroomCount="2" apartmentType="Bedroom" className={styles.st2} points="626.78 398.93 626.78 443.87 695.34 443.87 695.34 398.01 626.78 398.93"/>
+              <rect  data-image="Second Floor" data-tip="secondFloor" ApartmentNum="25" bedroomCount="3" apartmentType="Bedroom" className={styles.st2} x="854.93" y="411.08" width="110.52" height="49.22"/>
+              <rect  data-image="Second Floor" data-tip="secondFloor" ApartmentNum="24" bedroomCount="3" apartmentType="Bedroom" className={styles.st2} x="965.45" y="411.08" width="100.89" height="49.22"/>
+              <polygon data-image="Second Floor" data-tip="secondFloor"  ApartmentNum="23" bedroomCount="1" apartmentType="Bedroom" className={styles.st2} points="1207.59 416.59 1285.1 416.59 1285.1 465.5 1206.52 465.5 1207.59 416.59"/>
+              <rect data-image="Second Floor" data-tip="secondFloor"  ApartmentNum="22" bedroomCount="1" apartmentType="Bedroom" className={styles.st2} x="1285.1" y="416.59" width="62.83" height="48.92"/>
+              <polygon data-image="Second Floor" data-tip="secondFloor"  ApartmentNum="21" bedroomCount="1" apartmentType="Bedroom" className={styles.st2} points="1365.2 397.32 1365.2 473.76 1408.61 473.76 1408.61 424.23 1365.2 397.32"/>
+              <polygon data-image="Second Floor" data-tip="secondFloor"  ApartmentNum="20" bedroomCount="1" apartmentType="Bedroom" className={styles.st2} points="1487.49 473.76 1408.61 473.76 1408.61 424.23 1487.49 473.76"/>
+
+
+              <rect data-image="First Floor" data-tip="firstFloor"  ApartmentNum="44" bedroomCount="2" apartmentType="Bedroom" className={styles.st2} x="446.78" y="463.67" width="82.09" height="51.97"/>
+              <rect data-image="First Floor" data-tip="firstFloor"    ApartmentNum="43" bedroomCount="2"  apartmentType="Bedroom" className={styles.st2} x="528.87" y="463.67" width="64.36" height="51.97"/>
+              <rect data-image="First Floor" data-tip="firstFloor"   ApartmentNum="42" bedroomCount="2" apartmentType="Bedroom" className={styles.st2} x="626.78" y="457.86" width="68.56" height="47.46"/>
+              <rect data-image="First Floor" data-tip="firstFloor"   ApartmentNum="41" bedroomCount="3" apartmentType="Bedroom" className={styles.st2} x="854.93" y="468.64" width="110.52" height="47.01"/>
+              <rect data-image="First Floor" data-tip="firstFloor"   ApartmentNum="40" bedroomCount="3" apartmentType="Bedroom" className={styles.st2} x="965.45" y="468.64" width="100.89" height="47.01"/>
+              <rect data-image="First Floor" data-tip="firstFloor"   ApartmentNum="39" bedroomCount="1" apartmentType="Bedroom" className={styles.st2} x="1206.52" y="473.76" width="78.57" height="48"/>
+              <rect data-image="First Floor" data-tip="firstFloor"   ApartmentNum="38" bedroomCount="1" apartmentType="Bedroom" className={styles.st2} x="1285.1" y="473.76" width="62.83" height="48"/>
+              <rect data-image="First Floor" data-tip="firstFloor"   ApartmentNum="37" bedroomCount="1" apartmentType="Bedroom" className={styles.st2} x="1421.76" y="481.1" width="74.9" height="40.66"/>
+              <rect data-image="First Floor" data-tip="firstFloor"   ApartmentNum="36" bedroomCount="1" apartmentType="Bedroom" className={styles.st2} x="1363.97" y="481.1" width="57.78" height="40.66"/>
+
+
+              <rect data-image="Ground Floor" data-tip="groundFloor"   ApartmentNum="59" bedroomCount="2" apartmentType="Bedroom" className={styles.st2} x="446.78" y="521.15" width="82.09" height="45.86"/>
+              <rect data-image="Ground Floor" data-tip="groundFloor" ApartmentNum="58" bedroomCount="2" apartmentType="Bedroom" className={styles.st2} x="528.87" y="521.15" width="64.36" height="45.86"/>
+              <path data-image="Ground Floor" data-tip="groundFloor"  ApartmentNum="57" bedroomCount="2" apartmentType="Bedroom" className={styles.st2} d="M625.63,517.25h70.62V567H625.63C626.32,567,625.63,517.25,625.63,517.25Z"/>
+              <rect data-image="Ground Floor" data-tip="groundFloor" ApartmentNum="56" bedroomCount="3" apartmentType="Bedroom" className={styles.st2} x="854.93" y="526.19" width="110.52" height="48.15"/>
+              <rect data-image="Ground Floor" data-tip="groundFloor"  ApartmentNum="55" bedroomCount="3" apartmentType="Bedroom" className={styles.st2} x="965.45" y="526.19" width="100.89" height="48.15"/>
+              <rect data-image="Ground Floor" data-tip="groundFloor"  ApartmentNum="54" bedroomCount="1" apartmentType="Bedroom" className={styles.st2} x="1206.52" y="528.48" width="78.57" height="49.53"/>
+              <rect data-image="Ground Floor" data-tip="groundFloor"  ApartmentNum="53" bedroomCount="1" apartmentType="Bedroom" className={styles.st2} x="1285.1" y="528.48" width="62.83" height="49.53"/>
+              <rect data-image="Ground Floor" data-tip="groundFloor"  ApartmentNum="52" bedroomCount="1" apartmentType="Bedroom" className={styles.st2} x="1363.97" y="536.28" width="63.06" height="46.32"/>
+              <rect data-image="Ground Floor" data-tip="groundFloor"   ApartmentNum="51" bedroomCount="1" apartmentType="Bedroom" className={styles.st2} x="1427.03" y="536.28" width="69.63" height="46.32"/>
+            
+              <rect  data-image="Valley Floor 1" data-tip="basement1"  ApartmentNum="81" bedroomCount="2" apartmentType="Bedroom" className={styles.st2} x="446.78" y="575.26" width="82.09" height="50.75"/>
+              <rect  data-image="Valley Floor 1" data-tip="basement1"  ApartmentNum="80" bedroomCount="2" apartmentType="Bedroom" className={styles.st2} x="528.87" y="575.26" width="65.89" height="50.75"/>
+              <rect data-image="Valley Floor 1" data-tip="basement1"  ApartmentNum="79" bedroomCount="2" apartmentType="Bedroom" className={styles.st2} x="625.63" y="575.26" width="70.63" height="50.75"/>
+              <rect data-image="Valley Floor 1" data-tip="basement1"  ApartmentNum="78" bedroomCount="2" apartmentType="Bedroom" className={styles.st2} x="732.94" y="575.26" width="88.66" height="50.75"/>
+              <rect  data-image="Valley Floor 1" data-tip="basement1" ApartmentNum="77" bedroomCount="2" apartmentType="Bedroom" className={styles.st2} x="854.93" y="584.74" width="88.66" height="48.31"/>
+              <rect data-image="Valley Floor 1" data-tip="basement1"  ApartmentNum="76" bedroomCount="2" apartmentType="Bedroom" className={styles.st2} x="977.53" y="584.74" width="88.82" height="48.31"/>
+              <rect  data-image="Valley Floor 1" data-tip="basement1"  ApartmentNum="75" bedroomCount="2" apartmentType="Bedroom" className={styles.st2} x="1107.16" y="584.74" width="76.43" height="48.31"/>
+              <rect  data-image="Valley Floor 1" data-tip="basement1"  ApartmentNum="74" bedroomCount="1" apartmentType="Bedroom" className={styles.st2} x="1205.64" y="584.74" width="73.95" height="48.31"/>
+              <rect  data-image="Valley Floor 1" data-tip="basement1"  ApartmentNum="73" bedroomCount="1" apartmentType="Bedroom" className={styles.st2} x="1279.59" y="584.74" width="68.33" height="48.31"/>
+              <polygon data-image="Valley Floor 1" data-tip="basement1"  ApartmentNum="72" bedroomCount="1" apartmentType="Bedroom" className={styles.st2} points="1362.97 588.41 1364.04 633.04 1431.39 633.04 1431.39 588.41 1362.97 588.41"/>
+              <rect  data-image="Valley Floor 1" data-tip="basement1"  ApartmentNum="71" bedroomCount="1" apartmentType="Bedroom" className={styles.st2} x="1431.39" y="588.41" width="65.27" height="44.64"/>
+
+              <rect data-image="Valley Floor 3" data-tip="basement3"  ApartmentNum="105" bedroomCount="2" apartmentType="Bedroom" className={styles.st2} x="446.78" y="694.96" width="82.09" height="50.9"/>
+              <rect data-image="Valley Floor 3" data-tip="basement3"  ApartmentNum="104" bedroomCount="2" apartmentType="Bedroom" className={styles.st2} x="528.87" y="694.96" width="65.89" height="50.9"/>
+              <rect data-image="Valley Floor 3" data-tip="basement3"  ApartmentNum="103" bedroomCount="2" apartmentType="Bedroom" className={styles.st2} x="625.63" y="694.96" width="73.84" height="50.9"/>
+              <rect data-image="Valley Floor 3" data-tip="basement3"  ApartmentNum="102" bedroomCount="2" apartmentType="Bedroom" className={styles.st2} x="732.94" y="694.96" width="88.66" height="50.9"/>
+              <rect data-image="Valley Floor 3" data-tip="basement3" ApartmentNum="101" bedroomCount="2" apartmentType="Bedroom" className={styles.st2} x="997.1" y="694.96" width="69.25" height="50.9"/>
+              <rect data-image="Valley Floor 3" data-tip="basement3"  ApartmentNum="100" bedroomCount="2" apartmentType="Bedroom" className={styles.st2} x="926.93" y="694.96" width="70.17" height="50.9"/>
+              <rect data-image="Valley Floor 3" data-tip="basement3"  ApartmentNum="99" bedroomCount="2" apartmentType="Bedroom" className={styles.st2} x="854.93" y="694.96" width="72" height="50.9"/>
+              <rect data-image="Valley Floor 3" data-tip="basement3"  ApartmentNum="98" bedroomCount="1" apartmentType="Bedroom" className={styles.st2} x="1107.16" y="694.96" width="76.43" height="50.9"/>
+              <rect data-image="Valley Floor 3" data-tip="basement3"  ApartmentNum="97" bedroomCount="1" apartmentType="Bedroom" className={styles.st2} x="1205.64" y="694.96" width="73.95" height="50.9"/>
+              <rect data-image="Valley Floor 3" data-tip="basement3"  ApartmentNum="96" bedroomCount="1" apartmentType="Bedroom" className={styles.st2} x="1279.59" y="694.96" width="68.33" height="50.9"/>
+              <rect data-image="Valley Floor 3" data-tip="basement3"  ApartmentNum="95" bedroomCount="1" apartmentType="Bedroom" className={styles.st2} x="1363.97" y="694.96" width="67.41" height="50.9"/>
+              <rect data-image="Valley Floor 3" data-tip="basement3"  ApartmentNum="94" bedroomCount="1" apartmentType="Bedroom" className={styles.st2} x="1431.39" y="694.96" width="65.27" height="50.9"/>
+           
+              <rect data-image="Valley Floor 4" data-tip="basement4"   ApartmentNum="124" bedroomCount="2" apartmentType="Bedroom" className={styles.st2} x="446.78" y="755.03" width="82.09" height="51.36"/>
+              <rect data-image="Valley Floor 4" data-tip="basement4" ApartmentNum="123" bedroomCount="2" apartmentType="Bedroom" className={styles.st2} x="528.87" y="755.03" width="67.72" height="51.36"/>
+              <rect data-image="Valley Floor 4" data-tip="basement4" ApartmentNum="122" bedroomCount="2" apartmentType="Bedroom" className={styles.st2} x="625.63" y="755.03" width="73.84" height="51.36"/>
+              <rect data-image="Valley Floor 4" data-tip="basement4" ApartmentNum="121" bedroomCount="2" apartmentType="Bedroom" className={styles.st2} x="732.94" y="755.03" width="88.66" height="51.36"/>
+              <rect data-image="Valley Floor 4" data-tip="basement4" ApartmentNum="120" bedroomCount="2" apartmentType="Bedroom" className={styles.st2} x="854.93" y="755.03" width="72" height="51.36"/>
+              <rect data-image="Valley Floor 4" data-tip="basement4" ApartmentNum="119" bedroomCount="2" apartmentType="Bedroom" className={styles.st2} x="926.93" y="755.03" width="69.71" height="51.36"/>
+              <rect data-image="Valley Floor 4" data-tip="basement4" ApartmentNum="118" bedroomCount="2" apartmentType="Bedroom" className={styles.st2} x="996.64" y="755.03" width="69.71" height="51.36"/>
+              <rect data-image="Valley Floor 4" data-tip="basement4" ApartmentNum="117" bedroomCount="1" apartmentType="Bedroom" className={styles.st2} x="1107.16" y="755.03" width="76.43" height="51.36"/>
+              <rect data-image="Valley Floor 4" data-tip="basement4" ApartmentNum="116" bedroomCount="1" apartmentType="Bedroom" className={styles.st2} x="1205.64" y="755.03" width="47.04" height="51.36"/>
+              <rect data-image="Valley Floor 4" data-tip="basement4" ApartmentNum="115" bedroomCount="1" apartmentType="Bedroom" className={styles.st2} x="1252.69" y="755.03" width="47.04" height="51.36"/>
+              <rect data-image="Valley Floor 4" data-tip="basement4" ApartmentNum="114" bedroomCount="1" apartmentType="Bedroom" className={styles.st2} x="1299.73" y="755.03" width="48.19" height="51.36"/>
+            
+
+              <rect data-image="Valley Floor 5" data-tip="basement5"  ApartmentNum="127" bedroomCount="1" apartmentType="Bedroom" className={styles.st2} x="446.78" y="814.65" width="82.09" height="50.9"/>
+              <rect data-image="Valley Floor 5" data-tip="basement5"  ApartmentNum="128" bedroomCount="2" apartmentType="Bedroom" className={styles.st2} x="528.87" y="814.65" width="67.72" height="50.9"/>
+              <rect data-image="Valley Floor 5" data-tip="basement5"  ApartmentNum="129" bedroomCount="1" apartmentType="Bedroom" className={styles.st2} x="625.63" y="814.65" width="73.84" height="50.9"/>
+              <rect data-image="Valley Floor 5" data-tip="basement5"  ApartmentNum="130" bedroomCount="1" apartmentType="Bedroom" className={styles.st2} x="732.94" y="814.65" width="88.66" height="50.9"/>
+              <rect data-image="Valley Floor 5" data-tip="basement5"  ApartmentNum="131" bedroomCount="1" apartmentType="Bedroom" className={styles.st2} x="854.93" y="814.65" width="72" height="50.9"/>
+              <rect data-image="Valley Floor 5" data-tip="basement5"  ApartmentNum="132" bedroomCount="1" apartmentType="Bedroom" className={styles.st2} x="926.93" y="814.65" width="72" height="50.9"/>
+              <rect data-image="Valley Floor 5" data-tip="basement5"  ApartmentNum="133" bedroomCount="1" apartmentType="Bedroom" className={styles.st2} x="998.93" y="814.65" width="67.41" height="50.9"/>
+              <rect data-image="Valley Floor 5" data-tip="basement5"  ApartmentNum="134" bedroomCount="1" apartmentType="Bedroom" className={styles.st2} x="1107.16" y="814.65" width="76.43" height="50.9"/>
+      
+              <rect data-image="Valley Floor 6" data-tip="basement6"   ApartmentNum="138" bedroomCount="1" apartmentType="Bedroom" className={styles.st2} x="446.78" y="873.81" width="82.09" height="50.9"/>
+              <rect data-image="Valley Floor 6" data-tip="basement6" ApartmentNum="139" bedroomCount="1" apartmentType="Bedroom" className={styles.st2} x="528.87" y="873.81" width="67.72" height="50.9"/>
+              <rect data-image="Valley Floor 6" data-tip="basement6" ApartmentNum="140" bedroomCount="1" apartmentType="Bedroom" className={styles.st2} x="625.63" y="873.81" width="73.84" height="50.9"/>
+              <rect data-image="Valley Floor 6" data-tip="basement6" ApartmentNum="141" bedroomCount="1" apartmentType="Bedroom" className={styles.st2} x="732.94" y="873.81" width="88.66" height="50.9"/>
+              <rect data-image="Valley Floor 6" data-tip="basement6" ApartmentNum="142" bedroomCount="1" apartmentType="Bedroom" className={styles.st2} x="854.93" y="873.81" width="72" height="50.9"/>
+              <rect data-image="Valley Floor 6" data-tip="basement6" ApartmentNum="143" bedroomCount="1" apartmentType="Bedroom" className={styles.st2} x="926.93" y="873.81" width="72" height="50.9"/>
+              <rect data-image="Valley Floor 6" data-tip="basement6" ApartmentNum="144" bedroomCount="1" apartmentType="Bedroom" className={styles.st2} x="998.93" y="873.81" width="67.41" height="50.9"/>
+              <rect data-image="Valley Floor 6" data-tip="basement6" ApartmentNum="145" bedroomCount="1" apartmentType="Bedroom" className={styles.st2} x="1107.16" y="873.81" width="76.43" height="50.9"/>
+              
+
+              <path className={styles.st0} data-image="Valley Floor 2" data-tip="basement2" d="M429.28,635.11v51.06l193.38.15h75.21l123.21,1.44c10.93.13,21.93,1.19,32.86,1.32,34.83.41,69.58-.11,104.41.3H1291l221.43,1.84.38-46.17-176.26-2.44-130.85-.92-98.45-.31-254.06-.92L821,637.36l-87.08-.56-54.72-1.23h-89Z"/>
+
+
+            </svg>)
           ) 
           :
           (
@@ -658,21 +836,25 @@ const toggleLanguage = () => {
                   </div>
                   <div className={styles.tooltipInfo}>
                     <div className={styles.tooltipFloor}>{tooltipContent.floorName}</div>
-                    { tooltipContent.floorName === 'Valley Floor 2'?
+                    {tooltipContent.floorName === 'Valley Floor 2' ? (
                       <span className={styles.tooltipUnits}>Parking Lot</span>
-                      :
-                      <div className={styles.tooltipUnits}>{tooltipContent.totalUnits} Units</div>
-
-                    }
+                    ) : (
+                      filterbox ? (
+                        <>
+                          <div className={styles.tooltipFloor}>Apartment: {tooltipContent.apartmentNum}</div>
+                          <div className={styles.tooltipFloor}>{tooltipContent.bedroomCount} {tooltipContent.apartmentType}</div>
+                          {/* <div className={styles.tooltipType}>{tooltipContent.apartmentType}</div> */}
+                        </>
+                      ) : (
+                        <div className={styles.tooltipUnits}>{tooltipContent.totalUnits} Units</div>
+                      )
+                    )}
                   </div>
                 </div>
               </div>
             )}
     
           </div>
-
-
-
          
 
           { !isMobile && <>
@@ -772,8 +954,8 @@ const toggleLanguage = () => {
               <div className={styles.bottomLogoContainerTitle}>
                 A Project by
               </div>
-              <div style={{left: '-0.7rem', bottom:'-0.5rem', position: 'relative'}} onClick={()=> router.push("https://almaymaar.com/")} >
-                <Image src="/Webpage/floors/MainLogo.png"  quality={100} alt="Almaymar" height={300} width={300} />
+              <div style={{left: '2.5rem', bottom:'8rem', position: 'relative', zIndex: 1}}onClick={() => window.open("https://almaymaar.com/", '_blank')}>
+              <Image style={{cursor:'pointer'}} src="/Webpage/floors/MainLogo.png"  quality={100} alt="Almaymar" height={28} width={210} />
               </div>
             </div>
 
@@ -834,7 +1016,11 @@ const toggleLanguage = () => {
                 }
 
             {isFilterBoxVisible && (
-              <FilterBox ref={filterBoxRef} isVisible={isFilterBoxVisible} />
+             <FilterBox
+                ref={filterBoxRef}
+                isVisible={isFilterBoxVisible}
+                onFilterChange={handleFilterChange}
+              />        
             )}
 
         </>}
@@ -859,15 +1045,23 @@ const toggleLanguage = () => {
 
           <>
           
-          <div className={styles.topLogoContainer}>
-            <Image src="/Webpage/floors/HarsukhLogo.png" quality={100} alt="bird" height={120} width={190} />
-          </div>
-
-
-          <div className={styles.menuContainerInside} ref={menuContainerRef} >
-                <MenubarButton inActive={menuBox} handleMenu={handleMenu}/>
+              <div className={styles.topLogoContainer}>
+                <Image src="/Webpage/floors/HarsukhLogo.png" quality={100} alt="bird" height={120} width={190} />
               </div>
 
+
+              <div className={styles.menuContainer}>
+                <div className={styles.menuContainerInside} ref={menuContainerRef} >
+                  <MenubarButton inActive={menuBox} handleMenu={handleMenu}/>
+                </div>
+              </div>
+
+              <MenuBox isMobile={isMobile} ref={menuBoxRef} isActive={menuBox} 
+                handleOverlay={handleOverlay} handleFilter={handleFilter} translations={translations} toggleLanguage={toggleLanguage} overlay={overlay} fullScreen={fullScreen} toggleFullScreen={toggleFullScreen}/>
+
+{isFilterBoxVisible && (
+              <FilterBox ref={filterBoxRef} isVisible={isFilterBoxVisible} />
+            )}
 
             <div className={styles.backViewButton} onClick={handleBackView}>
               <div className={styles.backViewButtonLeft}>
@@ -918,21 +1112,18 @@ const toggleLanguage = () => {
 
 
 
-{/* 
-        <div className={`${styles.bottomNavbar} ${showNavbar ? 'show' : ''}`}>
-          <div className={styles.navbarItem} onClick={handleFilter}>
-            <Image src="/images/icons/filterIcon.svg" alt="Filter" width={24} height={24} className={styles.navbarIcon} />
-            <span>Filter</span>
-          </div>
-          <div className={styles.navbarItem}>
-            <Image src="/images/icons/floorIcon.svg" alt="Seasons" width={24} height={24} className={styles.navbarIcon} />
-            <span>Seasons</span>
-          </div>
-          <div className={styles.navbarItem} onClick={handleMenu}>
-            <Image src="/images/icons/menuIcon.svg" alt="Menu" width={20} height={20} className={styles.navbarIcon} />
-            <span>Menu</span>
-          </div>
-        </div> */}
+          {
+
+
+
+
+
+
+
+
+          }
+
+
 
           
           </>
