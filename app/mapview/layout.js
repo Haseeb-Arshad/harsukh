@@ -21,6 +21,7 @@ import { toggleVisibility } from '@/state/mapView/mapViewState'; // Adjust the i
 // Import translations
 import en from '../locales/en.json';
 import ur from '../locales/ur.json';
+import ContactBox from '../component/Bars/contactBox';
 
 const Layout = ({children}) => 
 {   
@@ -36,6 +37,10 @@ const Layout = ({children}) =>
   const [isTransitioning, setIsTransitioning] = useState(false);
   const pathname = usePathname();
   const svgVisibility = useSelector((state) => state.svgVisibility);
+  const [isMapHovered, setIsMapHovered] = useState(false);
+  const [isCallHovered, setIsCallHovered] = useState(false);
+  const [isContacted, setIsContacted] = useState(false);
+
 
   const languageState = useSelector((state) => {
     const languageState = state.language.lang.find((site) => site.id === '1');
@@ -135,7 +140,32 @@ const Layout = ({children}) =>
     dispatch(toggleVisibility({ element }));
   };
 
+  const handleContactClose = () => {
+    setIsContacted(false);
+  };
 
+
+  const handleGetDirections = () => {
+    // Coordinates for HARSUKH
+    const destination = '34.0162791,73.3928231';
+    
+    // Check if geolocation is supported by the browser
+    if ('geolocation' in navigator) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        const origin = `${position.coords.latitude},${position.coords.longitude}`;
+        const url = `https://www.google.com/maps/dir/?api=1&origin=${origin}&destination=${destination}`;
+        window.open(url, '_blank');
+      }, () => {
+        // If user denies location access or any error occurs, just open with destination
+        const url = `https://www.google.com/maps/dir/?api=1&destination=${destination}`;
+        window.open(url, '_blank');
+      });
+    } else {
+      // Fallback for browsers that don't support geolocation
+      const url = `https://www.google.com/maps/dir/?api=1&destination=${destination}`;
+      window.open(url, '_blank');
+    }
+  };
 
   return (     
     <div style={{ position: 'relative', background: 'rgba(0, 29, 32, 1)' , height: '100vh', width: '100%'}}>
@@ -159,9 +189,19 @@ const Layout = ({children}) =>
         <Image src="/Webpage/floors/HarsukhLogo.png" quality={100} alt="Harsukh Logo" height={105} width={180} />
       </div>
       
-      <div className={styles.AlyamarLogo}>
+      {/* <div className={styles.AlyamarLogo}>
         <Image src="/Webpage/floors/MainLogo.png" quality={100} alt="ArtBoard Logo" height={300} width={300} />
+      </div> */}
+
+      <div className={styles.bottomLogoContainer}>
+        <div className={styles.bottomLogoContainerTitle}>
+          A Project by
+        </div>
+        <div style={{left: '2.5rem', bottom:'8rem', position: 'relative', zIndex: 1}}onClick={() => window.open("https://almaymaar.com/", '_blank')}>
+        <Image style={{cursor:'pointer'}} src="/Webpage/floors/MainLogo.png"  quality={100} alt="Almaymar" height={28} width={210} />
+        </div>
       </div>
+
 
       <div className={styles.menuContainer}>
         <div className={`${styles.longvideoTab}`} onClick={handleAmenities}>
@@ -213,12 +253,44 @@ const Layout = ({children}) =>
       </div>
 
       <MenuBox isActive={menuBox} handleOverlay={handleOverlay} translations={translations} toggleLanguage={toggleLanguage} overlay={overlay} fullScreen={fullScreen} toggleFullScreen={toggleFullScreen}/>
-      <div className={styles.callContainer} onClick={handleCall}>
-        <div className={styles.mapsViewBox}>
-          <Image src="/images/icons/callIcon.svg" quality={100} alt="Maps View Icon" height={19} width={19} />
-        </div>
-      </div>
+      
 
+      
+            <div className={styles.container}>
+              <div
+                className={`${styles.buttonss} ${styles.mapButton} ${isMapHovered ? styles.expanded : ''}`}
+                onMouseEnter={() => setIsMapHovered(true)}
+                onMouseLeave={() => setIsMapHovered(false)}
+                onClick={handleGetDirections}
+
+              >
+                <Image 
+                  src="/images/icons/mapsViewIcon.svg" 
+                  quality={100} 
+                  alt="Maps View Icon" 
+                  height={17} 
+                  width={17} 
+                />
+                <span className={styles.buttonText}>Get Directions</span>
+              </div>
+
+              <div
+                className={`${styles.buttonss} ${styles.callButton} ${isCallHovered ? styles.expanded : ''}`}
+                onMouseEnter={() => setIsCallHovered(true)}
+                onMouseLeave={() => setIsCallHovered(false)}
+                onClick={handleCall}
+              >
+                <Image src="/images/icons/callIcon.svg" quality={100} alt="Maps View Icon" height={19} width={19} />
+                <span className={styles.buttonText}>Register Request</span>
+              </div>
+            </div>
+
+
+            { isContacted &&
+            <div className={styles.ContactedContainer}>
+                <ContactBox onClose={handleContactClose}/>
+            </div>
+            }
     
       <div className={styles.elevationContainer}>
         <div className={ElevStyles.elevationButtonBox} ref={elevationRef}                
@@ -261,6 +333,7 @@ const Layout = ({children}) =>
             </div>
           </div>
       </div>
+    
 
     </div>   
   )

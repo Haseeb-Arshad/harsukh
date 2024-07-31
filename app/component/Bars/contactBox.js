@@ -3,6 +3,7 @@ import styles from '@/styles/reserve/RegisterReq.module.css';
 import Image from 'next/image';
 import { useSelector, useDispatch } from 'react-redux';
 import { removeFavoriteApartment } from '@/state/apartment/favApartment';
+import CloseIcon from '../Icons/closeBtn';
 
 
 
@@ -157,10 +158,12 @@ const RegisterRequestForm = ({ onClose }) => {
   return (
     <div className={styles.overlay}>
       <div className={styles.formContainer} ref={formRef}>
-        <div className={styles.closeButtonBox} onClick={onClose}>
-          <div className={styles.closeButton}>
+        <div className={styles.closeButtonBox} >
+          {/* <div className={styles.closeButton}>
             <Image src="/images/icons/closeIcon.svg" width="20" height="20" alt="Close"/>
-          </div>
+          </div> */}
+                  <CloseIcon  closeBtn={onClose} />
+
         </div>
         <h2 className={styles.formTitle}>Register Request</h2>
      

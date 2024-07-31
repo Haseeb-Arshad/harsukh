@@ -127,7 +127,7 @@ const Layout = ({children}) =>
     { id: 'thirdFloor', label: translations.thirdfloor || 'Third Floor' },
     { id: 'secondFloor', label: translations.secondfloor || 'Second Floor' },
     { id: 'firstFloor', label: translations.firstfloor || 'First Floor' },
-    { id: 'groundfloor', label: translations.groundfloor || 'Ground Floor' },
+    { id: 'groundFloor', label: translations.groundfloor || 'Ground Floor' },
     { id: 'basement1', label: translations.basement1 || 'Vallery Floor 1' },
     { id: 'basement3', label: translations.basement3 || 'Vallery Floor 3' },
     { id: 'basement4', label: translations.basement4 || 'Vallery Floor 4' },
@@ -217,10 +217,9 @@ const Layout = ({children}) =>
           </div>
         </div>
 
-
-
-
-
+        <div className={styles.Harsukhlogo}>
+        <Image src="/Webpage/floors/HarsukhLogo.png" quality={100} alt="Harsukh Logo" height={105} width={180} />
+        </div>
 
           <div className={styles.apartmentInterestBox}>
             <div className={styles.apartmentInterestInside}>

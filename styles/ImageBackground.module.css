@@ -55,6 +55,26 @@
     -ms-transition: all 0.84s ease-out;
     transition: all 0.84s ease-out;  pointer-events: all;
   }
+
+  .st2 {
+    opacity: 0.5;
+    fill: #FCF7EB;
+    cursor: pointer;
+    -moz-transition: all 0.84s ease-out;
+    -o-transition: all 0.84s ease-out;
+    -webkit-transition: all 0.84s ease-out;
+    -ms-transition: all 0.84s ease-out;
+    transition: all 0.84s ease-out;  pointer-events: all;
+  }
+  
+  
+
+  .st0:hover {
+    opacity: 0.5;
+    fill: #FCF7EB;
+    stroke: "#0000ff";
+    stroke-width: 2px;
+  }
   
   .st1Hovers {
     opacity: 0.5;
@@ -68,15 +88,6 @@
     -ms-transition: all 0.84s ease-out;
     transition: all 0.84s ease-out;  pointer-events: all;
   }
-
-  .st0:hover {
-    opacity: 0.5;
-    fill: #FCF7EB;
-    stroke: "#0000ff";
-    stroke-width: 2px;
-  }
-  
-
 
   .topLogoContainer,
   .buttonsContainer,
@@ -422,15 +433,9 @@
   display: flex;
   align-items: center;
   flex-direction: row-reverse;
-  /* justify-content: center; */
-  /* border: 1px solid red; */
+
 }
-/* 
-.menuButton .active
-{
-  background-color: #006d77;
-  color: #FCF7EB;
-} */
+
   
 .countBadge {
   position: absolute;
@@ -544,7 +549,6 @@
   user-select: none;
   cursor: pointer;
   transition: all 0.3s ease;
-  /* box-shadow: 0 4px 6px rgba(0, 109, 119, 0.1); */
 }
 
 .menuArrowButton:hover {
@@ -554,6 +558,37 @@
   transform: translateY(-2px);
   box-shadow: 0 6px 8px rgba(0, 109, 119, 0.2);
 }
+
+.closeButton
+{
+  background-color: rgba(0, 109, 119, 0.12);
+
+  /* background-color: rgba(0, 109, 119, 0.5); */
+   /* rgba(252, 247, 235, 1); */
+  color: #006d77;
+   /* rgba(0, 109, 119, 0.5);  */
+  width: 1.5rem;
+  height: 1.5rem;
+  border: none;
+  padding: 0.3rem;
+  border-radius: 50%;
+  font-size: 0.8rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  align-self: center;
+  user-select: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+/* .closeButton:hover {
+
+  background-color: rgba(252, 247, 235, 1);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 8px rgba(0, 109, 119, 0.2);
+} */
 
 .favButton
 {
@@ -1144,21 +1179,37 @@
   }
 }
 
-@media (max-width: 768px) {
- 
-}
 
 
 @media (max-width: 768px) {
 
 
+   
+  .menuContainer {
+    top: 3rem;
+    right: 5px;
+    height: 3.7rem;
+    width: 5.5rem;
+    /* border: 3px solid red; */
+    display: grid;
+    align-items: center;
+    justify-content: center;
+    grid-template-columns: 1;
+  }
 
+  .menuContainerInside
+  {
+    display: flex;
+    align-items: center;
+    flex-direction: row-reverse;
+  
+  }
 
   .backViewButton
 {
   user-select: none;
   position: absolute;
-  bottom: 6vh; 
+  bottom: 12vh; 
   right: 40vw;
   align-items: center;
   justify-content: center;
@@ -1175,14 +1226,8 @@
   transition: all 0.3s ease-in-out;
   opacity: 1;
   transition: opacity 0.3s ease-in-out;
+  z-index: 10000;
 }
-
-
-
-
-
-
-
 
   
   .filterElevationContainer {

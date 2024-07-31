@@ -1,10 +1,9 @@
-'use client';
-import React, { useState, forwardRef } from 'react';
+import React, { useState, forwardRef, useEffect } from 'react';
 import styles from '@/styles/filterBox.module.css';
 
-const FilterBox = forwardRef(({ isVisible }, ref) => {
+const FilterBox = forwardRef(({ isVisible, onFilterChange }, ref) => {
   const [activeTab, setActiveTab] = useState('Amenities');
-  const [selectedAmenities, setSelectedAmenities] = useState(['2 Bed Apartments']);
+  const [selectedAmenities, setSelectedAmenities] = useState([]);
 
   const tabs = ['Amenities', 'Booked', 'Sold'];
   const amenities = [
@@ -32,6 +31,10 @@ const FilterBox = forwardRef(({ isVisible }, ref) => {
   const handleResetFilter = () => {
     setSelectedAmenities([]);
   };
+
+  useEffect(() => {
+    onFilterChange(selectedAmenities);
+  }, [selectedAmenities, onFilterChange]);
 
   return (
     <div ref={ref} className={`${styles.filterBox} ${isVisible ? styles.visible : ''}`}>
@@ -61,6 +64,6 @@ const FilterBox = forwardRef(({ isVisible }, ref) => {
   );
 });
 
-FilterBox.displayName = 'FilterBox'; // Add display name
+FilterBox.displayName = 'FilterBox';
 
 export default FilterBox;

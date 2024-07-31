@@ -71,85 +71,84 @@ const Apartment = ({ imageName, imageLink }) => {
 
       viewer.addHandler('open', function() {
         if (imageName === 'thirdFloor') {
-          const svgOverlay = document.createElement('div');
-          svgOverlay.style.position = 'absolute';
-          svgOverlay.style.left = '0';
-          svgOverlay.style.top = '0';
-          svgOverlay.style.width = '100%';
-          svgOverlay.style.height = '100%';
+          if (typeof document !== 'undefined') { // Check if document is defined
+            const svgOverlay = document.createElement('div');
+            svgOverlay.style.position = 'absolute';
+            svgOverlay.style.left = '0';
+            svgOverlay.style.top = '0';
+            svgOverlay.style.width = '100%';
+            svgOverlay.style.height = '100%';
 
-          const svgContent = `
-            <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 10000 10000" preserveAspectRatio="none">
-              <polygon data-image="Penthouse 01" data-tip="penthouse01" class="${styles.st0}" points="333.05 190.04 458.47 136.61 458.47 195.31 471.31 195.31 471.31 190.96 483.69 190.96 483.69 173.99 586.19 173.99 586.19 226.96 598.8 226.96 598.8 223.29 612.1 223.29 612.1 226.96 663.47 226.96 663.47 351.92 611.64 351.92 611.64 439.98 640.76 439.98 640.76 528.25 611.99 528.25 611.87 529.52 605.57 529.52 477.96 529.52 348.98 529.52 348.98 190.73 333.05 190.04" />
-              <polygon data-image="Penthouse 05" data-tip="penthouse05" class="${styles.st0}" points="1277.53 303.54 1402.95 362.7 1443.77 362.7 1443.77 345.96 1502.93 345.96 1502.93 362.7 1495.29 362.7 1495.29 375.24 1501.48 375.24 1501.48 408.33 1495.21 408.33 1495.21 420.94 1508.05 420.94 1508.05 412.61 1540.36 412.61 1540.36 473.97 1540.36 529.25 1444.69 529.25 1223.03 529.25 1223.03 440.43 1251.77 440.43 1251.77 425.76 1200.71 425.76 1200.71 329.15 1251.77 329.15 1251.77 375.92 1263.69 375.92 1263.69 368.89 1277.45 368.89 1277.53 303.54" />
-              <polygon data-image="Penthouse 06" data-tip="penthouse06" class="${styles.st0}" points="1223.18 575.26 1223.18 663.54 1251.85 663.54 1251.85 677.3 1200.71 677.3 1200.71 774.06 1251.85 774.06 1251.85 733.94 1276.84 733.94 1276.84 794.47 1404.56 733.94 1443.54 733.94 1443.54 750.22 1503.16 749.99 1503.16 733.94 1508.2 733.94 1508.2 684.87 1539.85 684.87 1539.85 574.34 1351.36 574.34 1252.31 574.34 1223.18 575.26" />
-            </svg>
-          `;
+            const svgContent = `
+              <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 10000 10000" preserveAspectRatio="none">
+                <polygon data-image="Penthouse 01" data-tip="penthouse01" class="${styles.st0}" points="333.05 190.04 458.47 136.61 458.47 195.31 471.31 195.31 471.31 190.96 483.69 190.96 483.69 173.99 586.19 173.99 586.19 226.96 598.8 226.96 598.8 223.29 612.1 223.29 612.1 226.96 663.47 226.96 663.47 351.92 611.64 351.92 611.64 439.98 640.76 439.98 640.76 528.25 611.99 528.25 611.87 529.52 605.57 529.52 477.96 529.52 348.98 529.52 348.98 190.73 333.05 190.04" />
+                <polygon data-image="Penthouse 05" data-tip="penthouse05" class="${styles.st0}" points="1277.53 303.54 1402.95 362.7 1443.77 362.7 1443.77 345.96 1502.93 345.96 1502.93 362.7 1495.29 362.7 1495.29 375.24 1501.48 375.24 1501.48 408.33 1495.21 408.33 1495.21 420.94 1508.05 420.94 1508.05 412.61 1540.36 412.61 1540.36 473.97 1540.36 529.25 1444.69 529.25 1223.03 529.25 1223.03 440.43 1251.77 440.43 1251.77 425.76 1200.71 425.76 1200.71 329.15 1251.77 329.15 1251.77 375.92 1263.69 375.92 1263.69 368.89 1277.45 368.89 1277.53 303.54" />
+                <polygon data-image="Penthouse 06" data-tip="penthouse06" class="${styles.st0}" points="1223.18 575.26 1223.18 663.54 1251.85 663.54 1251.85 677.3 1200.71 677.3 1200.71 774.06 1251.85 774.06 1251.85 733.94 1276.84 733.94 1276.84 794.47 1404.56 733.94 1443.54 733.94 1443.54 750.22 1503.16 749.99 1503.16 733.94 1508.2 733.94 1508.2 684.87 1539.85 684.87 1539.85 574.34 1351.36 574.34 1252.31 574.34 1223.18 575.26" />
+              </svg>
+            `;
 
-          svgOverlay.innerHTML = svgContent;
+            svgOverlay.innerHTML = svgContent;
 
-          viewer.addOverlay({
-            element: svgOverlay,
-            location: new OpenSeadragon.Rect(0, 0, 5.209, 5.208),  // Adjust the size of the overlay
-            placement: OpenSeadragon.Placement.CENTER
-          });
-
-          // Add click event listeners to polygons
-          svgOverlay.querySelectorAll('polygon').forEach(polygon => {
-            polygon.addEventListener('click', (e) => {
-              e.preventDefault();
-              const dataTip = e.target.getAttribute('data-tip');
-              if (dataTip) {
-                router.push(`/thirdFloor/${dataTip}`);
-              }
+            viewer.addOverlay({
+              element: svgOverlay,
+              location: new OpenSeadragon.Rect(0, 0, 5.209, 5.208),  // Adjust the size of the overlay
+              placement: OpenSeadragon.Placement.CENTER
             });
 
-            // Disable zoom on polygon hover
-            polygon.addEventListener('mouseenter', () => {
-              viewer.setMouseNavEnabled(false);
-            });
+            // Add click event listeners to polygons
+            svgOverlay.querySelectorAll('polygon').forEach(polygon => {
+              polygon.addEventListener('click', (e) => {
+                e.preventDefault();
+                const dataTip = e.target.getAttribute('data-tip');
+                if (dataTip) {
+                  router.push(`/thirdFloor/${dataTip}`);
+                }
+              });
 
-            polygon.addEventListener('mouseleave', () => {
-              viewer.setMouseNavEnabled(true);
+              // Disable zoom on polygon hover
+              polygon.addEventListener('mouseenter', () => {
+                viewer.setMouseNavEnabled(false);
+              });
+
+              polygon.addEventListener('mouseleave', () => {
+                viewer.setMouseNavEnabled(true);
+              });
             });
-          });
+          }
         }
       });
 
       // Custom zoom controls (left-aligned)
-      const zoomControls = document.createElement('div');
-      zoomControls.className = styles.zoomControls;
+      if (typeof document !== 'undefined') { // Check if document is defined
+        const zoomControls = document.createElement('div');
+        zoomControls.className = styles.zoomControls;
 
-      const zoomInButton = document.createElement('button');
-      zoomInButton.className = styles.buttonStyle;
-      zoomInButton.innerHTML = '<img src="/images/icons/zoomIn.svg" alt="Zoom In" width="24" height="24" />';
-      zoomInButton.onclick = () => viewer.viewport.zoomBy(1.5);
+        const zoomInButton = document.createElement('button');
+        zoomInButton.className = styles.buttonStyle;
+        zoomInButton.innerHTML = '<img src="/images/icons/zoomIn.svg" alt="Zoom In" width="24" height="24" />';
+        zoomInButton.onclick = () => viewer.viewport.zoomBy(1.5);
 
-      const zoomOutButton = document.createElement('button');
-      zoomOutButton.className = styles.buttonStyle;
-      zoomOutButton.innerHTML = '<img src="/images/icons/zoomOut.svg" alt="Zoom Out" width="24" height="24" />';
-      zoomOutButton.onclick = () => viewer.viewport.zoomBy(0.667);
+        const zoomOutButton = document.createElement('button');
+        zoomOutButton.className = styles.buttonStyle;
+        zoomOutButton.innerHTML = '<img src="/images/icons/zoomOut.svg" alt="Zoom Out" width="24" height="24" />';
+        zoomOutButton.onclick = () => viewer.viewport.zoomBy(0.667);
 
-      const resetZoomButton = document.createElement('button');
-      resetZoomButton.className = styles.buttonStyle;
-      resetZoomButton.innerHTML = '<img src="/images/icons/resetZoom.svg" alt="Reset Zoom" width="24" height="24" />';
-      resetZoomButton.onclick = () => viewer.viewport.goHome();
+        const resetZoomButton = document.createElement('button');
+        resetZoomButton.className = styles.buttonStyle;
+        resetZoomButton.innerHTML = '<img src="/images/icons/resetZoom.svg" alt="Reset Zoom" width="24" height="24" />';
+        resetZoomButton.onclick = () => viewer.viewport.goHome();
 
-      // zoomControls.appendChild(zoomInButton);
-      // zoomControls.appendChild(zoomOutButton);
-      // zoomControls.appendChild(resetZoomButton);
+        viewer.addControl(zoomControls, {
+          anchor: OpenSeadragon.ControlAnchor.TOP_LEFT
+        });
+      }  
 
-      viewer.addControl(zoomControls, {
-        anchor: OpenSeadragon.ControlAnchor.TOP_LEFT
-      });
-    }  
-
-    return () => {
-      if (viewer) {
-        viewer.destroy();
-      }
-    };
-  }, [imageName, imageLink, router]);
+      return () => {
+        if (viewer) {
+          viewer.destroy();
+        }
+      };
+    } }   , [imageName, imageLink, router]);
 
   
   useEffect(() => {
@@ -190,7 +189,9 @@ const Apartment = ({ imageName, imageLink }) => {
   
 
   return (
-    <Suspense fallback={<div className={styles.loadingOverlay}><Loading /></div>}>
+    // <Suspense fallback={<div className={styles.loadingOverlay}><Loading /></div>}>
+    
+    <>
       <div style={{ position: 'relative' }}>
         {isLoading && <Loading />}
         <div ref={viewerRef} style={{ width: '100%', height: '100vh', visibility: isLoading ? 'hidden' : 'visible' }} />
@@ -223,9 +224,49 @@ const Apartment = ({ imageName, imageLink }) => {
           </div>
         </div>
       </div>
-    
 
-    </Suspense>
+{/* 
+      {selectedArea && (
+        <div className={styles.imageBoxOverlay} onClick={closeImageBox}>
+          <div className={styles.imageBox} onClick={(e) => e.stopPropagation()}>
+          
+            <div className={styles.imageNavigation}>
+              <div 
+                className={`${styles.navButton} ${currentImageIndex === 0 ? styles.hidden : ''}`} 
+                onClick={prevImage}
+                aria-label="Previous image"
+              >
+                <LeftArrow />
+              </div>
+              <div className={styles.singleImageWrapper}>
+         
+                <Image
+                  src={selectedArea.details[currentImageIndex]}
+                  alt={`${selectedArea.name} ${currentImageIndex + 1}`}
+                  layout="fill"
+                  objectFit="contain"
+                  quality={100}
+                />
+              </div>
+              
+              <div 
+                className={`${styles.navButton} ${currentImageIndex === selectedArea.details.length - 1 ? styles.hidden : ''}`} 
+                onClick={nextImage}
+                aria-label="Next image"
+              >
+                <RightArrow />
+              </div>
+            </div>
+          </div>
+        </div>
+      )} */}
+
+
+    </>
+
+
+
+    // </Suspense>
   );
 };
 

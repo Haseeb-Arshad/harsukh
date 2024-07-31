@@ -26,6 +26,15 @@
   z-index: 1000;
 }
 
+.Harsukhlogo {
+  position: fixed;
+  top: 1rem;
+  left: 3rem;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+
 .apartmentInterestInside
 {
   width: 160px;
