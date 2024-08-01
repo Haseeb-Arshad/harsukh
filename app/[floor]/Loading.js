@@ -88,7 +88,7 @@ const Loading = () => (
           {generateWindows()}
         </Floor>
       ))}
-      <LoadingText>Finding Your Dream Home...</LoadingText>
+      {/* <LoadingText>Fi</LoadingText> */}
     </BuildingContainer>
   </Container>
 );

@@ -243,3 +243,46 @@
   90% { opacity: 1; }
   100% { opacity: 0; }
 }
+
+
+
+
+@media (max-width: 768px) {
+
+
+
+  .apartmentInterestBox
+  {
+    position: absolute;
+    height: 300px;
+    width: 200px;
+    top: 7.2rem;
+    left: 3rem;
+    display: flex;
+    flex-direction: column;
+    z-index: 1000;
+  }
+
+
+  .popupMenu {
+    position: fixed;
+    top: 80%;
+    right: -12px;
+    bottom: 10px;
+    transform: translateX(-50%);
+    background-color: #FCF7EB;
+    color: #006d77;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-weight: 600;
+    width: 250px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+  }
+
+
+
+}

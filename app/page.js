@@ -1,35 +1,53 @@
 'use client';
+
 import React, { useState, useEffect } from 'react';
-import Image from "next/image";
 import styles from "@/app/page.module.css";
 import ImageBackground from "./background/page.jsx";
-import { Suspense } from "react";
 import Loading from './[floor]/Loading.js';
-import { Provider } from 'react-redux';
-import store from '../state/store';
+import FrontPage from './FrontPage.js';
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(true);
+  const [showFrontPage, setShowFrontPage] = useState(true);
+  const [fadeOut, setFadeOut] = useState(false);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-    }, 500);
+    const hasVisited = localStorage.getItem('hasVisited');
 
-    return () => clearTimeout(timer);
+    if (hasVisited) {
+      setShowFrontPage(false);
+      setIsLoading(false);
+    } else {
+      const loadingTimer = setTimeout(() => {
+        setIsLoading(false);
+      }, 500);
+
+      const frontPageTimer = setTimeout(() => {
+        setFadeOut(true);
+        setTimeout(() => {
+          setShowFrontPage(false);
+          localStorage.setItem('hasVisited', 'true');
+        }, 1000); // Duration of fade out animation
+      }, 6000);
+
+      return () => {
+        clearTimeout(loadingTimer);
+        clearTimeout(frontPageTimer);
+      };
+    }
   }, []);
 
   return (
-    // <Provider store={store}>
-      <main className={styles.main}>
-
-        {isLoading ? (
-          <Loading />
-        ) : (
-          // <Suspense fallback={<Loading />}>
-            <ImageBackground />
-        )}
-      </main>
-
+    <main className={styles.main}>
+      {isLoading ? (
+        <Loading />
+      ) : showFrontPage ? (
+        <div className={`${styles.frontPageContainer} ${fadeOut ? styles.fadeOut : ''}`}>
+          <FrontPage />
+        </div>
+      ) : (
+        <ImageBackground />
+      )}
+    </main>
   );
 }

@@ -6,6 +6,10 @@ import Loading from '../[floor]/Loading';
 import { useRouter } from 'next/navigation';
 import styles3 from '@/styles/Floor/floorApartment.module.css';
 import { useParams } from 'next/navigation';
+import LeftArrow from './Icons/leftArrow';
+import RightArrow from './Icons/rightArrow';
+import Image from 'next/image';
+import apartmentData from '@/app/component/data/floorData';
 
 
 const Apartment = ({ imageName, imageLink }) => {
@@ -15,13 +19,111 @@ const Apartment = ({ imageName, imageLink }) => {
   const router = useRouter();
   const [viewer, setViewer] = useState(null);
   const params = useParams();
+  const [selectedArea, setSelectedArea] = useState(null);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [apartmentType, setApartmentType] = useState(null);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth <= 768);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  const floorNameMapping = {
+    'thirdFloor': "3rd Floor",
+    'secondFloor': "2nd Floor",
+    'firstFloor': "1st Floor",
+    'groundFloor': "Ground Floor",
+    'basement1': "Basement 1",
+    'basement3': "Basement 3",
+    'basement4': "Basement 4",
+    'basement5': "Basement 5",
+    'basement6': "Basement 6"
+  };
+
+  const galleryImagesMap = {
+    "Studio": [
+      '/images/gallery/Studio/studio-1.webp',
+      '/images/gallery/studio/studio-2.webp',
+      '/images/gallery/studio/studio-3.webp',
+    ],
+    "One Bed": [
+      '/images/gallery/OneBed/oneBed-1.webp',
+      '/images/gallery/OneBed/oneBed-2.webp',
+      '/images/gallery/OneBed/oneBed-3.webp',
+      '/images/gallery/OneBed/oneBed-4.webp',
+    ],
+    "Two Bed": [
+      '/images/gallery/TwoBed/twoBed-1.webp',
+      '/images/gallery/TwoBed/twoBed-2.webp',
+      '/images/gallery/TwoBed/twoBed-3.webp',
+      '/images/gallery/TwoBed/twoBed-4.webp',
+      '/images/gallery/TwoBed/twoBed-5.webp',
+      '/images/gallery/TwoBed/twoBed-6.webp',
+    ],
+    "Three Bed": [
+      '/images/gallery/ThreeBed/threeBed-1.webp',
+      '/images/gallery/ThreeBed/threeBed-2.webp',
+      '/images/gallery/ThreeBed/threeBed-3.webp',
+      '/images/gallery/ThreeBed/threeBed-4.webp',
+      '/images/gallery/ThreeBed/threeBed-5.webp',
+    ],
+    "Penthouse": [
+      '/images/gallery/Penthouse/penthouse-1.webp',
+      '/images/gallery/Penthouse/penthouse-2.webp',
+      '/images/gallery/Penthouse/penthouse-3.webp',
+      '/images/gallery/Penthouse/penthouse-4.webp',
+      '/images/gallery/Penthouse/penthouse-5.webp',
+      '/images/gallery/Penthouse/penthouse-6.webp',
+      '/images/gallery/Penthouse/penthouse-7.webp',
+      '/images/gallery/Penthouse/penthouse-8.webp',
+    ],
+  };
+
+  useEffect(() => {
+    const apartmentParam = params.apartment; // e.g., "Apartment1"
+    const match = apartmentParam.match(/\d+/); // Extracts the digits from the string
+    const apartmentNumber = match ? parseInt(match[0]) : null; // Gets the first match or null if no match
+    const floorName = floorNameMapping[params.floor];
+
+    if (floorName && apartmentNumber) {
+      const apartmentInfo = apartmentData[floorName].find(apt => apt.Apartmentno === apartmentNumber);
+      if (apartmentInfo) {
+        setApartmentType(apartmentInfo.Type);
+      }
+    }
+  }, [params]);
+
 
   const handleBackClick = () => {
-    // Extract the floor from the current URL
     const floor = params.floor;
-    // Navigate to the floor route
     router.push(`/${floor}`);
-};
+  };
+
+  const openImageBox = () => {
+    if (apartmentType && galleryImagesMap[apartmentType]) {
+      setSelectedArea({ name: apartmentType, details: galleryImagesMap[apartmentType] });
+      setCurrentImageIndex(0);
+    }
+  };
+
+  const closeImageBox = () => {
+    setSelectedArea(null);
+  };
+
+  const nextImage = () => {
+    if (selectedArea && currentImageIndex < selectedArea.details.length - 1) {
+      setCurrentImageIndex(prevIndex => prevIndex + 1);
+    }
+  };
+
+  const prevImage = () => {
+    if (currentImageIndex > 0) {
+      setCurrentImageIndex(prevIndex => prevIndex - 1);
+    }
+  };
 
   
   useEffect(() => {
@@ -43,9 +145,11 @@ const Apartment = ({ imageName, imageLink }) => {
         smoothTileEdgesMinZoom: 1,
         blendTime: 0.1,
         constrainDuringPan: true,
+        minZoomImageRatio: 0.7,
         minZoomImageRatio: 1,
-        visibilityRatio: 1,
-        minZoomLevel: 0.8, 
+        visibilityRatio: 0.7,
+        defaultZoomLevel: 0.7, 
+        minZoomLevel: 0.7, 
         maxZoomLevel: 7,  
         wrapHorizontal: false,
         zoomPerScroll: 1.2,
@@ -197,7 +301,7 @@ const Apartment = ({ imageName, imageLink }) => {
         <div ref={viewerRef} style={{ width: '100%', height: '100vh', visibility: isLoading ? 'hidden' : 'visible' }} />
       </div>
 
-      <div className={styles3.ZoomInbuttonStyle} onClick={handleZoomIn}>         
+        <div className={styles3.ZoomInbuttonStyle} onClick={handleZoomIn}>         
           <img src="/images/icons/zoomIn.svg" alt="Zoom Out" width="24" height="24" />         
         </div>
 
@@ -205,7 +309,7 @@ const Apartment = ({ imageName, imageLink }) => {
           <img src="/images/icons/zoomOut.svg" alt="Zoom Out" width="24" height="24" />         
         </div>
 
-      <div className={styles3.ButtomZoomExitBtns}>
+      {!isMobile && <div className={styles3.ButtomZoomExitBtns}>
         <div className={styles3.zoomReset} onClick={handleResetZoom}>
           <div className={styles3.zoomResetInside}>
             Zoom Out
@@ -218,18 +322,17 @@ const Apartment = ({ imageName, imageLink }) => {
           </div>
         </div>
 
-        <div className={styles3.backToBuilding} >
+        <div className={styles3.backToBuilding} onClick={openImageBox}>
           <div className={styles3.backToBuildingInside}>
             Gallery
           </div>
         </div>
-      </div>
+      </div>}
 
-{/* 
+
       {selectedArea && (
         <div className={styles.imageBoxOverlay} onClick={closeImageBox}>
           <div className={styles.imageBox} onClick={(e) => e.stopPropagation()}>
-          
             <div className={styles.imageNavigation}>
               <div 
                 className={`${styles.navButton} ${currentImageIndex === 0 ? styles.hidden : ''}`} 
@@ -239,7 +342,6 @@ const Apartment = ({ imageName, imageLink }) => {
                 <LeftArrow />
               </div>
               <div className={styles.singleImageWrapper}>
-         
                 <Image
                   src={selectedArea.details[currentImageIndex]}
                   alt={`${selectedArea.name} ${currentImageIndex + 1}`}
@@ -248,7 +350,6 @@ const Apartment = ({ imageName, imageLink }) => {
                   quality={100}
                 />
               </div>
-              
               <div 
                 className={`${styles.navButton} ${currentImageIndex === selectedArea.details.length - 1 ? styles.hidden : ''}`} 
                 onClick={nextImage}
@@ -259,7 +360,7 @@ const Apartment = ({ imageName, imageLink }) => {
             </div>
           </div>
         </div>
-      )} */}
+      )}
 
 
     </>

@@ -18,13 +18,37 @@ const FloorMenu = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedFloor, setSelectedFloor] = useState('');
   const [isElevationOpen, setIsElevationOpen] = useState(false);
-  const isMediumScreen = useMediaQuery({ query: '(max-width: 1024px)' });
-
+  const isMediumScreen = useMediaQuery({ query: '(max-width: 768px)' });
+  const [isMobile, setIsMobile] = useState(false);
+  const [harsukhHeight, setHarsukhHeight] = useState(105);
+  const [harsukhWidth, setHarsukhWidth] = useState(180);
   const languageState = useSelector((state) => {
     const languageState = state.language.lang.find((site) => site.id === '1');
     return languageState ? languageState.language : 'en';
   });
 
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth <= 768);
+    const checkLaptop = () => setIsLaptop(window.innerWidth > 768);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+
+  useEffect(()=>
+  {
+    if(isMobile)
+    {
+      setHarsukhHeight(85)
+      setHarsukhWidth(150)
+    }
+    else{
+      setHarsukhHeight(105);
+      setHarsukhWidth(180);
+    }
+  }
+    ,[isMobile])
 
 
   const params = useParams();
@@ -141,24 +165,44 @@ const FloorMenu = () => {
     return currentFloorUpdate;
   };
 
+
+
   
   return (
     <>
+    
       <div className={styles.Harsukhlogo}>
-        <Image src="/Webpage/floors/HarsukhLogo.png" quality={100} alt="Harsukh Logo" height={105} width={180} />
+        <Image src="/Webpage/floors/HarsukhLogo.png" quality={100} alt="Harsukh Logo" height={harsukhHeight} width={harsukhWidth} />
       </div>
       
       {/* <div className={styles.bottomLogoContainer}>
         <Image src="/Webpage/floors/MainLogo.png" quality={100} alt="ArtBoard Logo" height={300} width={300} />
       </div> */}
 
-      {isMediumScreen ? (
+
+        {
+          !isMediumScreen &&
+          <>
         <div className={styles.container}>
-          <div className={`${styles.filtersButton} ${isOpen ? styles.open : ''}`} onClick={toggleDropdown}>
+          <div className={styles.floorLabel}>Floor</div>
+          <div className={`${styles.floorBar} ${styles.open}`}>
+            {renderFloorButtons()}
+          </div>
+        </div>
+          </>
+        }
+
+      {/* {isMediumScreen ? (
+        <div className={styles.container}>
+          <div className={`${styles.floorLabel} ${isOpen ? styles.open : ''}`} onClick={toggleDropdown}>
             {translations.floor || 'Floor'}
           </div>
           <div className={`${styles.floorBar} ${isOpen ? styles.open : ''}`}>
-            {renderFloorButtons()}
+            { isOpen &&
+            <>
+              {renderFloorButtons()}
+            </>
+            }
           </div>
         </div>
       ) : (
@@ -168,8 +212,10 @@ const FloorMenu = () => {
             {renderFloorButtons()}
           </div>
         </div>
-      )}
+      )} */}
 
+      
+{ !isMediumScreen &&
     <div className={ElevStyles.elevationApContainer}>
       <div className={ElevStyles.elevationButtonBox}  ref={elevationRef} >
           <div
@@ -215,7 +261,7 @@ const FloorMenu = () => {
 
           </div>
         </div>
-
+}
 
     </>
   );

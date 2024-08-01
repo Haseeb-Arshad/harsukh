@@ -13,5 +13,6 @@
     "radius": "Radius",
     "amenities": "Amenities",
     "call": "Call",
-    "filter": "Filter"
+    "filter": "Filter",
+    "floor": "Floor"
   }

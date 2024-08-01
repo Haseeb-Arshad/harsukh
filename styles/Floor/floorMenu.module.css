@@ -211,6 +211,19 @@
   transition: max-height 0.3s ease-out, opacity 0.3s ease-out, padding 0.3s ease-out;
 }
 
+.floorBardrop {
+  
+  display: grid;
+  grid-template-rows: auto;
+  row-gap: 0.25rem;
+  font-size: 0.7rem;
+  overflow: hidden;
+  /* max-height: 0; */
+  opacity: 0;
+  /* min-width: 7.1vw; */
+  transition: max-height 0.3s ease-out, opacity 0.3s ease-out, padding 0.3s ease-out;
+}
+
 .floorBar.open {
   max-height: 320px; 
   opacity: 1;
@@ -373,7 +386,7 @@
 }
 
 
-@media (max-width: 1000px) {
+@media (max-width: 786px) {
 
   .elevationButtonTitle
   {

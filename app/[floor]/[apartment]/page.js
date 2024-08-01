@@ -36,7 +36,11 @@ const Page = () => {
   const [fullScreen, setFullScreen] = useState(false);
 
   const floorData = {
-    basement1: { imageLink: "/Webpage/apartments/penthouse01.webp", imageName: "penthouse" },
+    basement1: { imageLink: "/Webpage/apartments/penthouse.webp", imageName: "penthouse" },
+    // basement3: { imageLink: "/Webpage/apartments/penthouse.webp", imageName: "penthouse" },
+    // basement4: { imageLink: "/Webpage/apartments/penthouse.webp", imageName: "penthouse" },
+    // basement5: { imageLink: "/Webpage/apartments/penthouse.webp", imageName: "penthouse" },
+    // basement: { imageLink: "/Webpage/apartments/penthouse.webp", imageName: "penthouse" },
   
   };
 
