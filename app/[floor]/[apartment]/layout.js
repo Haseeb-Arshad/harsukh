@@ -20,11 +20,21 @@ const Layout = ({children}) =>
 
     const params = useParams();
 
+    const [isMobile, setIsMobile] = useState(false);
     const [apartmentInfo, setApartmentInfo] = useState(null);
     const [apartmentNum, setApartmentNum] = useState(0);
     const [floor, setFloor] = useState('');
 
     const favoriteApartments = useSelector((state) => state.favoriteApartments.favoriteApartments);
+  
+  
+    useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth <= 768);
+    const checkLaptop = () => setIsLaptop(window.innerWidth > 768);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+      }, []);
 
 
     useEffect(() => {
@@ -174,7 +184,7 @@ const Layout = ({children}) =>
     </div>
 
 
-    <div className={ElevStyles.elevationApContainer}>
+  { !isMobile && <div className={ElevStyles.elevationApContainer}>
       <div className={ElevStyles.elevationButtonBox}  ref={elevationRef} >
           <div
               className={`${ElevStyles.elevationBtnGrid} ${isElevationOpen ? ElevStyles.open : ''}`}
@@ -215,7 +225,7 @@ const Layout = ({children}) =>
             </div>
 
           </div>
-        </div>
+        </div>}
 
         <div className={styles.Harsukhlogo}>
         <Image src="/Webpage/floors/HarsukhLogo.png" quality={100} alt="Harsukh Logo" height={105} width={180} />

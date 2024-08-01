@@ -298,6 +298,9 @@ export default function BackgroundImage() {
   const handleSVGElementClick = (event) => {
     const element = event.target;
     const floorName = element.getAttribute('data-tip');
+    if(floorName=="basement2")
+      return;
+    else
     if (floorName) {
       const slug = floorName.replace(/\s+/g, '-');
       console.log("Floor Name", slug)
@@ -664,12 +667,9 @@ const toggleLanguage = () => {
         />
         }
         
-        { overlay && 
-
-        (
+        { overlay && (
           filterbox ? 
-          (
-              
+          (    
             (
             <svg
               ref={svgRef}
@@ -805,22 +805,24 @@ const toggleLanguage = () => {
             <path className={styles.st0} data-image="Valley Floor 3" data-tip="basement3" d="M1512.8,698v44.71l-78.35-.69-370.09,4.51H872.44l-171.52-1.22-104.25,1.22-167.39.16V695.19H701.54l119.75.48,33,2.28,253.23.3h97.53Z"/>
             <path className={styles.st0} data-image="Valley Floor 2" data-tip="basement2" d="M429.28,635.11v51.06l193.38.15h75.21l123.21,1.44c10.93.13,21.93,1.19,32.86,1.32,34.83.41,69.58-.11,104.41.3H1291l221.43,1.84.38-46.17-176.26-2.44-130.85-.92-98.45-.31-254.06-.92L821,637.36l-87.08-.56-54.72-1.23h-89Z"/>
             <path className={styles.st0} data-image="Valley Floor 1" data-tip="basement1" d="M429,575.19q.16,25.3.31,50.6l182.37-.31h87.13l122,2.83,34.7,3h217.84l35.46,2.45h246.42l157.61,1.83V589.71l-150.88.92-17.74-5.2-139.1.92L1169,584.82l-141.86-.3-100.28-.62-71.39-.27-34.09-6.47-88.66.32L697,575.34l-43.72,1.53H624.18l-30-1.53Z"/>
-            <path className={styles.st0} data-image="Ground Floor" data-tip="groundFloor"  d="M782.78,522.83V560.9H719.84l.12,5H621.43l-27.82-2.14-40.36,1.52-124,.62V516c54.37.1,110-1.63,164.33-1.53L625.56,517l98-.61Z M820.92,522.83v44.26L855,574.66l244.28-1.15V525.59l-243.62,1Z M1512.8,534.93q-.08,23-.16,46l-150-1.53-16-3.46H1345c-53.73-.68-148-1.05-201.7-1.73-.31-15.18.31-30.65,0-45.83,54.11,0,147.82.08,201.93.11l18.58,6.65Z"/>
-            <path data-image="First Floor" data-tip="firstFloor" className={styles.st0} d="M783.06,476.44l-.28,28.44H737.15l-13.6.31h-100l-31.33-3.75-67.42,5.27L429.13,505q-.08-24.45-.16-48.91l163.27.38,34.39,1.6h96.92s49.44,12.32,59.51,12.55C782.9,472.49,783.21,474.6,783.06,476.44Z M820.92,466.66v45.55L855.47,516l243.82-.76v-47l-244.43.38Z M1512.87,526.27h-105l-43.79-2.52-16.82-3.44-4.87.07h0l-24.14,1.31-174.88-4.13V472.85L1343.65,474l21.55,7.57,147.75-.15Z"/>
 
-            <path data-image="Second Floor" data-tip="secondFloor"  onMouseEnter={() => setSelectedPath(true)}
-                onMouseLeave={() => setSelectedPath(false)} className={!selectedPath ? styles.st0 : styles.st1Hovers} d="M783.15,428.18,783,457l-59.49-13.15H620l-28.66-5.2-82.09,7.8-80.26-2q.16-20,.31-39.9l162-.07,28.59-6.27,103.64,1.6Z"/>
-            <path  data-image="Second Floor" data-tip="secondFloor"  onMouseEnter={() => setSelectedPath(true)}
-                onMouseLeave={() => setSelectedPath(false)} className={!selectedPath ? styles.st0 : styles.st1Hovers} d="M820.92,411.17v45.4L857,458.25l242.29,2v-49.1L855.47,413Z"/>
-            <polygon  data-image="Second Floor" data-tip="secondFloor"  onMouseEnter={() => setSelectedPath(true)}
-                onMouseLeave={() => setSelectedPath(false)} className={!selectedPath ? styles.st0 : styles.st1Hovers} points="1143.32 416.82 1210.12 416.82 1348.46 416.82 1431.47 416.82 1512.34 468.64 1512.34 473.38 1430.1 473.99 1364.67 473.99 1347.55 465.59 1294.81 465.13 1207.06 458.4 1143.32 458.4 1143.32 416.82"/>
-            
-            <polygon data-image="Third Floor" data-tip="thirdFloor" className={styles.st0} points="1420.24 409.94 1206.3 409.94 1182.61 408.11 1170.53 408.11 1170.53 404.75 1143.32 404.29 1143.32 368.67 1189.79 262.58 1365.89 375.39 1390.96 391.9 1420.24 409.94 783.06 365.95 782.94 405.89 752.75 405.89 743.11 393.97 722.94 393.97 714.68 383.65 618.96 382.47 590.86 395.57 429.43 396.95 429.43 381.89 607.37 263.8 621.13 279.09 709.79 221 711.24 221 783.06 365.95 820.92 401.99 1099.29 401.99 1099.29 331.98 1086.15 272.98 836.36 272.98 820.92 332.29 820.92 401.99"/>
+            <path className={styles.st0} data-image="Ground Floor" data-tip="groundFloor"  d="M820.92,522.83v44.26L855,574.66l244.28-1.15V525.59l-243.62,1Z M1512.8,534.93q-.08,23-.16,46l-150-1.53-16-3.46H1345c-53.73-.68-148-1.05-201.7-1.73-.31-15.18.31-30.65,0-45.83,54.11,0,147.82.08,201.93.11l18.58,6.65Z M783.06,519.38v50.14l-21.14-.5-63.14-1.46H611.65l-182.37.31q-.15-25.3-.31-50.6l165.25.15,30,1.53h29.05L697,517.42Z"/>
+
+            <path className={styles.st0} data-image="First Floor" data-tip="firstFloor" d="M820.92,466.66v45.55L855.47,516l243.82-.76v-47l-244.43.38Z M1512.87,526.27h-105l-43.79-2.52-16.82-3.44-4.87.07h0l-24.14,1.31-174.88-1.61V472.85L1343.65,474l21.55,7.57,147.75-.15Z M783.06,461v50.14l-21.14-.49-63.14-1.47H611.65l-182.37.31q-.15-25.31-.31-50.6l165.25.15,30,1.53Z"/>
+
+
+            <path className={styles.st0} data-image="Second Floor" data-tip="secondFloor" d="M820.92,411.17v45.4L857,458.25l242.29,2v-49.1L855.47,413Z M1143.32,416.82h205.14l16.51,3.52,72,0,75.32,48.27v4.74l-82.24.61h-65.43l-17.12-8.4-204.31.38Z M783.06,403.58v47.89l-21.14-.5-62,.78H611.65l-182.37.31q-.15-25.31-.31-50.6l165.25.15,30,1.53Z"/>
+
+
+            <path  onMouseEnter={() => setSelectedPath(true)}
+                onMouseLeave={() => setSelectedPath(false)} data-image="Third Floor" data-tip="thirdFloor" className={!selectedPath ? styles.st0 : styles.st1Hovers} d="M1420.24,409.94H1206.3L1143,410q.16-20.67.31-41.35l46.47-106.09,176.1,112.81L1391,391.9Z M783.06,366c0,9.36,0,20,0,29.35-13.29,0-29.29-.52-42.58-.54H720.32c-44,.53-85.62-1.37-129.65-.84l-161.43,1.38.19-13.42L607.37,263.8l13.76,15.29L709.79,221h1.45Z"/>
+            <polygon  onMouseEnter={() => setSelectedPath(true)}
+                onMouseLeave={() => setSelectedPath(false)} data-image="Third Floor" data-tip="thirdFloor" className={!selectedPath ? styles.st0 : styles.st1Hovers} points="820.92 401.99 1099.29 401.99 1099.29 331.98 1086.15 272.98 836.36 272.98 820.92 332.29 820.92 401.99"/>
+
            
           </svg>)
 
-              )
-                }
+              )}
 
             {tooltipContent && !backView && (
               <div 
@@ -832,7 +834,7 @@ const toggleLanguage = () => {
               >
                 <div className={styles.tooltipContent}>
                   <div className={styles.tooltipLetter}>
-                    <Image src="/images/icons/apartmentLogo.svg" quality={100} alt="tooltip" height={22} width={22} />
+                    <Image src="/svg/buildingw.svg" quality={100} alt="tooltip" height={60} width={60} />
                   </div>
                   <div className={styles.tooltipInfo}>
                     <div className={styles.tooltipFloor}>{tooltipContent.floorName}</div>
@@ -939,8 +941,6 @@ const toggleLanguage = () => {
               </div>
             </div>
 
-
-            
             <div className={styles.backViewButton} onClick={handleBackView}>
               <div className={styles.backViewButtonLeft}>
                 <Image src="/images/icons/amenitiesIcon.svg" quality={100} alt="Menu" height={20} width={20} />
@@ -1025,26 +1025,18 @@ const toggleLanguage = () => {
 
         </>}
 
-
           </div>
-
 
           { isContacted &&
             <div className={styles.ContactedContainer}>
                 <ContactBox onClose={handleContactClose}/>
             </div>
-            }
-
-
-
-
-
+          }
                     
-      {isMobile && 
-        (
+        {isMobile && 
+          (
 
           <>
-          
               <div className={styles.topLogoContainer}>
                 <Image src="/Webpage/floors/HarsukhLogo.png" quality={100} alt="bird" height={120} width={190} />
               </div>
@@ -1059,9 +1051,9 @@ const toggleLanguage = () => {
               <MenuBox isMobile={isMobile} ref={menuBoxRef} isActive={menuBox} 
                 handleOverlay={handleOverlay} handleFilter={handleFilter} translations={translations} toggleLanguage={toggleLanguage} overlay={overlay} fullScreen={fullScreen} toggleFullScreen={toggleFullScreen}/>
 
-{isFilterBoxVisible && (
-              <FilterBox ref={filterBoxRef} isVisible={isFilterBoxVisible} />
-            )}
+              {isFilterBoxVisible && (
+                <FilterBox ref={filterBoxRef} isVisible={isFilterBoxVisible} />
+              )}
 
             <div className={styles.backViewButton} onClick={handleBackView}>
               <div className={styles.backViewButtonLeft}>
@@ -1109,31 +1101,11 @@ const toggleLanguage = () => {
                 <span className={styles.buttonText}>Register Request</span>
               </div>
             </div>
-
-
-
-          {
-
-
-
-
-
-
-
-
-          }
-
-
-
           
           </>
 
         )
       }
-
-
-
-
     </>
   );
 }

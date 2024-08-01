@@ -23,6 +23,7 @@ import AmenityBtn from '../component/Icons/AmenityBtn';
 import AmenityGrid from '../component/Amenities/AmenityGrid';
 import Router from 'next/navigation';
 import ContactBox from '../component/Bars/contactBox';
+import FloorMenuBox from '../component/Bars/FloorMenuBox';
 
 
 const Layout = ({children}) => 
@@ -30,6 +31,7 @@ const Layout = ({children}) =>
   const dispatch = useDispatch();
   const router = useRouter();
   const [isContacted, setIsContacted] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
   const [menuBox, setMenuBox] = useState(false);
   const [overlay, setOverlay] = useState(true);
@@ -186,6 +188,15 @@ const Layout = ({children}) =>
     setAmenityClicked(value);
   };
 
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth <= 768);
+    const checkLaptop = () => setIsLaptop(window.innerWidth > 768);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+
   const handleGetDirections = () => {
     // Coordinates for HARSUKH
     const destination = '34.0162791,73.3928231';
@@ -240,23 +251,16 @@ const Layout = ({children}) =>
       
       }
         
-      <div className={styles.menuContainer}>
-        {/* <div className={styles.amenitiesButton} onClick={handleAmenities}>
-          <div className={styles.amenitiesButtonLeft}>
-            <Image src="/images/icons/amenitiesIcon.svg" quality={100} alt="Menu" height={20} width={20} />
-          </div>
-          <div className={styles.amenitiesButtonTitle}>
-            Amenities
-          </div>
-        </div> */}
+     {!isMobile ? 
+     
+     <>
 
+      <div className={styles.menuContainer}>
         <div ref={amenityButtonRef}>
           <AmenityBtn ref={amenityButtonRef} handleMenu={handleAmenities} inActive={amenityClicked}/>
         </div>
 
-        {/* <div className={styles.menuContainerInside}>
-            <BackgroundMode handleMenu={handleBackgroundMode}/>
-        </div> */}
+  
         <div className={styles.menuContainerInside} ref={favContainerRef}>
           <FavButton inActive={reservedClicked} handleMenu={handleFavorties} count={favoriteApartments.length}/>
         </div>
@@ -266,7 +270,32 @@ const Layout = ({children}) =>
         </div>
       </div>
 
-      <MenuBox isActive={menuBox} handleOverlay={handleOverlay} translations={translations} toggleLanguage={toggleLanguage} overlay={overlay} fullScreen={fullScreen} toggleFullScreen={toggleFullScreen}/>
+      
+      </>
+
+      :
+
+      <>
+      
+      <div className={styles.menuContainer}>
+
+    
+      <div className={styles.menuContainerInside} ref={menuContainerRef} >
+          <MenubarButton inActive={menuBox} handleMenu={handleMenu}/>
+        </div>
+  
+        <div className={styles.menuContainerInside} ref={favContainerRef}>
+          <FavButton inActive={reservedClicked} handleMenu={handleFavorties} count={favoriteApartments.length}/>
+        </div>
+    
+      </div>
+      </>
+      
+    
+    
+    }
+
+      <FloorMenuBox isActive={menuBox} handleAmenities={handleAmenities}  handleOverlay={handleOverlay} translations={translations} toggleLanguage={toggleLanguage} overlay={overlay} fullScreen={fullScreen} toggleFullScreen={toggleFullScreen}/>
       {/* <div className={styles.callContainer} onClick={handleCall}>
         <div className={styles.mapsViewBox}>
           <Image src="/images/icons/callIcon.svg" quality={100} alt="Maps View Icon" height={19} width={19} />

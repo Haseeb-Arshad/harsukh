@@ -262,5 +262,42 @@
     justify-content: center;
     align-items: center;
     animation: fadeIn 0.3s ease-in-out;
+}
+
+
+
+
+
+@media (max-width: 786px) {
+
+
+    .menuContainer {
+      top: 3rem;
+      right: 3rem;
+      height: 7rem;
+      width: 5rem;
+      z-index: 100000000s;
+      display: grid;
+      align-items: center;
+      justify-content: center;
+      grid-template-rows: 1fr 1fr;
+      grid-template-columns: 1fr;
+    }
+
+
+
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
