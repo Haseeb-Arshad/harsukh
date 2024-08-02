@@ -91,25 +91,35 @@ const Floor = ({ imageName, imageLink }) => {
   }, [params.apartment, router]);
 
   const handleIconClick = () => {
-    if (apartmentInfo) {
+    if (activePolygon) {
+      const apartmentId = activePolygon.id;
       const isFavorite = favoriteApartments.some(
-        (apt) => apt.Apartmentno === apartmentInfo.Apartmentno
+        (apt) => apt.Apartmentno === apartmentId
       );
+
       if (isFavorite) {
-        dispatch(removeFavoriteApartment(apartmentInfo.Apartmentno));
+        dispatch(removeFavoriteApartment(apartmentId));
         setPopupMessage("Apartment has been removed from favorites.");
       } else {
-        dispatch(addFavoriteApartment({ ...apartmentInfo, floor }));
+        const apartmentToAdd = {
+          Apartmentno: apartmentId,
+          floor: activePolygon.floor,
+          Type: activePolygon.Type,
+          Bedrooms: activePolygon.Bedrooms,
+          Area: activePolygon.Area,
+        };
+        dispatch(addFavoriteApartment(apartmentToAdd));
         setPopupMessage("Apartment has been added to favorites.");
       }
+
       setShowPopup(true);
       setIsPopupVisible(true);
       setTimeout(() => {
         setIsPopupVisible(false);
-      }, 5000); // Start fade out slightly before hiding
+      }, 5000);
       setTimeout(() => {
         setShowPopup(false);
-      }, 5000);
+      }, 5500);
     }
   };
 
@@ -1252,8 +1262,7 @@ const Floor = ({ imageName, imageLink }) => {
                       // src="/images/icons/favIconFilled.svg"
                       src={
                         favoriteApartments.some(
-                          (apt) =>
-                            apt.Apartmentno === apartmentInfo?.Apartmentno
+                          (apt) => apt.Apartmentno === activePolygon.id
                         )
                           ? "/images/icons/favIconFilled.svg"
                           : "/images/icons/favIcon.svg"
