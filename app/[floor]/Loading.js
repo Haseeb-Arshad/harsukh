@@ -1,96 +1,51 @@
-'use client';
-import React from 'react';
-import styled, { keyframes } from 'styled-components';
-
-const fadeIn = keyframes`
-  0% { opacity: 0; }
-  40% { opacity: 0.5; }
-  100% { opacity: 1; }
-`;
-
-const riseAndFall = keyframes`
-  0% { transform: translateY(100px); opacity: 0; }
-  25% { transform: translateY(0); opacity: 1; }
-  75% { transform: translateY(0); opacity: 1; }
-  100% { transform: translateY(-100px); opacity: 0; }
-`;
-
-const Container = styled.div`
-  position: fixed;
-  top: -10rem;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background-color: rgba(0, 29, 32, 1);
-  animation: ${fadeIn} 4s ease-out;
-  overflow: hidden;
-`;
-
-const BuildingContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  transform: translateY(100px);
-`;
-
-const Floor = styled.div`
-  width: 200px;
-  height: 40px;
-  background-color: #C5A697;
-  margin-bottom: 5px;
-  border-radius: 5px;
-  animation: ${riseAndFall} 3s infinite;
-  animation-delay: ${props => props.delay}s;
-`;
-
-const Window = styled.div`
-  width: 30px;
-  height: 30px;
-  background-color: #F5E6D3;
-  margin: 5px;
-  border-radius: 3px;
-  display: inline-block;
-`;
-
-const EmptyWindow = styled.div`
-  width: 30px;
-  height: 30px;
-  background-color: transparent;
-  margin: 5px;
-  border-radius: 3px;
-  display: inline-block;
-`;
-
-const LoadingText = styled.div`
-  font-family: roboto;
-  font-size: 24px;
-  color: #8B4513;
-  margin-top: 20px;
-  animation: ${fadeIn} 1s ease-out;
-`;
-
-const generateWindows = () => {
-  const windows = [<Window key="0" />, <Window key="1" />, <Window key="2" />, <Window key="3" />, <Window key="4" />];
-  const emptyIndex = Math.floor(Math.random() * windows.length);
-  windows[emptyIndex] = <EmptyWindow key="empty" />;
-  return windows;
+const Loader = () => {
+  return (
+    <div className="loader-container">
+      <div className="loader">
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+      <style jsx>{`
+        .loader-container {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          height: 100vh;
+        }
+        .loader {
+          display: flex;
+          justify-content: space-between;
+          width: 80px;
+        }
+        .loader div {
+          width: 16px;
+          height: 16px;
+          background-color: #006d77;
+          border-radius: 50%;
+          animation: grow-shrink 1.5s infinite;
+        }
+        .loader div:nth-child(1) {
+          animation-delay: 0s;
+        }
+        .loader div:nth-child(2) {
+          animation-delay: 0.3s;
+        }
+        .loader div:nth-child(3) {
+          animation-delay: 0.6s;
+        }
+        @keyframes grow-shrink {
+          0%,
+          100% {
+            transform: scale(1);
+          }
+          50% {
+            transform: scale(1.5);
+          }
+        }
+      `}</style>
+    </div>
+  );
 };
 
-const Loading = () => (
-  <Container>
-    <BuildingContainer>
-      {[...Array(4)].map((_, index) => (
-        <Floor key={index} delay={index * 0.2}>
-          {generateWindows()}
-        </Floor>
-      ))}
-      {/* <LoadingText>Fi</LoadingText> */}
-    </BuildingContainer>
-  </Container>
-);
-
-export default Loading;
+export default Loader;

@@ -1,18 +1,18 @@
-'use client'
-import React, { useEffect, useRef, useState } from 'react';
-import OpenSeadragon from 'openseadragon';
-import styles from '@/styles/Floor/floorApartment.module.css';
-import { Suspense } from 'react';
-import Loading from '../[floor]/Loading';
-import { useRouter } from 'next/navigation';
-import Image from 'next/image';
-import apartmentData from '@/app/component/data/floorData';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Star } from 'lucide-react';
-import { useSelector, useDispatch } from 'react-redux';
-import { addFavoriteApartment, removeFavoriteApartment } from '@/state/apartment/favApartment';
-import { useParams } from 'next/navigation';
-
+"use client";
+import apartmentData from "@/app/component/data/floorData";
+import {
+  addFavoriteApartment,
+  removeFavoriteApartment,
+} from "@/state/apartment/favApartment";
+import styles from "@/styles/Floor/floorApartment.module.css";
+import Image from "next/image";
+import { useParams, useRouter } from "next/navigation";
+import OpenSeadragon from "openseadragon";
+import { useEffect, useRef, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import Loading from "../[floor]/Loading";
+import LeftArrow from "./Icons/leftArrow";
+import RightArrow from "./Icons/rightArrow";
 
 const Floor = ({ imageName, imageLink }) => {
   const viewerRef = useRef(null);
@@ -24,118 +24,118 @@ const Floor = ({ imageName, imageLink }) => {
   const [overlay, setOverlay] = useState(true);
   const svgRef = useRef(null);
   const [isMobile, setIsMobile] = useState(false);
-  const [floor, setFloor] = useState('');
+  const [floor, setFloor] = useState("");
   const [zoomCoord, setZoomCoord] = useState(0.7);
   const [apartmentInfo, setApartmentInfo] = useState(null);
   const [apartmentNum, setApartmentNum] = useState(0);
+  const [popupMessage, setPopupMessage] = useState("");
+  const [showPopup, setShowPopup] = useState(false);
+  const [isPopupVisible, setIsPopupVisible] = useState(false);
 
   const params = useParams();
-
-
   const router = useRouter();
+  const dispatch = useDispatch();
 
   const floorNameMapping = {
-    'thirdFloor': "3rd Floor",
-    'secondFloor': "2nd Floor",
-    'firstFloor': "1st Floor",
-    'groundFloor': "Ground Floor",
-    'basement1': "Basement 1",
-    'basement3': "Basement 3",
-    'basement4': "Basement 4",
-    'basement5': "Basement 5",
-    'basement6': "Basement 6"
+    thirdFloor: "3rd Floor",
+    secondFloor: "2nd Floor",
+    firstFloor: "1st Floor",
+    groundFloor: "Ground Floor",
+    basement1: "Basement 1",
+    basement3: "Basement 3",
+    basement4: "Basement 4",
+    basement5: "Basement 5",
+    basement6: "Basement 6",
   };
 
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth <= 768);
     const checkLaptop = () => setIsLaptop(window.innerWidth > 768);
     checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
-
-  const favoriteApartments = useSelector((state) => state.favoriteApartments.favoriteApartments);
-
+  const favoriteApartments = useSelector(
+    (state) => state.favoriteApartments.favoriteApartments
+  );
 
   useEffect(() => {
     let foundApartment = null;
-    let foundFloor = '';
+    let foundFloor = "";
 
     const apartmentParam = params.floor; // e.g., "Apartment1"
     const match = apartmentParam.match(/\d+/); // Extracts the digits from the string
     const apartmentNumber = match ? match[0] : null; // Gets the first match or null if no match
-    setApartmentNum(apartmentNumber )
+    setApartmentNum(apartmentNumber);
 
     // Search for the apartment in all floors
     for (const floorName in apartmentData) {
-        const apartment = apartmentData[floorName].find(apt => apt.Apartmentno.toString() === apartmentNumber);
-        if (apartment) {
-            foundApartment = apartment;
-            foundFloor = floorName;
-            break;
-        }
+      const apartment = apartmentData[floorName].find(
+        (apt) => apt.Apartmentno.toString() === apartmentNumber
+      );
+      if (apartment) {
+        foundApartment = apartment;
+        foundFloor = floorName;
+        break;
+      }
     }
 
     if (foundApartment) {
-        setApartmentInfo(foundApartment);
-        setFloor(foundFloor);
+      setApartmentInfo(foundApartment);
+      setFloor(foundFloor);
     } else {
-        // Redirect to apartment 1 if the apartment is not found
-        // router.push('/thirdFloor/Apartment1');
+      // Redirect to apartment 1 if the apartment is not found
+      // router.push('/thirdFloor/Apartment1');
     }
-}, [params.apartment, router]);
+  }, [params.apartment, router]);
 
-
-
-
-const handleIconClick = () => {
-  if (apartmentInfo) {
-    const isFavorite = favoriteApartments.some(apt => apt.Apartmentno === apartmentInfo.Apartmentno);
-    if (isFavorite) {
-      dispatch(removeFavoriteApartment(apartmentInfo.Apartmentno));
-      setPopupMessage('Apartment has been removed from favorites.');
-    } else {
-      dispatch(addFavoriteApartment({ ...apartmentInfo, floor }));
-      setPopupMessage('Apartment has been added to favorites.');
+  const handleIconClick = () => {
+    if (apartmentInfo) {
+      const isFavorite = favoriteApartments.some(
+        (apt) => apt.Apartmentno === apartmentInfo.Apartmentno
+      );
+      if (isFavorite) {
+        dispatch(removeFavoriteApartment(apartmentInfo.Apartmentno));
+        setPopupMessage("Apartment has been removed from favorites.");
+      } else {
+        dispatch(addFavoriteApartment({ ...apartmentInfo, floor }));
+        setPopupMessage("Apartment has been added to favorites.");
+      }
+      setShowPopup(true);
+      setIsPopupVisible(true);
+      setTimeout(() => {
+        setIsPopupVisible(false);
+      }, 5000); // Start fade out slightly before hiding
+      setTimeout(() => {
+        setShowPopup(false);
+      }, 5000);
     }
-    setShowPopup(true);
-    setIsPopupVisible(true);
-    setTimeout(() => {
-      setIsPopupVisible(false);
-    }, 5000); // Start fade out slightly before hiding
-    setTimeout(() => {
-      setShowPopup(false);
-    }, 5000);
-  }
-};
+  };
 
-function isPointInPolygon(point, polygon) {
-  const points = polygon.points;
-  let inside = false;
-  for (let i = 0, j = points.length - 1; i < points.length; j = i++) {
-    const xi = points[i].x, yi = points[i].y;
-    const xj = points[j].x, yj = points[j].y;
-    const intersect = ((yi > point.y) !== (yj > point.y))
-        && (point.x < (xj - xi) * (point.y - yi) / (yj - yi) + xi);
-    if (intersect) inside = !inside;
+  function isPointInPolygon(point, polygon) {
+    const points = polygon.points;
+    let inside = false;
+    for (let i = 0, j = points.length - 1; i < points.length; j = i++) {
+      const xi = points[i].x,
+        yi = points[i].y;
+      const xj = points[j].x,
+        yj = points[j].y;
+      const intersect =
+        yi > point.y !== yj > point.y &&
+        point.x < ((xj - xi) * (point.y - yi)) / (yj - yi) + xi;
+      if (intersect) inside = !inside;
+    }
+    return inside;
   }
-  return inside;
-}
 
   useEffect(() => {
-
-    if(isMobile)
-    {
-      setZoomCoord(4)
-    }
-    else
-    {
+    if (isMobile) {
+      setZoomCoord(4);
+    } else {
       setZoomCoord(0.7);
     }
-
   }, [isMobile]);
-
 
   useEffect(() => {
     let viewer;
@@ -144,7 +144,7 @@ function isPointInPolygon(point, polygon) {
       viewer = OpenSeadragon({
         element: viewerRef.current,
         tileSources: {
-          type: 'image',
+          type: "image",
           url: imageLink,
           buildPyramid: false,
           width: 10000,
@@ -158,11 +158,11 @@ function isPointInPolygon(point, polygon) {
         minZoomImageRatio: 1,
 
         minZoomImageRatio: zoomCoord,
-        visibilityRatio: zoomCoord, 
+        visibilityRatio: zoomCoord,
         minZoomLevel: zoomCoord,
-        maxZoomLevel: 10,  
+        maxZoomLevel: 10,
         wrapHorizontal: false,
-        defaultZoomLevel: zoomCoord, 
+        defaultZoomLevel: zoomCoord,
         zoomPerScroll: 1.2,
         zoomPerClick: 1.5,
         animationTime: 0.5,
@@ -173,43 +173,41 @@ function isPointInPolygon(point, polygon) {
         },
         loadTilesWithAjax: true,
         ajaxHeaders: {
-          'Cache-Control': 'max-age=3600',
+          "Cache-Control": "max-age=3600",
         },
       });
 
       setViewer(viewer);
 
-
-      
-      viewer.addHandler('tile-loaded', () => {
+      viewer.addHandler("tile-loaded", () => {
         setIsLoading(false);
       });
 
-      viewer.addHandler('open', function() {
-        if (imageName === 'thirdFloor') {
-          const svgOverlay = document.createElement('div');
-          svgOverlay.style.position = 'absolute';
-          svgOverlay.style.left = '0';
-          svgOverlay.style.top = '0';
-          svgOverlay.style.width = '100%';
-          svgOverlay.style.height = '100%';
+      viewer.addHandler("open", function () {
+        if (imageName === "thirdFloor") {
+          const svgOverlay = document.createElement("div");
+          svgOverlay.style.position = "absolute";
+          svgOverlay.style.left = "0";
+          svgOverlay.style.top = "0";
+          svgOverlay.style.width = "100%";
+          svgOverlay.style.height = "100%";
 
           const svgContent = `
             <svg  xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 10000 10000" preserveAspectRatio="none">
               
-            <text class="klm" transform="translate(881.77 101.41)">Road View</text>
+            <text class="${styles.st1}" transform="translate(881.77 101.41)">Road View</text>
             <path  class="${styles.st1}" d="M821.94,65.58a3.47,3.47,0,0,1,.66.79c.24.59-.06,1.08-.73,1.45-1.63.9-3.28,1.78-4.88,2.74a13.29,13.29,0,0,0-3.68,3.17,3.25,3.25,0,0,0,.34,4.89,14.67,14.67,0,0,0,5,3c2,.77,4,1.42,6,2.16a18.82,18.82,0,0,1,8.16,5.47,15.37,15.37,0,0,1,3.49,9.67A29,29,0,0,1,834,110.29c-.34.88-.76,1.72-1.1,2.6a4,4,0,0,1-2.77,2.71h-15c-.32-.24-.6-.51-.44-1s.54-.5,1-.5c3.12,0,6.25,0,9.37,0a.82.82,0,0,0,.78-.43,34.32,34.32,0,0,0,5-10.66c.15-.63.25-1.28.38-1.92a2,2,0,0,1,0-.24c.11-.5.42-.74.84-.67a.72.72,0,0,1,.6.9,23.92,23.92,0,0,1-1.66,6.05,39,39,0,0,1-3.39,6.46l-.31.49c.9,0,1.73,0,2.55,0a1.68,1.68,0,0,0,1.41-1.07,37.92,37.92,0,0,0,3-8.66,20.83,20.83,0,0,0,.31-7.75,13.63,13.63,0,0,0-6.74-9.73,30.63,30.63,0,0,0-6.64-2.76,26.69,26.69,0,0,1-7.49-3.55,7.54,7.54,0,0,1-2.3-2.5,4.05,4.05,0,0,1-.43-2.73.78.78,0,0,0,0-.37,3.59,3.59,0,0,0-.47,3,6,6,0,0,0,2.16,2.88,22.51,22.51,0,0,0,6,3.28,52,52,0,0,1,6.43,2.64,14.81,14.81,0,0,1,6.48,6.48,12.75,12.75,0,0,1,1.11,3.92,1.41,1.41,0,0,1,0,.58.67.67,0,0,1-.76.48c-.42,0-.58-.33-.67-.72a22.18,22.18,0,0,0-.66-2.79,11.93,11.93,0,0,0-4.91-5.88A28.1,28.1,0,0,0,819.42,86a26.16,26.16,0,0,1-7.24-3.63,11.16,11.16,0,0,1-2.09-2,5.18,5.18,0,0,1-.5-6,13.13,13.13,0,0,1,4.09-4.39c1.4-1,2.89-1.91,4.32-2.86a8.19,8.19,0,0,0-4.14.64,63.71,63.71,0,0,0-9.53,5.79A19.86,19.86,0,0,0,799.84,78a6.76,6.76,0,0,0-1.25,3.23A5.58,5.58,0,0,0,800.74,86c.81.73,1.75,1.3,2.61,2a37.17,37.17,0,0,1,3.47,2.76,8.7,8.7,0,0,1,1.88,10.54,22,22,0,0,1-4.88,6.53,52.56,52.56,0,0,1-7.35,5.87l-.72.49h15.92c.42,0,.79,0,1,.5s-.11.73-.45,1H789.7a4.35,4.35,0,0,1-.7-.57,1.64,1.64,0,0,1,.42-2.46c1.51-1,3.05-1.92,4.54-2.94a41.21,41.21,0,0,0,7.29-6.09,14.81,14.81,0,0,0,2.77-4,5.81,5.81,0,0,0-1-6.61,16.3,16.3,0,0,0-3-2.52,29.59,29.59,0,0,1-3.37-2.63,6.4,6.4,0,0,1-2.12-5.35,8.05,8.05,0,0,1,1.5-3.81,20.17,20.17,0,0,1,5.25-5,99.7,99.7,0,0,1,12.4-7.33,18.37,18.37,0,0,1,1.76-.62ZM797.49,79A6.61,6.61,0,0,0,796,82.5a5,5,0,0,0,1.7,4.24,27.46,27.46,0,0,0,3.08,2.38,17,17,0,0,1,3.49,2.94A7.14,7.14,0,0,1,806,97.88a10,10,0,0,1-1.52,3.87,26.78,26.78,0,0,1-6,6.38,78,78,0,0,1-8,5.52,2.79,2.79,0,0,0-.42.35l.08.14h2.77a.63.63,0,0,0,.31-.12,57.3,57.3,0,0,0,9.54-7.16,19.48,19.48,0,0,0,4.67-6.24,7.46,7.46,0,0,0-1-8.18,15.78,15.78,0,0,0-3.89-3.3,22.92,22.92,0,0,1-2.4-1.74c-2.55-2.19-3.81-4.89-2.5-8.28V79Z"/><path class="${styles.st1}" d="M819.85,97.92c0-.2,0-.39,0-.59a.74.74,0,0,1,.67-.76.71.71,0,0,1,.77.66,10.29,10.29,0,0,1,0,1.36.65.65,0,0,1-.73.63.68.68,0,0,1-.71-.67c0-.21,0-.42,0-.63Z"/><path class="${styles.st1}" d="M802.89,79.75c0-.45.12-.82.6-1a.72.72,0,0,1,.88.62c0,.4.09.81.11,1.22a.69.69,0,0,1-.58.78.69.69,0,0,1-.84-.55C803,80.5,803,80.12,802.89,79.75Z"/><path class="${styles.st1}"  d="M811.68,87.55c0,.66-.51,1-1,.82a8,8,0,0,1-1.2-.63.67.67,0,0,1-.26-.93.69.69,0,0,1,1-.33,7.87,7.87,0,0,1,1.11.59A1.65,1.65,0,0,1,811.68,87.55Z"/><path class="${styles.st1}"  d="M816.71,105.82c.15.13.42.25.51.45a.86.86,0,0,1,0,.72,5.9,5.9,0,0,1-.94,1.06.6.6,0,0,1-.88,0c-.17-.2-.33-.64-.23-.8a8.85,8.85,0,0,1,1.14-1.31C816.36,105.88,816.5,105.88,816.71,105.82Z"/><path class="${styles.st1}" d="M816.27,90a.74.74,0,0,1-1,.8A8,8,0,0,1,814,90a.66.66,0,0,1-.14-.92.63.63,0,0,1,.84-.31,8.51,8.51,0,0,1,1.29.78C816.17,89.65,816.22,89.87,816.27,90Z"/><path class="${styles.st1}"  d="M818.59,91.91l.21,0c.34.11,1.24,1.23,1.18,1.58a1,1,0,0,1-.4.69.8.8,0,0,1-.75-.09,5.29,5.29,0,0,1-.91-1.19A.71.71,0,0,1,818.59,91.91Z"/><path class="${styles.st1}" d="M805.74,74.18a.73.73,0,0,1,.65,1.14,9,9,0,0,1-.83,1,.68.68,0,0,1-.89.12.6.6,0,0,1-.3-.83,9.83,9.83,0,0,1,1.08-1.35C805.52,74.2,805.69,74.2,805.74,74.18Z"/><path class="${styles.st1}"  d="M807.37,85c-.12.15-.24.42-.44.51a.86.86,0,0,1-.72,0,4.54,4.54,0,0,1-1.05-1,.9.9,0,0,1,0-.83.86.86,0,0,1,.78-.24,9.46,9.46,0,0,1,1.29,1.16C807.32,84.66,807.31,84.81,807.37,85Z"/><path class="${styles.st1}"  d="M819.06,104.08a.74.74,0,0,1-.79-1,9.25,9.25,0,0,1,.6-1.12.67.67,0,0,1,.89-.27.65.65,0,0,1,.41.84,8.2,8.2,0,0,1-.73,1.37C819.36,104,819.13,104,819.06,104.08Z"/><path class="${styles.st1}" d="M810,72a1.25,1.25,0,0,1-1.49,1,.67.67,0,0,1-.43-.82,1.45,1.45,0,0,1,1.32-.86A.65.65,0,0,1,810,72Z"/><path class="${styles.st1}" d="M813.64,110.26a1.45,1.45,0,0,1-1.23,1.07.74.74,0,0,1-.7-.74,1.48,1.48,0,0,1,1.24-1.07A.72.72,0,0,1,813.64,110.26Z"/><text class="${styles.st1}" transform="translate(947.1 1004.14)">Hill View</text><path class="${styles.st1}" d="M881.78,1010.91H845.17a4.84,4.84,0,0,1-.85,0,.73.73,0,0,1-.54-1.07,3.2,3.2,0,0,1,.3-.45q4.24-5.88,8.49-11.77a1.49,1.49,0,0,1,1.42-.74,17.11,17.11,0,0,0,2.48,0,1.39,1.39,0,0,0,.86-.45q2.31-3.12,4.54-6.3a1.46,1.46,0,0,1,1.37-.68c1,0,2.07,0,3.11,0a1.17,1.17,0,0,0,1.09-.54c3.13-4.12,6.29-8.22,9.44-12.33.85-1.11,1.1-1.12,2-.1q5.15,5.67,10.26,11.36a1.44,1.44,0,0,0,1.2.51c1.27,0,2.54-.05,3.81,0a2.08,2.08,0,0,1,1.21.5c2.08,2,4.12,4,6.2,6a1.79,1.79,0,0,0,1.13.46c1.53.05,3.06,0,4.58.05a1.9,1.9,0,0,1,1.24.58q5.47,6.66,10.88,13.38c.23.3.45.87.31,1.13s-.71.44-1.1.45Q900.2,1010.93,881.78,1010.91ZM871.3,993.34c-.67,1.3-1.29,2.49-1.89,3.69a1.31,1.31,0,0,0-.08.53q-.15,3.72-.29,7.45c0,.53-.08,1-.69,1.13s-.82-.41-1-.89c-.31-.84-.62-1.67-1-2.66l-3.31,6.7a1.73,1.73,0,0,0,.27.06c5.21,0,10.41,0,15.62,0a1.3,1.3,0,0,0,.82-.43q2.7-3.06,5.33-6.18a1.9,1.9,0,0,0,.4-1c.21-2,.35-4,.56-6,.1-1,.66-1.18,1.44-.63l2.1,1.55c-.32-2.16-.65-4.15-.89-6.15a3,3,0,0,0-.9-1.81c-3.09-3.38-6.15-6.79-9.23-10.19-.13-.14-.29-.26-.46-.42-1.3,3.2-2.58,6.33-3.84,9.47a2.48,2.48,0,0,0-.14,1c0,2.74.08,5.49.13,8.23,0,.51,0,1-.65,1.15s-.84-.36-1-.84C872.2,995.82,871.77,994.64,871.3,993.34Zm3.27-10.8-.19-.12c-.17.21-.34.41-.5.62q-2.82,3.66-5.62,7.33A1.34,1.34,0,0,1,867,991c-1.09,0-2.18,0-3.26,0a1.42,1.42,0,0,0-.93.47q-2.31,3.12-4.54,6.29a1.36,1.36,0,0,1-1.3.66c-.8,0-1.6,0-2.4,0a1.12,1.12,0,0,0-1.09.54c-2.33,3.26-4.68,6.5-7,9.75-.13.18-.23.37-.36.57.11,0,.15.08.2.08,4.84,0,9.68,0,14.53,0a1,1,0,0,0,.67-.45c.46-.84.86-1.71,1.28-2.56,1-1.92,1.88-3.86,2.87-5.76a1.32,1.32,0,0,1,.89-.67c.24,0,.52.45.76.72a1.93,1.93,0,0,1,.23.48,12.85,12.85,0,0,0,.17-2.37,5.63,5.63,0,0,1,.17-2.07c.86-1.9,1.86-3.74,2.85-5.58a1,1,0,0,1,.75-.4c.24,0,.5.29.67.52a4.19,4.19,0,0,1,.34.81,1,1,0,0,0,.11-.6,12.94,12.94,0,0,1,1.48-7.62A13.24,13.24,0,0,0,874.57,982.54Zm21.5,9.31L896,992a1.6,1.6,0,0,1,.12.37l2.52,11.11c.12.53.38,1.12-.25,1.46s-1-.23-1.4-.65L894,1001c-1.16,1-2.17,2-2.25,3.63s-.44,3.11-.67,4.66h26.3c-3.29-4-6.52-8-9.77-12a4.1,4.1,0,0,0-1-.6c.06.58.08.88.13,1.19.34,2.46.69,4.91,1,7.37.07.5.11,1-.47,1.15s-.87-.22-1.12-.67q-2.38-4.31-4.8-8.6a3.81,3.81,0,0,0-.63-.86c-1.36-1.36-2.73-2.69-4.11-4A5.72,5.72,0,0,0,896.07,991.85Zm-14.54,17.44h8c.13-.88.29-1.7.37-2.52.25-2.8.69-5.5,3.29-7.21a.57.57,0,0,0,.11-.11c.6-.58.91-.57,1.49.06s1.06,1.16,1.59,1.74l.13-.07-2.55-11.25H890.2c.4,2.69.82,5.32,1.17,8A1.41,1.41,0,0,1,891,999c-.19.15-.77,0-1.07-.25-.81-.52-1.56-1.12-2.42-1.76-.16,1.81-.27,3.49-.47,5.16a2.59,2.59,0,0,1-.52,1.32C884.91,1005.41,883.25,1007.29,881.53,1009.29Zm21.52-12.38,2.4,4.31.17-.07-.61-4.24Zm-28.47-14.5,0,0-.1-.05,0,0Z"/>
-           
-              <polygon data-image="1" class="${styles.st0}" points="1277.53 303.54 1402.95 362.7 1443.77 362.7 1443.77 345.96 1502.93 345.96 1502.93 362.7 1495.29 362.7 1495.29 375.24 1501.48 375.24 1501.48 408.33 1495.21 408.33 1495.21 420.94 1508.05 420.94 1508.05 412.61 1540.36 412.61 1540.36 473.97 1540.36 529.25 1444.69 529.25 1223.03 529.25 1223.03 440.43 1251.77 440.43 1251.77 425.76 1200.71 425.76 1200.71 329.15 1251.77 329.15 1251.77 375.92 1263.69 375.92 1263.69 368.89 1277.45 368.89 1277.53 303.54"/>
-              <polygon data-image="2" class="${styles.st0}" points="1223.18 575.26 1223.18 663.54 1251.85 663.54 1251.85 677.3 1200.71 677.3 1200.71 774.06 1251.85 774.06 1251.85 733.94 1276.84 733.94 1276.84 794.47 1404.56 733.94 1443.54 733.94 1443.54 750.22 1503.16 749.99 1503.16 733.94 1508.2 733.94 1508.2 684.87 1539.85 684.87 1539.85 574.34 1351.36 574.34 1252.31 574.34 1223.18 575.26"/>
-              <polygon data-image="3" class="${styles.st0}" points="527.49 404.15 527.49 424.8 483.69 424.8 483.69 529.52 348.98 529.52 348.98 190.73 333.04 190.04 458.47 136.61 458.47 195.31 471.31 195.31 471.31 190.96 483.69 190.96 483.69 404.15 527.49 404.15"/>
-              <polygon data-image="4" class="${styles.st0}" points="663.47 351.92 663.47 226.96 612.1 226.96 612.1 223.29 598.8 223.29 598.8 226.96 586.19 226.96 586.19 173.99 483.69 173.99 483.69 190.96 483.69 404.15 527.49 404.15 527.49 424.8 483.69 424.8 483.69 529.52 605.57 529.52 611.87 529.52 611.99 528.25 640.76 528.25 640.76 439.98 611.64 439.98 611.64 351.92 663.47 351.92"/>
-              <polygon data-image="5" class="${styles.st0}" points="953.3 467.72 953.3 430.8 912.48 430.8 912.48 391.36 953.3 391.36 953.3 358.57 932.13 358.57 932.13 222.37 784.53 222.37 784.53 258.83 746.47 258.83 746.47 267.54 740.74 267.54 739.98 261.27 689.22 261.27 689.22 375.92 739.98 375.92 739.98 439.21 711.85 439.21 711.85 530.01 905.61 528.94 932.13 529.25 957.66 530.01 957.66 467.72 953.3 467.72"/>
-              <polygon data-image="6" class="${styles.st0}" points="1175.03 374.62 1175.03 263.41 1123.9 263.64 1120.23 263.64 1120.23 258.6 1079.18 258.6 1079.18 222.37 932.13 222.37 932.13 358.57 953.3 358.57 953.3 391.36 912.48 391.36 912.48 430.8 953.3 430.8 953.3 467.72 957.66 467.72 957.66 530.01 1064.28 528.71 1064.28 530.01 1087.67 530.01 1152.56 530.01 1152.56 439.52 1123.67 439.98 1123.67 374.39 1175.03 374.62"/>
-              <polygon data-image="7" class="${styles.st0}" points="952.38 746.32 952.38 711.47 910.65 711.47 910.65 662.62 951.24 662.62 951.24 614.7 876.71 614.7 876.71 613.5 874.88 613.5 874.88 574.34 768.88 574.34 768.88 573.48 746.24 573.48 746.24 574.17 739.99 574.17 739.99 576.29 711.16 575.95 711.16 663.54 740.28 663.54 740.28 722.01 688.92 722.01 688.92 835.98 740.28 835.98 740.28 846.06 784.53 846.06 784.53 868.08 931.75 868.08 931.75 746.32 952.38 746.32"/>
-              <polygon data-image="8" class="${styles.st0}" points="1123.67 724.53 1123.67 663.77 1152.79 663.77 1152.79 574.34 1026.67 574.34 962.47 574.34 962.47 614.7 951.24 614.7 951.24 662.62 910.65 662.62 910.65 711.47 952.38 711.47 952.38 746.32 931.75 746.32 931.75 868.08 1078.73 868.08 1078.73 840.79 1123.67 840.79 1123.67 835.75 1174.57 835.75 1174.57 724.53 1123.67 724.53"/>
-              <polygon data-image="9" class="${styles.st0}" points="435.62 574.5 357.96 574.5 348.79 574.5 349.25 680.51 349.25 844.31 349.25 900.02 352.76 900.02 352.76 912.79 332.13 912.79 458.09 966.75 458.09 907.75 470.93 907.75 470.93 912.94 483.69 912.94 483.69 574.5 435.62 574.5"/>
-              <polygon data-image="10" class="${styles.st0}" points="611.87 752.13 611.87 663.62 640.76 663.62 640.76 575.87 612.33 575.87 612.33 574.5 483.69 574.5 483.69 912.94 483.77 912.94 483.77 917.07 586.34 917.07 586.34 863.11 599.03 863.11 599.03 867.85 611.57 867.85 611.57 862.8 662.32 862.8 662.32 752.13 611.87 752.13"/>
+              <polygon data-image="1" class="${styles.st0}" points="527.49 404.15 527.49 424.8 483.69 424.8 483.69 529.52 348.98 529.52 348.98 190.73 333.04 190.04 458.47 136.61 458.47 195.31 471.31 195.31 471.31 190.96 483.69 190.96 483.69 404.15 527.49 404.15"/>
+              <polygon data-image="2" class="${styles.st0}" points="663.47 351.92 663.47 226.96 612.1 226.96 612.1 223.29 598.8 223.29 598.8 226.96 586.19 226.96 586.19 173.99 483.69 173.99 483.69 190.96 483.69 404.15 527.49 404.15 527.49 424.8 483.69 424.8 483.69 529.52 605.57 529.52 611.87 529.52 611.99 528.25 640.76 528.25 640.76 439.98 611.64 439.98 611.64 351.92 663.47 351.92"/>
+              <polygon data-image="3" class="${styles.st0}" points="953.3 467.72 953.3 430.8 912.48 430.8 912.48 391.36 953.3 391.36 953.3 358.57 932.13 358.57 932.13 222.37 784.53 222.37 784.53 258.83 746.47 258.83 746.47 267.54 740.74 267.54 739.98 261.27 689.22 261.27 689.22 375.92 739.98 375.92 739.98 439.21 711.85 439.21 711.85 530.01 905.61 528.94 932.13 529.25 957.66 530.01 957.66 467.72 953.3 467.72"/>
+              <polygon data-image="4" class="${styles.st0}" points="1175.03 374.62 1175.03 263.41 1123.9 263.64 1120.23 263.64 1120.23 258.6 1079.18 258.6 1079.18 222.37 932.13 222.37 932.13 358.57 953.3 358.57 953.3 391.36 912.48 391.36 912.48 430.8 953.3 430.8 953.3 467.72 957.66 467.72 957.66 530.01 1064.28 528.71 1064.28 530.01 1087.67 530.01 1152.56 530.01 1152.56 439.52 1123.67 439.98 1123.67 374.39 1175.03 374.62"/>
+             
+              <polygon data-image="5" class="${styles.st0}" points="1277.53 303.54 1402.95 362.7 1443.77 362.7 1443.77 345.96 1502.93 345.96 1502.93 362.7 1495.29 362.7 1495.29 375.24 1501.48 375.24 1501.48 408.33 1495.21 408.33 1495.21 420.94 1508.05 420.94 1508.05 412.61 1540.36 412.61 1540.36 473.97 1540.36 529.25 1444.69 529.25 1223.03 529.25 1223.03 440.43 1251.77 440.43 1251.77 425.76 1200.71 425.76 1200.71 329.15 1251.77 329.15 1251.77 375.92 1263.69 375.92 1263.69 368.89 1277.45 368.89 1277.53 303.54"/>
+              <polygon data-image="6" class="${styles.st0}" points="1223.18 575.26 1223.18 663.54 1251.85 663.54 1251.85 677.3 1200.71 677.3 1200.71 774.06 1251.85 774.06 1251.85 733.94 1276.84 733.94 1276.84 794.47 1404.56 733.94 1443.54 733.94 1443.54 750.22 1503.16 749.99 1503.16 733.94 1508.2 733.94 1508.2 684.87 1539.85 684.87 1539.85 574.34 1351.36 574.34 1252.31 574.34 1223.18 575.26"/>
+              <polygon data-image="7" class="${styles.st0}" points="1123.67 724.53 1123.67 663.77 1152.79 663.77 1152.79 574.34 1026.67 574.34 962.47 574.34 962.47 614.7 951.24 614.7 951.24 662.62 910.65 662.62 910.65 711.47 952.38 711.47 952.38 746.32 931.75 746.32 931.75 868.08 1078.73 868.08 1078.73 840.79 1123.67 840.79 1123.67 835.75 1174.57 835.75 1174.57 724.53 1123.67 724.53"/>
+              <polygon data-image="8" class="${styles.st0}" points="952.38 746.32 952.38 711.47 910.65 711.47 910.65 662.62 951.24 662.62 951.24 614.7 876.71 614.7 876.71 613.5 874.88 613.5 874.88 574.34 768.88 574.34 768.88 573.48 746.24 573.48 746.24 574.17 739.99 574.17 739.99 576.29 711.16 575.95 711.16 663.54 740.28 663.54 740.28 722.01 688.92 722.01 688.92 835.98 740.28 835.98 740.28 846.06 784.53 846.06 784.53 868.08 931.75 868.08 931.75 746.32 952.38 746.32"/>
+              <polygon data-image="9" class="${styles.st0}" points="611.87 752.13 611.87 663.62 640.76 663.62 640.76 575.87 612.33 575.87 612.33 574.5 483.69 574.5 483.69 912.94 483.77 912.94 483.77 917.07 586.34 917.07 586.34 863.11 599.03 863.11 599.03 867.85 611.57 867.85 611.57 862.8 662.32 862.8 662.32 752.13 611.87 752.13"/>
+              <polygon data-image="10" class="${styles.st0}" points="435.62 574.5 357.96 574.5 348.79 574.5 349.25 680.51 349.25 844.31 349.25 900.02 352.76 900.02 352.76 912.79 332.13 912.79 458.09 966.75 458.09 907.75 470.93 907.75 470.93 912.94 483.69 912.94 483.69 574.5 435.62 574.5"/>
             
             
             </svg>
@@ -220,145 +218,55 @@ function isPointInPolygon(point, polygon) {
           viewer.addOverlay({
             element: svgOverlay,
             location: new OpenSeadragon.Rect(0, 0, 5.209, 5.208),
-            placement: OpenSeadragon.Placement.CENTER
+            placement: OpenSeadragon.Placement.CENTER,
           });
 
-          //  svgOverlay.querySelectorAll('polygon, path').forEach(element => {
-          //   element.addEventListener('click', (e) => {
-          //     e.preventDefault();
-          //     e.stopPropagation();
-          //     console.log("JNKJJKNLK")
-          //     const dataImage = element.getAttribute('data-image');
-          //     if (dataImage) {
-          //       console.log(dataImage)
-          //       router.push(`/${imageName}/Apartment${dataImage}`);
-          //     }
-          //   });
-          // });
-
-
-          // svgOverlay.querySelectorAll('polygon, path').forEach(element => {
-          //   element.addEventListener('click', (e) => {
-          //     e.preventDefault();
-          //     e.stopPropagation();
-          //     console.log("JNKJJKNLK")
-          //     const dataImage = element.getAttribute('data-image');
-          //     if (dataImage) {
-          //       console.log(dataImage)
-          //       router.push(`/${imageName}/Apartment${dataImage}`);
-          //     }
-          //   });
-          // });
-
-
-          
-        // svgOverlay.querySelectorAll('polygon').forEach(polygon => {
-        //   polygon.addEventListener('click', (e) => {
-        //     e.preventDefault();
-        //     e.stopPropagation();
-        //     const dataImage = e.target.getAttribute('data-image');
-        //     if (dataImage) {
-        //       // Find the corresponding apartment data
-        //       const apartmentInfo = apartmentData["3rd Floor"].find(apt => apt.Apartmentno.toString() === dataImage);
-        //       console.log(apartmentInfo   )
-        //       if (apartmentInfo) {
-        //         setActivePolygon({
-        //           id: dataImage,
-        //           Type: apartmentInfo.Type,
-        //           Bedrooms: apartmentInfo.Bedrooms,
-        //           Area: apartmentInfo.Area
-        //         });
-                
-        //         const rect = e.target.getBoundingClientRect();
-        //         setPopupPosition({ x: rect.left + rect.width / 2, y: rect.top + rect.height / 2 });
-        //       }
-        //     }
-        //   });
-        // });
-
-        svgOverlay.addEventListener('click', (e) => {
-          const svgPoint = viewer.viewport.pointFromPixel(new OpenSeadragon.Point(e.clientX, e.clientY));
-          const viewportPoint = viewer.viewport.viewportToImageCoordinates(svgPoint);
-
-          // Check if the click is within any polygon
-          const polygons = svgOverlay.querySelectorAll('polygon');
-          for (let polygon of polygons) {
-            if (isPointInPolygon(viewportPoint, polygon)) {
-              const dataImage = polygon.getAttribute('data-image');
+          svgOverlay.querySelectorAll("polygon, path").forEach((polygon) => {
+            polygon.addEventListener("click", (e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              const dataImage = e.target.getAttribute("data-image");
               if (dataImage) {
-                const apartmentInfo = apartmentData["3rd Floor"].find(apt => apt.Apartmentno.toString() === dataImage);
-                
+                // Find the corresponding apartment data
+                const apartmentInfo = apartmentData["3rd Floor"].find(
+                  (apt) => apt.Apartmentno.toString() === dataImage
+                );
+                console.log(apartmentInfo);
                 if (apartmentInfo) {
                   setActivePolygon({
+                    floor: "Third Floor",
                     id: dataImage,
                     Type: apartmentInfo.Type,
                     Bedrooms: apartmentInfo.Bedrooms,
-                    Area: apartmentInfo.Area
+                    Area: apartmentInfo.Area,
                   });
-                  
-                  setPopupPosition({ x: e.clientX, y: e.clientY });
+
+                  const rect = e.target.getBoundingClientRect();
+                  setPopupPosition({
+                    x: rect.left + rect.width / 2,
+                    y: rect.top + rect.height / 2,
+                  });
                 }
               }
-              break;
-            }
-          }
-        });
-      
+            });
 
+            polygon.addEventListener("mouseenter", () => {
+              viewer.setMouseNavEnabled(false);
+            });
 
-
-        // const handlePolygonInteraction = (e) => {
-        //   e.preventDefault();
-        //   e.stopPropagation();
-        //   const dataImage = e.target.getAttribute('data-image');
-        //   if (dataImage) {
-        //     // Find the corresponding apartment data
-        //     const apartmentInfo = apartmentData["3rd Floor"].find(apt => apt.Apartmentno.toString() === dataImage);
-            
-        //     if (apartmentInfo) {
-        //       setActivePolygon({
-        //         id: dataImage,
-        //         Type: apartmentInfo.Type,
-        //         Bedrooms: apartmentInfo.Bedrooms,
-        //         Area: apartmentInfo.Area
-        //       });
-              
-        //       const rect = e.target.getBoundingClientRect();
-        //       setPopupPosition({ x: rect.left + rect.width / 2, y: rect.top + rect.height / 2 });
-        //     }
-        //   }
-        // };
-
-
-
-
-        // svgOverlay.querySelectorAll('polygon').forEach(polygon => {
-        //   // Use both click and touchstart events
-        //   polygon.addEventListener('click', handlePolygonInteraction);
-        //   polygon.addEventListener('touchstart', handlePolygonInteraction);
-        // });
-
-            // Disable zoom on polygon hover
-            // polygon.addEventListener('mouseenter', () => {
-            //   viewer.setMouseNavEnabled(false);
-            // });
-
-            // polygon.addEventListener('mouseleave', () => {
-            //   viewer.setMouseNavEnabled(true);
-            // });
-
-      
-        
-
+            polygon.addEventListener("mouseleave", () => {
+              viewer.setMouseNavEnabled(true);
+            });
+          });
         }
 
-        if ( imageName === 'secondFloor') {
-          const svgOverlay = document.createElement('div');
-          svgOverlay.style.position = 'absolute';
-          svgOverlay.style.left = '0';
-          svgOverlay.style.top = '0';
-          svgOverlay.style.width = '100%';
-          svgOverlay.style.height = '100%';
+        if (imageName === "secondFloor") {
+          const svgOverlay = document.createElement("div");
+          svgOverlay.style.position = "absolute";
+          svgOverlay.style.left = "0";
+          svgOverlay.style.top = "0";
+          svgOverlay.style.width = "100%";
+          svgOverlay.style.height = "100%";
 
           const svgContent = `
           <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 10000 10000" preserveAspectRatio="none">
@@ -390,38 +298,60 @@ function isPointInPolygon(point, polygon) {
 
           const floorName = floorNameMapping[imageName] || imageName;
           const floorApartments = apartmentData[floorName] || [];
-    
 
-    
           viewer.addOverlay({
             element: svgOverlay,
             location: new OpenSeadragon.Rect(0, 0, 5.209, 5.208),
-            placement: OpenSeadragon.Placement.CENTER
+            placement: OpenSeadragon.Placement.CENTER,
           });
 
-          svgOverlay.querySelectorAll('polygon, path').forEach(element => {
-            element.addEventListener('click', (e) => {
+          svgOverlay.querySelectorAll("polygon, path").forEach((polygon) => {
+            polygon.addEventListener("click", (e) => {
               e.preventDefault();
               e.stopPropagation();
-              console.log("JNKJJKNLK")
-              const dataImage = element.getAttribute('data-image');
+              console.log("CONSOLE");
+              const dataImage = e.target.getAttribute("data-image");
               if (dataImage) {
-                console.log(dataImage)
-                router.push(`/${imageName}/Apartment${dataImage}`);
+                // Find the corresponding apartment data
+                const apartmentInfo = apartmentData["2nd Floor"].find(
+                  (apt) => apt.Apartmentno.toString() === dataImage
+                );
+                console.log(apartmentInfo);
+                if (apartmentInfo) {
+                  setActivePolygon({
+                    floor: "Second Floor",
+                    id: dataImage,
+                    Type: apartmentInfo.Type,
+                    Bedrooms: apartmentInfo.Bedrooms,
+                    Area: apartmentInfo.Area,
+                  });
+
+                  const rect = e.target.getBoundingClientRect();
+                  setPopupPosition({
+                    x: rect.left + rect.width / 2,
+                    y: rect.top + rect.height / 2,
+                  });
+                }
               }
             });
-          });
 
+            polygon.addEventListener("mouseenter", () => {
+              viewer.setMouseNavEnabled(false);
+            });
+
+            polygon.addEventListener("mouseleave", () => {
+              viewer.setMouseNavEnabled(true);
+            });
+          });
         }
 
-
-        if ( imageName === 'firstFloor') {
-          const svgOverlay = document.createElement('div');
-          svgOverlay.style.position = 'absolute';
-          svgOverlay.style.left = '0';
-          svgOverlay.style.top = '0';
-          svgOverlay.style.width = '100%';
-          svgOverlay.style.height = '100%';
+        if (imageName === "firstFloor") {
+          const svgOverlay = document.createElement("div");
+          svgOverlay.style.position = "absolute";
+          svgOverlay.style.left = "0";
+          svgOverlay.style.top = "0";
+          svgOverlay.style.width = "100%";
+          svgOverlay.style.height = "100%";
 
           const svgContent = `
           <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 10000 10000" preserveAspectRatio="none">
@@ -429,12 +359,13 @@ function isPointInPolygon(point, polygon) {
             <text class="${styles.st1}" transform="translate(881.77 101.41)">Road View</text><path  class="${styles.st1}" d="M821.94,65.58a3.47,3.47,0,0,1,.66.79c.24.59-.06,1.08-.73,1.45-1.63.9-3.28,1.78-4.88,2.74a13.29,13.29,0,0,0-3.68,3.17,3.25,3.25,0,0,0,.34,4.89,14.67,14.67,0,0,0,5,3c2,.77,4,1.42,6,2.16a18.82,18.82,0,0,1,8.16,5.47,15.37,15.37,0,0,1,3.49,9.67A29,29,0,0,1,834,110.29c-.34.88-.76,1.72-1.1,2.6a4,4,0,0,1-2.77,2.71h-15c-.32-.24-.6-.51-.44-1s.54-.5,1-.5c3.12,0,6.25,0,9.37,0a.82.82,0,0,0,.78-.43,34.32,34.32,0,0,0,5-10.66c.15-.63.25-1.28.38-1.92a2,2,0,0,1,0-.24c.11-.5.42-.74.84-.67a.72.72,0,0,1,.6.9,23.92,23.92,0,0,1-1.66,6.05,39,39,0,0,1-3.39,6.46l-.31.49c.9,0,1.73,0,2.55,0a1.68,1.68,0,0,0,1.41-1.07,37.92,37.92,0,0,0,3-8.66,20.83,20.83,0,0,0,.31-7.75,13.63,13.63,0,0,0-6.74-9.73,30.63,30.63,0,0,0-6.64-2.76,26.69,26.69,0,0,1-7.49-3.55,7.54,7.54,0,0,1-2.3-2.5,4.05,4.05,0,0,1-.43-2.73.78.78,0,0,0,0-.37,3.59,3.59,0,0,0-.47,3,6,6,0,0,0,2.16,2.88,22.51,22.51,0,0,0,6,3.28,52,52,0,0,1,6.43,2.64,14.81,14.81,0,0,1,6.48,6.48,12.75,12.75,0,0,1,1.11,3.92,1.41,1.41,0,0,1,0,.58.67.67,0,0,1-.76.48c-.42,0-.58-.33-.67-.72a22.18,22.18,0,0,0-.66-2.79,11.93,11.93,0,0,0-4.91-5.88A28.1,28.1,0,0,0,819.42,86a26.16,26.16,0,0,1-7.24-3.63,11.16,11.16,0,0,1-2.09-2,5.18,5.18,0,0,1-.5-6,13.13,13.13,0,0,1,4.09-4.39c1.4-1,2.89-1.91,4.32-2.86a8.19,8.19,0,0,0-4.14.64,63.71,63.71,0,0,0-9.53,5.79A19.86,19.86,0,0,0,799.84,78a6.76,6.76,0,0,0-1.25,3.23A5.58,5.58,0,0,0,800.74,86c.81.73,1.75,1.3,2.61,2a37.17,37.17,0,0,1,3.47,2.76,8.7,8.7,0,0,1,1.88,10.54,22,22,0,0,1-4.88,6.53,52.56,52.56,0,0,1-7.35,5.87l-.72.49h15.92c.42,0,.79,0,1,.5s-.11.73-.45,1H789.7a4.35,4.35,0,0,1-.7-.57,1.64,1.64,0,0,1,.42-2.46c1.51-1,3.05-1.92,4.54-2.94a41.21,41.21,0,0,0,7.29-6.09,14.81,14.81,0,0,0,2.77-4,5.81,5.81,0,0,0-1-6.61,16.3,16.3,0,0,0-3-2.52,29.59,29.59,0,0,1-3.37-2.63,6.4,6.4,0,0,1-2.12-5.35,8.05,8.05,0,0,1,1.5-3.81,20.17,20.17,0,0,1,5.25-5,99.7,99.7,0,0,1,12.4-7.33,18.37,18.37,0,0,1,1.76-.62ZM797.49,79A6.61,6.61,0,0,0,796,82.5a5,5,0,0,0,1.7,4.24,27.46,27.46,0,0,0,3.08,2.38,17,17,0,0,1,3.49,2.94A7.14,7.14,0,0,1,806,97.88a10,10,0,0,1-1.52,3.87,26.78,26.78,0,0,1-6,6.38,78,78,0,0,1-8,5.52,2.79,2.79,0,0,0-.42.35l.08.14h2.77a.63.63,0,0,0,.31-.12,57.3,57.3,0,0,0,9.54-7.16,19.48,19.48,0,0,0,4.67-6.24,7.46,7.46,0,0,0-1-8.18,15.78,15.78,0,0,0-3.89-3.3,22.92,22.92,0,0,1-2.4-1.74c-2.55-2.19-3.81-4.89-2.5-8.28V79Z"/><path class="${styles.st1}" d="M819.85,97.92c0-.2,0-.39,0-.59a.74.74,0,0,1,.67-.76.71.71,0,0,1,.77.66,10.29,10.29,0,0,1,0,1.36.65.65,0,0,1-.73.63.68.68,0,0,1-.71-.67c0-.21,0-.42,0-.63Z"/><path class="${styles.st1}" d="M802.89,79.75c0-.45.12-.82.6-1a.72.72,0,0,1,.88.62c0,.4.09.81.11,1.22a.69.69,0,0,1-.58.78.69.69,0,0,1-.84-.55C803,80.5,803,80.12,802.89,79.75Z"/><path class="${styles.st1}"  d="M811.68,87.55c0,.66-.51,1-1,.82a8,8,0,0,1-1.2-.63.67.67,0,0,1-.26-.93.69.69,0,0,1,1-.33,7.87,7.87,0,0,1,1.11.59A1.65,1.65,0,0,1,811.68,87.55Z"/><path class="${styles.st1}"  d="M816.71,105.82c.15.13.42.25.51.45a.86.86,0,0,1,0,.72,5.9,5.9,0,0,1-.94,1.06.6.6,0,0,1-.88,0c-.17-.2-.33-.64-.23-.8a8.85,8.85,0,0,1,1.14-1.31C816.36,105.88,816.5,105.88,816.71,105.82Z"/><path class="${styles.st1}" d="M816.27,90a.74.74,0,0,1-1,.8A8,8,0,0,1,814,90a.66.66,0,0,1-.14-.92.63.63,0,0,1,.84-.31,8.51,8.51,0,0,1,1.29.78C816.17,89.65,816.22,89.87,816.27,90Z"/><path class="${styles.st1}"  d="M818.59,91.91l.21,0c.34.11,1.24,1.23,1.18,1.58a1,1,0,0,1-.4.69.8.8,0,0,1-.75-.09,5.29,5.29,0,0,1-.91-1.19A.71.71,0,0,1,818.59,91.91Z"/><path class="${styles.st1}" d="M805.74,74.18a.73.73,0,0,1,.65,1.14,9,9,0,0,1-.83,1,.68.68,0,0,1-.89.12.6.6,0,0,1-.3-.83,9.83,9.83,0,0,1,1.08-1.35C805.52,74.2,805.69,74.2,805.74,74.18Z"/><path class="${styles.st1}"  d="M807.37,85c-.12.15-.24.42-.44.51a.86.86,0,0,1-.72,0,4.54,4.54,0,0,1-1.05-1,.9.9,0,0,1,0-.83.86.86,0,0,1,.78-.24,9.46,9.46,0,0,1,1.29,1.16C807.32,84.66,807.31,84.81,807.37,85Z"/><path class="${styles.st1}"  d="M819.06,104.08a.74.74,0,0,1-.79-1,9.25,9.25,0,0,1,.6-1.12.67.67,0,0,1,.89-.27.65.65,0,0,1,.41.84,8.2,8.2,0,0,1-.73,1.37C819.36,104,819.13,104,819.06,104.08Z"/><path class="${styles.st1}" d="M810,72a1.25,1.25,0,0,1-1.49,1,.67.67,0,0,1-.43-.82,1.45,1.45,0,0,1,1.32-.86A.65.65,0,0,1,810,72Z"/><path class="${styles.st1}" d="M813.64,110.26a1.45,1.45,0,0,1-1.23,1.07.74.74,0,0,1-.7-.74,1.48,1.48,0,0,1,1.24-1.07A.72.72,0,0,1,813.64,110.26Z"/><text class="${styles.st1}" transform="translate(947.1 1004.14)">Hill View</text><path class="${styles.st1}" d="M881.78,1010.91H845.17a4.84,4.84,0,0,1-.85,0,.73.73,0,0,1-.54-1.07,3.2,3.2,0,0,1,.3-.45q4.24-5.88,8.49-11.77a1.49,1.49,0,0,1,1.42-.74,17.11,17.11,0,0,0,2.48,0,1.39,1.39,0,0,0,.86-.45q2.31-3.12,4.54-6.3a1.46,1.46,0,0,1,1.37-.68c1,0,2.07,0,3.11,0a1.17,1.17,0,0,0,1.09-.54c3.13-4.12,6.29-8.22,9.44-12.33.85-1.11,1.1-1.12,2-.1q5.15,5.67,10.26,11.36a1.44,1.44,0,0,0,1.2.51c1.27,0,2.54-.05,3.81,0a2.08,2.08,0,0,1,1.21.5c2.08,2,4.12,4,6.2,6a1.79,1.79,0,0,0,1.13.46c1.53.05,3.06,0,4.58.05a1.9,1.9,0,0,1,1.24.58q5.47,6.66,10.88,13.38c.23.3.45.87.31,1.13s-.71.44-1.1.45Q900.2,1010.93,881.78,1010.91ZM871.3,993.34c-.67,1.3-1.29,2.49-1.89,3.69a1.31,1.31,0,0,0-.08.53q-.15,3.72-.29,7.45c0,.53-.08,1-.69,1.13s-.82-.41-1-.89c-.31-.84-.62-1.67-1-2.66l-3.31,6.7a1.73,1.73,0,0,0,.27.06c5.21,0,10.41,0,15.62,0a1.3,1.3,0,0,0,.82-.43q2.7-3.06,5.33-6.18a1.9,1.9,0,0,0,.4-1c.21-2,.35-4,.56-6,.1-1,.66-1.18,1.44-.63l2.1,1.55c-.32-2.16-.65-4.15-.89-6.15a3,3,0,0,0-.9-1.81c-3.09-3.38-6.15-6.79-9.23-10.19-.13-.14-.29-.26-.46-.42-1.3,3.2-2.58,6.33-3.84,9.47a2.48,2.48,0,0,0-.14,1c0,2.74.08,5.49.13,8.23,0,.51,0,1-.65,1.15s-.84-.36-1-.84C872.2,995.82,871.77,994.64,871.3,993.34Zm3.27-10.8-.19-.12c-.17.21-.34.41-.5.62q-2.82,3.66-5.62,7.33A1.34,1.34,0,0,1,867,991c-1.09,0-2.18,0-3.26,0a1.42,1.42,0,0,0-.93.47q-2.31,3.12-4.54,6.29a1.36,1.36,0,0,1-1.3.66c-.8,0-1.6,0-2.4,0a1.12,1.12,0,0,0-1.09.54c-2.33,3.26-4.68,6.5-7,9.75-.13.18-.23.37-.36.57.11,0,.15.08.2.08,4.84,0,9.68,0,14.53,0a1,1,0,0,0,.67-.45c.46-.84.86-1.71,1.28-2.56,1-1.92,1.88-3.86,2.87-5.76a1.32,1.32,0,0,1,.89-.67c.24,0,.52.45.76.72a1.93,1.93,0,0,1,.23.48,12.85,12.85,0,0,0,.17-2.37,5.63,5.63,0,0,1,.17-2.07c.86-1.9,1.86-3.74,2.85-5.58a1,1,0,0,1,.75-.4c.24,0,.5.29.67.52a4.19,4.19,0,0,1,.34.81,1,1,0,0,0,.11-.6,12.94,12.94,0,0,1,1.48-7.62A13.24,13.24,0,0,0,874.57,982.54Zm21.5,9.31L896,992a1.6,1.6,0,0,1,.12.37l2.52,11.11c.12.53.38,1.12-.25,1.46s-1-.23-1.4-.65L894,1001c-1.16,1-2.17,2-2.25,3.63s-.44,3.11-.67,4.66h26.3c-3.29-4-6.52-8-9.77-12a4.1,4.1,0,0,0-1-.6c.06.58.08.88.13,1.19.34,2.46.69,4.91,1,7.37.07.5.11,1-.47,1.15s-.87-.22-1.12-.67q-2.38-4.31-4.8-8.6a3.81,3.81,0,0,0-.63-.86c-1.36-1.36-2.73-2.69-4.11-4A5.72,5.72,0,0,0,896.07,991.85Zm-14.54,17.44h8c.13-.88.29-1.7.37-2.52.25-2.8.69-5.5,3.29-7.21a.57.57,0,0,0,.11-.11c.6-.58.91-.57,1.49.06s1.06,1.16,1.59,1.74l.13-.07-2.55-11.25H890.2c.4,2.69.82,5.32,1.17,8A1.41,1.41,0,0,1,891,999c-.19.15-.77,0-1.07-.25-.81-.52-1.56-1.12-2.42-1.76-.16,1.81-.27,3.49-.47,5.16a2.59,2.59,0,0,1-.52,1.32C884.91,1005.41,883.25,1007.29,881.53,1009.29Zm21.52-12.38,2.4,4.31.17-.07-.61-4.24Zm-28.47-14.5,0,0-.1-.05,0,0Z"/>
 
 
+            <polygon data-image="28" class="${styles.st0}" points="335.19 454 335.19 453.01 335.19 453.01 335.19 454"/><polygon data-image="28" class="${styles.st0}" points="367.59 278.66 367.59 238.96 312.33 238.96 312.33 198.06 312.33 196.08 285.5 196.08 285.5 179.8 237.77 179.8 237.79 200.43 225.04 200.43 225.04 195.92 212.43 195.92 212.43 208.61 212.43 493.48 336.41 493.48 336.41 480.68 335.26 480.68 335.26 476.59 335.8 476.59 335.8 454 335.19 454 335.19 453.01 335.19 453.01 335.49 278.66 367.59 278.66"/>
 
-            <polygon  data-image="28" data-tip="firstFloorAp1" class="${styles.st0}" points="367.59 278.66 367.59 238.96 312.33 238.96 312.33 198.06 312.33 196.08 285.5 196.08 285.5 179.8 237.77 179.8 237.79 200.43 225.04 200.43 225.04 195.92 212.43 195.92 212.43 208.61 212.43 493.48 336.41 493.48 336.41 480.68 335.26 480.68 335.26 476.59 335.8 476.59 335.8 454 335.19 454 335.19 453.01 335.19 453.01 335.49 278.66 367.59 278.66"/>
-            <polygon  data-image="29" data-tip="firstFloorAp1" class="${styles.st0}"  points="335.19 454 335.19 453.01 335.19 453.01 335.19 454"/>
-            <polygon class="${styles.st0}" points="466.95 240.71 466.95 195.85 454.73 195.85 454.73 200.43 441.58 200.43 441.58 151.82 327.24 195.85 323.8 195.85 323.8 198.06 312.33 198.06 312.33 238.96 367.59 238.96 367.59 278.66 335.49 278.66 335.19 453.01 337.17 453.01 337.17 453.58 359.95 453.58 359.95 452.97 373.52 452.97 373.52 466.8 464.89 466.8 464.89 240.71 466.95 240.71"/>
+            <polygon data-image="29" data-tip="firstFloorAp1" class="${styles.st0}"  points="335.19 454 335.19 453.01 335.19 453.01 335.19 454"/><polygon data-image="29" class="${styles.st0}" points="466.95 240.71 466.95 195.85 454.73 195.85 454.73 200.43 441.58 200.43 441.58 151.82 327.24 195.85 323.8 195.85 323.8 198.06 312.33 198.06 312.33 238.96 367.59 238.96 367.59 278.66 335.49 278.66 335.19 453.01 337.17 453.01 337.17 453.58 359.95 453.58 359.95 452.97 373.52 452.97 373.52 466.8 464.89 466.8 464.89 240.71 466.95 240.71"/>
+            
 
-            <polygon  data-image="30" data-tip="firstFloorAp1" class="${styles.st0}"  points="594.14 444.1 594.14 227.64 581.3 227.64 581.3 232.53 568.76 232.53 568.76 188.81 466.95 188.81 466.95 195.85 466.95 240.71 464.89 240.71 464.89 466.8 464.89 532.61 623.49 532.61 623.49 444.1 594.14 444.1"/>
+            <polygon data-image="30" class="${styles.st0}" data-tip="firstFloorAp4"  points="594.14 444.1 594.14 227.64 581.3 227.64 581.3 232.53 568.76 232.53 568.76 188.81 466.95 188.81 466.95 195.85 466.95 240.71 464.89 240.71 464.89 466.8 464.89 532.61 623.49 532.61 623.49 444.1 594.14 444.1"/>
+
        
             <polygon data-image="31" data-tip="firstFloorAp4" class="${styles.st0}" points="933.5 471.62 933.5 435.54 892.23 435.54 892.23 397.02 934.12 397.02 934.12 362.17 912.94 362.17 912.94 227.87 766.42 227.87 766.42 263.72 728.2 263.72 728.2 271.98 722.09 271.98 722.09 443.8 693.5 443.8 693.5 532.61 887.18 532.61 939.31 532.61 939.31 471.62 933.5 471.62"/>
 
@@ -447,7 +378,9 @@ function isPointInPolygon(point, polygon) {
           <polygon data-image="37" data-tip="firstFloorAp10" class="${styles.st0}" points="1486.08 721.96 1486.08 735.94 1481.32 735.94 1481.32 752.22 1412.99 752.22 1412.99 736.46 1372.92 736.46 1364.66 739.56 1364.66 723.3 1359.85 723.27 1359.85 629.15 1364.98 629.15 1364.98 616.56 1358.47 616.51 1358.47 577.55 1443.46 577.55 1443.46 688.99 1479.24 688.99 1479.24 680.43 1485.96 680.43 1486.08 721.96"/>
           <polygon data-image="38" data-tip="firstFloorAp11" class="${styles.st0}" points="1359.85 629.15 1359.85 723.27 1364.66 723.3 1364.66 739.56 1256.43 780.25 1256.43 732.1 1244.05 732.1 1244.05 723.62 1231.21 723.62 1231.21 666.52 1202.55 666.52 1202.55 577.55 1358.47 577.55 1358.47 616.51 1364.98 616.56 1364.98 629.15 1359.85 629.15"/>
           <polygon data-image="39" data-tip="firstFloorAp12" class="${styles.st0}" points="942.64 577.1 942.64 617.8 933.81 617.8 933.81 667.13 891.62 667.13 891.62 714.83 931.98 714.83 931.98 748.31 912.94 748.31 912.94 869.34 1059.12 869.34 1059.12 842.85 1091.34 842.85 1091.34 834.71 1103.95 834.71 1103.95 666.41 1132.38 666.41 1132.38 577.1 942.64 577.1"/>
-          <polygon data-image="40" data-tip="firstFloorAp13" class="${styles.st0}" points="335.19 454 335.19 453.01 335.19 453.01 335.19 454 931.98 748.31 931.98 714.83 891.62 714.83 891.62 667.13 933.81 667.13 933.81 617.8 857.57 617.8 857.57 616.65 856.19 616.65 856.19 577.1 693.5 577.1 693.5 666.29 721.94 666.29 721.94 835.06 728.36 835.06 728.36 842.62 766.19 842.62 766.19 869.34 912.94 869.34 912.94 748.31 931.98 748.31"/>
+        
+        <polygon data-image="40" class="${styles.st0}" points="931.98 748.31 931.98 714.83 891.62 714.83 891.62 667.13 933.81 667.13 933.81 617.8 857.57 617.8 857.57 616.65 856.19 616.65 856.19 577.1 693.5 577.1 693.5 666.29 721.94 666.29 721.94 835.06 728.36 835.06 728.36 842.62 766.19 842.62 766.19 869.34 912.94 869.34 912.94 748.31 931.98 748.31"/>
+        
           <polygon data-image="41" data-tip="firstFloorAp14" class="${styles.st0}" points="467.26 577.17 467.26 743.11 467.11 908.51 568.99 908.51 568.99 864.87 581.68 864.87 581.68 856.99 593.83 856.99 593.83 666.52 622.57 666.52 622.57 577.17 467.26 577.17"/>
           <polygon data-image="42" data-tip="firstFloorAp15" class="${styles.st0}" points="377.83 577.17 373.32 577.17 373.32 655.67 335.64 655.67 335.34 748.69 336.64 748.69 336.64 761.45 335.34 761.45 335.34 831.54 367.29 831.54 367.29 872.74 312.25 872.74 312.25 911.87 323.87 911.87 323.72 914.32 325.86 914.32 441.58 957.81 441.58 909.58 454.34 909.58 454.34 914.24 467.11 914.24 467.11 908.51 467.26 577.17 377.83 577.17"/><polygon class="cls-2" points="467.26 577.17 467.11 908.51 467.26 743.11 467.26 577.17"/>
           <polygon data-image="43" data-tip="firstFloorAp16" class="${styles.st0}" points="367.29 872.74 367.29 831.54 335.34 831.54 335.34 761.45 336.64 761.45 336.64 748.69 335.34 748.69 335.64 655.67 335.64 633.35 335.26 633.35 335.34 629.22 336.56 629.22 336.56 616.53 212.28 616.53 212.66 914.24 225.2 914.24 225.2 909.58 237.66 909.58 237.66 929.53 285.43 929.53 285.43 914.17 312.25 914.17 312.25 911.87 312.25 872.74 367.29 872.74"/>
@@ -455,70 +388,67 @@ function isPointInPolygon(point, polygon) {
         </svg>
           `;
 
-
           // <polygon data-image="28" data-tip="firstFloorAp1" class="${styles.st0}" points="335.19 454 335.19 453.01 335.19 453.01 335.19 454 367.59 278.66 367.59 238.96 312.33 238.96 312.33 198.06 312.33 196.08 285.5 196.08 285.5 179.8 237.77 179.8 237.79 200.43 225.04 200.43 225.04 195.92 212.43 195.92 212.43 208.61 212.43 493.48 336.41 493.48 336.41 480.68 335.26 480.68 335.26 476.59 335.8 476.59 335.8 454 335.19 454 335.19 453.01 335.19 453.01 335.49 278.66 367.59 278.66"/>
           // <polygon data-image="29" data-tip="firstFloorAp2" class="${styles.st0}" points="335.19 454 335.19 453.01 335.19 453.01 335.19 454 466.95 240.71 466.95 195.85 454.73 195.85 454.73 200.43 441.58 200.43 441.58 151.82 327.24 195.85 323.8 195.85 323.8 198.06 312.33 198.06 312.33 238.96 367.59 238.96 367.59 278.66 335.49 278.66 335.19 453.01 337.17 453.01 337.17 453.58 359.95 453.58 359.95 452.97 373.52 452.97 373.52 466.8 464.89 466.8 464.89 240.71 466.95 240.71"/>
           // <polygon data-image="30" data-tip="firstFloorAp3" class="${styles.st0}" points="594.14 444.1 594.14 227.64 581.3 227.64 581.3 232.53 568.76 232.53 568.76 188.81 466.95 188.81 466.95 195.85 466.95 240.71 464.89 240.71 464.89 466.8 464.89 532.61 623.49 532.61 623.49 444.1 594.14 444.1"/>
           // <polygon data-image="31" data-tip="firstFloorAp4" class="${styles.st0}" points="933.5 471.62 933.5 435.54 892.23 435.54 892.23 397.02 934.12 397.02 934.12 362.17 912.94 362.17 912.94 227.87 766.42 227.87 766.42 263.72 728.2 263.72 728.2 271.98 722.09 271.98 722.09 443.8 693.5 443.8 693.5 532.61 887.18 532.61 939.31 532.61 939.31 471.62 933.5 471.62"/>
-        
-        
-        
 
           svgOverlay.innerHTML = svgContent;
-
-          // const floorName = floorNameMapping[imageName] || imageName;
-          // const floorApartments = apartmentData[floorName] || [];
-          
-          
-          // floorApartments.forEach(apartment => {
-          //   const polygon = svgOverlay.querySelector(`polygon[data-image="${apartment['Apartment No']}"]`);
-          //   if (polygon) {
-          //     const button = document.createElement('button');
-          //     button.textContent = apartment.Bedrooms;
-          //     button.className = styles.apartmentButton;
-          //     button.style.position = 'absolute';
-              
-          //     // Calculate the center of the polygon
-          //     const bbox = polygon.getBBox();
-          //     const centerX = bbox.x + bbox.width / 2;
-          //     const centerY = bbox.y + bbox.height / 2;
-              
-          //     button.style.left = `${centerX}px`;
-          //     button.style.top = `${centerY}px`;
-              
-          //     svgOverlay.appendChild(button);
-          //   }
-          // });
 
           viewer.addOverlay({
             element: svgOverlay,
             location: new OpenSeadragon.Rect(0, 0, 5.209, 5.208),
-            placement: OpenSeadragon.Placement.CENTER
+            placement: OpenSeadragon.Placement.CENTER,
           });
 
-          svgOverlay.querySelectorAll('polygon, path').forEach(element => {
-            element.addEventListener('click', (e) => {
-              e.preventDefault();
-              e.stopPropagation();
-              console.log("JNKJJKNLK")
-              const dataImage = element.getAttribute('data-image');
-              if (dataImage) {
-                console.log(dataImage)
-                router.push(`/${imageName}/Apartment${dataImage}`);
-              }
+          svgOverlay
+            .querySelectorAll("polygon, path, polyline")
+            .forEach((polygon) => {
+              polygon.addEventListener("click", (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                const dataImage = e.target.getAttribute("data-image");
+                if (dataImage) {
+                  // Find the corresponding apartment data
+                  const apartmentInfo = apartmentData["1st Floor"].find(
+                    (apt) => apt.Apartmentno.toString() === dataImage
+                  );
+                  console.log(apartmentInfo);
+                  if (apartmentInfo) {
+                    setActivePolygon({
+                      floor: "First Floor",
+                      id: dataImage,
+                      Type: apartmentInfo.Type,
+                      Bedrooms: apartmentInfo.Bedrooms,
+                      Area: apartmentInfo.Area,
+                    });
+
+                    const rect = e.target.getBoundingClientRect();
+                    setPopupPosition({
+                      x: rect.left + rect.width / 2,
+                      y: rect.top + rect.height / 2,
+                    });
+                  }
+                }
+              });
+
+              polygon.addEventListener("mouseenter", () => {
+                viewer.setMouseNavEnabled(false);
+              });
+
+              polygon.addEventListener("mouseleave", () => {
+                viewer.setMouseNavEnabled(true);
+              });
             });
-          });
-
         }
 
-
-        if ( imageName === 'groundFloor') {
-          const svgOverlay = document.createElement('div');
-          svgOverlay.style.position = 'absolute';
-          svgOverlay.style.left = '0';
-          svgOverlay.style.top = '0';
-          svgOverlay.style.width = '100%';
-          svgOverlay.style.height = '100%';
+        if (imageName === "groundFloor") {
+          const svgOverlay = document.createElement("div");
+          svgOverlay.style.position = "absolute";
+          svgOverlay.style.left = "0";
+          svgOverlay.style.top = "0";
+          svgOverlay.style.width = "100%";
+          svgOverlay.style.height = "100%";
 
           const svgContent = `
           <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 10000 10000" preserveAspectRatio="none">
@@ -545,59 +475,59 @@ function isPointInPolygon(point, polygon) {
 
           svgOverlay.innerHTML = svgContent;
 
-          // const floorApartments = apartmentData[imageName] || [];
-          // floorApartments.forEach(apartment => {
-          //   const polygon = svgOverlay.querySelector(`polygon[data-image="${apartment['Apartment No']}"]`);
-          //   if (polygon) {
-          //     const button = document.createElement('button');
-          //     button.textContent = apartment.Bedrooms;
-          //     button.className = styles.apartmentButton;
-          //     button.style.position = 'absolute';
-              
-          //     // Calculate the center of the polygon
-          //     const bbox = polygon.getBBox();
-          //     const centerX = bbox.x + bbox.width / 2;
-          //     const centerY = bbox.y + bbox.height / 2;
-              
-          //     button.style.left = `${centerX}px`;
-          //     button.style.top = `${centerY}px`;
-              
-          //     svgOverlay.appendChild(button);
-          //   }
-          // });
-          
           viewer.addOverlay({
             element: svgOverlay,
             location: new OpenSeadragon.Rect(0, 0, 5.209, 5.208),
-            placement: OpenSeadragon.Placement.CENTER
+            placement: OpenSeadragon.Placement.CENTER,
           });
 
           // Add click event listeners to polygons
-          svgOverlay.querySelectorAll('polygon, path').forEach(element => {
-            element.addEventListener('click', (e) => {
+          svgOverlay.querySelectorAll("polygon, path").forEach((polygon) => {
+            polygon.addEventListener("click", (e) => {
               e.preventDefault();
               e.stopPropagation();
-              console.log("JNKJJKNLK")
-              const dataImage = element.getAttribute('data-image');
+              const dataImage = e.target.getAttribute("data-image");
               if (dataImage) {
-                console.log(dataImage)
-                router.push(`/${imageName}/Apartment${dataImage}`);
+                // Find the corresponding apartment data
+                const apartmentInfo = apartmentData["Ground Floor"].find(
+                  (apt) => apt.Apartmentno.toString() === dataImage
+                );
+                console.log(apartmentInfo);
+                if (apartmentInfo) {
+                  setActivePolygon({
+                    floor: "Ground Floor",
+                    id: dataImage,
+                    Type: apartmentInfo.Type,
+                    Bedrooms: apartmentInfo.Bedrooms,
+                    Area: apartmentInfo.Area,
+                  });
+
+                  const rect = e.target.getBoundingClientRect();
+                  setPopupPosition({
+                    x: rect.left + rect.width / 2,
+                    y: rect.top + rect.height / 2,
+                  });
+                }
               }
             });
+
+            polygon.addEventListener("mouseenter", () => {
+              viewer.setMouseNavEnabled(false);
+            });
+
+            polygon.addEventListener("mouseleave", () => {
+              viewer.setMouseNavEnabled(true);
+            });
           });
-
-
-
         }
 
-
-        if ( imageName === 'basement1') {
-          const svgOverlay = document.createElement('div');
-          svgOverlay.style.position = 'absolute';
-          svgOverlay.style.left = '0';
-          svgOverlay.style.top = '0';
-          svgOverlay.style.width = '100%';
-          svgOverlay.style.height = '100%';
+        if (imageName === "basement1") {
+          const svgOverlay = document.createElement("div");
+          svgOverlay.style.position = "absolute";
+          svgOverlay.style.left = "0";
+          svgOverlay.style.top = "0";
+          svgOverlay.style.width = "100%";
+          svgOverlay.style.height = "100%";
 
           const svgContent = `
           <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 10000 10000" preserveAspectRatio="none">
@@ -635,32 +565,56 @@ function isPointInPolygon(point, polygon) {
           viewer.addOverlay({
             element: svgOverlay,
             location: new OpenSeadragon.Rect(0, 0, 5.209, 5.208),
-            placement: OpenSeadragon.Placement.CENTER
+            placement: OpenSeadragon.Placement.CENTER,
           });
 
           // Add click event listeners to polygons
-          svgOverlay.querySelectorAll('polygon, path').forEach(element => {
-            element.addEventListener('click', (e) => {
+          svgOverlay.querySelectorAll("polygon, path").forEach((polygon) => {
+            polygon.addEventListener("click", (e) => {
               e.preventDefault();
               e.stopPropagation();
-              console.log("JNKJJKNLK")
-              const dataImage = element.getAttribute('data-image');
+              const dataImage = e.target.getAttribute("data-image");
               if (dataImage) {
-                console.log(dataImage)
-                router.push(`/${imageName}/Apartment${dataImage}`);
+                // Find the corresponding apartment data
+                const apartmentInfo = apartmentData["Basement 1"].find(
+                  (apt) => apt.Apartmentno.toString() === dataImage
+                );
+                console.log(apartmentInfo);
+                if (apartmentInfo) {
+                  setActivePolygon({
+                    floor: "Valley Floor 1",
+                    id: dataImage,
+                    Type: apartmentInfo.Type,
+                    Bedrooms: apartmentInfo.Bedrooms,
+                    Area: apartmentInfo.Area,
+                  });
+
+                  const rect = e.target.getBoundingClientRect();
+                  setPopupPosition({
+                    x: rect.left + rect.width / 2,
+                    y: rect.top + rect.height / 2,
+                  });
+                }
               }
             });
-          });
 
+            polygon.addEventListener("mouseenter", () => {
+              viewer.setMouseNavEnabled(false);
+            });
+
+            polygon.addEventListener("mouseleave", () => {
+              viewer.setMouseNavEnabled(true);
+            });
+          });
         }
 
-        if ( imageName === 'basement3') {
-          const svgOverlay = document.createElement('div');
-          svgOverlay.style.position = 'absolute';
-          svgOverlay.style.left = '0';
-          svgOverlay.style.top = '0';
-          svgOverlay.style.width = '100%';
-          svgOverlay.style.height = '100%';
+        if (imageName === "basement3") {
+          const svgOverlay = document.createElement("div");
+          svgOverlay.style.position = "absolute";
+          svgOverlay.style.left = "0";
+          svgOverlay.style.top = "0";
+          svgOverlay.style.width = "100%";
+          svgOverlay.style.height = "100%";
 
           const svgContent = `
           <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 10000 10000" preserveAspectRatio="none">
@@ -669,8 +623,7 @@ function isPointInPolygon(point, polygon) {
                   data-tip="penthouse06"
                   class="${styles.st0}"
                   points="211.91 198.55 224.85 198.55 224.85 169.96 311.15 169.96 311.15 193.96 354.55 193.96 354.55 240.25 300.77 240.25 300.77 276.34 321.53 276.34 321.53 495.83 203.66 495.83 203.66 492.94 199.19 492.81 199.19 206.6 211.91 206.6"
-                  onMouseEnter={() => handleMouseEnter({ image: "81", tip: "penthouse06" })}
-                  onMouseLeave={handleMouseLeave}
+        
                 />       
    
         
@@ -707,33 +660,59 @@ function isPointInPolygon(point, polygon) {
           viewer.addOverlay({
             element: svgOverlay,
             location: new OpenSeadragon.Rect(0, 0, 5.209, 5.208),
-            placement: OpenSeadragon.Placement.CENTER
+            placement: OpenSeadragon.Placement.CENTER,
           });
 
           // Add click event listeners to polygons
-       
-          svgOverlay.querySelectorAll('polygon, path').forEach(element => {
-            element.addEventListener('click', (e) => {
-              e.preventDefault();
-              e.stopPropagation();
-              console.log("JNKJJKNLK")
-              const dataImage = element.getAttribute('data-image');
-              if (dataImage) {
-                console.log(dataImage)
-                router.push(`/${imageName}/Apartment${dataImage}`);
-              }
-            });
-          });
 
+          svgOverlay
+            .querySelectorAll("polygon, path, polyline")
+            .forEach((polygon) => {
+              polygon.addEventListener("click", (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                const dataImage = e.target.getAttribute("data-image");
+                if (dataImage) {
+                  // Find the corresponding apartment data
+                  const apartmentInfo = apartmentData["Basement 3"].find(
+                    (apt) => apt.Apartmentno.toString() === dataImage
+                  );
+                  console.log(apartmentInfo);
+                  if (apartmentInfo) {
+                    setActivePolygon({
+                      floor: "Valley Floor 3",
+                      id: dataImage,
+                      Type: apartmentInfo.Type,
+                      Bedrooms: apartmentInfo.Bedrooms,
+                      Area: apartmentInfo.Area,
+                    });
+
+                    const rect = e.target.getBoundingClientRect();
+                    setPopupPosition({
+                      x: rect.left + rect.width / 2,
+                      y: rect.top + rect.height / 2,
+                    });
+                  }
+                }
+              });
+
+              polygon.addEventListener("mouseenter", () => {
+                viewer.setMouseNavEnabled(false);
+              });
+
+              polygon.addEventListener("mouseleave", () => {
+                viewer.setMouseNavEnabled(true);
+              });
+            });
         }
 
-        if ( imageName === 'basement4') {
-          const svgOverlay = document.createElement('div');
-          svgOverlay.style.position = 'absolute';
-          svgOverlay.style.left = '0';
-          svgOverlay.style.top = '0';
-          svgOverlay.style.width = '100%';
-          svgOverlay.style.height = '100%';
+        if (imageName === "basement4") {
+          const svgOverlay = document.createElement("div");
+          svgOverlay.style.position = "absolute";
+          svgOverlay.style.left = "0";
+          svgOverlay.style.top = "0";
+          svgOverlay.style.width = "100%";
+          svgOverlay.style.height = "100%";
 
           const svgContent = `
           <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 10000 10000" preserveAspectRatio="none">
@@ -769,34 +748,59 @@ function isPointInPolygon(point, polygon) {
           viewer.addOverlay({
             element: svgOverlay,
             location: new OpenSeadragon.Rect(0, 0, 5.209, 5.208),
-            placement: OpenSeadragon.Placement.CENTER
+            placement: OpenSeadragon.Placement.CENTER,
           });
 
           // Add click event listeners to polygons
-        
-          svgOverlay.querySelectorAll('polygon, path').forEach(element => {
-            element.addEventListener('click', (e) => {
-              e.preventDefault();
-              e.stopPropagation();
-              console.log("JNKJJKNLK")
-              const dataImage = element.getAttribute('data-image');
-              if (dataImage) {
-                console.log(dataImage)
-                router.push(`/${imageName}/Apartment${dataImage}`);
-              }
-            });
-          });
 
+          svgOverlay
+            .querySelectorAll("polygon, path, rect, polyline")
+            .forEach((polygon) => {
+              polygon.addEventListener("click", (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                const dataImage = e.target.getAttribute("data-image");
+                if (dataImage) {
+                  // Find the corresponding apartment data
+                  const apartmentInfo = apartmentData["Basement 4"].find(
+                    (apt) => apt.Apartmentno.toString() === dataImage
+                  );
+                  console.log(apartmentInfo);
+                  if (apartmentInfo) {
+                    setActivePolygon({
+                      floor: "Valley Floor 4",
+                      id: dataImage,
+                      Type: apartmentInfo.Type,
+                      Bedrooms: apartmentInfo.Bedrooms,
+                      Area: apartmentInfo.Area,
+                    });
+
+                    const rect = e.target.getBoundingClientRect();
+                    setPopupPosition({
+                      x: rect.left + rect.width / 2,
+                      y: rect.top + rect.height / 2,
+                    });
+                  }
+                }
+              });
+
+              polygon.addEventListener("mouseenter", () => {
+                viewer.setMouseNavEnabled(false);
+              });
+
+              polygon.addEventListener("mouseleave", () => {
+                viewer.setMouseNavEnabled(true);
+              });
+            });
         }
 
-
-        if ( imageName === 'basement5') {
-          const svgOverlay = document.createElement('div');
-          svgOverlay.style.position = 'absolute';
-          svgOverlay.style.left = '0';
-          svgOverlay.style.top = '0';
-          svgOverlay.style.width = '100%';
-          svgOverlay.style.height = '100%';
+        if (imageName === "basement5") {
+          const svgOverlay = document.createElement("div");
+          svgOverlay.style.position = "absolute";
+          svgOverlay.style.left = "0";
+          svgOverlay.style.top = "0";
+          svgOverlay.style.width = "100%";
+          svgOverlay.style.height = "100%";
 
           const svgContent = `
           <svg       ref=${svgRef} xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 10000 10000" preserveAspectRatio="none">
@@ -823,35 +827,58 @@ function isPointInPolygon(point, polygon) {
           viewer.addOverlay({
             element: svgOverlay,
             location: new OpenSeadragon.Rect(0, 0, 5.209, 5.208),
-            placement: OpenSeadragon.Placement.CENTER
+            placement: OpenSeadragon.Placement.CENTER,
           });
 
           // Add click event listeners to polygons
-   
-          svgOverlay.querySelectorAll('polygon, path').forEach(element => {
-            element.addEventListener('click', (e) => {
-              e.preventDefault();
-              e.stopPropagation();
-              console.log("JNKJJKNLK")
-              const dataImage = element.getAttribute('data-image');
-              if (dataImage) {
-                console.log(dataImage)
-                router.push(`/${imageName}/Apartment${dataImage}`);
-              }
+          svgOverlay
+            .querySelectorAll("polygon, path, polyline, rect")
+            .forEach((polygon) => {
+              polygon.addEventListener("click", (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                const dataImage = e.target.getAttribute("data-image");
+                if (dataImage) {
+                  // Find the corresponding apartment data
+                  const apartmentInfo = apartmentData["Basement 5"].find(
+                    (apt) => apt.Apartmentno.toString() === dataImage
+                  );
+                  console.log(apartmentInfo);
+                  if (apartmentInfo) {
+                    setActivePolygon({
+                      floor: "Valley Floor 5",
+                      id: dataImage,
+                      Type: apartmentInfo.Type,
+                      Bedrooms: apartmentInfo.Bedrooms,
+                      Area: apartmentInfo.Area,
+                    });
+
+                    const rect = e.target.getBoundingClientRect();
+                    setPopupPosition({
+                      x: rect.left + rect.width / 2,
+                      y: rect.top + rect.height / 2,
+                    });
+                  }
+                }
+              });
+
+              polygon.addEventListener("mouseenter", () => {
+                viewer.setMouseNavEnabled(false);
+              });
+
+              polygon.addEventListener("mouseleave", () => {
+                viewer.setMouseNavEnabled(true);
+              });
             });
-          });
-
-
         }
 
-
-        if ( imageName === 'basement6') {
-          const svgOverlay = document.createElement('div');
-          svgOverlay.style.position = 'absolute';
-          svgOverlay.style.left = '0';
-          svgOverlay.style.top = '0';
-          svgOverlay.style.width = '100%';
-          svgOverlay.style.height = '100%';
+        if (imageName === "basement6") {
+          const svgOverlay = document.createElement("div");
+          svgOverlay.style.position = "absolute";
+          svgOverlay.style.left = "0";
+          svgOverlay.style.top = "0";
+          svgOverlay.style.width = "100%";
+          svgOverlay.style.height = "100%";
 
           const svgContent = `
           <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 10000 10000" preserveAspectRatio="none">
@@ -859,7 +886,7 @@ function isPointInPolygon(point, polygon) {
     
           <path data-image="135" data-tip="penthouse06" class="${styles.st0}" d="M180.79,398.7H411.46V549.12H180.79Z"/>
             <path data-image="136" data-tip="penthouse06" class="${styles.st0}" d="M180.79,549.12H411.46V697.94l-230.67.45Z"/>
-            <path data-image="136" data-tip="penthouse06" class="${styles.st0}" d="M180.79,698.39l230.67-.45V852l-230.67.45Z"/>
+            <path data-image="137" data-tip="penthouse06" class="${styles.st0}" d="M180.79,698.39l230.67-.45V852l-230.67.45Z"/>
             <polygon data-image="138" data-tip="penthouse06" class="${styles.st0}" points="486.68 483.31 564.18 483.31 564.18 532.61 660.71 532.61 660.71 785.53 564.18 785.53 564.18 766.27 545.38 766.27 545.38 622.73 563.95 622.73 563.95 561.04 486.68 561.04 486.68 483.31"/>
             <polygon data-image="139" data-tip="penthouse06" class="${styles.st0}" points="635.57 532.61 635.57 483.31 797.91 483.31 797.91 785.3 660.71 785.3 660.71 532.61 635.57 532.61"/>
             <polygon data-image="140" data-tip="penthouse06" class="${styles.st0}" points="797.91 483.31 924.01 483.31 924.01 572.91 950.03 572.91 950.03 785.3 797.91 785.3 797.91 483.31"/>
@@ -877,43 +904,70 @@ function isPointInPolygon(point, polygon) {
           viewer.addOverlay({
             element: svgOverlay,
             location: new OpenSeadragon.Rect(0, 0, 5.209, 5.208),
-            placement: OpenSeadragon.Placement.CENTER
+            placement: OpenSeadragon.Placement.CENTER,
           });
 
           // Add click event listeners to polygons
-         
-          svgOverlay.querySelectorAll('polygon, path').forEach(element => {
-            element.addEventListener('click', (e) => {
+          svgOverlay.querySelectorAll("polygon, path").forEach((polygon) => {
+            polygon.addEventListener("click", (e) => {
               e.preventDefault();
               e.stopPropagation();
-              console.log("JNKJJKNLK")
-              const dataImage = element.getAttribute('data-image');
+              const dataImage = e.target.getAttribute("data-image");
               if (dataImage) {
-                console.log(dataImage)
-                router.push(`/${imageName}/Apartment${dataImage}`);
+                // Find the corresponding apartment data
+                const apartmentInfo = apartmentData["Basement 6"].find(
+                  (apt) => apt.Apartmentno.toString() === dataImage
+                );
+                console.log(apartmentInfo);
+                console.log(dataImage);
+                if (apartmentInfo) {
+                  setActivePolygon({
+                    floor: "Valley Floor 6",
+                    id: dataImage,
+                    Type: apartmentInfo.Type,
+                    Bedrooms: apartmentInfo.Bedrooms,
+                    Area: apartmentInfo.Area,
+                  });
+
+                  const rect = e.target.getBoundingClientRect();
+                  setPopupPosition({
+                    x: rect.left + rect.width / 2,
+                    y: rect.top + rect.height / 2,
+                  });
+                }
               }
             });
-          });
 
+            polygon.addEventListener("mouseenter", () => {
+              viewer.setMouseNavEnabled(false);
+            });
+
+            polygon.addEventListener("mouseleave", () => {
+              viewer.setMouseNavEnabled(true);
+            });
+          });
         }
       });
 
-      const zoomControls = document.createElement('div');
+      const zoomControls = document.createElement("div");
       zoomControls.className = styles.zoomControls;
 
-      const zoomInButton = document.createElement('div');
+      const zoomInButton = document.createElement("div");
       zoomInButton.className = styles.ZoomInbuttonStyle;
-      zoomInButton.innerHTML = '<img src="/images/icons/zoomIn.svg" alt="Zoom In" width="24" height="24" />';
+      zoomInButton.innerHTML =
+        '<img src="/images/icons/zoomIn.svg" alt="Zoom In" width="24" height="24" />';
       zoomInButton.onclick = () => viewer.viewport.zoomBy(1.5);
 
-      const zoomOutButton = document.createElement('div');
+      const zoomOutButton = document.createElement("div");
       zoomOutButton.className = styles.ZoomOutbuttonStyle;
-      zoomOutButton.innerHTML = '<img src="/images/icons/zoomOut.svg" alt="Zoom Out" width="24" height="24" />';
+      zoomOutButton.innerHTML =
+        '<img src="/images/icons/zoomOut.svg" alt="Zoom Out" width="24" height="24" />';
       zoomOutButton.onclick = () => viewer.viewport.zoomBy(0.667);
 
-      const resetZoomButton = document.createElement('div');
+      const resetZoomButton = document.createElement("div");
       resetZoomButton.className = styles.ZoonOutbuttonStyle;
-      resetZoomButton.innerHTML = '<img src="/images/icons/resetZoom.svg" alt="Reset Zoom" width="24" height="24" />';
+      resetZoomButton.innerHTML =
+        '<img src="/images/icons/resetZoom.svg" alt="Reset Zoom" width="24" height="24" />';
       resetZoomButton.onclick = () => viewer.viewport.goHome();
 
       // zoomControls.appendChild(zoomInButton);
@@ -921,9 +975,8 @@ function isPointInPolygon(point, polygon) {
       // zoomControls.appendChild(resetZoomButton);
 
       viewer.addControl(zoomControls, {
-        anchor: OpenSeadragon.ControlAnchor.TOP_LEFT
+        anchor: OpenSeadragon.ControlAnchor.TOP_LEFT,
       });
-
     }
 
     return () => {
@@ -938,23 +991,26 @@ function isPointInPolygon(point, polygon) {
       setIsLaptopScreen(window.innerWidth >= 1100);
     };
 
-    window.addEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
     handleResize();
 
-    return () => window.removeEventListener('resize', handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   useEffect(() => {
     const handleOutsideClick = (e) => {
-      if (!e.target.closest('polygon') && !e.target.closest(`.${styles.popupMenu}`)) {
+      if (
+        !e.target.closest("polygon") &&
+        !e.target.closest(`.${styles.popupMenu}`)
+      ) {
         setActivePolygon(null);
       }
     };
 
-    document.addEventListener('click', handleOutsideClick);
+    document.addEventListener("click", handleOutsideClick);
 
     return () => {
-      document.removeEventListener('click', handleOutsideClick);
+      document.removeEventListener("click", handleOutsideClick);
     };
   }, []);
 
@@ -964,16 +1020,52 @@ function isPointInPolygon(point, polygon) {
   //   }
   // };
 
+  const [selectedArea, setSelectedArea] = useState(null);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
-
-  
-
-
-  const handleEnterVR = () => {
-    console.log('Enter VR');
-    // Implement VR entry logic here
+  const galleryImagesMap = {
+    Studio: [
+      "/images/gallery/Studio/studio-1.webp",
+      "/images/gallery/studio/studio-2.webp",
+      "/images/gallery/studio/studio-3.webp",
+    ],
+    "One Bed": [
+      "/images/gallery/OneBed/oneBed-1.webp",
+      "/images/gallery/OneBed/oneBed-2.webp",
+      "/images/gallery/OneBed/oneBed-3.webp",
+      "/images/gallery/OneBed/oneBed-4.webp",
+    ],
+    "Two Bed": [
+      "/images/gallery/TwoBed/twoBed-1.webp",
+      "/images/gallery/TwoBed/twoBed-2.webp",
+      "/images/gallery/TwoBed/twoBed-3.webp",
+      "/images/gallery/TwoBed/twoBed-4.webp",
+      "/images/gallery/TwoBed/twoBed-5.webp",
+      "/images/gallery/TwoBed/twoBed-6.webp",
+    ],
+    "Three Bed": [
+      "/images/gallery/ThreeBed/threeBed-1.webp",
+      "/images/gallery/ThreeBed/threeBed-2.webp",
+      "/images/gallery/ThreeBed/threeBed-3.webp",
+      "/images/gallery/ThreeBed/threeBed-4.webp",
+      "/images/gallery/ThreeBed/threeBed-5.webp",
+    ],
+    Penthouse: [
+      "/images/gallery/Penthouse/penthouse-1.webp",
+      "/images/gallery/Penthouse/penthouse-2.webp",
+      "/images/gallery/Penthouse/penthouse-3.webp",
+      "/images/gallery/Penthouse/penthouse-4.webp",
+      "/images/gallery/Penthouse/penthouse-5.webp",
+      "/images/gallery/Penthouse/penthouse-6.webp",
+      "/images/gallery/Penthouse/penthouse-7.webp",
+      "/images/gallery/Penthouse/penthouse-8.webp",
+    ],
   };
 
+  const handleEnterVR = () => {
+    console.log("Enter VR");
+    // Implement VR entry logic here
+  };
 
   const handleResetZoom = () => {
     if (viewer) {
@@ -999,7 +1091,6 @@ function isPointInPolygon(point, polygon) {
     }
   };
 
-
   const handleExplorePlan = () => {
     if (activePolygon) {
       router.push(`/${imageName}/Apartment${activePolygon.id}`);
@@ -1012,157 +1103,258 @@ function isPointInPolygon(point, polygon) {
 
   const menuVariants = {
     hidden: { opacity: 0, scale: 0.8 },
-    visible: { opacity: 1, scale: 1, transition: { type: 'spring', stiffness: 300, damping: 30 } }
+    visible: {
+      opacity: 1,
+      scale: 1,
+      transition: { type: "spring", stiffness: 300, damping: 30 },
+    },
   };
-  
+
+  const openImageBox = (apartmentType) => {
+    console.log(apartmentType);
+
+    if (galleryImagesMap[apartmentType]) {
+      setSelectedArea({
+        name: apartmentType,
+        details: galleryImagesMap[apartmentType],
+      });
+      setCurrentImageIndex(0);
+    }
+
+    console.log(selectedArea);
+  };
+
+  const closeImageBox = () => {
+    setSelectedArea(null);
+  };
+
+  const nextImage = () => {
+    if (selectedArea && currentImageIndex < selectedArea.details.length - 1) {
+      setCurrentImageIndex((prevIndex) => prevIndex + 1);
+    }
+  };
+
+  const prevImage = () => {
+    if (currentImageIndex > 0) {
+      setCurrentImageIndex((prevIndex) => prevIndex - 1);
+    }
+  };
+
   // const handlePlan({key})
   // {
   //   router
   // }
 
-
   return (
     // <Suspense fallback={<div className={styles.loadingOverlay}><Loading /></div>}>
-      
-      <>
 
-      {  !isMobile ?
-      <>
-       <div className={styles.ZoomInbuttonStyle} onClick={handleZoomIn}>         
-          <img src="/images/icons/zoomIn.svg" alt="Zoom Out" width="24" height="24" />         
-        </div>
-
-        <div className={styles.ZoomOutbuttonStyle} onClick={handleZoomOut}>         
-          <img src="/images/icons/zoomOut.svg" alt="Zoom Out" width="24" height="24" />         
-        </div>
-      </>
-      :
-      <>
-        <div className={styles.ZoomInMobbuttonStyle} onClick={handleZoomIn}>         
-          <img src="/images/icons/zoomIn.svg" alt="Zoom Out" width="24" height="24" />         
-        </div>
-
-        <div className={styles.ZoomOutMobbuttonStyle} onClick={handleZoomOut}>         
-          <img src="/images/icons/zoomOut.svg" alt="Zoom Out" width="24" height="24" />         
-        </div>
-
-      </>
-
-      }
-
-      
-      { !isMobile && <div className={styles.ButtomZoomExitBtns}>
-        <div className={styles.zoomReset} onClick={handleResetZoom}>
-          <div className={styles.zoomResetInside}>
-            Zoom Out
-          </div>
-        </div>
-
-        <div className={styles.backToBuilding} onClick={() => router.push('/')}>
-          <div className={styles.backToBuildingInside}>
-            Back to Building
-          </div>
-        </div>
-
-      </div>}
-
-     
-
-
-      <div className={styles.floorContainer}>
-      
-      
-        {isLoading && <Loading />}
-        <div ref={viewerRef} style={{ width: '100%', height: '100vh', visibility: isLoading ? 'hidden' : 'visible' }} />
-        
-        
-        {activePolygon && (
-        <div 
-          className={styles.popupMenu}
-          style={{ 
-            left: `${popupPosition.x}px`, 
-            top: `${popupPosition.y}px` 
-          }}
-        >
-          <div className={styles.popupTop} >
-            <div className={styles.popupTopBtns} onClick={handleExplorePlan}>
-                Explore Plan
-            </div>
-            <div className={styles.popupTopBtnsGallery}>
-                Gallery
-            </div>
+    <>
+      {!isMobile ? (
+        <>
+          <div className={styles.ZoomInbuttonStyle} onClick={handleZoomIn}>
+            <img
+              src="/images/icons/zoomIn.svg"
+              alt="Zoom Out"
+              width="24"
+              height="24"
+            />
           </div>
 
-
-          <div className={styles.apartmentInterestBox}>
-            <div className={styles.apartmentInterestInside}>
-          
-                
-                <div className={styles.apartmentInterestTitle}>
-                    <div className={styles.apartmentInterestTitleText}>
-                        {/* {translations.apartmentInterest || 'Apartment Interest'} */}
-                          Apartment no. {activePolygon.id}
-                        </div>
-                    <div className={styles.apartmentInterestTitleIcon}  onClick={handleIconClick}>
-                      <Image 
-                        // src="/images/icons/favIconFilled.svg"
-                        src={favoriteApartments.some(apt => apt.Apartmentno === apartmentInfo?.Apartmentno) 
-                            ? "/images/icons/favIconFilled.svg" 
-                            : "/images/icons/favIcon.svg"} 
-                        quality={100} 
-                        alt="Favorite" 
-                        height={22} 
-                        width={22} 
-                      /> 
-                </div>
-
-                </div>
-                <div className={styles.apartmentInterestList}>
-
-                <div className={styles.apartmentInterestItem}>
-                    <div className={styles.apartmentInterestItemKey}>
-                        Floor
-                    </div>
-                    <div className={styles.apartmentInterestItemValue}>
-                        {floor || ''}
-                    </div>
-                </div>
-
-                <div className={styles.apartmentInterestItem}>
-                    <div className={styles.apartmentInterestItemKey}>
-                        Type
-                    </div>
-                    <div className={styles.apartmentInterestItemValue}>
-                        {activePolygon.Type || ''}
-                    </div>
-                </div>
-                <div className={styles.apartmentInterestItem}>
-                    <div className={styles.apartmentInterestItemKey}>
-                        Bedrooms
-                    </div>
-                    <div className={styles.apartmentInterestItemValue}>
-                          {activePolygon.Bedrooms || ''}
-                    </div>
-                </div>
-                <div className={styles.apartmentInterestItem}>
-                    <div className={styles.apartmentInterestItemKey}>
-                        Area
-                    </div>
-                    <div className={styles.apartmentInterestItemValue}>
-                        {activePolygon?.Area || ''}
-                    </div>
-                </div>
-
-                </div>
-            </div>
-
+          <div className={styles.ZoomOutbuttonStyle} onClick={handleZoomOut}>
+            <img
+              src="/images/icons/zoomOut.svg"
+              alt="Zoom Out"
+              width="24"
+              height="24"
+            />
+          </div>
+        </>
+      ) : (
+        <>
+          <div className={styles.ZoomInMobbuttonStyle} onClick={handleZoomIn}>
+            <img
+              src="/images/icons/zoomIn.svg"
+              alt="Zoom Out"
+              width="24"
+              height="24"
+            />
           </div>
 
+          <div className={styles.ZoomOutMobbuttonStyle} onClick={handleZoomOut}>
+            <img
+              src="/images/icons/zoomOut.svg"
+              alt="Zoom Out"
+              width="24"
+              height="24"
+            />
+          </div>
+        </>
+      )}
+
+      {!isMobile && (
+        <div className={styles.ButtomZoomExitBtns}>
+          <div className={styles.zoomReset} onClick={handleResetZoom}>
+            <div className={styles.zoomResetInside}>Zoom Out</div>
+          </div>
+
+          <div
+            className={styles.backToBuilding}
+            onClick={() => router.push("/")}
+          >
+            <div className={styles.backToBuildingInside}>Back to Building</div>
+          </div>
         </div>
       )}
 
+      <div className={styles.floorContainer}>
+        {isLoading && <Loading />}
+        <div
+          ref={viewerRef}
+          style={{
+            width: "100%",
+            height: "100vh",
+            visibility: isLoading ? "hidden" : "visible",
+          }}
+        />
 
+        {activePolygon && (
+          <div
+            className={styles.popupMenu}
+            style={{
+              left: `${popupPosition.x}px`,
+              top: `${popupPosition.y}px`,
+            }}
+          >
+            <div className={styles.popupTop}>
+              <div className={styles.popupTopBtns} onClick={handleExplorePlan}>
+                Explore Plan
+              </div>
+              <div
+                className={styles.popupTopBtnsGallery}
+                onClick={() => openImageBox(activePolygon.Type)}
+              >
+                Gallery
+              </div>
+            </div>
+
+            <div className={styles.apartmentInterestBox}>
+              <div className={styles.apartmentInterestInside}>
+                <div className={styles.apartmentInterestTitle}>
+                  <div className={styles.apartmentInterestTitleText}>
+                    {/* {translations.apartmentInterest || 'Apartment Interest'} */}
+                    Apartment no. {activePolygon.id}
+                  </div>
+                  <div
+                    className={styles.apartmentInterestTitleIcon}
+                    onClick={handleIconClick}
+                  >
+                    <Image
+                      // src="/images/icons/favIconFilled.svg"
+                      src={
+                        favoriteApartments.some(
+                          (apt) =>
+                            apt.Apartmentno === apartmentInfo?.Apartmentno
+                        )
+                          ? "/images/icons/favIconFilled.svg"
+                          : "/images/icons/favIcon.svg"
+                      }
+                      quality={100}
+                      alt="Favorite"
+                      height={22}
+                      width={22}
+                    />
+                  </div>
+                </div>
+                <div className={styles.apartmentInterestList}>
+                  <div className={styles.apartmentInterestItem}>
+                    <div className={styles.apartmentInterestItemKey}>Floor</div>
+                    <div className={styles.apartmentInterestItemValue}>
+                      {activePolygon.floor || ""}
+                    </div>
+                  </div>
+
+                  <div className={styles.apartmentInterestItem}>
+                    <div className={styles.apartmentInterestItemKey}>Type</div>
+                    <div className={styles.apartmentInterestItemValue}>
+                      {activePolygon.Type || ""}
+                    </div>
+                  </div>
+                  <div className={styles.apartmentInterestItem}>
+                    <div className={styles.apartmentInterestItemKey}>
+                      Bedrooms
+                    </div>
+                    <div className={styles.apartmentInterestItemValue}>
+                      {activePolygon.Bedrooms || ""}
+                    </div>
+                  </div>
+                  <div className={styles.apartmentInterestItem}>
+                    <div className={styles.apartmentInterestItemKey}>Area</div>
+                    <div className={styles.apartmentInterestItemValue}>
+                      {activePolygon?.Area || ""}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {showPopup && (
+          <div
+            className={`${styles.popupMenu} ${
+              isPopupVisible ? styles.visible : ""
+            }`}
+          >
+            <div className={styles.popupMenuIcon}>
+              <Image
+                src="/images/icons/favIconFilled.svg"
+                quality={100}
+                alt="Favorite"
+                height={30}
+                width={30}
+              />
+            </div>
+            <div className={styles.popupMenuContent}>{popupMessage}</div>
+          </div>
+        )}
       </div>
+      {selectedArea && (
+        <div className={styles.imageBoxOverlay} onClick={closeImageBox}>
+          <div className={styles.imageBox} onClick={(e) => e.stopPropagation()}>
+            <div className={styles.imageNavigation}>
+              <div
+                className={`${styles.navButton} ${
+                  currentImageIndex === 0 ? styles.hidden : ""
+                }`}
+                onClick={prevImage}
+                aria-label="Previous image"
+              >
+                <LeftArrow />
+              </div>
+              <div className={styles.singleImageWrapper}>
+                <Image
+                  src={selectedArea.details[currentImageIndex]}
+                  alt={`${selectedArea.name} ${currentImageIndex + 1}`}
+                  layout="fill"
+                  objectFit="contain"
+                  quality={100}
+                />
+              </div>
+              <div
+                className={`${styles.navButton} ${
+                  currentImageIndex === selectedArea.details.length - 1
+                    ? styles.hidden
+                    : ""
+                }`}
+                onClick={nextImage}
+                aria-label="Next image"
+              >
+                <RightArrow />
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 };
