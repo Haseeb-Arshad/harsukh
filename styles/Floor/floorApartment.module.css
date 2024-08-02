@@ -1,6 +1,6 @@
 @font-face {
-  font-family: 'Gill Sans Light';
-  src: url('/fonts/GillSansMTPro-Light.otf');
+  font-family: "Gill Sans Light";
+  src: url("/fonts/GillSansMTPro-Light.otf");
   font-weight: normal;
 }
 
@@ -52,64 +52,57 @@
   fill: rgba(0, 0, 0, 0.3);
 }
 
-.roadViewContainer
-{
-    position: absolute;
-    top: 3rem;
-    right: 45rem;
-    height: 3.7rem;
-    width: 8rem;
-    display: grid;
-    align-items: center;
-    justify-content: center;
-    grid-template-columns: 0.4fr 1fr;
+.roadViewContainer {
+  position: absolute;
+  top: 3rem;
+  right: 45rem;
+  height: 3.7rem;
+  width: 8rem;
+  display: grid;
+  align-items: center;
+  justify-content: center;
+  grid-template-columns: 0.4fr 1fr;
 }
 
-.hillViewContainer
-{
-    position: absolute;
-    bottom: 3rem;
-    right: 45rem;
-    height: 3.7rem;
-    width: 8rem;
-    display: grid;
-    align-items: center;
-    justify-content: center;
-    grid-template-columns: 0.4fr 1fr;
+.hillViewContainer {
+  position: absolute;
+  bottom: 3rem;
+  right: 45rem;
+  height: 3.7rem;
+  width: 8rem;
+  display: grid;
+  align-items: center;
+  justify-content: center;
+  grid-template-columns: 0.4fr 1fr;
 }
 
-.roadViewIcon
-{
-    display: flex;
-    align-items: center;
-    /* justify-content: center; */
-    flex-direction: row-reverse;
+.roadViewIcon {
+  display: flex;
+  align-items: center;
+  /* justify-content: center; */
+  flex-direction: row-reverse;
 }
 
-.roadViewTitle
-{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.8rem;
+.roadViewTitle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
 }
 
-
-.ButtomZoomExitBtns
-{
-    position: absolute;
-    width: 17vw;
-    bottom: 3rem;
-    left: 40vw;
-    column-gap: 2rem;
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+.ButtomZoomExitBtns {
+  position: absolute;
+  width: 17vw;
+  bottom: 3rem;
+  left: 35vw;
+  column-gap: 2rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
 }
 
-.zoomReset
-{
+.zoomReset {
   /* position: absolute; */
-  background-color: #FCF7EB;
+  background-color: #fcf7eb;
   border-radius: 0.3rem;
   /* bottom: 3rem; */
   /* left: 40vw; */
@@ -125,8 +118,7 @@
   user-select: none;
 }
 
-.zoomResetInside
-{
+.zoomResetInside {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -136,16 +128,14 @@
   /* padding: 0.8rem; */
 }
 
-
-.backToBuilding:hover{
+.backToBuilding:hover {
   cursor: pointer;
   user-select: none;
 }
 
-.backToBuilding
-{
+.backToBuilding {
   /* position: absolute; */
-  background-color: #FCF7EB;
+  background-color: #fcf7eb;
   border-radius: 0.3rem;
   /* bottom: 3rem; */
   /* right: 40vw; */
@@ -153,13 +143,9 @@
   height: 40px;
   width: 140px;
   z-index: 1000;
-
 }
 
-
-
-.backToBuildingInside
-{
+.backToBuildingInside {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -169,22 +155,18 @@
 
 /* Floor Menu */
 
-.floorContainer
-{
-    position: relative;
-  font-family: 'Gill Sans Light';
-
+.floorContainer {
+  position: relative;
+  font-family: "Gill Sans Light";
 }
 
-
-.floorMenu
-{
-    position: fixed;
-    top: 2rem;
-    left: 1rem;
-    padding: 3rem 2rem;
-    background-color: #006d77;
-    border-radius: 0.5rem;
+.floorMenu {
+  position: fixed;
+  top: 2rem;
+  left: 1rem;
+  padding: 3rem 2rem;
+  background-color: #006d77;
+  border-radius: 0.5rem;
 }
 
 .floorButtonsContainer {
@@ -197,9 +179,10 @@
   gap: 10px;
 }
 
-.elevationButton, .floorButton {
+.elevationButton,
+.floorButton {
   background-color: #027d7d;
-  color: #FCF7EB;
+  color: #fcf7eb;
   border: none;
   padding: 10px 20px;
   cursor: pointer;
@@ -207,15 +190,14 @@
   text-align: left;
 }
 
-
 .elevationButton {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  
 }
 
-.floorButton:hover, .elevationButton:hover {
+.floorButton:hover,
+.elevationButton:hover {
   background-color: #025f5f;
 }
 
@@ -233,67 +215,64 @@
   z-index: 1000;
 }
 
-
-
 @font-face {
-  font-family: 'Gill Sans Light';
-  src: url('/fonts/GillSansMTPro-Light.otf');
+  font-family: "Gill Sans Light";
+  src: url("/fonts/GillSansMTPro-Light.otf");
   font-weight: normal;
 }
 
 .popupMenu {
-  font-family: 'Gill Sans Light';
+  font-family: "Gill Sans Light";
   user-select: none;
   position: absolute;
   transform: translate(-50%, -50%);
   /* background-color: #ef4444; */
-  color: #FCF7EB;
+  color: #fcf7eb;
   border-radius: 0.5rem;
   padding: 1rem;
-  width: 14rem;
+  width: 11.5rem;
   /* height: 200px; */
   /* box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); */
   z-index: 1001;
   animation: fadeIn 0.3s ease-out;
   display: grid;
-  grid-template-rows: 0.3fr 1fr;
+  grid-template-rows: 0.2fr 1fr;
   row-gap: 0.2rem;
 }
 
-.popupTop
-{
+.popupTop {
   display: grid;
   grid-template-columns: 1fr 1fr;
   column-gap: 0.5rem;
 }
 
-.popupTopBtns
-{
+.popupTopBtns {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0.3rem;
+  padding: 0.2rem;
   border-radius: 0.5rem;
   font-size: 0.7rem;
   background-color: #006d77;
-  color: #FCF7EB;
+  color: #fcf7eb;
   height: 40px;
-
 }
 
-.popupTopBtnsGallery
-{
+.popupTopBtns:hover {
+  cursor: pointer;
+}
+
+.popupTopBtnsGallery {
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 0.3rem;
   border-radius: 0.5rem;
   font-size: 0.7rem;
-  background-color: #FCF7EB ;
-  color: #3A3A3A;
+  background-color: #fcf7eb;
+  color: #3a3a3a;
   height: 40px;
 }
-
 
 @keyframes fadeIn {
   from {
@@ -312,7 +291,8 @@
   margin-bottom: 1rem;
 }
 
-.explorePlanButton, .enterVRButton {
+.explorePlanButton,
+.enterVRButton {
   padding: 0.5rem 1rem;
   border-radius: 0.5rem;
   font-size: 0.75rem;
@@ -324,39 +304,40 @@
 
 .explorePlanButton {
   background-color: #006d77;
-  color: #FCF7EB;
+  color: #fcf7eb;
 }
 
 .enterVRButton {
-  background-color: #FCF7EB;
+  background-color: #fcf7eb;
   color: gray;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.explorePlanButton:hover, .enterVRButton:hover {
+.explorePlanButton:hover,
+.enterVRButton:hover {
   transform: scale(1.05);
 }
 
-.explorePlanButton:active, .enterVRButton:active {
+.explorePlanButton:active,
+.enterVRButton:active {
   transform: scale(0.95);
 }
 
 .unitInfo {
   font-size: 0.875rem;
-  background-color: #FCF7EB;
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  background-color: #fcf7eb;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+    0 4px 6px -2px rgba(0, 0, 0, 0.05);
   border-radius: 0.5rem;
   padding: 0.5rem;
   display: flex;
   flex-direction: column;
 }
 
-
-
 .apartmentLabel {
-  fill: #FCF7EB;
+  fill: #fcf7eb;
   font-size: 24px;
   font-weight: bold;
   text-anchor: middle;
@@ -365,7 +346,7 @@
 
 .st1Hovers {
   opacity: 0.5;
-  fill: #FCF7EB;
+  fill: #fcf7eb;
   stroke: #0000ff;
   stroke-width: 2px;
 }
@@ -416,8 +397,7 @@
 /* ---------------------------------- */
 /* ---------------------------------- */
 
-.apartmentInterestBox
-{
+.apartmentInterestBox {
   /* position: absolute; */
   /* height: 300px;
   width: 200px; */
@@ -428,9 +408,7 @@
   z-index: 1000;
 }
 
-
-.apartmentInterestInside
-{
+.apartmentInterestInside {
   /* width: 160px;
   height: 190px; */
   border: 1px solid white;
@@ -439,7 +417,7 @@
   padding-top: 0.3rem;
   /* padding-bottom: 1rem; */
   padding-left: 0.6rem;
-  background-color: #FCF7EB;
+  background-color: #fcf7eb;
   border-radius: 0.3rem;
   color: #006d77;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
@@ -450,19 +428,16 @@
   grid-template-rows: 0.3fr 1.1fr;
 }
 
-.apartmentInterestTitle
-{
+.apartmentInterestTitle {
   display: grid;
   grid-template-columns: 1fr 0.1fr;
   display: flex;
   align-items: center;
   justify-content: center;
-
 }
 
-.apartmentInterestTitleText
-{
-  font-family: 'Gill Sans Light';
+.apartmentInterestTitleText {
+  font-family: "Gill Sans Light";
 
   font-size: 0.8rem;
   width: 100%;
@@ -473,38 +448,32 @@
   /* justify-content: center; */
 }
 
-.apartmentInterestTitleIcon
-{
+.apartmentInterestTitleIcon {
   display: flex;
-  flex-direction:row-reverse;
+  flex-direction: row-reverse;
   /* border: 1px solid #006d77;   */
   /* align-items: center; */
   /* justify-content: center; */
 }
 
-.apartmentInterestTitleIcon:hover
-{
+.apartmentInterestTitleIcon:hover {
   cursor: pointer;
 }
 
-.apartmentInterestList
-{
+.apartmentInterestList {
   padding-top: 0.3rem;
   display: grid;
   grid-template-rows: repeat(5, 1fr);
   gap: 0.3rem;
 }
 
-.apartmentInterestItem
-{
+.apartmentInterestItem {
   display: grid;
   grid-template-columns: auto auto;
-    font-size: 0.75rem;
-
+  font-size: 0.75rem;
 }
 
-.apartmentInterestItemPrice
-{
+.apartmentInterestItemPrice {
   color: black;
   font-weight: 700;
   display: grid;
@@ -513,26 +482,23 @@
   grid-template-columns: auto auto;
 }
 
-.apartmentInterestItemKey
-{
-  font-family: 'Gill Sans Light';
-  color: #3A3A3A;
+.apartmentInterestItemKey {
+  font-family: "Gill Sans Light";
+  color: #3a3a3a;
   display: flex;
 }
 
-.apartmentInterestItemValue
-{
-  font-family: 'Gill Sans Light';
-  color: #3A3A3A;
+.apartmentInterestItemValue {
+  font-family: "Gill Sans Light";
+  color: #3a3a3a;
   display: flex;
   flex-direction: row-reverse;
 }
 
-.apartmentInterestButtonBox
-{
+.apartmentInterestButtonBox {
   height: 100%;
   padding: 0.3rem;
-  padding-top: 0.5rem;;
+  padding-top: 0.5rem;
   padding: 0.3rem;
 
   display: flex;
@@ -540,12 +506,11 @@
   align-items: center;
 }
 
-.apartmentInterestButton
-{
+.apartmentInterestButton {
   height: 30px;
   width: 100%;
   background-color: #006d77;
-  color: #FCF7EB;
+  color: #fcf7eb;
   border-radius: 0.3rem;
   letter-spacing: 0.1rem;
   font-size: 0.8rem;
@@ -554,14 +519,6 @@
   align-items: center;
   cursor: pointer;
 }
-
-
-
-
-
-
-
-
 
 /* position: absolute;
 
@@ -577,9 +534,6 @@ padding: 5px;
 box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
 transition: all 0.3s ease;
 } */
-
-
-
 
 .floorbuttonsPart {
   position: absolute;
@@ -600,8 +554,7 @@ transition: all 0.3s ease;
   box-shadow: 0 7px 14px rgba(0, 0, 0, 0.1), 0 3px 6px rgba(0, 0, 0, 0.08);
 }
 
-.zoomDivs
-{
+.zoomDivs {
   width: 100%;
   height: 100%;
   /* border: 1px solid green; */
@@ -610,10 +563,10 @@ transition: all 0.3s ease;
 .ZoomInbuttonStyle {
   position: absolute;
   width: 20vw;
-  top: 45vh; 
+  top: 45vh;
   right: 3rem;
   user-select: none;
-  background-color: #FCF7EB;
+  background-color: #fcf7eb;
   border-radius: 30px;
   align-items: center;
   justify-content: center;
@@ -626,7 +579,6 @@ transition: all 0.3s ease;
   overflow: hidden;
   color: #006d77;
   z-index: 1000;
-
 }
 
 .ZoomInbuttonStyle:hover::after {
@@ -650,10 +602,10 @@ transition: all 0.3s ease;
 .ZoomOutbuttonStyle {
   position: absolute;
   width: 20vw;
-  top: 52vh; 
+  top: 52vh;
   right: 3rem;
   user-select: none;
-  background-color: #303D3E;
+  background-color: #303d3e;
   border-radius: 30px;
   align-items: center;
   justify-content: center;
@@ -664,13 +616,12 @@ transition: all 0.3s ease;
   cursor: pointer;
   transition: all 0.2s ease;
   overflow: hidden;
-  color: #FCF7EB;
+  color: #fcf7eb;
   z-index: 1000;
 }
 
 .ZoomOutbuttonStyle::after {
-  
-  content: '';
+  content: "";
   position: absolute;
   top: 50%;
   left: 50%;
@@ -700,140 +651,135 @@ transition: all 0.3s ease;
   transform: scale(1.1);
 }
 
-
-
-
 /* styles/floorTransition.module.css */
 .floorContainer {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    transition: opacity 300ms ease-in-out;
-  }
-  
-  .fadeIn {
-    opacity: 1;
-  }
-  
-  .fadeOut {
-    opacity: 0;
-  }
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  transition: opacity 300ms ease-in-out;
+}
 
+.fadeIn {
+  opacity: 1;
+}
+
+.fadeOut {
+  opacity: 0;
+}
 
 .st0 {
-    position: absolute;
-    margin-left: 10rem;
-    opacity: 0;
-    fill: #FCF7EB;
-    border: 1px solid #006d77;
-    cursor: pointer;
-    -moz-transition: all 0.84s ease-out;
-    -o-transition: all 0.84s ease-out;
-    -webkit-transition: all 0.84s ease-out;
-    -ms-transition: all 0.84s ease-out;
-    transition: all 0.84s ease-out;  pointer-events: all;
-  }
-  
+  position: absolute;
+  margin-left: 10rem;
+  opacity: 0;
+  fill: #fcf7eb;
+  border: 1px solid #006d77;
+  cursor: pointer;
+  -moz-transition: all 0.84s ease-out;
+  -o-transition: all 0.84s ease-out;
+  -webkit-transition: all 0.84s ease-out;
+  -ms-transition: all 0.84s ease-out;
+  transition: all 0.84s ease-out;
+  pointer-events: all;
+}
 
-  .st1 {
-    position: absolute;
-    opacity: 1;
-    fill: #FCF7EB;
-    stroke: #FCF7EB;
-    border: 1px solid #006d77;
-    cursor: pointer;
-    -moz-transition: all 0.84s ease-out;
-    -o-transition: all 0.84s ease-out;
-    -webkit-transition: all 0.84s ease-out;
-    -ms-transition: all 0.84s ease-out;
-    transition: all 0.84s ease-out;  pointer-events: all;
-  }
-  
+.st1 {
+  position: absolute;
+  opacity: 1;
+  fill: #fcf7eb;
+  stroke: #fcf7eb;
+  border: 1px solid #006d77;
+  cursor: pointer;
+  -moz-transition: all 0.84s ease-out;
+  -o-transition: all 0.84s ease-out;
+  -webkit-transition: all 0.84s ease-out;
+  -ms-transition: all 0.84s ease-out;
+  transition: all 0.84s ease-out;
+  pointer-events: all;
+}
 
-  .st0:hover {
-    opacity: 0.5;
-    cursor: pointer;
-    border: 30px solid #006d77;
-    fill: #FCF7EB ;
-    stroke: #3A3A3A;
-    stroke-width: 3px;
-    -moz-transition: all 0.84s ease-out;
-    -o-transition: all 0.84s ease-out;
-    -webkit-transition: all 0.84s ease-out;
-    -ms-transition: all 0.84s ease-out;
-    transition: all 0.84s ease-out;  pointer-events: all;
-  }
+.st0:hover {
+  opacity: 0.5;
+  cursor: pointer;
+  border: 30px solid #006d77;
+  fill: #fcf7eb;
+  stroke: #3a3a3a;
+  stroke-width: 3px;
+  -moz-transition: all 0.84s ease-out;
+  -o-transition: all 0.84s ease-out;
+  -webkit-transition: all 0.84s ease-out;
+  -ms-transition: all 0.84s ease-out;
+  transition: all 0.84s ease-out;
+  pointer-events: all;
+}
 
+.st1Hovers {
+  opacity: 0.5;
+  cursor: pointer;
+  fill: #fcf7eb;
+  stroke: "#0000ff";
+  stroke-width: 2px;
+  -moz-transition: all 0.84s ease-out;
+  -o-transition: all 0.84s ease-out;
+  -webkit-transition: all 0.84s ease-out;
+  -ms-transition: all 0.84s ease-out;
+  transition: all 0.84s ease-out;
+  pointer-events: all;
+}
 
-  .st1Hovers {
-    opacity: 0.5;
-    cursor: pointer;
-    fill: #FCF7EB;
-    stroke: "#0000ff";
-    stroke-width: 2px;
-    -moz-transition: all 0.84s ease-out;
-    -o-transition: all 0.84s ease-out;
-    -webkit-transition: all 0.84s ease-out;
-    -ms-transition: all 0.84s ease-out;
-    transition: all 0.84s ease-out;  pointer-events: all;
-  }
-
-  /* .st0 {
+/* .st0 {
     fill: red;
     stroke: #ff0000;
     stroke-width: 2;
   } */
 
+.polygonOverlay {
+  position: absolute;
+  opacity: 1;
+  fill: #fcf7eb;
+  cursor: pointer;
+  -moz-transition: all 0.84s ease-out;
+  -o-transition: all 0.84s ease-out;
+  -webkit-transition: all 0.84s ease-out;
+  -ms-transition: all 0.84s ease-out;
+  transition: all 0.84s ease-out;
+  pointer-events: all;
 
-  .polygonOverlay {
-
-    position: absolute;
-    opacity: 1;
-    fill: #FCF7EB;
-    cursor: pointer;
-    -moz-transition: all 0.84s ease-out;
-    -o-transition: all 0.84s ease-out;
-    -webkit-transition: all 0.84s ease-out;
-    -ms-transition: all 0.84s ease-out;
-    transition: all 0.84s ease-out;  pointer-events: all;
-
-    /* position: absolute;
+  /* position: absolute;
     background-color: rgba(255, 0, 0, 0.5);
     border: 2px solid #ff0000;
     pointer-events: none; */
-  }
-  /* ------------------ */
+}
+/* ------------------ */
 
-  .imageBoxOverlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.8);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-    animation: fadeIn 0.3s ease-out;
-  }
-  
-  .imageBox {
-    position: relative;
-    width: 80%;
-    height: 80%;
-    max-width: 1200px;
-    max-height: 800px;
-  }
-  
-  .imageNavigation {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    height: 100%;
-  }
+.imageBoxOverlay {
+  position: fixed;
+  z-index: 1999999;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: fadeIn 0.3s ease-out;
+}
 
-  
+.imageBox {
+  position: relative;
+  width: 80%;
+  height: 80%;
+  max-width: 1200px;
+  max-height: 800px;
+}
+
+.imageNavigation {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+}
+
 .singleImageWrapper {
   position: relative;
   width: 100%;
@@ -843,7 +789,7 @@ transition: all 0.3s ease;
 .navButton {
   background: rgba(0, 0, 0, 0.5);
   border: none;
-  color: #FCF7EB;
+  color: #fcf7eb;
   width: 50px;
   height: 50px;
   border-radius: 50%;
@@ -874,194 +820,174 @@ transition: all 0.3s ease;
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
+.imageWrapper {
+  position: relative;
+  width: 85%;
+  height: 85%;
+}
 
+.responsiveSvg {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
 
+@media (min-width: 1024px) and (max-width: 1366px) {
+  .responsiveSvg {
+    transform: scale(0.9);
+    top: -5%;
+    left: -5%;
+  }
+}
 
+.floorOverlay {
+  position: absolute;
+  top: 0%;
+  left: 8.9%;
+  width: 82%;
+  height: 100%;
+  pointer-events: none;
+}
+
+@media (max-width: 768px) {
+  .ZoomInMobbuttonStyle {
+    position: absolute;
+    width: 20vw;
+    /* top:0rem; */
+    bottom: 100px;
+    right: 38vw;
+    user-select: none;
+    background-color: #fcf7eb;
+    border-radius: 30px;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    width: 42px;
+    height: 42px;
+    display: flex;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    overflow: hidden;
+    color: #006d77;
+    z-index: 1000;
+  }
+
+  .ZoomInMobbuttonStyle:hover::after {
+    width: 200%;
+    height: 200%;
+  }
+
+  .ZoomInMobbuttonStyle:active {
+    transform: scale(0.95);
+  }
+
+  .ZoomInMobbuttonStyle img {
+    z-index: 1;
+    transition: all 0.2s ease;
+  }
+
+  .ZoomInMobbuttonStyle:hover img {
+    transform: scale(1.1);
+  }
+
+  .ZoomOutMobbuttonStyle {
+    position: absolute;
+    width: 20vw;
+    bottom: 100px;
+    left: 38vw;
+    user-select: none;
+    background-color: #303d3e;
+    border-radius: 30px;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    width: 42px;
+    height: 42px;
+    display: flex;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    overflow: hidden;
+    color: #fcf7eb;
+    z-index: 1000;
+  }
+
+  .ZoomOutMobbuttonStyle::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background-color: rgba(4, 209, 227, 0.2);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.3s ease, height 0.3s ease;
+  }
+
+  .ZoomOutMobbuttonStyle:hover::after {
+    width: 200%;
+    height: 200%;
+  }
+
+  .ZoomOutMobbuttonStyle:active {
+    transform: scale(0.95);
+  }
+
+  .ZoomOutMobbuttonStyle img {
+    z-index: 1;
+    transition: all 0.2s ease;
+  }
+
+  .ZoomOutMobbuttonStyle:hover img {
+    transform: scale(1.1);
+  }
 
   .imageWrapper {
-    position: relative;
-    width: 85%;
-    height: 85%;
-  }
-  
-  .responsiveSvg {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-  }
-  
-  @media (min-width: 1024px) and (max-width: 1366px) {
-    .responsiveSvg {
-      transform: scale(0.9);
-      top: -5%;
-      left: -5%;
-    }
+    width: 95%;
+    height: 95%;
   }
 
   .floorOverlay {
-    position: absolute;
-    top: 0%;
-    left: 8.9%;
-    width: 82%;
-    height: 100%;
-    pointer-events: none;
+    left: 2.5%;
+    width: 95%;
   }
 
+  .floorbuttonsPart {
+    position: absolute;
+    right: 20px;
+    top: 15rem;
+    display: flex;
+    flex-direction: column;
+    z-index: 1000;
+    background-color: rgb(0, 109, 119, 0.8);
+    backdrop-filter: blur(10px);
+    border-radius: 30px;
+    padding: 1px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
 
-  @media (max-width: 768px) {
-
-
-
-    .ZoomInMobbuttonStyle {
-      position: absolute;
-      width: 20vw;
-      /* top:0rem; */
-      bottom:100px;
-      right: 38vw;
-      user-select: none;
-      background-color: #FCF7EB;
-      border-radius: 30px;
-      align-items: center;
-      justify-content: center;
-      border: none;
-      width: 42px;
-      height: 42px;
-      display: flex;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      overflow: hidden;
-      color: #006d77;
-      z-index: 1000;
-    
-    }
-    
-    .ZoomInMobbuttonStyle:hover::after {
-      width: 200%;
-      height: 200%;
-    }
-    
-    .ZoomInMobbuttonStyle:active {
-      transform: scale(0.95);
-    }
-    
-    .ZoomInMobbuttonStyle img {
-      z-index: 1;
-      transition: all 0.2s ease;
-    }
-    
-    .ZoomInMobbuttonStyle:hover img {
-      transform: scale(1.1);
-    }
-    
-    .ZoomOutMobbuttonStyle {
-      position: absolute;
-      width: 20vw;
-      bottom:100px;
-      left: 38vw;
-      user-select: none;
-      background-color: #303D3E;
-      border-radius: 30px;
-      align-items: center;
-      justify-content: center;
-      border: none;
-      width: 42px;
-      height: 42px;
-      display: flex;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      overflow: hidden;
-      color: #FCF7EB;
-      z-index: 1000;
-    }
-    
-    .ZoomOutMobbuttonStyle::after {
-      
-      content: '';
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      width: 0;
-      height: 0;
-      background-color: rgba(4, 209, 227, 0.2);
-      border-radius: 50%;
-      transform: translate(-50%, -50%);
-      transition: width 0.3s ease, height 0.3s ease;
-    }
-    
-    .ZoomOutMobbuttonStyle:hover::after {
-      width: 200%;
-      height: 200%;
-    }
-    
-    .ZoomOutMobbuttonStyle:active {
-      transform: scale(0.95);
-    }
-    
-    .ZoomOutMobbuttonStyle img {
-      z-index: 1;
-      transition: all 0.2s ease;
-    }
-    
-    .ZoomOutMobbuttonStyle:hover img {
-      transform: scale(1.1);
-    }
-    
-
-
-
-
-
-
-
-
-
-
-
-    .imageWrapper {
-      width: 95%;
-      height: 95%;
-    }
-  
-    .floorOverlay {
-      left: 2.5%;
-      width: 95%;
-    }
-  
-    .floorbuttonsPart {
-
-      position: absolute;
-      right: 20px;
-      top: 15rem;
-      display: flex;
-      flex-direction: column;
-      z-index: 1000;
-      background-color: rgb(0, 109, 119, 0.8);
-      backdrop-filter: blur(10px);
-      border-radius: 30px;
-      padding: 1px;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
-      transition: all 0.3s ease;
-
-      /* bottom: 10px;
+    /* bottom: 10px;
       right: 10px; */
-    }
   }
+}
 
-
-
-  .svgOverlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-  }
+.svgOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
 
 .bedroomButton {
   background-color: #007bff;

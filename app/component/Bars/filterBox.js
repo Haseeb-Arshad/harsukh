@@ -1,17 +1,17 @@
-import React, { useState, forwardRef, useEffect } from 'react';
-import styles from '@/styles/filterBox.module.css';
+import styles from "@/styles/filterBox.module.css";
+import { forwardRef, useEffect, useState } from "react";
 
 const FilterBox = forwardRef(({ isVisible, onFilterChange }, ref) => {
-  const [activeTab, setActiveTab] = useState('Amenities');
+  const [activeTab, setActiveTab] = useState("Amenities");
   const [selectedAmenities, setSelectedAmenities] = useState([]);
 
-  const tabs = ['Amenities', 'Booked', 'Sold'];
+  const tabs = ["Amenities", "Booked", "Sold"];
   const amenities = [
-    'Studio',
-    '1 Bed Apartments',
-    '2 Bed Apartments',
-    '3 Bed Apartments',
-    'Pent Houses'
+    "Studio",
+    "1 Bed Apartments",
+    "2 Bed Apartments",
+    "3 Bed Apartments",
+    "Pent Houses",
   ];
 
   const handleTabClick = (tab) => {
@@ -37,7 +37,10 @@ const FilterBox = forwardRef(({ isVisible, onFilterChange }, ref) => {
   }, [selectedAmenities, onFilterChange]);
 
   return (
-    <div ref={ref} className={`${styles.filterBox} ${isVisible ? styles.visible : ''}`}>
+    <div
+      ref={ref}
+      className={`${styles.filterBox} ${isVisible ? styles.visible : ""}`}
+    >
       {isVisible && (
         <div className={styles.filterBoxInside}>
           <>
@@ -45,7 +48,11 @@ const FilterBox = forwardRef(({ isVisible, onFilterChange }, ref) => {
               {amenities.map((amenity) => (
                 <div
                   key={amenity}
-                  className={`${styles.amenity} ${selectedAmenities.includes(amenity) ? styles.selectedAmenity : ''}`}
+                  className={`${styles.amenity} ${
+                    selectedAmenities.includes(amenity)
+                      ? styles.selectedAmenity
+                      : ""
+                  }`}
                   onClick={() => handleAmenityClick(amenity)}
                 >
                   {amenity}
@@ -64,6 +71,6 @@ const FilterBox = forwardRef(({ isVisible, onFilterChange }, ref) => {
   );
 });
 
-FilterBox.displayName = 'FilterBox';
+FilterBox.displayName = "FilterBox";
 
 export default FilterBox;

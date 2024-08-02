@@ -1,18 +1,34 @@
-
 @font-face {
-  font-family: 'Gill Sans Light';
-  src: url('/fonts/GillSansMTPro-Light.otf');
+  font-family: "Gill Sans Light";
+  src: url("/fonts/GillSansMTPro-Light.otf");
   font-weight: normal;
 }
 
 @font-face {
-  font-family: 'Gill Sans Medium';
-  src: url('/fonts/GillSansMTPro-Light.otf');
+  font-family: "Gill Sans Medium";
+  src: url("/fonts/GillSansMTPro-Light.otf");
   font-weight: normal;
 }
 
-.apartmentInterestBox
-{
+.ContactedContainer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  min-height: 100vh;
+  background: rgba(
+    0,
+    0,
+    0,
+    0.5
+  ); /* Optional: for a semi-transparent background */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.apartmentInterestBox {
   position: absolute;
   height: 300px;
   width: 200px;
@@ -34,16 +50,14 @@
   transition: all 0.3s ease;
 }
 
-
-.apartmentInterestInside
-{
+.apartmentInterestInside {
   width: 160px;
   height: 190px;
   padding: 0.8rem;
   padding-top: 1rem;
   /* padding-bottom: 1rem; */
   padding-left: 0.8rem;
-  background-color: #FCF7EB;
+  background-color: #fcf7eb;
   border-radius: 0.2rem;
   color: #006d77;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
@@ -54,19 +68,16 @@
   grid-template-rows: 0.3fr 1.1fr 0.3fr;
 }
 
-.apartmentInterestTitle
-{
+.apartmentInterestTitle {
   display: grid;
   grid-template-columns: 1fr 0.1fr;
   display: flex;
   align-items: center;
   justify-content: center;
-
 }
 
-.apartmentInterestTitleText
-{
-  font-family: 'Gill Sans Light';
+.apartmentInterestTitleText {
+  font-family: "Gill Sans Light";
 
   font-size: 0.8rem;
   width: 100%;
@@ -77,38 +88,32 @@
   /* justify-content: center; */
 }
 
-.apartmentInterestTitleIcon
-{
+.apartmentInterestTitleIcon {
   display: flex;
-  flex-direction:row-reverse;
+  flex-direction: row-reverse;
   /* border: 1px solid #006d77;   */
   /* align-items: center; */
   /* justify-content: center; */
 }
 
-.apartmentInterestTitleIcon:hover
-{
+.apartmentInterestTitleIcon:hover {
   cursor: pointer;
 }
 
-.apartmentInterestList
-{
+.apartmentInterestList {
   padding-top: 1rem;
   display: grid;
   grid-template-rows: repeat(5, 1fr);
   gap: 0.3rem;
 }
 
-.apartmentInterestItem
-{
+.apartmentInterestItem {
   display: grid;
   grid-template-columns: auto auto;
-    font-size: 0.75rem;
-
+  font-size: 0.75rem;
 }
 
-.apartmentInterestItemPrice
-{
+.apartmentInterestItemPrice {
   color: black;
   font-weight: 700;
   display: grid;
@@ -117,37 +122,33 @@
   grid-template-columns: auto auto;
 }
 
-.apartmentInterestItemKey
-{
-  font-family: 'Gill Sans Light';
-  color: #3A3A3A;
+.apartmentInterestItemKey {
+  font-family: "Gill Sans Light";
+  color: #3a3a3a;
   display: flex;
 }
 
-.apartmentInterestItemValue
-{
-  font-family: 'Gill Sans Light';
-  color: #3A3A3A;
+.apartmentInterestItemValue {
+  font-family: "Gill Sans Light";
+  color: #3a3a3a;
   display: flex;
   flex-direction: row-reverse;
 }
 
-.apartmentInterestButtonBox
-{
+.apartmentInterestButtonBox {
   height: 100%;
   padding: 0.3rem;
-  padding-top: 0.5rem;;
+  padding-top: 0.5rem;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.apartmentInterestButton
-{
+.apartmentInterestButton {
   height: 30px;
   width: 100%;
   background-color: #006d77;
-  color: #FCF7EB;
+  color: #fcf7eb;
   border-radius: 0.3rem;
   letter-spacing: 0.1rem;
   font-size: 0.8rem;
@@ -157,8 +158,7 @@
   cursor: pointer;
 }
 
-.GalleryBox
-{
+.GalleryBox {
   position: absolute;
   bottom: 3rem;
   right: 7rem;
@@ -168,12 +168,11 @@
   align-items: center;
 }
 
-.GalleryBoxTitle
-{
-  font-family: 'Gill Sans Light';
+.GalleryBoxTitle {
+  font-family: "Gill Sans Light";
   font-size: 0.8rem;
   color: #006d77;
-  background-color: #FCF7EB;
+  background-color: #fcf7eb;
   border-radius: 0.3rem;
   width: 120px;
   height: 43px;
@@ -182,15 +181,12 @@
   align-items: center;
 }
 
-
-
-
 .popupMenu {
   position: fixed;
   top: 113px;
   right: -12px;
   transform: translateX(-50%);
-  background-color: #FCF7EB;
+  background-color: #fcf7eb;
   color: #006d77;
   padding: 10px 20px;
   border-radius: 5px;
@@ -215,22 +211,18 @@
   font-size: 14px;
 }
 
-.popupMenuIcon
-{
+.popupMenuIcon {
   display: flex;
   align-items: center;
   padding-left: 0.3rem;
   /* justify-content: center; */
 }
 
-.popupMenuContent
-{
+.popupMenuContent {
   display: flex;
   align-items: center;
   justify-content: center;
 }
-
-
 
 .fadeInOut {
   animation: fadeInOut 3s ease-in-out;
@@ -238,21 +230,22 @@
 }
 
 @keyframes fadeInOut {
-  0% { opacity: 0; }
-  10% { opacity: 1; }
-  90% { opacity: 1; }
-  100% { opacity: 0; }
+  0% {
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
 }
 
-
-
-
 @media (max-width: 768px) {
-
-
-
-  .apartmentInterestBox
-  {
+  .apartmentInterestBox {
     position: absolute;
     height: 300px;
     width: 200px;
@@ -263,14 +256,13 @@
     z-index: 1000;
   }
 
-
   .popupMenu {
     position: fixed;
     top: 80%;
     right: -12px;
     bottom: 10px;
     transform: translateX(-50%);
-    background-color: #FCF7EB;
+    background-color: #fcf7eb;
     color: #006d77;
     padding: 10px 20px;
     border-radius: 5px;
@@ -282,7 +274,4 @@
     opacity: 0;
     transition: opacity 0.3s ease-in-out;
   }
-
-
-
 }
