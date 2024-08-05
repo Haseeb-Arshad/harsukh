@@ -18,6 +18,11 @@ import AmenityBtn from "../component/Icons/AmenityBtn";
 import ApartmentListing from "../component/Reserve/ApartmentListing";
 import en from "../locales/en.json";
 import ur from "../locales/ur.json";
+import ElevationBox from "../component/Bars/elevationBox";
+import { toggleElevation } from "@/state/Elevation/ElevationState";
+import { toggleFloorMenu } from "@/state/floor/FloorMenu";
+import { useParams } from 'next/navigation';
+
 
 const Layout = ({ children }) => {
   const dispatch = useDispatch();
@@ -187,28 +192,62 @@ const Layout = ({ children }) => {
 
   const handleGetDirections = () => {
     // Coordinates for HARSUKH
-    const destination = "34.0162791,73.3928231";
-
-    // Check if geolocation is supported by the browser
-    if ("geolocation" in navigator) {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          const origin = `${position.coords.latitude},${position.coords.longitude}`;
-          const url = `https://www.google.com/maps/dir/?api=1&origin=${origin}&destination=${destination}`;
-          window.open(url, "_blank");
-        },
-        () => {
-          // If user denies location access or any error occurs, just open with destination
-          const url = `https://www.google.com/maps/dir/?api=1&destination=${destination}`;
-          window.open(url, "_blank");
-        }
-      );
-    } else {
-      // Fallback for browsers that don't support geolocation
-      const url = `https://www.google.com/maps/dir/?api=1&destination=${destination}`;
-      window.open(url, "_blank");
-    }
+    const destination = '34.0162791,73.3928231';
+    
+    // Create the URL for Google Maps directions with the destination
+    const url = `https://www.google.com/maps/dir/?api=1&destination=${destination}`;
+    
+    // Open the URL in a new tab
+    window.open(url, '_blank');
   };
+
+
+  const [isElevationClicked, setElevationClicked] = useState(false);
+  const [isFloorClicked, setFloorClicked] = useState(false);
+
+  const handleElevationClicked = () => {
+    console.log("Elevation Clicked")
+    dispatch(toggleElevation());
+
+    setElevationClicked(!isElevationClicked);
+  };
+
+  const handleFloorMenuClicked = () => {
+    console.log("Floor Menu Clicked");
+    dispatch(toggleFloorMenu());
+    setFloorClicked(!isFloorClicked);
+
+  };
+
+  const params = useParams();
+
+
+  const [elevationArray, setElevationArray] = useState([]);
+  const [currentFloorLabel, setCurrentFloor ] = useState(null);
+
+  const totalFloor = [
+    { id: 'thirdFloor', label: translations.thirdfloor || 'Third Floor' },
+    { id: 'secondFloor', label: translations.secondfloor || 'Second Floor' },
+    { id: 'firstFloor', label: translations.firstfloor || 'First Floor' },
+    { id: 'groundfloor', label: translations.groundfloor || 'Ground Floor' },
+    { id: 'basement1', label: translations.basement1 || 'Vallery Floor 1' },
+    { id: 'basement3', label: translations.basement3 || 'Vallery Floor 3' },
+    { id: 'basement4', label: translations.basement4 || 'Vallery Floor 4' },
+    { id: 'basement5', label: translations.basement5 || 'Vallery Floor 5' },
+    { id: 'basement6', label: translations.basement6 || 'Vallery Floor 6' },
+  ];
+
+  useEffect(() => {
+    const { floor } = params;
+    const currentFloor = totalFloor.find(item => item.id === floor);
+    const floorLabel = currentFloor ? currentFloor.label : `Floor ${floor}`;
+    setCurrentFloor(floorLabel)
+    setElevationArray([
+      { id: '1', label: 'Map View', route: '/mapview' },
+      { id: '2', label: 'Elevation', route: '/' },
+      { id: '3', label: floorLabel, route: `/${floor}` },
+    ]);
+  }, [params, translations]);
 
   return (
     <>
@@ -300,6 +339,8 @@ const Layout = ({ children }) => {
 
         <FloorMenuBox
           isActive={menuBox}
+          ref={menuBoxRef}
+
           handleAmenities={handleAmenities}
           handleOverlay={handleOverlay}
           translations={translations}
@@ -307,12 +348,18 @@ const Layout = ({ children }) => {
           overlay={overlay}
           fullScreen={fullScreen}
           toggleFullScreen={toggleFullScreen}
+          handleElevation={handleElevationClicked}
+          handleFloorMenu={handleFloorMenuClicked}
+
         />
         {/* <div className={styles.callContainer} onClick={handleCall}>
         <div className={styles.mapsViewBox}>
           <Image src="/images/icons/callIcon.svg" quality={100} alt="Maps View Icon" height={19} width={19} />
         </div>
       </div> */}
+
+
+
 
         <div className={styles.container}>
           <div
@@ -369,8 +416,8 @@ const Layout = ({ children }) => {
             src="/Webpage/floors/MainLogo.png"
             quality={100}
             alt="Almaymar"
-            height={28}
-            width={210}
+            height={22}
+            width={160}
           />
         </div>
       </div>

@@ -502,8 +502,8 @@
   background-color: rgba(252, 247, 235, 0.5);
   color: #3a3a3a;
   /* rgba(0, 109, 119, 0.5);  */
-  width: 2.8rem;
-  height: 2.8rem;
+  width: 2.3rem;
+  height: 2.3rem;
   border: none;
   border-radius: 50%;
   font-size: 0.8rem;
@@ -844,10 +844,12 @@
 .bottomLogoContainer {
   user-select: none;
   position: absolute;
-  bottom: -10vh;
+  /* bottom: -10vh; */
   /* left: 3rem; */
   /* top: 10rem;
   left: 0rem; */
+  bottom: 3rem;
+  left: 3rem;
   display: flex;
   flex-direction: column;
 }
@@ -856,9 +858,12 @@
   position: absolute;
   font-family: "Gill Sans Medium";
   font-size: 0.9rem;
-  bottom: 11rem;
-  left: 3rem;
   color: #fcf7eb;
+  bottom: 2.5rem;
+}
+
+.bottomLogoIcon
+{
 }
 
 .reservedContainer {
@@ -1111,6 +1116,33 @@
     font-size: 12px;
   }
 
+
+  .topLogoContainer {
+    top: 2.5rem;
+    left: 2rem;
+  }
+
+  .bottomLogoContainer {
+    user-select: none;
+    position: absolute;
+    /* bottom: -10vh; */
+    /* left: 3rem; */
+    /* top: 10rem;
+    left: 0rem; */
+    bottom: 2.5rem;
+    left: 2rem;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .bottomLogoContainerTitle {
+    position: absolute;
+    font-family: "Gill Sans Medium";
+    font-size: 0.9rem;
+    color: #fcf7eb;
+    bottom: 2rem;
+  }
+
   .countBadge.active {
     background-color: #fcf7eb;
     color: #006d77;
@@ -1118,7 +1150,7 @@
 
   .menuContainer {
     top: 3rem;
-    right: 5px;
+    right: -12px;
     height: 3.7rem;
     width: 5.5rem;
     /* border: 3px solid red; */
@@ -1154,7 +1186,7 @@
     transition: all 0.3s ease-in-out;
     opacity: 1;
     transition: opacity 0.3s ease-in-out;
-    z-index: 10000;
+    z-index: 10;
   }
 
   .filterElevationContainer {

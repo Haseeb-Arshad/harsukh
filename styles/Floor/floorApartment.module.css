@@ -90,11 +90,23 @@
   font-size: 0.8rem;
 }
 
-.ButtomZoomExitBtns {
+.BottomZoomexitBack
+{
+  bottom: 0rem;
   position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 20vh;
+
+}
+
+.ButtomZoomExitBtns {
+  /* position: relative; */
   width: 17vw;
   bottom: 3rem;
-  left: 35vw;
+  /* left: 35vw; */
   column-gap: 2rem;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
@@ -347,8 +359,11 @@
 .st1Hovers {
   opacity: 0.5;
   fill: #fcf7eb;
+  color: white;
   stroke: #0000ff;
   stroke-width: 2px;
+  letter-spacing: 0.3rem;
+  font-size: 0.9rem;
 }
 
 .unitHeader {

@@ -5,7 +5,7 @@
   overflow-y: hidden;
   -webkit-overflow-scrolling: touch;
 }
-
+/* 
 .container {
   position: relative;
   height: 100%;
@@ -33,7 +33,52 @@
 .svgOverlay use {
   pointer-events: all;
   cursor: pointer;
+} */
+
+
+
+
+.container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
 }
+
+.scrollable {
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+}
+
+.videoWrapper {
+  position: relative;
+  height: 100%;
+}
+
+.video,
+.svgOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: 0.3s all ease-in-out;
+}
+
+.svgOverlay {
+  pointer-events: none;
+
+}
+
+.svgOverlay * {
+  pointer-events: auto;
+}
+
+
+
+
 
 /* Add styles for SVG elements */
 .st0 {
@@ -96,4 +141,16 @@
   display: flex;
   justify-content: space-around;
   margin-top: 5px;
+}
+
+.harsukhBuilding {
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.25, 0.1, 0.25, 1);
+  transform-origin: center;
+  filter: brightness(100%);
+}
+
+.harsukhBuilding:hover {
+  transform: scale(1.0);
+  filter: brightness(120%);
 }

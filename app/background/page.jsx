@@ -18,6 +18,7 @@ import AmenityBtn from "../component/Icons/AmenityBtn";
 import ApartmentListing from "../component/Reserve/ApartmentListing";
 import en from "../locales/en.json";
 import ur from "../locales/ur.json";
+import ElevationBox from "../component/Bars/elevationBox";
 
 const floorData = {
   "Third Floor": {
@@ -147,7 +148,7 @@ export default function BackgroundImage() {
   }, [handleClickOutside]);
 
   const handleFilter = useCallback((event) => {
-    event.stopPropagation();
+    // event.stopPropagation();
     console.log("CLICKED");
     setFilterBox((prevState) => !prevState);
     setIsFilterBoxVisible((prev) => !prev);
@@ -187,27 +188,13 @@ export default function BackgroundImage() {
 
   const handleGetDirections = () => {
     // Coordinates for HARSUKH
-    const destination = "34.0162791,73.3928231";
-
-    // Check if geolocation is supported by the browser
-    if ("geolocation" in navigator) {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          const origin = `${position.coords.latitude},${position.coords.longitude}`;
-          const url = `https://www.google.com/maps/dir/?api=1&origin=${origin}&destination=${destination}`;
-          window.open(url, "_blank");
-        },
-        () => {
-          // If user denies location access or any error occurs, just open with destination
-          const url = `https://www.google.com/maps/dir/?api=1&destination=${destination}`;
-          window.open(url, "_blank");
-        }
-      );
-    } else {
-      // Fallback for browsers that don't support geolocation
-      const url = `https://www.google.com/maps/dir/?api=1&destination=${destination}`;
-      window.open(url, "_blank");
-    }
+    const destination = '34.0162791,73.3928231';
+    
+    // Create the URL for Google Maps directions with the destination
+    const url = `https://www.google.com/maps/dir/?api=1&destination=${destination}`;
+    
+    // Open the URL in a new tab
+    window.open(url, '_blank');
   };
 
   useEffect(() => {
@@ -391,17 +378,34 @@ export default function BackgroundImage() {
     }
   }, []);
 
+  // useEffect(() => {
+  //   document.addEventListener("mousedown", handleAmenitiesClickOutside);
+  //   return () => {
+  //     document.removeEventListener("mousedown", handleAmenitiesClickOutside);
+  //   };
+  // }, [handleAmenitiesClickOutside]);
+
+
+
   useEffect(() => {
-    document.addEventListener("mousedown", handleAmenitiesClickOutside);
+    document.addEventListener('mousedown', handleAmenitiesClickOutside);
+    document.addEventListener('touchstart', handleAmenitiesClickOutside);
+
     return () => {
-      document.removeEventListener("mousedown", handleAmenitiesClickOutside);
+      document.removeEventListener('mousedown', handleAmenitiesClickOutside);
+      document.removeEventListener('touchstart', handleAmenitiesClickOutside);
     };
-  }, [handleClickOutside]);
+  }, [handleAmenitiesClickOutside]);
+
+
 
   const handleAmenities = () => {
     setAmenityClicked((prev) => !prev);
     console.log("Amenities clicked");
   };
+
+
+  
 
   const handleBackView = () => {
     setBackView(!backView);
@@ -598,6 +602,7 @@ export default function BackgroundImage() {
 
   const [selectedFloor, setSelectedFloor] = useState("");
   const [isElevationOpen, setIsElevationOpen] = useState(false);
+  const [isElevationClicked, setElevationClicked] = useState(false);
   const [elevationArray, setElevationArray] = useState([
     { id: "2", label: "Map View", route: "/mapview" },
     { id: "1", label: "Elevation", route: "/" },
@@ -608,6 +613,13 @@ export default function BackgroundImage() {
   const toggleLanguage = () => {
     setLanguage(!language);
   };
+  const handleElevationClicked = () => {
+    console.log("Elevation Clicked")
+    setElevationClicked(!isElevationClicked);
+  };
+
+  
+
 
   useEffect(() => {
     setTranslations(language ? ur : en);
@@ -1791,6 +1803,19 @@ export default function BackgroundImage() {
               />
             </div>
 
+            <div className={styles.backViewButton} onClick={handleBackView}>
+              <div className={styles.backViewButtonLeft}>
+                <Image
+                  src="/images/icons/amenitiesIcon.svg"
+                  quality={100}
+                  alt="Menu"
+                  height={20}
+                  width={20}
+                />
+              </div>
+              <div className={styles.backViewButtonTitle}>Rotate View</div>
+            </div>
+
             <div className={styles.filterElevationContainer}>
               <div className={ElevStyles.elevationButtonBox} ref={elevationRef}>
                 <div
@@ -1873,18 +1898,7 @@ export default function BackgroundImage() {
               </div>
             </div>
 
-            <div className={styles.backViewButton} onClick={handleBackView}>
-              <div className={styles.backViewButtonLeft}>
-                <Image
-                  src="/images/icons/amenitiesIcon.svg"
-                  quality={100}
-                  alt="Menu"
-                  height={20}
-                  width={20}
-                />
-              </div>
-              <div className={styles.backViewButtonTitle}>Rotate View</div>
-            </div>
+          
 
             <div className={styles.bottomLogoContainer}>
               <div className={styles.bottomLogoContainerTitle}>
@@ -1892,14 +1906,15 @@ export default function BackgroundImage() {
               </div>
               <div
                 style={{
-                  left: "2.5rem",
-                  bottom: "8rem",
+                  // left: "2.5rem",
+                  // bottom: "8rem",
                   position: "relative",
                   zIndex: 1,
                 }}
                 onClick={() => window.open("https://almaymaar.com/", "_blank")}
               >
                 <Image
+                  className={styles.bottomLogoIcon}
                   style={{ cursor: "pointer" }}
                   src="/Webpage/floors/MainLogo.png"
                   quality={100}
@@ -1979,20 +1994,18 @@ export default function BackgroundImage() {
               overlay={overlay}
               fullScreen={fullScreen}
               toggleFullScreen={toggleFullScreen}
+
             />
 
             {amenityClicked && (
               <div ref={amenityGridRef}>
-                <AmenityGrid />
+                <AmenityGrid amenityRef= {amenityGridRef} />
               </div>
             )}
 
             {isFilterBoxVisible && (
-              <FilterBox
-                ref={filterBoxRef}
-                isVisible={isFilterBoxVisible}
-                onFilterChange={handleFilterChange}
-              />
+              <FilterBox ref={filterBoxRef} onFilterChange={handleFilterChange} isVisible={isFilterBoxVisible} />
+                         
             )}
           </>
         )}
@@ -2008,13 +2021,42 @@ export default function BackgroundImage() {
         <>
           <div className={styles.topLogoContainer}>
             <Image
-              src="/Webpage/floors/HarsukhLogo.png"
+              src="/Webpage/floors/HarsukhLogo.webp"
               quality={100}
               alt="bird"
-              height={120}
-              width={190}
+              height={80}
+              width={130}
             />
           </div>
+
+
+          <div className={styles.bottomLogoContainer}>
+            <div className={styles.bottomLogoContainerTitle}>A Project by</div>
+            <div
+              // style={{
+              //   left: "-0.7rem",
+              //   bottom: "-0.5rem",
+              //   position: "relative",
+              // }}
+              onClick={() => router.push("https://almaymaar.com/")}
+            >
+              <Image
+                src="/Webpage/floors/MainLogo.png"
+                quality={100}
+                alt="Almaymar"
+                height={22}
+                width={140}
+              />
+            </div>
+          </div>
+
+          
+          {amenityClicked && (
+              <div ref={amenityGridRef}>
+                <AmenityGrid />
+              </div>
+            )}
+
 
           <div className={styles.menuContainer}>
             <div className={styles.menuContainerInside} ref={menuContainerRef}>
@@ -2025,6 +2067,7 @@ export default function BackgroundImage() {
           <MenuBox
             isMobile={isMobile}
             ref={menuBoxRef}
+            setMenuBox={setMenuBox}
             isActive={menuBox}
             handleOverlay={handleOverlay}
             handleFilter={handleFilter}
@@ -2033,11 +2076,26 @@ export default function BackgroundImage() {
             overlay={overlay}
             fullScreen={fullScreen}
             toggleFullScreen={toggleFullScreen}
+            amenitiesBtn={handleAmenities}
+            handleElevation={handleElevationClicked}
+
           />
 
           {isFilterBoxVisible && (
-            <FilterBox ref={filterBoxRef} isVisible={isFilterBoxVisible} />
-          )}
+              <FilterBox ref={filterBoxRef} onFilterChange={handleFilterChange} isVisible={isFilterBoxVisible} />
+            )}
+
+            { isElevationClicked &&
+              (
+              <ElevationBox
+                isVisible={isElevationClicked}
+                // onElevationChange={handleElevationClicked}
+                elevationArray={elevationArray}
+              />              
+              )
+            }
+
+
 
           <div className={styles.backViewButton} onClick={handleBackView}>
             <div className={styles.backViewButtonLeft}>
@@ -2052,25 +2110,7 @@ export default function BackgroundImage() {
             <div className={styles.backViewButtonTitle}>Rotate View</div>
           </div>
 
-          <div className={styles.bottomLogoContainer}>
-            <div className={styles.bottomLogoContainerTitle}>A Project by</div>
-            <div
-              style={{
-                left: "-0.7rem",
-                bottom: "-0.5rem",
-                position: "relative",
-              }}
-              onClick={() => router.push("https://almaymaar.com/")}
-            >
-              <Image
-                src="/Webpage/floors/MainLogo.png"
-                quality={100}
-                alt="Almaymar"
-                height={300}
-                width={300}
-              />
-            </div>
-          </div>
+        
 
           <div className={styles.container}>
             <div

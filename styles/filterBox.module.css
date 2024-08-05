@@ -173,3 +173,23 @@
       transform: translateX(-50%) translateY(0) scale(1);
     }
   }
+
+
+  @media (max-width: 768px) {
+
+
+    .filterBox {
+      font-family: 'Gill Sans Light';
+      width: 200px;
+
+    }
+
+
+
+  }
+
+
+
+
+
+

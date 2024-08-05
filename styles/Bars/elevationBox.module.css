@@ -1,0 +1,104 @@
+
+@font-face {
+    font-family: 'Gill Sans Light';
+    src: url('/fonts/GillSansMTPro-Light.otf');
+    font-weight: normal;
+  }
+  
+  
+  
+  .elevationBox {
+    font-family: 'Gill Sans Light';
+    width: 160px;
+    border-radius: 0.375rem;
+
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    background: #FCF7EB;
+    color: #006d77;
+    /* rgba(247, 247, 247, 1); */
+    /* padding: 0.3rem; */
+    /* padding-top: 0.8rem; */
+    position: absolute;
+    top: 14.5rem;
+    left: 30vw;
+    z-index: 10000;
+    transform: translateY(-20px) scale(0.95);
+    opacity: 0;
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    backdrop-filter: blur(5px);
+    user-select: none;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+    background-color: #FCF7EB;
+  }
+
+  .elevationBox.visible {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+
+
+  /* .elevationBox {
+    padding: 1rem;
+    border: 1px solid #e2e8f0;
+    border-radius: 0.375rem;
+    background-color: #fff;
+  }
+   */
+  .hidden {
+    display: none;
+  }
+  
+.elevationBoxInside
+{
+  padding: 0.8rem;
+
+}
+
+  .elevationGrid {
+    display: grid;
+    grid-template-rows: repeat(2, 1fr);
+    gap: 0.5rem;
+    /* margin-bottom: 1rem; */
+  }
+  
+  .elevationButton {
+    padding: 0.5rem;
+    font-size: 0.8rem;
+    border: none;
+    border-radius: 0.37rem;
+    background-color: #FCF7EB;
+    color: #006d77;
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.2s;
+  }
+  
+  .elevationButton:hover {
+    background-color: #FCF7EB;
+  }
+  
+  .elevationButtonSelected {
+    background-color: #006d77;
+    color: #fff;
+  }
+  
+  .elevationButtonSelected:hover {
+    background-color: #006d77;
+  }
+  
+  .resetButton {
+    display: block;
+    width: 100%;
+    padding: 0.5rem 1rem;
+    background-color: #006d77;
+    color: #FCF7EB;
+    font-size: 0.8rem;
+    border: none;
+    border-radius: 0.25rem;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+  
+  .resetButton:hover {
+    background-color: #006d77;
+  }

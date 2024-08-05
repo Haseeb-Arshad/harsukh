@@ -392,5 +392,32 @@
   {
     /* margin-left: 0.2rem; */
   }
+
+
+
+  .container {
+    font-family: 'Gill Sans Light';
+  
+    position: fixed;
+    top: 8rem;
+    left: 37vw;
+    background-color: #FCF7EB;
+    /* background-color: rgba(255, 255, 255, 0.8); */
+    backdrop-filter: blur(10px);
+    border-radius: 0.3rem;
+    color: #006d77;
+    cursor: pointer;
+    user-select: none;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: all 0.3s ease;
+    width: 190px;
+    padding: 0.4rem 0.4rem;
+    z-index: 10000;
+  }
+
+
+
 }
+
 
