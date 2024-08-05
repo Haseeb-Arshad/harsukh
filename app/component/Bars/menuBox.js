@@ -1,12 +1,14 @@
 'use client'
-import React, { forwardRef, useEffect, useState } from 'react';
+import React, { forwardRef, useEffect, useRef, useCallback, useState } from 'react';
 import styles from "@/styles/menubox.module.css";
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 
-const MenuBox = forwardRef(({ handleOverlay, handleFilter, isActive, translations, toggleLanguage, overlay, fullScreen, toggleFullScreen }, ref) => {
+const MenuBox = forwardRef(({ handleOverlay, handleElevation, amenitiesBtn, handleFilter, isActive, translations, setMenuBox, toggleLanguage, overlay, fullScreen, toggleFullScreen }, ref) => {
  
   const [isMobile, setIsMobile] = useState(false);
+  const menuBoxRef = useRef(null);
+  const menuContainerRef = useRef(null);
 
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth <= 768);
@@ -16,15 +18,50 @@ const MenuBox = forwardRef(({ handleOverlay, handleFilter, isActive, translation
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
+
+  const handleMenuItemClick = useCallback((action) => {
+    if (isMobile) {
+      setMenuBox(false);
+    }
+    if (typeof action === 'function') {
+      action();
+    } else {
+      console.error('Action is not a function:', action);
+    }
+  }, [isMobile, setMenuBox]);
+  
+  
+  const handleClickOutside = useCallback((event) => {
+    if (
+      menuContainerRef.current &&
+      !menuContainerRef.current.contains(event.target) &&
+      menuBoxRef.current &&
+      !menuBoxRef.current.contains(event.target)
+    ) {
+      setMenuBox(false);
+    }
+  }, [setMenuBox]);
+
+  useEffect(() => {
+    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener('touchstart', handleClickOutside);
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('touchstart', handleClickOutside);
+    };
+  }, [handleClickOutside]);
+
+
   const router = useRouter();
- 
+  
   return (
     <>
       {isActive && (
         !isMobile? (
           <>
         <div className={`${styles.menuOptionContainer} ${isActive ? styles.active : ''}`} ref={ref}>
-          <div className={styles.menuBox} onClick={toggleLanguage}>
+          <div className={styles.menuBox} onClick={ ()=>handleMenuItemClick(toggleLanguage)}>
             <div className={styles.menuBoxIcon}>
               <Image src="/images/icons/translate.svg" quality={100} alt="Translate" height={25} width={25} />
             </div>
@@ -32,7 +69,7 @@ const MenuBox = forwardRef(({ handleOverlay, handleFilter, isActive, translation
               {translations.changeLanguage}
             </div>
           </div>
-          <div className={styles.menuBox} onClick={handleOverlay}>
+          <div className={styles.menuBox} onClick={()=>handleMenuItemClick(handleOverlay) }>
             <div className={styles.menuBoxIcon}>
               {overlay ? (
                 <Image src="/images/icons/unhide.svg" quality={100} alt="Unhide" height={30} width={30} />
@@ -44,7 +81,7 @@ const MenuBox = forwardRef(({ handleOverlay, handleFilter, isActive, translation
               {overlay ? translations.hideOverlays : translations.showOverlays}
             </div>
           </div>
-          <div className={styles.menuBox} onClick={toggleFullScreen}>
+          <div className={styles.menuBox} onClick={ ()=>handleMenuItemClick(toggleFullScreen)}>
             <div className={styles.menuBoxIcon}>
               <Image src="/images/icons/fullScreen.svg" quality={100} alt="Full Screen" height={19} width={19} />
             </div>
@@ -62,17 +99,18 @@ const MenuBox = forwardRef(({ handleOverlay, handleFilter, isActive, translation
           </div>
 
           <div className={styles.menuBoxContactIcons}>
-            <div className={styles.menuBoxContactIconbox}>
-              <Image src="/images/icons/youtube.svg" quality={100} alt="YouTube" height={19} width={19} />
-            </div>
-            <div className={styles.menuBoxContactIconbox}>
-              <Image src="/images/icons/LinkedInIcon.svg" quality={100} alt="LinkedIn" height={17} width={17} />
-            </div>
-            <div className={styles.menuBoxContactIconbox}>
+          <div className={styles.menuBoxContactIconbox} onClick={()=>router.push("https://www.facebook.com/people/Harsukh/61556868763411/?mibextid=ZbWKwL")}>
               <Image src="/images/icons/facebookIcon.svg" quality={100} alt="Facebook" height={17} width={19} />
             </div>
-            <div className={styles.menuBoxContactIconbox}>
+            <div className={styles.menuBoxContactIconbox} onClick={()=>router.push("https://www.instagram.com/theharsukh/?igsh=M3UzM2s4cXVza255")}>
               <Image src="/images/icons/InstaIcon.svg" quality={100} alt="Instagram" height={21} width={21} />
+            </div>
+            
+            <div className={styles.menuBoxContactIconbox} onClick={()=>router.push("https://www.linkedin.com/company/harsukh-residencies/about/")}>
+              <Image src="/images/icons/LinkedInIcon.svg" quality={100} alt="LinkedIn" height={17} width={17} />
+            </div>
+            <div className={styles.menuBoxContactIconbox} onClick={()=>router.push("https://www.youtube.com/@theharsukh")} >
+              <Image src="/images/icons/youtube.svg" quality={100} alt="YouTube" height={19} width={19} />
             </div>
           </div>
         </div>
@@ -82,7 +120,7 @@ const MenuBox = forwardRef(({ handleOverlay, handleFilter, isActive, translation
               <>
         <div className={`${styles.menuOptionContainer} ${isActive ? styles.active : ''}`} ref={ref}>
           
-          <div className={styles.menuBox} onClick={toggleLanguage}>
+        <div className={styles.menuBox} onClick={() => handleMenuItemClick(handleElevation)}>
             <div className={styles.menuBoxIcon}>
               <Image src="/images/icons/elevation.svg" quality={100} alt="Elevation" height={20} width={20} />
             </div>
@@ -90,7 +128,7 @@ const MenuBox = forwardRef(({ handleOverlay, handleFilter, isActive, translation
               {translations.elevation}
             </div>
           </div>
-          <div className={styles.menuBox} onClick={toggleLanguage}>
+          <div className={styles.menuBox} onClick={()=>handleMenuItemClick(amenitiesBtn) }>
             <div className={styles.menuBoxIcon}>
               <Image src="/images/icons/amenitiesIcon.svg" quality={100} alt="Amenity" height={21} width={21} />
             </div>
@@ -98,7 +136,7 @@ const MenuBox = forwardRef(({ handleOverlay, handleFilter, isActive, translation
               {translations.amenities}
             </div>
           </div>
-          <div className={styles.menuBox} onClick={handleFilter}>
+          <div className={styles.menuBox} onClick={()=>handleMenuItemClick(handleFilter) }>
             <div className={styles.menuBoxIcon}>
               <Image src="/images/icons/filterIcon.svg" quality={100} alt="Filter" height={20} width={20} />
             </div>
@@ -107,7 +145,7 @@ const MenuBox = forwardRef(({ handleOverlay, handleFilter, isActive, translation
             </div>
           </div>
           
-          <div className={styles.menuBox} onClick={toggleLanguage}>
+          <div className={styles.menuBox} onClick={()=>handleMenuItemClick(toggleLanguage) }>
             <div className={styles.menuBoxIcon}>
               <Image src="/images/icons/translate.svg" quality={100} alt="Translate" height={25} width={25} />
             </div>
@@ -115,7 +153,7 @@ const MenuBox = forwardRef(({ handleOverlay, handleFilter, isActive, translation
               {translations.changeLanguage}
             </div>
           </div>
-          <div className={styles.menuBox} onClick={handleOverlay}>
+          <div className={styles.menuBox} onClick={()=>handleMenuItemClick(handleOverlay) }>
             <div className={styles.menuBoxIcon}>
               {overlay ? (
                 <Image src="/images/icons/unhide.svg" quality={100} alt="Unhide" height={30} width={30} />
@@ -127,7 +165,7 @@ const MenuBox = forwardRef(({ handleOverlay, handleFilter, isActive, translation
               {overlay ? translations.hideOverlays : translations.showOverlays}
             </div>
           </div>
-          <div className={styles.menuBox} onClick={toggleFullScreen}>
+          <div className={styles.menuBox} onClick={()=>handleMenuItemClick(toggleFullScreen) }>
             <div className={styles.menuBoxIcon}>
               <Image src="/images/icons/fullScreen.svg" quality={100} alt="Full Screen" height={19} width={19} />
             </div>
@@ -143,26 +181,25 @@ const MenuBox = forwardRef(({ handleOverlay, handleFilter, isActive, translation
               {translations.contactUs}
             </div>
           </div>
-
+          
           <div className={styles.menuBoxContactIcons}>
-            <div className={styles.menuBoxContactIconbox}>
-              <Image src="/images/icons/youtube.svg" quality={100} alt="YouTube" height={19} width={19} />
-            </div>
-            <div className={styles.menuBoxContactIconbox}>
-              <Image src="/images/icons/LinkedInIcon.svg" quality={100} alt="LinkedIn" height={17} width={17} />
-            </div>
-            <div className={styles.menuBoxContactIconbox}>
+            <div className={styles.menuBoxContactIconbox} onClick={()=>router.push("https://www.facebook.com/people/Harsukh/61556868763411/?mibextid=ZbWKwL")}>
               <Image src="/images/icons/facebookIcon.svg" quality={100} alt="Facebook" height={17} width={19} />
             </div>
-            <div className={styles.menuBoxContactIconbox}>
+            <div className={styles.menuBoxContactIconbox} onClick={()=>router.push("https://www.instagram.com/theharsukh/?igsh=M3UzM2s4cXVza255")}>
               <Image src="/images/icons/InstaIcon.svg" quality={100} alt="Instagram" height={21} width={21} />
+            </div>
+            
+            <div className={styles.menuBoxContactIconbox} onClick={()=>router.push("https://www.linkedin.com/company/harsukh-residencies/about/")}>
+              <Image src="/images/icons/LinkedInIcon.svg" quality={100} alt="LinkedIn" height={17} width={17} />
+            </div>
+            <div className={styles.menuBoxContactIconbox} onClick={()=>router.push("https://www.youtube.com/@theharsukh")}>
+              <Image src="/images/icons/youtube.svg" quality={100} alt="YouTube" height={19} width={19} />
             </div>
           </div>
         </div>
 
-
               </>
-
             )
 
       )}

@@ -52,8 +52,7 @@
     top: 3rem;
     right: 3rem;
     height: 3.8rem;
-    width: 23rem;
-    /* border: 1px solid red; */
+    width: 26rem;
     display: grid;
     align-items: center;
     justify-content: center;
@@ -65,7 +64,7 @@
     border: 1px solid blue;
     align-items: center;
     justify-content: center;
-    background-color: #FCF7EB;
+    /* background-color: #FCF7EB; */
     color:  #006d77 ;
     border: none;
     
@@ -83,13 +82,15 @@
 .videosubTab
 {
     /* border: 1px saddlebrown solid; */
-    padding: 0.2rem;
+    padding: 0.4rem;
     padding-left: 0.6rem;
     padding-right: 0.4rem;
-    border-radius: 0.9rem;
+    border-radius: 1.5rem;
     display: flex;
     /* display: grid; */
     /* grid-template-columns: 1fr 0.5fr; */
+    background-color: #FCF7EB;
+
     transition: all 0.3s ease-in-out;
 
 }
@@ -98,7 +99,7 @@
 
 {
   background-color: #006d77;
-  color: white; 
+  color: #FCF7EB; 
 }
 
 
@@ -134,9 +135,6 @@
     height: 1.5rem;
     width: 1.5rem;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-
-    /* border: 1px solid red; */
-    /* padding: 3px; */
 }
 
 .bottomLogoContainer {
@@ -304,8 +302,6 @@
   opacity: 1;
 }
 
-
-
 .ContactedContainer {
   position: absolute;
     top: 0;
@@ -317,11 +313,7 @@
     justify-content: center;
     align-items: center;
     animation: fadeIn 0.3s ease-in-out;
-
 }
-
-
-
 
 .backgroundVideoContainer {
   position: relative;
@@ -350,3 +342,106 @@
   width: 100%;
   height: 100%;
 }
+
+
+@media (max-width: 768px) {
+
+
+  .menuContainer {
+    top: 3rem;
+    right: 30px;
+    height: 10rem;
+    width: 8.5rem;
+    display: grid;
+    align-items:none;
+    justify-content: none;
+    flex-direction: row-reverse;
+    grid-template-rows: 1fr 0.2fr;
+    grid-template-columns: 1fr;
+}
+
+
+
+.longvideoTab
+{
+    align-items: none;
+    /* justify-content: end; */
+    /* background-color: #FCF7EB; */
+    color:  #006d77 ;
+    border: none;
+    padding: 0;
+    padding-left: 0;
+    padding-right: 0;
+    height: 2.8rem;
+    margin-right: -2rem;
+    /* padding-left: 1rem; */
+    /* padding-right: 1rem; */
+    border-radius: 0.9rem;
+    /* cursor: pointer; */
+    display: grid;
+    flex-direction: row-reverse;
+    column-gap: 0.4rem;
+    row-gap: 0.4rem;
+    grid-template-rows: auto auto auto;
+    grid-template-columns: auto;
+    transition: all 0.3s ease-in-out;
+}
+
+.videosubTab
+{
+    /* border: 1px saddlebrown solid; */
+    padding: 0.4rem;
+    padding-left: 0.6rem;
+    padding-right: 0.4rem;
+    border-radius: 1.5rem;
+    width: fit-content;
+    display: flex;
+    /* justify-content: end; */
+    /* align-items: flex-end; */
+    /* display: grid; */
+    /* grid-template-columns: 1fr 0.5fr; */
+    background-color: #FCF7EB;
+
+    transition: all 0.3s ease-in-out;
+
+}
+
+.videosubTab.active
+
+{
+  background-color: #006d77;
+  color: #FCF7EB; 
+}
+
+
+.videosubTabTitle
+{
+  padding-right: 0.4rem;
+  padding-left: 0.4rem;
+  display: flex;
+  font-size: 0.75rem;
+  align-items: center;
+    justify-content: first baseline;
+  border-radius: 0.4rem;
+  /* font-weight: 600; */
+}
+
+.videosubTabIcon
+{
+    display: flex;
+    align-items: center;
+    justify-content: first baseline;
+    color:#FCF7EB;
+    border-radius: 50%;
+    background-color: #FCF7EB;
+    height: 1.5rem;
+    width: 1.5rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+
+}
+
+
+
+

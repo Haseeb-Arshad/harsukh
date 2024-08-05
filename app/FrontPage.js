@@ -38,10 +38,10 @@ const FrontPage = () => {
         fontWeight: 'bold',
         marginBottom: '40px'
       }}>
-        <Image src="/Webpage/floors/HarsukhLogo.png" height={140} width={230} alt="Harsukh" />
+        <Image src="/images/Logo/HarsukhLogo.webp" height={70} width={270} alt="Harsukh" />
       </h1>
       <div style={{
-        width: '300px',
+        width: '280px',
         height: '4px',
         backgroundColor: 'rgba(255,255,255,0.2)',
         borderRadius: '2px',

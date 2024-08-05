@@ -2,9 +2,9 @@
 import React, { forwardRef, useEffect, useState } from 'react';
 import styles from "@/styles/menubox.module.css";
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 
-const FloorMenuBox = forwardRef(({ handleOverlay, handleAmenities, handleFilter, isActive, translations, toggleLanguage, overlay, fullScreen, toggleFullScreen }, ref) => {
+const FloorMenuBox = forwardRef(({ handleOverlay, handleFloorMenu, handleElevation, handleAmenities, handleFilter, isActive, translations, toggleLanguage, overlay, fullScreen, toggleFullScreen }, ref) => {
  
   const [isMobile, setIsMobile] = useState(false);
 
@@ -16,8 +16,16 @@ const FloorMenuBox = forwardRef(({ handleOverlay, handleAmenities, handleFilter,
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
+  const [isFloorApartmentView, setIsFloorApartmentView] = useState(false);
+
+  const params = useParams()
   const router = useRouter();
  
+
+  useEffect(() => {
+    setIsFloorApartmentView(Boolean(params.floor && params.apartment));
+  }, [params]);
+
   return (
     <>
       {isActive && (
@@ -80,9 +88,9 @@ const FloorMenuBox = forwardRef(({ handleOverlay, handleAmenities, handleFilter,
 
             (
               <>
-        <div className={`${styles.menuOptionContainer} ${isActive ? styles.active : ''}`} ref={ref}>
+        <div className={`${styles.menuOptionContainer} ${isFloorApartmentView? styles.apartmentView : ''} ${isActive ? styles.active : ''}`} ref={ref}>
           
-          <div className={styles.menuBox} onClick={toggleLanguage}>
+          <div className={styles.menuBox} onClick={handleElevation}>
             <div className={styles.menuBoxIcon}>
               <Image src="/images/icons/elevation.svg" quality={100} alt="Elevation" height={20} width={20} />
             </div>
@@ -98,14 +106,27 @@ const FloorMenuBox = forwardRef(({ handleOverlay, handleAmenities, handleFilter,
               {translations.amenities}
             </div>
           </div>
-          <div className={styles.menuBox} onClick={handleFilter}>
+          {/* <div className={styles.menuBox} onClick={handleFloorMenu}>
             <div className={styles.menuBoxIcon}>
               <Image src="/images/icons/filterIcon.svg" quality={100} alt="Filter" height={20} width={20} />
             </div>
             <div className={styles.menuBoxTitle}>
               {translations.floor}
             </div>
-          </div>
+          </div> */}
+
+
+
+            {!isFloorApartmentView && (
+              <div className={styles.menuBox} onClick={handleFloorMenu}>
+                <div className={styles.menuBoxIcon}>
+                  <Image src="/images/icons/filterIcon.svg" quality={100} alt="Filter" height={20} width={20} />
+                </div>
+                <div className={styles.menuBoxTitle}>
+                  {translations.floor}
+                </div>
+              </div>
+            )}
           
           <div className={styles.menuBox} onClick={toggleLanguage}>
             <div className={styles.menuBoxIcon}>

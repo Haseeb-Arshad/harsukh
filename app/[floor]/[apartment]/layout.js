@@ -15,6 +15,7 @@ import {
   addFavoriteApartment,
   removeFavoriteApartment,
 } from "@/state/apartment/favApartment";
+import ElevationBox from "@/app/component/Bars/elevationBox";
 
 const Layout = ({ children }) => {
   const router = useRouter();
@@ -183,6 +184,9 @@ const Layout = ({ children }) => {
     ]);
   }, [params]);
 
+
+    const { isElevationClicked } = useSelector((state) => state.elevation);
+
   const handleBackClick = () => {
     // Extract the floor from the current URL
     const floor = params.floor;
@@ -200,6 +204,25 @@ const Layout = ({ children }) => {
     setIsContacted(!isContacted);
     console.log("CALLED");
   };
+
+   const [harsukhHeight, setHarsukhHeight] = useState(105);
+  const [harsukhWidth, setHarsukhWidth] = useState(180);
+
+  useEffect(()=>
+    {
+      if(isMobile)
+      {
+        setHarsukhHeight(85)
+        setHarsukhWidth(150)
+      }
+      else{
+        setHarsukhHeight(105);
+        setHarsukhWidth(180);
+      }
+    }
+      ,[isMobile])
+
+
 
   return (
     <>
@@ -266,13 +289,8 @@ const Layout = ({ children }) => {
       )}
 
       <div className={styles.Harsukhlogo}>
-        <Image
-          src="/Webpage/floors/HarsukhLogo.png"
-          quality={100}
-          alt="Harsukh Logo"
-          height={105}
-          width={180}
-        />
+      <Image onClick={()=>router.push("/")} src="/Webpage/floors/HarsukhLogo.webp" quality={100} alt="Harsukh Logo" height={harsukhHeight} width={harsukhWidth} />
+
       </div>
 
       <div className={styles.apartmentInterestBox}>
@@ -337,6 +355,17 @@ const Layout = ({ children }) => {
           </div>
         </div>
       </div>
+
+
+          { isElevationClicked &&
+              (
+              <ElevationBox
+                isVisible={isElevationClicked}
+                // onElevationChange={handleElevationClicked}
+                elevationArray={elevationArray}
+              />              
+              )
+            }
 
       {isContacted && (
         <div className={styles.ContactedContainer}>

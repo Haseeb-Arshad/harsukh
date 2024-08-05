@@ -119,6 +119,18 @@ const Layout = ({children}) =>
 
   ]);
 
+  const [isMobile, setIsMobile] = useState(false);
+
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth <= 768);
+    const checkLaptop = () => setIsLaptop(window.innerWidth > 768);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+
 
   const elevationRef = useRef(null);
 
@@ -149,23 +161,13 @@ const Layout = ({children}) =>
     // Coordinates for HARSUKH
     const destination = '34.0162791,73.3928231';
     
-    // Check if geolocation is supported by the browser
-    if ('geolocation' in navigator) {
-      navigator.geolocation.getCurrentPosition((position) => {
-        const origin = `${position.coords.latitude},${position.coords.longitude}`;
-        const url = `https://www.google.com/maps/dir/?api=1&origin=${origin}&destination=${destination}`;
-        window.open(url, '_blank');
-      }, () => {
-        // If user denies location access or any error occurs, just open with destination
-        const url = `https://www.google.com/maps/dir/?api=1&destination=${destination}`;
-        window.open(url, '_blank');
-      });
-    } else {
-      // Fallback for browsers that don't support geolocation
-      const url = `https://www.google.com/maps/dir/?api=1&destination=${destination}`;
-      window.open(url, '_blank');
-    }
+    // Create the URL for Google Maps directions with the destination
+    const url = `https://www.google.com/maps/dir/?api=1&destination=${destination}`;
+    
+    // Open the URL in a new tab
+    window.open(url, '_blank');
   };
+  
 
   return (     
     <div style={{ position: 'relative', background: 'rgba(0, 29, 32, 1)' , height: '100vh', width: '100%'}}>
@@ -186,7 +188,7 @@ const Layout = ({children}) =>
       {/* <FloorMenu /> */}
 
       <div className={styles.Harsukhlogo}>
-        <Image src="/Webpage/floors/HarsukhLogo.png" quality={100} alt="Harsukh Logo" height={105} width={180} />
+        <Image src="/Webpage/floors/HarsukhLogo.webp" quality={100} alt="Harsukh Logo" height={105} width={180} />
       </div>
       
       {/* <div className={styles.AlyamarLogo}>
@@ -203,7 +205,7 @@ const Layout = ({children}) =>
       </div>
 
 
-      <div className={styles.menuContainer}>
+      { !isMobile? <div className={styles.menuContainer}>
         <div className={`${styles.longvideoTab}`} onClick={handleAmenities}>
         
             <div className={`${styles.videosubTab}  ${svgVisibility.landmarks ? styles.active : ''} `}  onClick={() =>{ console.log("LandMarks"); toggleSVGVisibility('landmarks')}}>
@@ -243,6 +245,10 @@ const Layout = ({children}) =>
             </div>
 
         </div>
+
+
+
+
         {/* <div className={styles.menuContainerInside}>
             <BackgroundMode handleMenu={handleBackgroundMode}/>
         </div> */}
@@ -250,7 +256,61 @@ const Layout = ({children}) =>
         <div className={styles.menuContainerInside} >
           <MenubarButton handleMenu={handleMenu}/>
         </div>
+      </div>: 
+
+
+       <div className={styles.menuContainer}>
+        
+        <div className={styles.menuContainerInside} >
+          <MenubarButton handleMenu={handleMenu}/>
+        </div>
+
+        <div className={`${styles.longvideoTab}`} onClick={handleAmenities}>
+        
+            <div className={`${styles.videosubTab}  ${svgVisibility.landmarks ? styles.active : ''} `}  onClick={() =>{ console.log("LandMarks"); toggleSVGVisibility('landmarks')}}>
+                
+                <div className={styles.videosubTabTitle} >
+                    Landmarks
+                </div>
+                <div className={styles.videosubTabIcon}>
+                    <Image src="/images/icons/landmarkIcon.svg" quality={100} alt="Menu" height={16} width={16} />
+                </div>
+            </div>
+            <div className={`${styles.videosubTab}  ${svgVisibility.roads? styles.active : ''} `}  onClick={() =>{ console.log("LandMarks"); toggleSVGVisibility('roads')}}>
+                
+                <div className={styles.videosubTabTitle}>
+                     Roads
+                </div>
+                <div className={styles.videosubTabIcon}  >
+                    <Image src="/images/icons/roadIcon.svg" color='#006d77' quality={100} alt="Menu" height={16} width={16} />
+                </div>
+            </div>
+            {/* <div className={styles.videosubTab}>
+                
+                <div className={styles.videosubTabTitle}>
+                    Retail
+                </div>
+                <div className={styles.videosubTabIcon}>
+                    <Image src="/images/icons/landmarkIcon.svg" quality={100} alt="Menu" height={16} width={16} />
+                </div>
+            </div> */}
+            <div className={`${styles.videosubTab}  ${svgVisibility.radius? styles.active : ''} `} onClick={() =>{ console.log("LandMarks"); toggleSVGVisibility('radius')}}>
+                <div className={styles.videosubTabTitle}>
+                    Radius
+                </div>
+                <div className={styles.videosubTabIcon}>
+                    <Image src="/images/icons/radiusIcon.svg" quality={100} alt="Menu" height={20} width={20} />
+                </div>
+            </div>
+
+        </div>
+
+     
+        
       </div>
+      
+      
+      }
 
       <MenuBox isActive={menuBox} handleOverlay={handleOverlay} translations={translations} toggleLanguage={toggleLanguage} overlay={overlay} fullScreen={fullScreen} toggleFullScreen={toggleFullScreen}/>
       

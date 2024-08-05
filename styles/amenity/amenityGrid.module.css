@@ -1,5 +1,5 @@
 .container {
-  position: fixed;     
+  position: absolute;     
   top: 113px;     
   right: 11rem;     
   width: 280px;
@@ -126,7 +126,7 @@
     transition: opacity 0.4s ease, transform 0.4s ease;
   }
 
-.imageBoxOverlay {
+/* .imageBoxOverlay {
   position: fixed;
   top: 0;
   left: 0;
@@ -137,6 +137,27 @@
   justify-content: center;
   align-items: center;
   z-index: 1000;
+} */
+
+.imageBoxOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  opacity: 0;
+  transform: translateY(100%);
+  transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.imageBoxOverlay.active {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .imageBox {
@@ -145,7 +166,24 @@
   height: 80%;
   max-width: 1200px;
   max-height: 800px;
+  opacity: 0;
+  transform: translateY(50px);
+  transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
+
+.imageBoxOverlay.active .imageBox {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+
+/* .imageBox {
+  position: relative;
+  width: 80%;
+  height: 80%;
+  max-width: 1200px;
+  max-height: 800px;
+} */
 
 .closeButton {
   position: absolute;
@@ -154,10 +192,10 @@
   background: none;
   border: none;
   color: #3A3A3A;
-  background-color: #FCF7EB;
+  background-color: rgb(252, 247, 235, 0.6);
   font-size: 24px;
   cursor: pointer;
-  opacity: 0.6;
+  /* opacity: 0.6; */
   padding: 2.9px;
   height: 30px;
   width: 30px;
@@ -168,8 +206,11 @@
 
 .closeButton:hover
 {
-  background-color: #FCF7EB;
-  opacity: 1;
+  /* background-color: #FCF7EB; */
+  background-color: rgb(252, 247, 235, 0.1);
+  padding: 1px;
+
+  /* opacity: 1; */
 }
 
 .imageNavigation {
@@ -178,7 +219,7 @@
   align-items: center;
   height: 100%;
 }
-
+/* 
 .singleImageWrapper {
   position: relative;
   width: 100%;
@@ -186,7 +227,6 @@
 }
 
 .navButton {
-  background: rgba(0, 0, 0, 0.5);
   border: none;
   color: #FCF7EB;
   width: 50px;
@@ -216,13 +256,180 @@
 
 .hidden {
   visibility: hidden;
+} */
+
+
+
+
+.singleImageWrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
 }
+
+.singleImageWrapper img {
+  transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.imageBoxOverlay.active .singleImageWrapper img {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.singleImageWrapper::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.0) 0%, rgba(0,0,0,0.3) 30%,  rgba(0,0,0,0.2) 65%, rgba(0,0,0,0.5) 100%);
+  pointer-events: none;
+}
+
+.imageCaption {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  right: 20px;
+  color: #fff;
+  font-size: 1.2rem;
+  font-weight: 300;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.imageBoxOverlay.active .imageCaption {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.navButton {
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  color: #fff;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%) scale(0.9);
+  opacity: 0;
+}
+
+.imageBoxOverlay.active .navButton {
+  opacity: 1;
+  transform: translateY(-50%) scale(1);
+}
+
+.navButton:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+  transform: translateY(-50%) scale(1.1);
+}
+
+.navButton:first-child {
+  left: 20px;
+}
+
+.navButton:last-child {
+  right: 20px;
+}
+
+.hidden {
+  visibility: hidden;
+}
+
+
+
+.navigationDots {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.5);
+  margin: 0 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.activeDot {
+  background-color: #fff;
+}
+
+.loader {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  /* Add your loader styles here */
+}
+
+
 
 @keyframes fadeIn {
   from { opacity: 0; }
   to { opacity: 1; }
 }
 
-.imageBoxOverlay {
+/* .imageBoxOverlay {
   animation: fadeIn 0.3s ease-out;
+} */
+
+
+
+
+@media (max-width: 768px) {
+
+  .container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+  }
+
+  .gridContainer {
+    position: relative;
+    top: 0;
+    right: 0;
+    width: 250px;
+    max-width: 350px;
+    height: fit-content;
+    max-height: 80vh;
+    margin: auto;
+    background-color: #FCF7EB;
+    border-radius: 0.3rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    overflow-y: auto;
+  }
+
+  .gridItem {
+    margin-bottom: 12px;
+  }
+
+
 }
