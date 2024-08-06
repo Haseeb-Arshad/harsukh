@@ -10,6 +10,10 @@ import Image from "next/image";
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import StarAnimate from "@/public/json/StarAnimate.json"
+import Lottie from "react-lottie";
+
+
 
 import {
   addFavoriteApartment,
@@ -67,7 +71,7 @@ const Layout = ({ children }) => {
       setFloor(foundFloor);
     } else {
       // Redirect to apartment 1 if the apartment is not found
-      router.push("/thirdFloor/Apartment1");
+      router.push("/third-floor/Apartment1");
     }
   }, [params.apartment, router]);
 
@@ -108,10 +112,10 @@ const Layout = ({ children }) => {
       );
       if (isFavorite) {
         dispatch(removeFavoriteApartment(apartmentInfo.Apartmentno));
-        setPopupMessage("Apartment has been removed from favorites.");
+        setPopupMessage(translations.favDelPopup);
       } else {
         dispatch(addFavoriteApartment({ ...apartmentInfo, floor }));
-        setPopupMessage("Apartment has been added to favorites.");
+        setPopupMessage(translations.favAddPopup);
       }
       setShowPopup(true);
       setIsPopupVisible(true);
@@ -131,7 +135,7 @@ const Layout = ({ children }) => {
   useEffect(() => {
     setTranslations(language ? ur : en);
     dispatch(modifyLanguage({ language: language ? "ur" : "en" }));
-  }, [language, dispatch]);
+  }, [languageState, dispatch]);
 
   const elevationRef = useRef(null);
 
@@ -145,15 +149,15 @@ const Layout = ({ children }) => {
   };
 
   const totalFloor = [
-    { id: "thirdFloor", label: translations.thirdfloor || "Third Floor" },
-    { id: "secondFloor", label: translations.secondfloor || "Second Floor" },
-    { id: "firstFloor", label: translations.firstfloor || "First Floor" },
-    { id: "groundFloor", label: translations.groundfloor || "Ground Floor" },
-    { id: "basement1", label: translations.basement1 || "Vallery Floor 1" },
-    { id: "basement3", label: translations.basement3 || "Vallery Floor 3" },
-    { id: "basement4", label: translations.basement4 || "Vallery Floor 4" },
-    { id: "basement5", label: translations.basement5 || "Vallery Floor 5" },
-    { id: "basement6", label: translations.basement6 || "Vallery Floor 6" },
+    { id: "third-floor", label: translations.thirdfloor || "Third Floor" },
+    { id: "second-floor", label: translations.secondfloor || "Second Floor" },
+    { id: "first-floor", label: translations.firstfloor || "First Floor" },
+    { id: "ground-floor", label: translations.groundfloor || "Ground Floor" },
+    { id: "valley-floor-1", label: translations.basement1 || "Vallery Floor 1" },
+    { id: "valley-floor-3", label: translations.basement3 || "Vallery Floor 3" },
+    { id: "valley-floor-4", label: translations.basement4 || "Vallery Floor 4" },
+    { id: "valley-floor-5", label: translations.basement5 || "Vallery Floor 5" },
+    { id: "valley-floor-6", label: translations.basement6 || "Vallery Floor 6" },
   ];
 
   const [isElevationOpen, setIsElevationOpen] = useState(false);
@@ -173,16 +177,16 @@ const Layout = ({ children }) => {
     setCurrentFloor(floorLabel);
 
     setElevationArray([
-      { id: "1", label: "Map View", route: "/mapview" },
-      { id: "2", label: "Elevation", route: "/" },
+      { id: "1", label: `${translations.mapview}`, route: "/mapview" },
+      { id: "2", label: `${translations.elevation}`, route: "/" },
       { id: "3", label: `${floorLabel}`, route: `/${floor}` },
       {
         id: "4",
-        label: `Apartment ${apartmentNumber}`,
+        label: `${translations.apartment} ${apartmentNumber}`,
         route: `/${floor}/${apartment}`,
       },
     ]);
-  }, [params]);
+  }, [params, translations]);
 
 
     const { isElevationClicked } = useSelector((state) => state.elevation);
@@ -200,9 +204,7 @@ const Layout = ({ children }) => {
 
   const handleCall = () => {
     dispatch(addFavoriteApartment({ ...apartmentInfo, floor }));
-
     setIsContacted(!isContacted);
-    console.log("CALLED");
   };
 
    const [harsukhHeight, setHarsukhHeight] = useState(105);
@@ -223,6 +225,14 @@ const Layout = ({ children }) => {
       ,[isMobile])
 
 
+      const defaultOptions = {
+    loop: true,
+    autoplay: true, 
+    animationData: StarAnimate,
+    rendererSettings: {
+      preserveAspectRatio: "xMidYMid slice"
+    }
+  };
 
   return (
     <>
@@ -253,7 +263,7 @@ const Layout = ({ children }) => {
                 onClick={elevationDropdown}
               >
                 <div className={ElevStyles.elevationBtnTitle}>
-                  {!isElevationOpen ? `Apartment ${apartmentNum}` : "Location"}
+                  {!isElevationOpen ? `${translations.apartment} ${apartmentNum}` : `${translations.location}`}
                 </div>
                 <div className={ElevStyles.elevationBtnDownArrow}>
                   <Image
@@ -298,7 +308,7 @@ const Layout = ({ children }) => {
           <div className={styles.apartmentInterestTitle}>
             <div className={styles.apartmentInterestTitleText}>
               {/* {translations.apartmentInterest || 'Apartment Interest'} */}
-              Apartment no. {apartmentNum}
+              {translations.apartmentNo} {apartmentNum}
             </div>
             <div
               className={styles.apartmentInterestTitleIcon}
@@ -313,6 +323,7 @@ const Layout = ({ children }) => {
                     ? "/images/icons/favIconFilled.svg"
                     : "/images/icons/favIcon.svg"
                 }
+                style={{color:"#006d77"}}
                 quality={100}
                 alt="Favorite"
                 height={22}
@@ -322,7 +333,7 @@ const Layout = ({ children }) => {
           </div>
           <div className={styles.apartmentInterestList}>
             <div className={styles.apartmentInterestItem}>
-              <div className={styles.apartmentInterestItemKey}>Floor</div>
+              <div className={styles.apartmentInterestItemKey}>{translations.floor}</div>
               <div className={styles.apartmentInterestItemValue}>
                 {floor || ""}
               </div>
@@ -380,13 +391,20 @@ const Layout = ({ children }) => {
           }`}
         >
           <div className={styles.popupMenuIcon}>
-            <Image
+            {/* <Image
               src="/images/icons/favIconFilled.svg"
               quality={100}
               alt="Favorite"
               height={30}
               width={30}
+            /> */}
+
+            <Lottie 
+              options={defaultOptions}
+              height={30}
+              width={30}
             />
+            
           </div>
           <div className={styles.popupMenuContent}>{popupMessage}</div>
         </div>

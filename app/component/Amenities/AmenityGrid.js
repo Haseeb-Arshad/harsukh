@@ -7,25 +7,25 @@ import Loader from '@/app/[floor]/Loading';
 
 const areas = [
   { name: 'Parking', image: '/images/Amenity/Parking.png', details: [
-    { src: '/images/gallery/Parking/Parking-1.webp', caption: 'Spacious parking area' },
-    { src: '/images/gallery/Parking/Parking-2.webp', caption: 'Well-lit and secure parking' }
+    { src: '/images/gallery/Parking/Parking-1.webp', caption: 'Dedicated floors for parking' },
+    { src: '/images/gallery/Parking/Parking-2.webp', caption: 'Dedicated floors for parking' }
   ]},
   { name: 'Restaurant', image: '/images/Amenity/Resturant.png', details: [
-    { src: '/images/gallery/Restaurant/Restaurant-1.webp', caption: 'Elegant dining area' },
-    { src: '/images/gallery/Restaurant/Restaurant-2.webp', caption: 'Cozy seating arrangements' },
-    { src: '/images/gallery/Restaurant/Restaurant-3.webp', caption: 'Modern kitchen facilities' },
-    { src: '/images/gallery/Restaurant/Restaurant-4.webp', caption: 'Outdoor dining option' },
-    { src: '/images/gallery/Restaurant/Restaurant-5.webp', caption: 'Bar area' },
-    { src: '/images/gallery/Restaurant/Restaurant-6.webp', caption: 'Private dining room' }
+    { src: '/images/gallery/Restaurant/Restaurant-1.webp', caption: 'Experience the culinary luxury with our eateries floor' },
+    { src: '/images/gallery/Restaurant/Restaurant-2.webp', caption: 'Experience the culinary luxury with our eateries floor' },
+    { src: '/images/gallery/Restaurant/Restaurant-3.webp', caption: 'Experience the culinary luxury with our eateries floor' },
+    { src: '/images/gallery/Restaurant/Restaurant-4.webp', caption: 'Experience the culinary luxury with our eateries floor' },
+    { src: '/images/gallery/Restaurant/Restaurant-5.webp', caption: 'Experience the culinary luxury with our eateries floor' },
+    { src: '/images/gallery/Restaurant/Restaurant-6.webp', caption: 'Experience the culinary luxury with our eateries floor' }
   ]},
   { name: 'Lobby', image: '/images/Amenity/Lobby.png', details: [
-    { src: '/images/gallery/Lobby/Lobby-1.webp', caption: 'Grand entrance with luxurious decor' },
-    { src: '/images/gallery/Lobby/Lobby-2.webp', caption: 'Comfortable seating area for guests' },
-    { src: '/images/gallery/Lobby/Lobby-3.webp', caption: 'Modern reception desk' },
-    { src: '/images/gallery/Lobby/Lobby-4.webp', caption: 'Stylish lobby lounge' },
-    { src: '/images/gallery/Lobby/Lobby-5.webp', caption: 'Elegant lighting fixtures' },
-    { src: '/images/gallery/Lobby/Lobby-6.webp', caption: 'Art-decorated lobby corridor' },
-    { src: '/images/gallery/Lobby/Lobby-7.webp', caption: 'Welcoming lobby atmosphere' }
+    { src: '/images/gallery/Lobby/Lobby-1.webp', caption: 'Welcoming & Luxurious. Our lobbies & corridors combing luxury & warmth' },
+    { src: '/images/gallery/Lobby/Lobby-2.webp', caption: 'Welcoming & Luxurious. Our lobbies & corridors combing luxury & warmth' },
+    { src: '/images/gallery/Lobby/Lobby-3.webp', caption: 'Welcoming & Luxurious. Our lobbies & corridors combing luxury & warmth' },
+    { src: '/images/gallery/Lobby/Lobby-4.webp', caption: 'Welcoming & Luxurious. Our lobbies & corridors combing luxury & warmth' },
+    { src: '/images/gallery/Lobby/Lobby-5.webp', caption: 'Welcoming & Luxurious. Our lobbies & corridors combing luxury & warmth' },
+    { src: '/images/gallery/Lobby/Lobby-6.webp', caption: 'Welcoming & Luxurious. Our lobbies & corridors combing luxury & warmth' },
+    { src: '/images/gallery/Lobby/Lobby-7.webp', caption: 'Welcoming & Luxurious. Our lobbies & corridors combing luxury & warmth' }
   ]},
   { name: 'Gym', image: '/images/Amenity/Gym.png', details: [
     { src: '/images/gallery/Gym/Gym-1.webp', caption: 'State-of-the-art fitness equipment' },
@@ -33,13 +33,16 @@ const areas = [
   ]},
 ];
 
+
 const AmenityGrid = ({amenityRef}) => {
   const [selectedArea, setSelectedArea] = useState(null);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isOverlayActive, setIsOverlayActive] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [direction, setDirection] = useState(null);
   const imageBoxRef = useRef(null);
   const autoPlayRef = useRef(null);
+  const imageLoadingRef = useRef(false);
 
   const openImageBox = (area) => {
     setSelectedArea(area);
@@ -54,10 +57,14 @@ const AmenityGrid = ({amenityRef}) => {
   }, []);
 
   const nextImage = useCallback(() => {
+    if (imageLoadingRef.current) return;
+    setDirection('next');
     setCurrentImageIndex((prevIndex) => (prevIndex + 1) % selectedArea.details.length);
   }, [selectedArea]);
 
   const prevImage = useCallback(() => {
+    if (imageLoadingRef.current) return;
+    setDirection('prev');
     setCurrentImageIndex((prevIndex) => (prevIndex - 1 + selectedArea.details.length) % selectedArea.details.length);
   }, [selectedArea]);
 
@@ -88,18 +95,26 @@ const AmenityGrid = ({amenityRef}) => {
   }, [selectedArea, closeImageBox]);
 
   useEffect(() => {
-    if (selectedArea) {
-      autoPlayRef.current = setInterval(() => {
+    if (selectedArea && !isLoading) {
+      if (autoPlayRef.current) {
+        clearTimeout(autoPlayRef.current);
+      }
+      autoPlayRef.current = setTimeout(() => {
         nextImage();
-      }, 5000);
+      }, 7000);
     }
 
     return () => {
       if (autoPlayRef.current) {
-        clearInterval(autoPlayRef.current);
+        clearTimeout(autoPlayRef.current);
       }
     };
-  }, [selectedArea, nextImage]);
+  }, [selectedArea, isLoading, nextImage]);
+
+  const handleImageLoad = () => {
+    setIsLoading(false);
+    imageLoadingRef.current = false;
+  };
 
   return (
     <div ref={amenityRef} className={styles.container}>
@@ -130,26 +145,28 @@ const AmenityGrid = ({amenityRef}) => {
             <div className={styles.singleImageWrapper}>
               {isLoading && <Loader />}
               <Image
+                key={currentImageIndex}
                 src={selectedArea.details[currentImageIndex].src}
                 alt={`${selectedArea.name} ${currentImageIndex + 1}`}
                 layout="fill"
                 objectFit="cover"
                 quality={100}
-                onLoadingComplete={() => setIsLoading(false)}
+                onLoadingComplete={handleImageLoad}
+                className={`${styles.slideImage} ${styles[direction]}`}
               />
               <div className={styles.imageCaption}>
                 {selectedArea.details[currentImageIndex].caption}
               </div>
             </div>
             <div 
-              className={styles.navButton}
+              className={`${styles.navButtonLeft} ${styles.navButton}`}
               onClick={prevImage}
               aria-label="Previous image"
             >
               <LeftArrow />
             </div>
             <div 
-              className={styles.navButton}
+              className={`${styles.navButtonRight} ${styles.navButton}`}
               onClick={nextImage}
               aria-label="Next image"
             >
@@ -160,7 +177,12 @@ const AmenityGrid = ({amenityRef}) => {
                 <div
                   key={index}
                   className={`${styles.dot} ${index === currentImageIndex ? styles.activeDot : ''}`}
-                  onClick={() => setCurrentImageIndex(index)}
+                  onClick={() => {
+                    if (index !== currentImageIndex) {
+                      setDirection(index > currentImageIndex ? 'next' : 'prev');
+                      setCurrentImageIndex(index);
+                    }
+                  }}
                 />
               ))}
             </div>

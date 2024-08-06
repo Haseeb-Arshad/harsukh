@@ -102,9 +102,22 @@
 
 }
 
+.ButtomZoomExitBtnOutside
+{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  bottom: 5rem;
+}
+
 .ButtomZoomExitBtns {
   /* position: relative; */
-  width: 17vw;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 18vw;
   bottom: 3rem;
   /* left: 35vw; */
   column-gap: 2rem;
@@ -128,6 +141,8 @@
 .zoomReset:hover {
   cursor: pointer;
   user-select: none;
+  /* background-color: rgba(0, 109, 119, 0.2); */
+
 }
 
 .zoomResetInside {
@@ -143,6 +158,8 @@
 .backToBuilding:hover {
   cursor: pointer;
   user-select: none;
+  /* background-color: rgba(0, 109, 119, 0.2); */
+
 }
 
 .backToBuilding {
@@ -155,6 +172,12 @@
   height: 40px;
   width: 140px;
   z-index: 1000;
+}
+
+.backToBuilding:hover
+{
+  /* background-color: rgba(0, 109, 119, 0.1); */
+
 }
 
 .backToBuildingInside {
@@ -408,6 +431,54 @@
 .unitDetails > div > span:first-child {
   color: #9ca3af;
 }
+
+
+/* ------------------------------ */
+/* ------------------------------ */
+
+
+.favpopupMenu {
+  position: fixed;
+  top: 113px;
+  right: -12px;
+  transform: translateX(-50%);
+  background-color: #fcf7eb;
+  color: #006d77;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-weight: 600;
+  width: 250px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.favpopupMenu.visible {
+  opacity: 1;
+}
+
+.favpopupMenuIcon {
+  margin-right: 10px;
+}
+
+.favpopupMenuContent {
+  font-size: 14px;
+}
+
+.favpopupMenuIcon {
+  display: flex;
+  align-items: center;
+  padding-left: 0.3rem;
+}
+
+.favpopupMenuContent {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 
 /* ---------------------------------- */
 /* ---------------------------------- */

@@ -14,5 +14,15 @@
     "amenities": "Amenities",
     "call": "Call",
     "filter": "Filter",
-    "floor": "Floor"
+    "floor": "Floor",
+    "zoomout": "Zoom Out",
+    "backToLayout": "Back to Layout",
+    "gallery": "Gallery",
+    "location": "Location",
+    "favAddPopup": "Apartment has been removed from favorites.",
+    "favDelPopup": "Apartment has been added to favorites.",
+    "apartment": "Apartment",
+    "apartmentNo": "Apartment no. "
+
+    
   }

@@ -7,6 +7,7 @@ import svgVisibilityReducer from './mapView/mapViewState';
 import favoriteApartmentsReducer from './apartment/favApartment';
 import elevationReducer from './Elevation/ElevationState';
 import floorMenuReducer from './floor/FloorMenu'; // Corrected import name
+import amenitiesReducer from './Amenity/amenityState';
 
 const persistConfig = {
   key: 'root',
@@ -22,7 +23,8 @@ export const store = configureStore({
     svgVisibility: svgVisibilityReducer,
     favoriteApartments: persistedFavoriteApartmentsReducer,
     elevation: elevationReducer,
-    floorMenu: floorMenuReducer, // Corrected key to match slice name
+    floorMenu: floorMenuReducer, 
+    amenities: amenitiesReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

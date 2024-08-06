@@ -26,15 +26,15 @@ const Page = ({ amenityClicked, updateAmenityClicked }) => {
   const [fullScreen, setFullScreen] = useState(false);
 
   const floorData = {
-    basement1: { imageLink: "/Webpage/floors/basement1.webp", imageName: "basement1",  svgFile: "/svg/basement1/B1.1-01.svg" },
-    basement3: { imageLink: "/Webpage/floors/basement3.webp", imageName: "basement3", },
-    basement4: { imageLink: "/Webpage/floors/basement4.webp", imageName: "basement4" },
-    basement5: { imageLink: "/Webpage/floors/basement5.webp", imageName: "basement5" },
-    basement6: { imageLink: "/Webpage/floors/basement6.webp", imageName: "basement6" },
-    groundfloor: { imageLink: "/Webpage/floors/groundfloor.webp", imageName: "groundFloor" },
-    firstfloor: { imageLink: "/Webpage/floors/firstfloor.webp", imageName: "firstFloor" },
-    secondfloor: { imageLink: "/Webpage/floors/secondfloor.webp", imageName: "secondFloor" },
-    thirdfloor: { imageLink: "/Webpage/floors/thirdfloor.webp", imageName: "thirdFloor" },
+    "valley-floor-1": { imageLink: "/Webpage/floors/basement1.webp", imageName: "valley-floor-1",  svgFile: "/svg/basement1/B1.1-01.svg" },
+    "valley-floor-3": { imageLink: "/Webpage/floors/basement3.webp", imageName: "valley-floor-3", },
+    "valley-floor-4": { imageLink: "/Webpage/floors/basement4.webp", imageName: "valley-floor-4" },
+    "valley-floor-5": { imageLink: "/Webpage/floors/basement5.webp", imageName: "valley-floor-5" },
+    "valley-floor-6": { imageLink: "/Webpage/floors/basement6.webp", imageName: "valley-floor-6" },
+    "ground-floor": { imageLink: "/Webpage/floors/groundfloor.webp", imageName: "ground-floor" },
+    "first-floor": { imageLink: "/Webpage/floors/firstfloor.webp", imageName: "first-floor" },
+    "second-floor": { imageLink: "/Webpage/floors/secondfloor.webp", imageName: "second-floor" },
+    'third-floor': { imageLink: "/Webpage/floors/thirdfloor.webp", imageName: "third-floor" },
   };
 
 
@@ -61,7 +61,11 @@ const Page = ({ amenityClicked, updateAmenityClicked }) => {
       }
     }
   }
-  
+
+  useEffect(() => {
+   
+  }, []);
+
   const currentFloor = floorData[floor] || floorData.basement1; 
 
   useEffect(() => {

@@ -131,16 +131,16 @@ const MapView = () => {
           <source src="/video/mapVideo.mp4" type="video/mp4" />
           Your browser does not support the video tag.
         </video>
-        <motion.svg
+        <svg
           ref={svgRef}
           className={styles.svgOverlay}
           preserveAspectRatio="xMidYMid slice"
-          onMouseMove={handleSVGElementHover}
-          onMouseLeave={() => setHoverInfo(null)}
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={{ opacity: svgVisibility.landmarks || svgVisibility.roads ? 1 : 0, scale: svgVisibility.landmarks || svgVisibility.roads ? 1 : 0.95 }}
-          exit={{ opacity: 0, scale: 0.95 }}
-          transition={{ duration: 0.5, ease: "easeOut" }}
+          // onMouseMove={handleSVGElementHover}
+          // onMouseLeave={() => setHoverInfo(null)}
+          // initial={{ opacity: 0, scale: 0.95 }}
+          // animate={{ opacity: svgVisibility.landmarks || svgVisibility.roads ? 1 : 0, scale: svgVisibility.landmarks || svgVisibility.roads ? 1 : 0.95 }}
+          // exit={{ opacity: 0, scale: 0.95 }}
+          // transition={{ duration: 0.5, ease: "easeOut" }}
         >
           <use href="/svg/buildingwb.svg#buidling" />
           <use href="/svg/AYUBIA/AyubiaPlace.svg#ayubia" />
@@ -166,7 +166,7 @@ const MapView = () => {
           {svgVisibility.roads && (
             <use href="/svg/roadLabel/road.svg#road" />
           )}
-        </motion.svg>
+        </svg>
       </div>
 
       <AnimatePresence>

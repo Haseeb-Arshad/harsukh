@@ -23,4 +23,13 @@
   "radius": "رداس",
   "amenities": "سہولیات",
   "call": "کال",
-  "filter": "فلٹر"}
+  "filter": "فلٹر",
+  "zoomout": "زوم آؤٹ",
+  "backToLayout": "لے آؤٹ پر واپس جائیں",
+  "gallery": "گیلری",
+  "location": "مقام",
+  "favAddPopup": "اپارٹمنٹ کو پسندیدہ سے ہٹا دیا گیا ہے۔",
+  "favDelPopup": "اپارٹمنٹ کو پسندیدہ میں شامل کر دیا گیا ہے۔",
+  "apartment": "اپارٹمنٹ",
+  "apartmentNo": "اپارٹمنٹ نمبر "
+}

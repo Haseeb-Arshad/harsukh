@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, useCallback } from 'react';
 import OpenSeadragon from 'openseadragon';
 import styles from '@/styles/Floor/floorApartment.module.css';
 import { Suspense } from 'react';
@@ -10,7 +10,13 @@ import LeftArrow from './Icons/leftArrow';
 import RightArrow from './Icons/rightArrow';
 import Image from 'next/image';
 import apartmentData from '@/app/component/data/floorData';
+import amenstyles from "@/styles/amenity/amenityGrid.module.css"
 
+import { useSelector } from 'react-redux';
+
+import en from "../locales/en.json";
+import ur from "../locales/ur.json";
+import Loader from '../[floor]/Loading';
 
 const Apartment = ({ imageName, imageLink }) => {
   const viewerRef = useRef(null);
@@ -24,6 +30,31 @@ const Apartment = ({ imageName, imageLink }) => {
   const [apartmentType, setApartmentType] = useState(null);
   const [isMobile, setIsMobile] = useState(false);
 
+
+  const amenityRef = useRef(null);
+
+  // const [selectedArea, setSelectedArea] = useState(null);
+  // const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [isOverlayActive, setIsOverlayActive] = useState(false);
+  // const [isLoading, setIsLoading] = useState(true);
+  const [direction, setDirection] = useState(null);
+  const imageBoxRef = useRef(null);
+  const autoPlayRef = useRef(null);
+  const imageLoadingRef = useRef(false);
+  const amenityButtonRef = useRef(null); 
+
+
+
+  const languageState = useSelector((state) => {
+    const languageState = state.language.lang.find((site) => site.id === "1");
+    return languageState ? languageState.language : "en";
+  });
+
+  const [language, setLanguage] = useState(languageState === "ur");
+  const [translations, setTranslations] = useState(
+    languageState === "ur" ? ur : en
+  );
+
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth <= 768);
     checkMobile();
@@ -32,55 +63,104 @@ const Apartment = ({ imageName, imageLink }) => {
   }, []);
 
   const floorNameMapping = {
-    'thirdFloor': "3rd Floor",
-    'secondFloor': "2nd Floor",
-    'firstFloor': "1st Floor",
-    'groundFloor': "Ground Floor",
-    'basement1': "Basement 1",
-    'basement3': "Basement 3",
-    'basement4': "Basement 4",
-    'basement5': "Basement 5",
-    'basement6': "Basement 6"
+    'third-floor': "3rd Floor",
+    'second-floor': "2nd Floor",
+    'first-floor': "1st Floor",
+    'ground-floor': "Ground Floor",
+    'vallery-floor-1': "Basement 1",
+    'vallery-floor-3': "Basement 3",
+    'vallery-floor-4': "Basement 4",
+    'vallery-floor-5': "Basement 5",
+    'vallery-floor-6': "Basement 6"
   };
+  const areas = [
+    {
+      name: "Studio",
+      image: "/images/Amenity/Studio.png",
+      details: [
+        { src: '/images/gallery/Studio/studio-1.webp', caption: 'Cozy and efficient studio apartment' },
+        { src: '/images/gallery/studio/studio-2.webp', caption: 'Modern furnishings in our studio units' },
+        { src: '/images/gallery/studio/studio-3.webp', caption: 'Compact living area in studio apartment' },
+      ]
+    },
+    {
+      name: "One Bed",
+      image: "/images/Amenity/OneBed.png",
+      details: [
+        { src: '/images/gallery/OneBed/oneBed-1.webp', caption: 'Spacious one-bedroom apartment' },
+        { src: '/images/gallery/OneBed/oneBed-2.webp', caption: 'Comfortable living room in one-bed unit' },
+        { src: '/images/gallery/OneBed/oneBed-3.webp', caption: 'Well-equipped kitchen in one-bedroom apartment' },
+        { src: '/images/gallery/OneBed/oneBed-4.webp', caption: 'Cozy bedroom in one-bed apartment' },
+      ]
+    },
+    {
+      name: "Two Bed",
+      image: "/images/Amenity/TwoBed.png",
+      details: [
+        { src: '/images/gallery/TwoBed/twoBed-1.webp', caption: 'Luxurious two-bedroom apartment' },
+        { src: '/images/gallery/TwoBed/twoBed-2.webp', caption: 'Elegant dining area in two-bed unit' },
+        { src: '/images/gallery/TwoBed/twoBed-3.webp', caption: 'Master bedroom in two-bedroom apartment' },
+        { src: '/images/gallery/TwoBed/twoBed-4.webp', caption: 'Second bedroom in two-bed apartment' },
+        { src: '/images/gallery/TwoBed/twoBed-5.webp', caption: 'Modern bathroom in two-bedroom unit' },
+        { src: '/images/gallery/TwoBed/twoBed-6.webp', caption: 'Balcony view from two-bed apartment' },
+      ]
+    },
+    {
+      name: "Three Bed",
+      image: "/images/Amenity/ThreeBed.png",
+      details: [
+        { src: '/images/gallery/ThreeBed/threeBed-1.webp', caption: 'Spacious three-bedroom apartment' },
+        { src: '/images/gallery/ThreeBed/threeBed-2.webp', caption: 'Large living area in three-bed unit' },
+        { src: '/images/gallery/ThreeBed/threeBed-3.webp', caption: 'Fully equipped kitchen in three-bedroom apartment' },
+        { src: '/images/gallery/ThreeBed/threeBed-4.webp', caption: 'Master bedroom in three-bed apartment' },
+        { src: '/images/gallery/ThreeBed/threeBed-5.webp', caption: 'Family bathroom in three-bedroom unit' },
+      ]
+    },
+    {
+      name: "Penthouse",
+      image: "/images/Amenity/Penthouse.png",
+      details: [
+        { src: '/images/gallery/Penthouse/penthouse-1.webp', caption: 'Luxurious penthouse living room' },
+        { src: '/images/gallery/Penthouse/penthouse-2.webp', caption: 'Gourmet kitchen in penthouse suite' },
+        { src: '/images/gallery/Penthouse/penthouse-3.webp', caption: 'Master bedroom with panoramic views' },
+        { src: '/images/gallery/Penthouse/penthouse-4.webp', caption: 'Elegant dining area in penthouse' },
+        { src: '/images/gallery/Penthouse/penthouse-5.webp', caption: 'Spa-like bathroom in penthouse suite' },
+        { src: '/images/gallery/Penthouse/penthouse-6.webp', caption: 'Private terrace with stunning city views' },
+        { src: '/images/gallery/Penthouse/penthouse-7.webp', caption: 'Second bedroom in penthouse apartment' },
+        { src: '/images/gallery/Penthouse/penthouse-8.webp', caption: 'Home office space in penthouse' },
+      ]
+    },
+  ];
 
-  const galleryImagesMap = {
-    "Studio": [
-      '/images/gallery/Studio/studio-1.webp',
-      '/images/gallery/studio/studio-2.webp',
-      '/images/gallery/studio/studio-3.webp',
-    ],
-    "One Bed": [
-      '/images/gallery/OneBed/oneBed-1.webp',
-      '/images/gallery/OneBed/oneBed-2.webp',
-      '/images/gallery/OneBed/oneBed-3.webp',
-      '/images/gallery/OneBed/oneBed-4.webp',
-    ],
-    "Two Bed": [
-      '/images/gallery/TwoBed/twoBed-1.webp',
-      '/images/gallery/TwoBed/twoBed-2.webp',
-      '/images/gallery/TwoBed/twoBed-3.webp',
-      '/images/gallery/TwoBed/twoBed-4.webp',
-      '/images/gallery/TwoBed/twoBed-5.webp',
-      '/images/gallery/TwoBed/twoBed-6.webp',
-    ],
-    "Three Bed": [
-      '/images/gallery/ThreeBed/threeBed-1.webp',
-      '/images/gallery/ThreeBed/threeBed-2.webp',
-      '/images/gallery/ThreeBed/threeBed-3.webp',
-      '/images/gallery/ThreeBed/threeBed-4.webp',
-      '/images/gallery/ThreeBed/threeBed-5.webp',
-    ],
-    "Penthouse": [
-      '/images/gallery/Penthouse/penthouse-1.webp',
-      '/images/gallery/Penthouse/penthouse-2.webp',
-      '/images/gallery/Penthouse/penthouse-3.webp',
-      '/images/gallery/Penthouse/penthouse-4.webp',
-      '/images/gallery/Penthouse/penthouse-5.webp',
-      '/images/gallery/Penthouse/penthouse-6.webp',
-      '/images/gallery/Penthouse/penthouse-7.webp',
-      '/images/gallery/Penthouse/penthouse-8.webp',
-    ],
-  };
+
+  
+// const areas = [
+//   { name: 'Parking', image: '/images/Amenity/Parking.png', details: [
+//     { src: '/images/gallery/Parking/Parking-1.webp', caption: 'Dedicated floors for parking' },
+//     { src: '/images/gallery/Parking/Parking-2.webp', caption: 'Dedicated floors for parking' }
+//   ]},
+//   { name: 'Restaurant', image: '/images/Amenity/Resturant.png', details: [
+//     { src: '/images/gallery/Restaurant/Restaurant-1.webp', caption: 'Experience the culinary luxury with our eateries floor' },
+//     { src: '/images/gallery/Restaurant/Restaurant-2.webp', caption: 'Experience the culinary luxury with our eateries floor' },
+//     { src: '/images/gallery/Restaurant/Restaurant-3.webp', caption: 'Experience the culinary luxury with our eateries floor' },
+//     { src: '/images/gallery/Restaurant/Restaurant-4.webp', caption: 'Experience the culinary luxury with our eateries floor' },
+//     { src: '/images/gallery/Restaurant/Restaurant-5.webp', caption: 'Experience the culinary luxury with our eateries floor' },
+//     { src: '/images/gallery/Restaurant/Restaurant-6.webp', caption: 'Experience the culinary luxury with our eateries floor' }
+//   ]},
+//   { name: 'Lobby', image: '/images/Amenity/Lobby.png', details: [
+//     { src: '/images/gallery/Lobby/Lobby-1.webp', caption: 'Welcoming & Luxurious. Our lobbies & corridors combing luxury & warmth' },
+//     { src: '/images/gallery/Lobby/Lobby-2.webp', caption: 'Welcoming & Luxurious. Our lobbies & corridors combing luxury & warmth' },
+//     { src: '/images/gallery/Lobby/Lobby-3.webp', caption: 'Welcoming & Luxurious. Our lobbies & corridors combing luxury & warmth' },
+//     { src: '/images/gallery/Lobby/Lobby-4.webp', caption: 'Welcoming & Luxurious. Our lobbies & corridors combing luxury & warmth' },
+//     { src: '/images/gallery/Lobby/Lobby-5.webp', caption: 'Welcoming & Luxurious. Our lobbies & corridors combing luxury & warmth' },
+//     { src: '/images/gallery/Lobby/Lobby-6.webp', caption: 'Welcoming & Luxurious. Our lobbies & corridors combing luxury & warmth' },
+//     { src: '/images/gallery/Lobby/Lobby-7.webp', caption: 'Welcoming & Luxurious. Our lobbies & corridors combing luxury & warmth' }
+//   ]},
+//   { name: 'Gym', image: '/images/Amenity/Gym.png', details: [
+//     { src: '/images/gallery/Gym/Gym-1.webp', caption: 'State-of-the-art fitness equipment' },
+//     { src: '/images/gallery/Gym/Gym-2.webp', caption: 'Spacious workout area with natural light' },
+//   ]},
+// ];
 
   useEffect(() => {
     const apartmentParam = params.apartment; // e.g., "Apartment1"
@@ -102,28 +182,132 @@ const Apartment = ({ imageName, imageLink }) => {
     router.push(`/${floor}`);
   };
 
-  const openImageBox = () => {
-    if (apartmentType && galleryImagesMap[apartmentType]) {
-      setSelectedArea({ name: apartmentType, details: galleryImagesMap[apartmentType] });
+  // const openImageBox = () => {
+  //   console.log(apartmentType );
+  //   console.log(galleryImagesMap[apartmentType])
+  //   if (apartmentType && galleryImagesMap[apartmentType]) {
+  //     setSelectedArea({ name: apartmentType, details: galleryImagesMap[apartmentType] });
+  //     setCurrentImageIndex(0);
+  //   }
+  // };
+  const [amenityClicked, setAmenityClicked] = useState(false);
+
+
+  const handleAmenitiesClickOutside = useCallback((event) => {
+    if (
+      amenityButtonRef.current &&
+      !amenityButtonRef.current.contains(event.target) &&
+      amenityRef.current &&
+      !amenityRef.current.contains(event.target)
+    ) {
+      setAmenityClicked(false);
+    }
+  }, []);
+
+
+
+  useEffect(() => {
+    document.addEventListener("mousedown", handleAmenitiesClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleAmenitiesClickOutside);
+    };
+  }, [handleAmenitiesClickOutside]);
+
+
+  const openImageBox = (area) => {
+    if (area && area.details && area.details.length > 0) {
+      setSelectedArea(area);
       setCurrentImageIndex(0);
+      setIsLoading(true);
+      setTimeout(() => setIsOverlayActive(true), 50);
+    } else {
+      console.error('Invalid area or empty details');
+      // Optionally, you can show an error message to the user
     }
   };
 
-  const closeImageBox = () => {
-    setSelectedArea(null);
+   const closeImageBox = useCallback(() => {
+    setIsOverlayActive(false);
+    setTimeout(() => setSelectedArea(null), 500);
+  }, []);
+
+  const nextImage = useCallback(() => {
+    if (imageLoadingRef.current) return;
+    setDirection('next');
+    setCurrentImageIndex((prevIndex) => (prevIndex + 1) % selectedArea.details.length);
+  }, [selectedArea]);
+
+  const prevImage = useCallback(() => {
+    if (imageLoadingRef.current) return;
+    setDirection('prev');
+    setCurrentImageIndex((prevIndex) => (prevIndex - 1 + selectedArea.details.length) % selectedArea.details.length);
+  }, [selectedArea]);
+
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (imageBoxRef.current && !imageBoxRef.current.contains(event.target)) {
+        closeImageBox();
+      }
+    };
+
+    const handleEscapeKey = (event) => {
+      if (event.key === 'Escape') {
+        closeImageBox();
+      }
+    };
+
+    if (selectedArea) {
+      document.addEventListener('mousedown', handleClickOutside);
+      document.addEventListener('touchstart', handleClickOutside);
+      document.addEventListener('keydown', handleEscapeKey);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('touchstart', handleClickOutside);
+      document.removeEventListener('keydown', handleEscapeKey);
+    };
+  }, [selectedArea, closeImageBox]);
+
+
+  useEffect(() => {
+    if (selectedArea && !isLoading) {
+      if (autoPlayRef.current) {
+        clearTimeout(autoPlayRef.current);
+      }
+      autoPlayRef.current = setTimeout(() => {
+        nextImage();
+      }, 7000);
+    }
+
+    return () => {
+      if (autoPlayRef.current) {
+        clearTimeout(autoPlayRef.current);
+      }
+    };
+  }, [selectedArea, isLoading, nextImage]);
+
+  const handleImageLoad = () => {
+    setIsLoading(false);
+    imageLoadingRef.current = false;
   };
 
-  const nextImage = () => {
-    if (selectedArea && currentImageIndex < selectedArea.details.length - 1) {
-      setCurrentImageIndex(prevIndex => prevIndex + 1);
-    }
-  };
+  // const closeImageBox = () => {
+  //   setSelectedArea(null);
+  // };
 
-  const prevImage = () => {
-    if (currentImageIndex > 0) {
-      setCurrentImageIndex(prevIndex => prevIndex - 1);
-    }
-  };
+  // const nextImage = () => {
+  //   if (selectedArea && currentImageIndex < selectedArea.details.length - 1) {
+  //     setCurrentImageIndex(prevIndex => prevIndex + 1);
+  //   }
+  // };
+
+  // const prevImage = () => {
+  //   if (currentImageIndex > 0) {
+  //     setCurrentImageIndex(prevIndex => prevIndex - 1);
+  //   }
+  // };
 
   
   useEffect(() => {
@@ -174,7 +358,7 @@ const Apartment = ({ imageName, imageLink }) => {
       });
 
       viewer.addHandler('open', function() {
-        if (imageName === 'thirdFloor') {
+        if (imageName === 'third-floor') {
           if (typeof document !== 'undefined') { // Check if document is defined
             const svgOverlay = document.createElement('div');
             svgOverlay.style.position = 'absolute';
@@ -290,7 +474,7 @@ const Apartment = ({ imageName, imageLink }) => {
       viewer.viewport.zoomTo(newZoom);
     }
   };
-  
+
 
   return (
     // <Suspense fallback={<div className={styles.loadingOverlay}><Loading /></div>}>
@@ -309,65 +493,98 @@ const Apartment = ({ imageName, imageLink }) => {
           <img src="/images/icons/zoomOut.svg" alt="Zoom Out" width="24" height="24" />         
         </div>
 
-      {!isMobile && <div className={styles3.ButtomZoomExitBtns}>
-        <div className={styles3.zoomReset} onClick={handleResetZoom}>
-          <div className={styles3.zoomResetInside}>
-            Zoom Out
+      {!isMobile && 
+    
+      <div className={styles3.ButtomZoomExitBtnOutside}>
+        <div className={styles.ButtomZoomExitBtns}>
+          <div className={styles3.zoomReset} onClick={handleResetZoom}>
+            <div className={styles3.zoomResetInside}>
+              {/* Zoom Out */}
+              {translations.zoomout}
+            </div>
           </div>
-        </div>
 
-        <div className={styles3.backToBuilding} onClick={handleBackClick}>
-          <div className={styles3.backToBuildingInside}>
-            Back to Layout
+          <div className={styles3.backToBuilding} onClick={handleBackClick}>
+            <div className={styles3.backToBuildingInside}>
+            {translations.backToLayout}
+            </div>
           </div>
-        </div>
 
-        <div className={styles3.backToBuilding} onClick={openImageBox}>
-          <div className={styles3.backToBuildingInside}>
-            Gallery
+          <div ref={amenityButtonRef}  className={styles3.backToBuilding} onClick={openImageBox(areas["Penthouse"])}>
+            <div className={styles3.backToBuildingInside}>
+              {translations.gallery}
+            </div>
           </div>
+
+
         </div>
+        
       </div>}
 
 
-      {selectedArea && (
-        <div className={styles.imageBoxOverlay} onClick={closeImageBox}>
-          <div className={styles.imageBox} onClick={(e) => e.stopPropagation()}>
-            <div className={styles.imageNavigation}>
-              <div 
-                className={`${styles.navButton} ${currentImageIndex === 0 ? styles.hidden : ''}`} 
-                onClick={prevImage}
-                aria-label="Previous image"
-              >
-                <LeftArrow />
+
+      <div ref={amenityRef} className={amenstyles.container}>
+        {selectedArea && selectedArea.details && selectedArea.details.length > 0 && (
+          <div className={`${amenstyles.imageBoxOverlay} ${isOverlayActive ? styles.active : ''}`} onClick={closeImageBox}>
+            <div className={amenstyles.imageBox} ref={imageBoxRef} onClick={(e) => e.stopPropagation()}>
+              <div className={amenstyles.singleImageWrapper}>
+                {isLoading && <Loader />}
+                {selectedArea.details[currentImageIndex] && (
+                  <Image
+                    key={currentImageIndex}
+                    src={selectedArea.details[currentImageIndex].src}
+                    alt={`${selectedArea.name} ${currentImageIndex + 1}`}
+                    layout="fill"
+                    objectFit="cover"
+                    quality={100}
+                    onLoadingComplete={handleImageLoad}
+                    className={`${amenstyles.slideImage} ${amenstyles[direction]}`}
+                  />
+                )}
+                {selectedArea.details[currentImageIndex] && (
+                  <div className={amenstyles.imageCaption}>
+                    {selectedArea.details[currentImageIndex].caption}
+                  </div>
+                )}
               </div>
-              <div className={styles.singleImageWrapper}>
-                <Image
-                  src={selectedArea.details[currentImageIndex]}
-                  alt={`${selectedArea.name} ${currentImageIndex + 1}`}
-                  layout="fill"
-                  objectFit="contain"
-                  quality={100}
-                />
-              </div>
-              <div 
-                className={`${styles.navButton} ${currentImageIndex === selectedArea.details.length - 1 ? styles.hidden : ''}`} 
-                onClick={nextImage}
-                aria-label="Next image"
-              >
-                <RightArrow />
+              {selectedArea.details.length > 1 && (
+                <>
+                  <div
+                    className={`${amenstyles.navButtonLeft} ${amenstyles.navButton}`}
+                    onClick={prevImage}
+                    aria-label="Previous image"
+                  >
+                    <LeftArrow />
+                  </div>
+                  <div
+                    className={`${amenstyles.navButtonRight} ${amenstyles.navButton}`}
+                    onClick={nextImage}
+                    aria-label="Next image"
+                  >
+                    <RightArrow />
+                  </div>
+                </>
+              )}
+              <div className={amenstyles.navigationDots}>
+                {selectedArea.details.map((_, index) => (
+                  <div
+                    key={index}
+                    className={`${amenstyles.dot} ${index === currentImageIndex ? amenstyles.activeDot : ''}`}
+                    onClick={() => {
+                      if (index !== currentImageIndex) {
+                        setDirection(index > currentImageIndex ? 'next' : 'prev');
+                        setCurrentImageIndex(index);
+                      }
+                    }}
+                  />
+                ))}
               </div>
             </div>
           </div>
-        </div>
-      )}
-
-
+        )}
+      </div>
     </>
 
-
-
-    // </Suspense>
   );
 };
 
