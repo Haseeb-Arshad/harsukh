@@ -19,6 +19,7 @@ import ApartmentListing from "../component/Reserve/ApartmentListing";
 import en from "../locales/en.json";
 import ur from "../locales/ur.json";
 import ElevationBox from "../component/Bars/elevationBox";
+import Loader from "../[floor]/Loading";
 
 const floorData = {
   "Third Floor": {
@@ -94,6 +95,11 @@ const floorData = {
 };
 
 export default function BackgroundImage() {
+
+  const dispatch = useDispatch();
+  const router = useRouter();
+
+
   const containerRef = useRef(null);
   const imageRef = useRef(null);
   const svgRef = useRef(null);
@@ -108,10 +114,27 @@ export default function BackgroundImage() {
   const [isContacted, setIsContacted] = useState(false);
   const [backView, setBackView] = useState(false);
   const [reservedClicked, setReservedClicked] = useState(false);
-
+  const [selectedPath, setSelectedPath] = useState(false);
   const [filterselection, setFilterSelection] = useState(false);
+  const filterContainerRef = useRef(null);
+  const filterBoxRef = useRef(null);
+  const [isFilterBoxVisible, setIsFilterBoxVisible] = useState(false);
+  const [isMapHovered, setIsMapHovered] = useState(false);
+  const [isCallHovered, setIsCallHovered] = useState(false);
+  const favContainerRef = useRef(null);
+  const apartmentListingRef = useRef(null);
+  const ismediumScreen = useMediaQuery({ query: "(max-width: 1024px)" });
+  const ismediumbigScreen = useMediaQuery({ query: "(max-width: 900px)" });
+  const isSmallScreen = useMediaQuery({ query: "(max-width: 700px)" });
+  const verysmallScreen = useMediaQuery({ query: "(max-width: 500px)" });
+  const [filterFloorMenu, setFilterFloorMenu] = useState(true);
 
-  const router = useRouter();
+  const languageState = useSelector((state) => {
+    const languageState = state.language.lang.find((site) => site.id === "1");
+    return languageState ? languageState.language : "en";
+  });
+  const { amenities, selectedAmenities } = useSelector((state) => state.amenities);
+
   const favoriteApartments = useSelector(
     (state) => state.favoriteApartments.favoriteApartments
   );
@@ -124,10 +147,7 @@ export default function BackgroundImage() {
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
-  const filterContainerRef = useRef(null);
-  const filterBoxRef = useRef(null);
-  const [isFilterBoxVisible, setIsFilterBoxVisible] = useState(false);
-
+  
   const handleClickOutside = useCallback((event) => {
     if (
       filterContainerRef.current &&
@@ -155,11 +175,6 @@ export default function BackgroundImage() {
     setTooltipContent(null); // Reset tooltip content when filter is toggled
   }, []);
 
-  const [isMapHovered, setIsMapHovered] = useState(false);
-  const [isCallHovered, setIsCallHovered] = useState(false);
-
-  const favContainerRef = useRef(null);
-  const apartmentListingRef = useRef(null);
 
   const handleFavClickOutside = useCallback((event) => {
     if (
@@ -184,8 +199,6 @@ export default function BackgroundImage() {
     console.log("Favorites clicked");
   };
 
-  const [selectedAmenities, setSelectedAmenities] = useState([]);
-
   const handleGetDirections = () => {
     // Coordinates for HARSUKH
     const destination = '34.0162791,73.3928231';
@@ -202,6 +215,7 @@ export default function BackgroundImage() {
       setShowNavbar(true);
     }
   }, [isMobile]);
+
   useEffect(() => {
     const adjustImageAndSVG = () => {
       const img = imageRef.current;
@@ -278,7 +292,7 @@ export default function BackgroundImage() {
   const handleSVGElementClick = (event) => {
     const element = event.target;
     const floorName = element.getAttribute("data-tip");
-    if (floorName == "basement2") return;
+    if (floorName == "valley-floor-2") return;
     else if (floorName) {
       const slug = floorName.replace(/\s+/g, "-");
       console.log("Floor Name", slug);
@@ -294,19 +308,11 @@ export default function BackgroundImage() {
     console.log(selectedAmenities.length);
 
     if (selectedAmenities.length == 0) {
+      console.log("000")
       setFilterSelection(false);
     } else setFilterSelection(true);
-  }, [filterbox, selectedAmenities.length]);
+  }, [filterbox, selectedAmenities.length, filterFloorMenu]);
 
-  const languageState = useSelector((state) => {
-    const languageState = state.language.lang.find((site) => site.id === "1");
-    return languageState ? languageState.language : "en";
-  });
-
-  const ismediumScreen = useMediaQuery({ query: "(max-width: 1024px)" });
-  const ismediumbigScreen = useMediaQuery({ query: "(max-width: 900px)" });
-  const isSmallScreen = useMediaQuery({ query: "(max-width: 700px)" });
-  const verysmallScreen = useMediaQuery({ query: "(max-width: 500px)" });
 
   const handleCall = () => {
     setIsContacted(!isContacted);
@@ -378,15 +384,6 @@ export default function BackgroundImage() {
     }
   }, []);
 
-  // useEffect(() => {
-  //   document.addEventListener("mousedown", handleAmenitiesClickOutside);
-  //   return () => {
-  //     document.removeEventListener("mousedown", handleAmenitiesClickOutside);
-  //   };
-  // }, [handleAmenitiesClickOutside]);
-
-
-
   useEffect(() => {
     document.addEventListener('mousedown', handleAmenitiesClickOutside);
     document.addEventListener('touchstart', handleAmenitiesClickOutside);
@@ -397,17 +394,30 @@ export default function BackgroundImage() {
     };
   }, [handleAmenitiesClickOutside]);
 
+  setFilterFloorMenu
 
+  useEffect(() => {
+    if(!filterbox)
+    {
+      if( selectedAmenities.length!= 0 )
+      setFilterFloorMenu(true);
+      else
+      setFilterFloorMenu(false);
+
+    }
+
+
+  }, [filterbox]);
 
   const handleAmenities = () => {
     setAmenityClicked((prev) => !prev);
     console.log("Amenities clicked");
   };
 
-
-  
+  const [loading, setLoading] = useState(false); // Add loading state
 
   const handleBackView = () => {
+    setLoading(true); 
     setBackView(!backView);
     setOverlay(!overlay);
 
@@ -445,12 +455,7 @@ export default function BackgroundImage() {
     setIsElevationOpen(false);
   };
 
-  const [selectedPath, setSelectedPath] = useState(false);
 
-  // const handlePathClick = (event) => {
-  //   const clickedPath = event.target;
-  //   setSelectedPath(clickedPath);
-  // };
 
   const elevationRef = useRef(null);
 
@@ -542,7 +547,7 @@ export default function BackgroundImage() {
     if (svg) {
       const elements = svg.querySelectorAll("polygon, polyline, path, rect");
 
-      const hoverHandler = filterbox
+      const hoverHandler = ((filterbox && selectedAmenities.length != 0) || (filterFloorMenu && selectedAmenities.length != 0))
         ? handlePolygonHoverFiltered
         : handlePolygonHover;
 
@@ -560,11 +565,14 @@ export default function BackgroundImage() {
         });
       };
     }
-  }, [overlay, filterbox]);
+  }, [overlay, filterbox, selectedAmenities.length, filterFloorMenu ]);
 
-  const handleFilterChange = (amenities) => {
-    setSelectedAmenities(amenities);
-  };
+
+  useEffect(() => {
+    console.log( "CHANGE: ", ((filterbox && selectedAmenities.length != 0) || (filterFloorMenu && selectedAmenities.length != 0)))
+  }
+  , [filterbox, selectedAmenities.length, filterFloorMenu ])
+
 
   useEffect(() => {
     if (svgRef.current) {
@@ -579,7 +587,7 @@ export default function BackgroundImage() {
         const shouldShow =
           selectedAmenities.length === 0 ||
           selectedAmenities.some((amenity) => {
-            if (amenity === "Studio") return bedroomCount === "0";
+            if (amenity === "Studio") return apartmentType === "Studio";
             if (amenity === "1 Bed Apartments") return bedroomCount === "1";
             if (amenity === "2 Bed Apartments") return bedroomCount === "2";
             if (amenity === "3 Bed Apartments") return bedroomCount === "3";
@@ -590,9 +598,8 @@ export default function BackgroundImage() {
         element.style.display = shouldShow ? "block" : "none";
       });
     }
-  }, [selectedAmenities]);
+  }, [selectedAmenities, filterbox, filterFloorMenu]);
 
-  const dispatch = useDispatch();
 
   const [isFilterBarVisible, setIsFilterBarVisible] = useState(false);
   const [language, setLanguage] = useState(languageState === "ur");
@@ -619,7 +626,14 @@ export default function BackgroundImage() {
   };
 
   
+  useEffect(() => {
+    if(selectedAmenities.length != 0)
+    {
+      setFilterBox(true);
+    }
 
+
+  }, [selectedAmenities.length]);
 
   useEffect(() => {
     setTranslations(language ? ur : en);
@@ -630,6 +644,15 @@ export default function BackgroundImage() {
     console.log("KJ");
   }, [isFilterBarVisible]);
 
+  useEffect(() => {
+    const img = imageRef.current;
+    if (img) {
+      const handleLoad = () => setLoading(false);
+      img.addEventListener("load", handleLoad);
+      return () => img.removeEventListener("load", handleLoad);
+    }
+  }, [backView]);
+
   return (
     <>
       <div
@@ -639,6 +662,7 @@ export default function BackgroundImage() {
         }`}
       >
         <div className={styles.imageWrapper}>
+          {loading && <Loader />} {/* Show Loader while loading */}
           {!backView ? (
             <img
               ref={imageRef}
@@ -656,7 +680,7 @@ export default function BackgroundImage() {
           )}
 
           {overlay &&
-            (filterbox ? (
+            ((filterbox && selectedAmenities.length != 0) || (filterFloorMenu && selectedAmenities.length != 0) ? (
               <svg
                 ref={svgRef}
                 version="1.1"
@@ -669,7 +693,7 @@ export default function BackgroundImage() {
               >
                 <polygon
                   data-image="Third Floor"
-                  data-tip="thirdFloor"
+                  data-tip="third-floor"
                   ApartmentNum="10"
                   bedroomCount="2"
                   apartmentType="Penthouse"
@@ -678,7 +702,7 @@ export default function BackgroundImage() {
                 />
                 <polygon
                   data-image="Third Floor"
-                  data-tip="thirdFloor"
+                  data-tip="third-floor"
                   ApartmentNum="9"
                   bedroomCount="2"
                   apartmentType="Penthouse"
@@ -687,7 +711,7 @@ export default function BackgroundImage() {
                 />
                 <rect
                   data-image="Third Floor"
-                  data-tip="thirdFloor"
+                  data-tip="third-floor"
                   ApartmentNum="8"
                   bedroomCount="3"
                   apartmentType="Penthouse"
@@ -699,7 +723,7 @@ export default function BackgroundImage() {
                 />
                 <rect
                   data-image="Third Floor"
-                  data-tip="thirdFloor"
+                  data-tip="third-floor"
                   ApartmentNum="7"
                   bedroomCount="3"
                   apartmentType="Penthouse"
@@ -711,7 +735,7 @@ export default function BackgroundImage() {
                 />
                 <polygon
                   data-image="Third Floor"
-                  data-tip="thirdFloor"
+                  data-tip="third-floor"
                   ApartmentNum="6"
                   bedroomCount="3"
                   apartmentType="Penthouse"
@@ -721,7 +745,7 @@ export default function BackgroundImage() {
 
                 <polygon
                   data-image="Second Floor"
-                  data-tip="secondFloor"
+                  data-tip="second-floor"
                   ApartmentNum="28"
                   bedroomCount="2"
                   apartmentType="Bedroom"
@@ -730,7 +754,7 @@ export default function BackgroundImage() {
                 />
                 <rect
                   data-image="Second Floor"
-                  data-tip="secondFloor"
+                  data-tip="second-floor"
                   ApartmentNum="27"
                   bedroomCount="2"
                   apartmentType="Bedroom"
@@ -742,7 +766,7 @@ export default function BackgroundImage() {
                 />
                 <polygon
                   data-image="Second Floor"
-                  data-tip="secondFloor"
+                  data-tip="second-floor"
                   ApartmentNum="26"
                   bedroomCount="2"
                   apartmentType="Bedroom"
@@ -751,7 +775,7 @@ export default function BackgroundImage() {
                 />
                 <rect
                   data-image="Second Floor"
-                  data-tip="secondFloor"
+                  data-tip="second-floor"
                   ApartmentNum="25"
                   bedroomCount="3"
                   apartmentType="Bedroom"
@@ -763,7 +787,7 @@ export default function BackgroundImage() {
                 />
                 <rect
                   data-image="Second Floor"
-                  data-tip="secondFloor"
+                  data-tip="second-floor"
                   ApartmentNum="24"
                   bedroomCount="3"
                   apartmentType="Bedroom"
@@ -775,7 +799,7 @@ export default function BackgroundImage() {
                 />
                 <polygon
                   data-image="Second Floor"
-                  data-tip="secondFloor"
+                  data-tip="second-floor"
                   ApartmentNum="23"
                   bedroomCount="1"
                   apartmentType="Bedroom"
@@ -784,7 +808,7 @@ export default function BackgroundImage() {
                 />
                 <rect
                   data-image="Second Floor"
-                  data-tip="secondFloor"
+                  data-tip="second-floor"
                   ApartmentNum="22"
                   bedroomCount="1"
                   apartmentType="Bedroom"
@@ -796,7 +820,7 @@ export default function BackgroundImage() {
                 />
                 <polygon
                   data-image="Second Floor"
-                  data-tip="secondFloor"
+                  data-tip="second-floor"
                   ApartmentNum="21"
                   bedroomCount="1"
                   apartmentType="Bedroom"
@@ -805,7 +829,7 @@ export default function BackgroundImage() {
                 />
                 <polygon
                   data-image="Second Floor"
-                  data-tip="secondFloor"
+                  data-tip="second-floor"
                   ApartmentNum="20"
                   bedroomCount="1"
                   apartmentType="Bedroom"
@@ -815,7 +839,7 @@ export default function BackgroundImage() {
 
                 <rect
                   data-image="First Floor"
-                  data-tip="firstFloor"
+                  data-tip="first-floor"
                   ApartmentNum="44"
                   bedroomCount="2"
                   apartmentType="Bedroom"
@@ -827,7 +851,7 @@ export default function BackgroundImage() {
                 />
                 <rect
                   data-image="First Floor"
-                  data-tip="firstFloor"
+                  data-tip="first-floor"
                   ApartmentNum="43"
                   bedroomCount="2"
                   apartmentType="Bedroom"
@@ -839,7 +863,7 @@ export default function BackgroundImage() {
                 />
                 <rect
                   data-image="First Floor"
-                  data-tip="firstFloor"
+                  data-tip="first-floor"
                   ApartmentNum="42"
                   bedroomCount="2"
                   apartmentType="Bedroom"
@@ -851,7 +875,7 @@ export default function BackgroundImage() {
                 />
                 <rect
                   data-image="First Floor"
-                  data-tip="firstFloor"
+                  data-tip="first-floor"
                   ApartmentNum="41"
                   bedroomCount="3"
                   apartmentType="Bedroom"
@@ -863,7 +887,7 @@ export default function BackgroundImage() {
                 />
                 <rect
                   data-image="First Floor"
-                  data-tip="firstFloor"
+                  data-tip="first-floor"
                   ApartmentNum="40"
                   bedroomCount="3"
                   apartmentType="Bedroom"
@@ -875,7 +899,7 @@ export default function BackgroundImage() {
                 />
                 <rect
                   data-image="First Floor"
-                  data-tip="firstFloor"
+                  data-tip="first-floor"
                   ApartmentNum="39"
                   bedroomCount="1"
                   apartmentType="Bedroom"
@@ -887,7 +911,7 @@ export default function BackgroundImage() {
                 />
                 <rect
                   data-image="First Floor"
-                  data-tip="firstFloor"
+                  data-tip="first-floor"
                   ApartmentNum="38"
                   bedroomCount="1"
                   apartmentType="Bedroom"
@@ -899,7 +923,7 @@ export default function BackgroundImage() {
                 />
                 <rect
                   data-image="First Floor"
-                  data-tip="firstFloor"
+                  data-tip="first-floor"
                   ApartmentNum="37"
                   bedroomCount="1"
                   apartmentType="Bedroom"
@@ -911,7 +935,7 @@ export default function BackgroundImage() {
                 />
                 <rect
                   data-image="First Floor"
-                  data-tip="firstFloor"
+                  data-tip="first-floor"
                   ApartmentNum="36"
                   bedroomCount="1"
                   apartmentType="Bedroom"
@@ -924,7 +948,7 @@ export default function BackgroundImage() {
 
                 <rect
                   data-image="Ground Floor"
-                  data-tip="groundFloor"
+                  data-tip="ground-floor"
                   ApartmentNum="59"
                   bedroomCount="2"
                   apartmentType="Bedroom"
@@ -936,7 +960,7 @@ export default function BackgroundImage() {
                 />
                 <rect
                   data-image="Ground Floor"
-                  data-tip="groundFloor"
+                  data-tip="ground-floor"
                   ApartmentNum="58"
                   bedroomCount="2"
                   apartmentType="Bedroom"
@@ -948,7 +972,7 @@ export default function BackgroundImage() {
                 />
                 <path
                   data-image="Ground Floor"
-                  data-tip="groundFloor"
+                  data-tip="ground-floor"
                   ApartmentNum="57"
                   bedroomCount="2"
                   apartmentType="Bedroom"
@@ -957,7 +981,7 @@ export default function BackgroundImage() {
                 />
                 <rect
                   data-image="Ground Floor"
-                  data-tip="groundFloor"
+                  data-tip="ground-floor"
                   ApartmentNum="56"
                   bedroomCount="3"
                   apartmentType="Bedroom"
@@ -969,7 +993,7 @@ export default function BackgroundImage() {
                 />
                 <rect
                   data-image="Ground Floor"
-                  data-tip="groundFloor"
+                  data-tip="ground-floor"
                   ApartmentNum="55"
                   bedroomCount="3"
                   apartmentType="Bedroom"
@@ -981,7 +1005,7 @@ export default function BackgroundImage() {
                 />
                 <rect
                   data-image="Ground Floor"
-                  data-tip="groundFloor"
+                  data-tip="ground-floor"
                   ApartmentNum="54"
                   bedroomCount="1"
                   apartmentType="Bedroom"
@@ -993,7 +1017,7 @@ export default function BackgroundImage() {
                 />
                 <rect
                   data-image="Ground Floor"
-                  data-tip="groundFloor"
+                  data-tip="ground-floor"
                   ApartmentNum="53"
                   bedroomCount="1"
                   apartmentType="Bedroom"
@@ -1005,7 +1029,7 @@ export default function BackgroundImage() {
                 />
                 <rect
                   data-image="Ground Floor"
-                  data-tip="groundFloor"
+                  data-tip="ground-floor"
                   ApartmentNum="52"
                   bedroomCount="1"
                   apartmentType="Bedroom"
@@ -1017,7 +1041,7 @@ export default function BackgroundImage() {
                 />
                 <rect
                   data-image="Ground Floor"
-                  data-tip="groundFloor"
+                  data-tip="ground-floor"
                   ApartmentNum="51"
                   bedroomCount="1"
                   apartmentType="Bedroom"
@@ -1030,7 +1054,7 @@ export default function BackgroundImage() {
 
                 <rect
                   data-image="Valley Floor 1"
-                  data-tip="basement1"
+                  data-tip="valley-floor-1"
                   ApartmentNum="81"
                   bedroomCount="2"
                   apartmentType="Bedroom"
@@ -1042,7 +1066,7 @@ export default function BackgroundImage() {
                 />
                 <rect
                   data-image="Valley Floor 1"
-                  data-tip="basement1"
+                  data-tip="valley-floor-1"
                   ApartmentNum="80"
                   bedroomCount="2"
                   apartmentType="Bedroom"
@@ -1054,7 +1078,7 @@ export default function BackgroundImage() {
                 />
                 <rect
                   data-image="Valley Floor 1"
-                  data-tip="basement1"
+                  data-tip="valley-floor-1"
                   ApartmentNum="79"
                   bedroomCount="2"
                   apartmentType="Bedroom"
@@ -1066,7 +1090,7 @@ export default function BackgroundImage() {
                 />
                 <rect
                   data-image="Valley Floor 1"
-                  data-tip="basement1"
+                  data-tip="valley-floor-1"
                   ApartmentNum="78"
                   bedroomCount="2"
                   apartmentType="Bedroom"
@@ -1078,7 +1102,7 @@ export default function BackgroundImage() {
                 />
                 <rect
                   data-image="Valley Floor 1"
-                  data-tip="basement1"
+                  data-tip="valley-floor-1"
                   ApartmentNum="77"
                   bedroomCount="2"
                   apartmentType="Bedroom"
@@ -1090,7 +1114,7 @@ export default function BackgroundImage() {
                 />
                 <rect
                   data-image="Valley Floor 1"
-                  data-tip="basement1"
+                  data-tip="valley-floor-1"
                   ApartmentNum="76"
                   bedroomCount="2"
                   apartmentType="Bedroom"
@@ -1102,7 +1126,7 @@ export default function BackgroundImage() {
                 />
                 <rect
                   data-image="Valley Floor 1"
-                  data-tip="basement1"
+                  data-tip="valley-floor-1"
                   ApartmentNum="75"
                   bedroomCount="2"
                   apartmentType="Bedroom"
@@ -1114,7 +1138,7 @@ export default function BackgroundImage() {
                 />
                 <rect
                   data-image="Valley Floor 1"
-                  data-tip="basement1"
+                  data-tip="valley-floor-1"
                   ApartmentNum="74"
                   bedroomCount="1"
                   apartmentType="Bedroom"
@@ -1126,7 +1150,7 @@ export default function BackgroundImage() {
                 />
                 <rect
                   data-image="Valley Floor 1"
-                  data-tip="basement1"
+                  data-tip="valley-floor-1"
                   ApartmentNum="73"
                   bedroomCount="1"
                   apartmentType="Bedroom"
@@ -1138,7 +1162,7 @@ export default function BackgroundImage() {
                 />
                 <polygon
                   data-image="Valley Floor 1"
-                  data-tip="basement1"
+                  data-tip="valley-floor-1"
                   ApartmentNum="72"
                   bedroomCount="1"
                   apartmentType="Bedroom"
@@ -1147,7 +1171,7 @@ export default function BackgroundImage() {
                 />
                 <rect
                   data-image="Valley Floor 1"
-                  data-tip="basement1"
+                  data-tip="valley-floor-1"
                   ApartmentNum="71"
                   bedroomCount="1"
                   apartmentType="Bedroom"
@@ -1160,7 +1184,7 @@ export default function BackgroundImage() {
 
                 <rect
                   data-image="Valley Floor 3"
-                  data-tip="basement3"
+                  data-tip="valley-floor-3"
                   ApartmentNum="105"
                   bedroomCount="2"
                   apartmentType="Bedroom"
@@ -1172,7 +1196,7 @@ export default function BackgroundImage() {
                 />
                 <rect
                   data-image="Valley Floor 3"
-                  data-tip="basement3"
+                  data-tip="valley-floor-3"
                   ApartmentNum="104"
                   bedroomCount="2"
                   apartmentType="Bedroom"
@@ -1184,7 +1208,7 @@ export default function BackgroundImage() {
                 />
                 <rect
                   data-image="Valley Floor 3"
-                  data-tip="basement3"
+                  data-tip="valley-floor-3"
                   ApartmentNum="103"
                   bedroomCount="2"
                   apartmentType="Bedroom"
@@ -1196,7 +1220,7 @@ export default function BackgroundImage() {
                 />
                 <rect
                   data-image="Valley Floor 3"
-                  data-tip="basement3"
+                  data-tip="valley-floor-3"
                   ApartmentNum="102"
                   bedroomCount="2"
                   apartmentType="Bedroom"
@@ -1208,7 +1232,7 @@ export default function BackgroundImage() {
                 />
                 <rect
                   data-image="Valley Floor 3"
-                  data-tip="basement3"
+                  data-tip="valley-floor-3"
                   ApartmentNum="101"
                   bedroomCount="2"
                   apartmentType="Bedroom"
@@ -1220,7 +1244,7 @@ export default function BackgroundImage() {
                 />
                 <rect
                   data-image="Valley Floor 3"
-                  data-tip="basement3"
+                  data-tip="valley-floor-3"
                   ApartmentNum="100"
                   bedroomCount="2"
                   apartmentType="Bedroom"
@@ -1232,7 +1256,7 @@ export default function BackgroundImage() {
                 />
                 <rect
                   data-image="Valley Floor 3"
-                  data-tip="basement3"
+                  data-tip="valley-floor-3"
                   ApartmentNum="99"
                   bedroomCount="2"
                   apartmentType="Bedroom"
@@ -1244,7 +1268,7 @@ export default function BackgroundImage() {
                 />
                 <rect
                   data-image="Valley Floor 3"
-                  data-tip="basement3"
+                  data-tip="valley-floor-3"
                   ApartmentNum="98"
                   bedroomCount="1"
                   apartmentType="Bedroom"
@@ -1256,10 +1280,10 @@ export default function BackgroundImage() {
                 />
                 <rect
                   data-image="Valley Floor 3"
-                  data-tip="basement3"
+                  data-tip="valley-floor-3"
                   ApartmentNum="97"
                   bedroomCount="1"
-                  apartmentType="Bedroom"
+                  apartmentType="Studio"
                   className={styles.st2}
                   x="1205.64"
                   y="694.96"
@@ -1268,7 +1292,7 @@ export default function BackgroundImage() {
                 />
                 <rect
                   data-image="Valley Floor 3"
-                  data-tip="basement3"
+                  data-tip="valley-floor-3"
                   ApartmentNum="96"
                   bedroomCount="1"
                   apartmentType="Bedroom"
@@ -1280,7 +1304,7 @@ export default function BackgroundImage() {
                 />
                 <rect
                   data-image="Valley Floor 3"
-                  data-tip="basement3"
+                  data-tip="valley-floor-3"
                   ApartmentNum="95"
                   bedroomCount="1"
                   apartmentType="Bedroom"
@@ -1292,7 +1316,7 @@ export default function BackgroundImage() {
                 />
                 <rect
                   data-image="Valley Floor 3"
-                  data-tip="basement3"
+                  data-tip="valley-floor-3"
                   ApartmentNum="94"
                   bedroomCount="1"
                   apartmentType="Bedroom"
@@ -1305,7 +1329,7 @@ export default function BackgroundImage() {
 
                 <rect
                   data-image="Valley Floor 4"
-                  data-tip="basement4"
+                  data-tip="valley-floor-4"
                   ApartmentNum="124"
                   bedroomCount="2"
                   apartmentType="Bedroom"
@@ -1317,7 +1341,7 @@ export default function BackgroundImage() {
                 />
                 <rect
                   data-image="Valley Floor 4"
-                  data-tip="basement4"
+                  data-tip="valley-floor-4"
                   ApartmentNum="123"
                   bedroomCount="2"
                   apartmentType="Bedroom"
@@ -1329,7 +1353,7 @@ export default function BackgroundImage() {
                 />
                 <rect
                   data-image="Valley Floor 4"
-                  data-tip="basement4"
+                  data-tip="valley-floor-4"
                   ApartmentNum="122"
                   bedroomCount="2"
                   apartmentType="Bedroom"
@@ -1341,7 +1365,7 @@ export default function BackgroundImage() {
                 />
                 <rect
                   data-image="Valley Floor 4"
-                  data-tip="basement4"
+                  data-tip="valley-floor-4"
                   ApartmentNum="121"
                   bedroomCount="2"
                   apartmentType="Bedroom"
@@ -1353,7 +1377,7 @@ export default function BackgroundImage() {
                 />
                 <rect
                   data-image="Valley Floor 4"
-                  data-tip="basement4"
+                  data-tip="valley-floor-4"
                   ApartmentNum="120"
                   bedroomCount="2"
                   apartmentType="Bedroom"
@@ -1365,7 +1389,7 @@ export default function BackgroundImage() {
                 />
                 <rect
                   data-image="Valley Floor 4"
-                  data-tip="basement4"
+                  data-tip="valley-floor-4"
                   ApartmentNum="119"
                   bedroomCount="2"
                   apartmentType="Bedroom"
@@ -1377,7 +1401,7 @@ export default function BackgroundImage() {
                 />
                 <rect
                   data-image="Valley Floor 4"
-                  data-tip="basement4"
+                  data-tip="valley-floor-4"
                   ApartmentNum="118"
                   bedroomCount="2"
                   apartmentType="Bedroom"
@@ -1389,7 +1413,7 @@ export default function BackgroundImage() {
                 />
                 <rect
                   data-image="Valley Floor 4"
-                  data-tip="basement4"
+                  data-tip="valley-floor-4"
                   ApartmentNum="117"
                   bedroomCount="1"
                   apartmentType="Bedroom"
@@ -1401,7 +1425,7 @@ export default function BackgroundImage() {
                 />
                 <rect
                   data-image="Valley Floor 4"
-                  data-tip="basement4"
+                  data-tip="valley-floor-4"
                   ApartmentNum="116"
                   bedroomCount="1"
                   apartmentType="Bedroom"
@@ -1413,7 +1437,7 @@ export default function BackgroundImage() {
                 />
                 <rect
                   data-image="Valley Floor 4"
-                  data-tip="basement4"
+                  data-tip="valley-floor-4"
                   ApartmentNum="115"
                   bedroomCount="1"
                   apartmentType="Bedroom"
@@ -1425,7 +1449,7 @@ export default function BackgroundImage() {
                 />
                 <rect
                   data-image="Valley Floor 4"
-                  data-tip="basement4"
+                  data-tip="valley-floor-4"
                   ApartmentNum="114"
                   bedroomCount="1"
                   apartmentType="Bedroom"
@@ -1438,7 +1462,7 @@ export default function BackgroundImage() {
 
                 <rect
                   data-image="Valley Floor 5"
-                  data-tip="basement5"
+                  data-tip="valley-floor-5"
                   ApartmentNum="127"
                   bedroomCount="1"
                   apartmentType="Bedroom"
@@ -1450,7 +1474,7 @@ export default function BackgroundImage() {
                 />
                 <rect
                   data-image="Valley Floor 5"
-                  data-tip="basement5"
+                  data-tip="valley-floor-5"
                   ApartmentNum="128"
                   bedroomCount="2"
                   apartmentType="Bedroom"
@@ -1462,7 +1486,7 @@ export default function BackgroundImage() {
                 />
                 <rect
                   data-image="Valley Floor 5"
-                  data-tip="basement5"
+                  data-tip="valley-floor-5"
                   ApartmentNum="129"
                   bedroomCount="1"
                   apartmentType="Bedroom"
@@ -1474,7 +1498,7 @@ export default function BackgroundImage() {
                 />
                 <rect
                   data-image="Valley Floor 5"
-                  data-tip="basement5"
+                  data-tip="valley-floor-5"
                   ApartmentNum="130"
                   bedroomCount="1"
                   apartmentType="Bedroom"
@@ -1486,7 +1510,7 @@ export default function BackgroundImage() {
                 />
                 <rect
                   data-image="Valley Floor 5"
-                  data-tip="basement5"
+                  data-tip="valley-floor-5"
                   ApartmentNum="131"
                   bedroomCount="1"
                   apartmentType="Bedroom"
@@ -1498,7 +1522,7 @@ export default function BackgroundImage() {
                 />
                 <rect
                   data-image="Valley Floor 5"
-                  data-tip="basement5"
+                  data-tip="valley-floor-5"
                   ApartmentNum="132"
                   bedroomCount="1"
                   apartmentType="Bedroom"
@@ -1510,7 +1534,7 @@ export default function BackgroundImage() {
                 />
                 <rect
                   data-image="Valley Floor 5"
-                  data-tip="basement5"
+                  data-tip="valley-floor-5"
                   ApartmentNum="133"
                   bedroomCount="1"
                   apartmentType="Bedroom"
@@ -1522,7 +1546,7 @@ export default function BackgroundImage() {
                 />
                 <rect
                   data-image="Valley Floor 5"
-                  data-tip="basement5"
+                  data-tip="valley-floor-5"
                   ApartmentNum="134"
                   bedroomCount="1"
                   apartmentType="Bedroom"
@@ -1535,10 +1559,10 @@ export default function BackgroundImage() {
 
                 <rect
                   data-image="Valley Floor 6"
-                  data-tip="basement6"
+                  data-tip="valley-floor-6"
                   ApartmentNum="138"
                   bedroomCount="1"
-                  apartmentType="Bedroom"
+                  apartmentType="Studio"
                   className={styles.st2}
                   x="446.78"
                   y="873.81"
@@ -1547,7 +1571,7 @@ export default function BackgroundImage() {
                 />
                 <rect
                   data-image="Valley Floor 6"
-                  data-tip="basement6"
+                  data-tip="valley-floor-6"
                   ApartmentNum="139"
                   bedroomCount="1"
                   apartmentType="Bedroom"
@@ -1559,7 +1583,7 @@ export default function BackgroundImage() {
                 />
                 <rect
                   data-image="Valley Floor 6"
-                  data-tip="basement6"
+                  data-tip="valley-floor-6"
                   ApartmentNum="140"
                   bedroomCount="1"
                   apartmentType="Bedroom"
@@ -1571,7 +1595,7 @@ export default function BackgroundImage() {
                 />
                 <rect
                   data-image="Valley Floor 6"
-                  data-tip="basement6"
+                  data-tip="valley-floor-6"
                   ApartmentNum="141"
                   bedroomCount="1"
                   apartmentType="Bedroom"
@@ -1583,7 +1607,7 @@ export default function BackgroundImage() {
                 />
                 <rect
                   data-image="Valley Floor 6"
-                  data-tip="basement6"
+                  data-tip="valley-floor-6"
                   ApartmentNum="142"
                   bedroomCount="1"
                   apartmentType="Bedroom"
@@ -1595,7 +1619,7 @@ export default function BackgroundImage() {
                 />
                 <rect
                   data-image="Valley Floor 6"
-                  data-tip="basement6"
+                  data-tip="valley-floor-6"
                   ApartmentNum="143"
                   bedroomCount="1"
                   apartmentType="Bedroom"
@@ -1607,7 +1631,7 @@ export default function BackgroundImage() {
                 />
                 <rect
                   data-image="Valley Floor 6"
-                  data-tip="basement6"
+                  data-tip="valley-floor-6"
                   ApartmentNum="144"
                   bedroomCount="1"
                   apartmentType="Bedroom"
@@ -1619,7 +1643,7 @@ export default function BackgroundImage() {
                 />
                 <rect
                   data-image="Valley Floor 6"
-                  data-tip="basement6"
+                  data-tip="valley-floor-6"
                   ApartmentNum="145"
                   bedroomCount="1"
                   apartmentType="Bedroom"
@@ -1633,7 +1657,7 @@ export default function BackgroundImage() {
                 <path
                   className={styles.st0}
                   data-image="Valley Floor 2"
-                  data-tip="basement2"
+                  data-tip="valley-floor-2"
                   d="M429.28,635.11v51.06l193.38.15h75.21l123.21,1.44c10.93.13,21.93,1.19,32.86,1.32,34.83.41,69.58-.11,104.41.3H1291l221.43,1.84.38-46.17-176.26-2.44-130.85-.92-98.45-.31-254.06-.92L821,637.36l-87.08-.56-54.72-1.23h-89Z"
                 />
               </svg>
@@ -1651,66 +1675,66 @@ export default function BackgroundImage() {
                 <polygon
                   className={styles.st0}
                   data-image="Valley Floor 6"
-                  data-tip="basement6"
+                  data-tip="valley-floor-6"
                   points="619.67 303.31 693.04 256.08 695.34 382.19 619.67 382.19 619.67 303.31"
                 />
 
                 <polyline
                   data-image="Valley Floor 6"
-                  data-tip="basement6"
+                  data-tip="valley-floor-6"
                   className={styles.st0}
                   points="428.82 874.84 428.82 924.18 687.17 922.66 944.59 917.15 1182.1 917.15 1182.1 867.93 824.98 871.37 680.44 873.59 625.87 873.43 428.82 874.84"
                 />
 
                 <polygon
                   data-image="Valley Floor 5"
-                  data-tip="basement5"
+                  data-tip="valley-floor-5"
                   className={styles.st0}
                   points="428.82 814.12 428.82 866.55 596.18 865.48 699.52 863.34 750.12 862.73 830.77 860.59 946.99 859.98 1182.15 860.9 1182.1 810.83 853.77 812.29 733.87 813.51 621.94 814.12 428.82 814.12"
                 />
                 <polygon
                   data-image="Valley Floor 4"
-                  data-tip="basement4"
+                  data-tip="valley-floor-4"
                   className={styles.st0}
                   points="1362.91 754.5 1362.91 803.11 822.18 804.64 428.82 804.64 428.82 754.5 1362.91 754.5"
                 />
                 <path
                   className={styles.st0}
                   data-image="Valley Floor 3"
-                  data-tip="basement3"
+                  data-tip="valley-floor-3"
                   d="M1512.8,698v44.71l-78.35-.69-370.09,4.51H872.44l-171.52-1.22-104.25,1.22-167.39.16V695.19H701.54l119.75.48,33,2.28,253.23.3h97.53Z"
                 />
                 <path
                   className={styles.st0}
                   data-image="Valley Floor 2"
-                  data-tip="basement2"
+                  data-tip="valley-floor-2"
                   d="M429.28,635.11v51.06l193.38.15h75.21l123.21,1.44c10.93.13,21.93,1.19,32.86,1.32,34.83.41,69.58-.11,104.41.3H1291l221.43,1.84.38-46.17-176.26-2.44-130.85-.92-98.45-.31-254.06-.92L821,637.36l-87.08-.56-54.72-1.23h-89Z"
                 />
                 <path
                   className={styles.st0}
                   data-image="Valley Floor 1"
-                  data-tip="basement1"
+                  data-tip="valley-floor-1"
                   d="M429,575.19q.16,25.3.31,50.6l182.37-.31h87.13l122,2.83,34.7,3h217.84l35.46,2.45h246.42l157.61,1.83V589.71l-150.88.92-17.74-5.2-139.1.92L1169,584.82l-141.86-.3-100.28-.62-71.39-.27-34.09-6.47-88.66.32L697,575.34l-43.72,1.53H624.18l-30-1.53Z"
                 />
 
                 <path
                   className={styles.st0}
                   data-image="Ground Floor"
-                  data-tip="groundFloor"
+                  data-tip="ground-floor"
                   d="M820.92,522.83v44.26L855,574.66l244.28-1.15V525.59l-243.62,1Z M1512.8,534.93q-.08,23-.16,46l-150-1.53-16-3.46H1345c-53.73-.68-148-1.05-201.7-1.73-.31-15.18.31-30.65,0-45.83,54.11,0,147.82.08,201.93.11l18.58,6.65Z M783.06,519.38v50.14l-21.14-.5-63.14-1.46H611.65l-182.37.31q-.15-25.3-.31-50.6l165.25.15,30,1.53h29.05L697,517.42Z"
                 />
 
                 <path
                   className={styles.st0}
                   data-image="First Floor"
-                  data-tip="firstFloor"
+                  data-tip="first-floor"
                   d="M820.92,466.66v45.55L855.47,516l243.82-.76v-47l-244.43.38Z M1512.87,526.27h-105l-43.79-2.52-16.82-3.44-4.87.07h0l-24.14,1.31-174.88-1.61V472.85L1343.65,474l21.55,7.57,147.75-.15Z M783.06,461v50.14l-21.14-.49-63.14-1.47H611.65l-182.37.31q-.15-25.31-.31-50.6l165.25.15,30,1.53Z"
                 />
 
                 <path
                   className={styles.st0}
                   data-image="Second Floor"
-                  data-tip="secondFloor"
+                  data-tip="second-floor"
                   d="M820.92,411.17v45.4L857,458.25l242.29,2v-49.1L855.47,413Z M1143.32,416.82h205.14l16.51,3.52,72,0,75.32,48.27v4.74l-82.24.61h-65.43l-17.12-8.4-204.31.38Z M783.06,403.58v47.89l-21.14-.5-62,.78H611.65l-182.37.31q-.15-25.31-.31-50.6l165.25.15,30,1.53Z"
                 />
 
@@ -1718,7 +1742,7 @@ export default function BackgroundImage() {
                   onMouseEnter={() => setSelectedPath(true)}
                   onMouseLeave={() => setSelectedPath(false)}
                   data-image="Third Floor"
-                  data-tip="thirdFloor"
+                  data-tip="third-floor"
                   className={!selectedPath ? styles.st0 : styles.st1Hovers}
                   d="M1420.24,409.94H1206.3L1143,410q.16-20.67.31-41.35l46.47-106.09,176.1,112.81L1391,391.9Z M783.06,366c0,9.36,0,20,0,29.35-13.29,0-29.29-.52-42.58-.54H720.32c-44,.53-85.62-1.37-129.65-.84l-161.43,1.38.19-13.42L607.37,263.8l13.76,15.29L709.79,221h1.45Z"
                 />
@@ -1726,7 +1750,7 @@ export default function BackgroundImage() {
                   onMouseEnter={() => setSelectedPath(true)}
                   onMouseLeave={() => setSelectedPath(false)}
                   data-image="Third Floor"
-                  data-tip="thirdFloor"
+                  data-tip="third-floor"
                   className={!selectedPath ? styles.st0 : styles.st1Hovers}
                   points="820.92 401.99 1099.29 401.99 1099.29 331.98 1086.15 272.98 836.36 272.98 820.92 332.29 820.92 401.99"
                 />
@@ -1757,10 +1781,10 @@ export default function BackgroundImage() {
                   </div>
                   {tooltipContent.floorName === "Valley Floor 2" ? (
                     <span className={styles.tooltipUnits}>Parking Lot</span>
-                  ) : filterbox ? (
+                  ) : (filterbox && selectedAmenities.length != 0) || (filterFloorMenu && selectedAmenities.length != 0) ? (
                     <>
                       <div className={styles.tooltipFloor}>
-                        Apartment: {tooltipContent.apartmentNum}
+                        Apartment: <span className={styles.tooltipUnits}> {tooltipContent.apartmentNum} </span> 
                       </div>
                       <div className={styles.tooltipFloor}>
                         {tooltipContent.bedroomCount}{" "}
@@ -1795,7 +1819,7 @@ export default function BackgroundImage() {
 
             <div className={styles.topLogoContainer}>
               <Image
-                src="/Webpage/floors/HarsukhLogo.png"
+                src="/Webpage/floors/HarsukhLogo.webp"
                 quality={100}
                 alt="bird"
                 height={120}
@@ -1844,7 +1868,7 @@ export default function BackgroundImage() {
                     <div className={ElevStyles.elevationBtnTitle}>
                       {!isElevationOpen
                         ? translations.elevation || "Elevation"
-                        : "Location"}
+                        : translations.location || "Location"}
                     </div>
                     <div className={ElevStyles.elevationBtnDownArrow}>
                       <Image
@@ -2004,7 +2028,7 @@ export default function BackgroundImage() {
             )}
 
             {isFilterBoxVisible && (
-              <FilterBox ref={filterBoxRef} onFilterChange={handleFilterChange} isVisible={isFilterBoxVisible} />
+              <FilterBox ref={filterBoxRef} isVisible={isFilterBoxVisible} />
                          
             )}
           </>
@@ -2082,7 +2106,7 @@ export default function BackgroundImage() {
           />
 
           {isFilterBoxVisible && (
-              <FilterBox ref={filterBoxRef} onFilterChange={handleFilterChange} isVisible={isFilterBoxVisible} />
+              <FilterBox ref={filterBoxRef}  isVisible={isFilterBoxVisible} />
             )}
 
             { isElevationClicked &&

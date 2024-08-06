@@ -1,5 +1,5 @@
 'use client';
-import React, { Suspense, useState, useEffect, useRef } from 'react';
+import React, { Suspense, useCallback, useState, useEffect, useRef } from 'react';
 import { usePathname } from 'next/navigation';
 import Loading from '@/app/[floor]/Loading';
 import styles2 from "@/styles/Floor/floorMenu.module.css";
@@ -51,8 +51,9 @@ const Layout = ({children}) =>
   const [translations, setTranslations] = useState(languageState === 'ur' ? ur : en);
 
   const handleMenu = () => {
-    setMenuBox(!menuBox);
-  }
+    setMenuBox((prev) => !prev);
+    console.log("menu clicked");
+  };
   
   const handleOverlay = () => {
     setOverlay(!overlay);
@@ -131,6 +132,26 @@ const Layout = ({children}) =>
   }, []);
 
 
+  const menuBoxRef = useRef(null);
+  const menuContainerRef = useRef(null);
+
+  const handleMenuClickOutside = useCallback((event) => {
+    if (
+      menuContainerRef.current &&
+      !menuContainerRef.current.contains(event.target) &&
+      menuBoxRef.current &&
+      !menuBoxRef.current.contains(event.target)
+    ) {
+      setMenuBox(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    document.addEventListener("mousedown", handleMenuClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleMenuClickOutside);
+    };
+  }, [handleMenuClickOutside]);
 
   const elevationRef = useRef(null);
 
@@ -246,23 +267,20 @@ const Layout = ({children}) =>
 
         </div>
 
-
-
-
-        {/* <div className={styles.menuContainerInside}>
-            <BackgroundMode handleMenu={handleBackgroundMode}/>
-        </div> */}
      
-        <div className={styles.menuContainerInside} >
-          <MenubarButton handleMenu={handleMenu}/>
+        <div className={styles.menuContainerInside}                 
+        ref={menuContainerRef}
+        >
+          <MenubarButton inActive={menuBox} handleMenu={handleMenu}/>
         </div>
-      </div>: 
-
+      </div>
+      : 
 
        <div className={styles.menuContainer}>
         
-        <div className={styles.menuContainerInside} >
-          <MenubarButton handleMenu={handleMenu}/>
+        <div className={styles.menuContainerInside} 
+        ref={menuContainerRef}>
+          <MenubarButton inActive={menuBox} handleMenu={handleMenu}/>
         </div>
 
         <div className={`${styles.longvideoTab}`} onClick={handleAmenities}>
@@ -312,9 +330,15 @@ const Layout = ({children}) =>
       
       }
 
-      <MenuBox isActive={menuBox} handleOverlay={handleOverlay} translations={translations} toggleLanguage={toggleLanguage} overlay={overlay} fullScreen={fullScreen} toggleFullScreen={toggleFullScreen}/>
-      
-
+          <MenuBox 
+          ref={menuBoxRef} 
+          isActive={menuBox} 
+          handleOverlay={handleOverlay} 
+          translations={translations} 
+          toggleLanguage={toggleLanguage} 
+          overlay={overlay} 
+          fullScreen={fullScreen} 
+          toggleFullScreen={toggleFullScreen}/>
       
             <div className={styles.container}>
               <div

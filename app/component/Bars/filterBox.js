@@ -1,40 +1,19 @@
+import { useSelector, useDispatch } from 'react-redux';
+import { toggleAmenity, resetAmenities } from '@/state/Amenity/amenityState';
 import styles from "@/styles/filterBox.module.css";
-import { forwardRef, useEffect, useState } from "react";
+import { forwardRef, useEffect } from "react";
 
-const FilterBox = forwardRef(({ isVisible, onFilterChange }, ref) => {
-  const [activeTab, setActiveTab] = useState("Amenities");
-  const [selectedAmenities, setSelectedAmenities] = useState([]);
-
-  const tabs = ["Amenities", "Booked", "Sold"];
-  const amenities = [
-    "Studio",
-    "1 Bed Apartments",
-    "2 Bed Apartments",
-    "3 Bed Apartments",
-    "Pent Houses",
-  ];
-
-  const handleTabClick = (tab) => {
-    setActiveTab(tab);
-  };
+const FilterBox = forwardRef(({ isVisible }, ref) => {
+  const dispatch = useDispatch();
+  const { amenities, selectedAmenities } = useSelector((state) => state.amenities);
 
   const handleAmenityClick = (amenity) => {
-    setSelectedAmenities((prev) => {
-      if (prev.includes(amenity)) {
-        return prev.filter((a) => a !== amenity);
-      } else {
-        return [...prev, amenity];
-      }
-    });
+    dispatch(toggleAmenity(amenity));
   };
 
   const handleResetFilter = () => {
-    setSelectedAmenities([]);
+    dispatch(resetAmenities());
   };
-
-  useEffect(() => {
-    onFilterChange(selectedAmenities);
-  }, [selectedAmenities, onFilterChange]);
 
   return (
     <div
