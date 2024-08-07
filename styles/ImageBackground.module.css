@@ -499,7 +499,7 @@
 }
 
 .menuArrowButton {
-  background-color: rgba(252, 247, 235, 0.5);
+  /* background-color: rgba(252, 247, 235, 0.5); */
   color: #3a3a3a;
   /* rgba(0, 109, 119, 0.5);  */
   width: 2.3rem;
@@ -520,9 +520,9 @@
 .menuArrowButton:hover {
   /* background-color: #00555e;
   color: #FCF7EB; */
-  background-color: rgba(252, 247, 235, 1);
-  transform: translateY(-2px);
-  box-shadow: 0 6px 8px rgba(0, 109, 119, 0.2);
+  /* background-color: rgba(252, 247, 235, 1); */
+  /* transform: translateY(px); */
+  /* box-shadow: 0 6px 8px rgba(0, 109, 119, 0.2); */
 }
 
 .closeButton {

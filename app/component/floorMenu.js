@@ -3,9 +3,10 @@ import { useRouter, usePathname } from 'next/navigation';
 import Image from 'next/image';
 import styles from '@/styles/Floor/floorMenu.module.css';
 import { useMediaQuery } from 'react-responsive';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'next/navigation';
 import ElevStyles from "@/styles/elevation.module.css";
+import { toggleElevation } from "@/state/floor/FloorMenu";
 
 // import totalFloor from './data/TotalFloorData';
 // Import translations
@@ -28,6 +29,11 @@ const FloorMenu = () => {
     return languageState ? languageState.language : 'en';
   });
 
+  const { isElevationClicked } = useSelector((state) => state.elevation);
+  const { isFloorClicked } = useSelector((state) => state.floorMenu); // Corrected selector
+
+  
+  
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth <= 768);
     const checkLaptop = () => setIsLaptop(window.innerWidth > 768);
@@ -53,6 +59,7 @@ const FloorMenu = () => {
 
 
   const params = useParams();
+  const dispatch = useDispatch();
 
   const translations = useMemo(() => languageState === 'ur' ? ur : en, [languageState]);
 
@@ -119,6 +126,12 @@ const FloorMenu = () => {
     setIsElevationOpen(prevState => !prevState);
   }, []);
 
+
+  const handleElevationClicked = () => {
+    
+    dispatch(toggleElevation());
+  };
+
   const handleFloorSelect = useCallback((floor) => {
     setSelectedFloor(floor.id);
     setIsOpen(false);
@@ -153,8 +166,8 @@ const FloorMenu = () => {
     const floorLabel = currentFloor ? currentFloor.label : `Floor ${floor}`;
     setCurrentFloor(floorLabel)
     setElevationArray([
-      { id: '1', label: 'Map View', route: '/mapview' },
-      { id: '2', label: 'Elevation', route: '/' },
+      { id: '1', label: translations["mapview"], route: '/mapview' },
+      { id: '2', label: translations["elevation"], route: '/' },
       { id: '3', label: floorLabel, route: `/${floor}` },
     ]);
   }, [params, translations]);
@@ -167,10 +180,7 @@ const FloorMenu = () => {
   };
 
 
-  const { isElevationClicked } = useSelector((state) => state.elevation);
-  const { isFloorClicked } = useSelector((state) => state.floorMenu); // Corrected selector
-
-  
+ 
   return (
     <>
     
@@ -182,7 +192,7 @@ const FloorMenu = () => {
           !isMediumScreen?
           <>
         <div className={styles.container}>
-          <div className={styles.floorLabel}>Floor</div>
+          <div className={styles.floorLabel}>{translations["Floor"]}</div>
           <div className={`${styles.floorBar} ${styles.open}`}>
             {renderFloorButtons()}
           </div>
@@ -193,7 +203,7 @@ const FloorMenu = () => {
           <>
 
      {isFloorClicked && <div className={styles.container}>
-          <div className={styles.floorLabel}>Floor</div>
+          <div className={styles.floorLabel}>{translations["Floor"]}</div>
           <div className={`${styles.floorBar} ${styles.open}`}>
             {renderFloorButtons()}
           </div>
@@ -206,6 +216,7 @@ const FloorMenu = () => {
               <ElevationBox
                 isVisible={isElevationClicked}
                 // onElevationChange={handleElevationClicked}
+                onClose ={handleElevationClicked}
                 elevationArray={elevationArray}
               />              
               )
@@ -258,7 +269,8 @@ const FloorMenu = () => {
                   { !isElevationOpen?
                  currentFloorLabel
                   : 
-                    "Location"
+                    // "Location"
+                    translations["location"]
                   }
                 </div>
                 <div className={ElevStyles.elevationBtnDownArrow}>

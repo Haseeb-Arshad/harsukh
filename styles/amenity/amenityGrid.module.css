@@ -20,29 +20,7 @@
   font-family: "Gill Sans Medium Italic";
   user-select: none;
   z-index: 100000;
-  /* font-family: 'Gill Sans Light';     
-  max-height: 500px;     
-  overflow-y: auto;     
-  display: flex;     
-  flex-direction: column;     
-  gap: 8px;     
-  padding: 8px;     
-  background-color: #FCF7EB;     
-  border-radius: 0.3rem;    
-   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);  */
 }
-
-/* 
-     font-family: 'Gill Sans Light';     
-     max-height: 500px;     
-     overflow-y: auto;     
-     display: flex;     
-     flex-direction: column;     
-     gap: 8px;     
-     padding: 8px;     
-     background-color: #FCF7EB;     
-     border-radius: 0.3rem;    
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);   */
 
 
   @keyframes fadeIn 
@@ -112,7 +90,7 @@
     position: relative;
     width: 100%;
     height: 0;
-    padding-bottom: 56.25%; /* This creates a 16:9 aspect ratio */
+    padding-bottom: 56.25%; 
     overflow: hidden;
   }
   
@@ -139,18 +117,6 @@
     transition: opacity 0.4s ease, transform 0.4s ease;
   }
 
-/* .imageBoxOverlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.8);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-} */
 
 .imageBoxOverlay {
   position: fixed;
@@ -189,15 +155,6 @@
   transform: translateY(0);
 }
 
-
-/* .imageBox {
-  position: relative;
-  width: 80%;
-  height: 80%;
-  max-width: 1200px;
-  max-height: 800px;
-} */
-
 .closeButton {
   position: absolute;
   top: 45px;
@@ -232,46 +189,6 @@
   align-items: center;
   height: 100%;
 }
-/* 
-.singleImageWrapper {
-  position: relative;
-  width: 100%;
-  height: 100%;
-}
-
-.navButton {
-  border: none;
-  color: #FCF7EB;
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-}
-
-.navButton:hover {
-  background-color: rgba(0, 0, 0, 0.7);
-}
-
-.navButton:first-child {
-  left: -60px;
-}
-
-.navButton:last-child {
-  right: -60px;
-}
-
-.hidden {
-  visibility: hidden;
-} */
-
-
 
 
 .singleImageWrapper {
@@ -378,7 +295,6 @@
   visibility: hidden;
 }
 
-
 .navigationDots {
   position: absolute;
   bottom: 20px;
@@ -453,6 +369,7 @@
     max-width: 350px;
     height: fit-content;
     max-height: 80vh;
+    gap: 2px;
     margin: auto;
     background-color: #FCF7EB;
     border-radius: 0.3rem;
@@ -460,8 +377,28 @@
     overflow-y: auto;
   }
 
+/* 
+  .gridContainer {
+    position: fixed;
+    top: 113px;
+    right: 11rem;
+    width: 250px;
+    font-family: 'Gill Sans Light';
+    max-height: 500px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 8px;
+    background-color: #FCF7EB;
+    border-radius: 0.3rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+   */
+
+
   .gridItem {
-    margin-bottom: 12px;
+    margin-bottom: 7px;
   }
 
 

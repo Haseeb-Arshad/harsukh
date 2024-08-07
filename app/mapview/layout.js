@@ -115,8 +115,8 @@ const Layout = ({children}) =>
   const [isElevationOpen, setIsElevationOpen] = useState(false);
   const [elevationArray, setElevationArray] = 
   useState([
-    {id:'2', label: 'Map View', route:'/mapview'},
-    {id:'1', label: 'Elevation', route:'/'},
+    {id:'2', label: translations['mapview'] , route:'/mapview'},
+    {id:'1', label: translations['elevation'] , route:'/'},
 
   ]);
 
@@ -192,19 +192,17 @@ const Layout = ({children}) =>
 
   return (     
     <div style={{ position: 'relative', background: 'rgba(0, 29, 32, 1)' , height: '100vh', width: '100%'}}>
-      {/* <Suspense fallback={
+      <Suspense fallback={
         <div className={styles.loadingOverlay}>
           <Loading />
         </div>
-      }> */}
-      {/* <div style={{ position: 'absolute', blur:'300px', background: 'white' , opacity:'0.4', borderRadius: '50%', height: '30vh', width: '30vw'}}>
+      }>
 
-      </div> */}
       
         <div className={`${styles.transitionContainer} ${isTransitioning ? styles.fadeOut : styles.fadeIn}`}>
           {children}
         </div>
-      {/* </Suspense>      */}
+      </Suspense>     
 
       {/* <FloorMenu /> */}
 
@@ -218,7 +216,8 @@ const Layout = ({children}) =>
 
       <div className={styles.bottomLogoContainer}>
         <div className={styles.bottomLogoContainerTitle}>
-          A Project by
+          {/* A Project by */}
+          {translations['projectBy'] }
         </div>
         <div style={{left: '2.5rem', bottom:'8rem', position: 'relative', zIndex: 1}}onClick={() => window.open("https://almaymaar.com/", '_blank')}>
         <Image style={{cursor:'pointer'}} src="/Webpage/floors/MainLogo.png"  quality={100} alt="Almaymar" height={28} width={210} />
@@ -231,20 +230,24 @@ const Layout = ({children}) =>
         
             <div className={`${styles.videosubTab}  ${svgVisibility.landmarks ? styles.active : ''} `}  onClick={() =>{ console.log("LandMarks"); toggleSVGVisibility('landmarks')}}>
                 
-                <div className={styles.videosubTabTitle} >
-                    Landmarks
-                </div>
+                
                 <div className={styles.videosubTabIcon}>
                     <Image src="/images/icons/landmarkIcon.svg" quality={100} alt="Menu" height={16} width={16} />
+                </div>
+                <div className={styles.videosubTabTitle} >
+                    {/* Landmarks */}
+                    {translations['landmarks'] }
                 </div>
             </div>
             <div className={`${styles.videosubTab}  ${svgVisibility.roads? styles.active : ''} `}  onClick={() =>{ console.log("LandMarks"); toggleSVGVisibility('roads')}}>
                 
-                <div className={styles.videosubTabTitle}>
-                     Roads
-                </div>
+                
                 <div className={styles.videosubTabIcon}  >
                     <Image src="/images/icons/roadIcon.svg" color='#006d77' quality={100} alt="Menu" height={16} width={16} />
+                </div>
+                <div className={styles.videosubTabTitle}>
+                     {/* Roads */}
+                     {translations['roads'] }
                 </div>
             </div>
             {/* <div className={styles.videosubTab}>
@@ -257,12 +260,14 @@ const Layout = ({children}) =>
                 </div>
             </div> */}
             <div className={`${styles.videosubTab}  ${svgVisibility.radius? styles.active : ''} `} onClick={() =>{ console.log("LandMarks"); toggleSVGVisibility('radius')}}>
-                <div className={styles.videosubTabTitle}>
-                    Radius
-                </div>
                 <div className={styles.videosubTabIcon}>
                     <Image src="/images/icons/radiusIcon.svg" quality={100} alt="Menu" height={20} width={20} />
                 </div>
+                <div className={styles.videosubTabTitle}>
+                    {/* Radius */}
+                    {translations['radius'] }
+                </div>
+                
             </div>
 
         </div>
@@ -286,22 +291,22 @@ const Layout = ({children}) =>
         <div className={`${styles.longvideoTab}`} onClick={handleAmenities}>
         
             <div className={`${styles.videosubTab}  ${svgVisibility.landmarks ? styles.active : ''} `}  onClick={() =>{ console.log("LandMarks"); toggleSVGVisibility('landmarks')}}>
-                
-                <div className={styles.videosubTabTitle} >
-                    Landmarks
-                </div>
                 <div className={styles.videosubTabIcon}>
                     <Image src="/images/icons/landmarkIcon.svg" quality={100} alt="Menu" height={16} width={16} />
                 </div>
+                <div className={styles.videosubTabTitle} >
+                {translations['landmarks'] }
+                </div>
+                
             </div>
             <div className={`${styles.videosubTab}  ${svgVisibility.roads? styles.active : ''} `}  onClick={() =>{ console.log("LandMarks"); toggleSVGVisibility('roads')}}>
-                
-                <div className={styles.videosubTabTitle}>
-                     Roads
-                </div>
                 <div className={styles.videosubTabIcon}  >
                     <Image src="/images/icons/roadIcon.svg" color='#006d77' quality={100} alt="Menu" height={16} width={16} />
                 </div>
+                <div className={styles.videosubTabTitle}>
+                {translations['roads'] }
+                </div>
+                
             </div>
             {/* <div className={styles.videosubTab}>
                 
@@ -313,11 +318,12 @@ const Layout = ({children}) =>
                 </div>
             </div> */}
             <div className={`${styles.videosubTab}  ${svgVisibility.radius? styles.active : ''} `} onClick={() =>{ console.log("LandMarks"); toggleSVGVisibility('radius')}}>
-                <div className={styles.videosubTabTitle}>
-                    Radius
-                </div>
+                
                 <div className={styles.videosubTabIcon}>
                     <Image src="/images/icons/radiusIcon.svg" quality={100} alt="Menu" height={20} width={20} />
+                </div>
+                <div className={styles.videosubTabTitle}>
+                  {translations['radius'] }
                 </div>
             </div>
 
@@ -355,7 +361,7 @@ const Layout = ({children}) =>
                   height={17} 
                   width={17} 
                 />
-                <span className={styles.buttonText}>Get Directions</span>
+                <span className={styles.buttonText}>{translations['direction'] }</span>
               </div>
 
               <div
@@ -365,7 +371,7 @@ const Layout = ({children}) =>
                 onClick={handleCall}
               >
                 <Image src="/images/icons/callIcon.svg" quality={100} alt="Maps View Icon" height={19} width={19} />
-                <span className={styles.buttonText}>Register Request</span>
+                <span className={styles.buttonText}>{translations['reqRegister'] }</span>
               </div>
             </div>
 
@@ -391,9 +397,9 @@ const Layout = ({children}) =>
               >
                 <div className={ElevStyles.elevationMapBtnTitle}>
                   { !isElevationOpen?
-                      translations.mapview || 'Map View'
+                      translations['mapview'] || 'Map View'
                     : 
-                    "Location"
+                     translations['location'] || "Location"
                   }
                 </div>
                 <div className={ElevStyles.elevationBtnDownArrow}>

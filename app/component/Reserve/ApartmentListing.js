@@ -1,11 +1,26 @@
 import styles from "@/styles/reserve/apartmentListing.module.css";
 import Image from "next/image";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useMemo } from "react";
 // import { removeFavoriteApartment } from '@/state/favoriteApartments/favoriteApartmentsSlice';
 import { removeFavoriteApartment } from "@/state/apartment/favApartment";
 
+import en from '@/app/locales/en.json';
+import ur from '@/app/locales/ur.json';
+
+
 const ApartmentCard = ({ apartment }) => {
   const dispatch = useDispatch();
+
+
+  const languageState = useSelector((state) => {
+    const languageState = state.language.lang.find((site) => site.id === '1');
+    return languageState ? languageState.language : 'en';
+  });
+
+  const translations = useMemo(() => languageState === 'ur' ? ur : en, [languageState]);
+
+
   console.log("apartment", apartment);
   const handleDelete = () => {
     dispatch(removeFavoriteApartment(apartment.Apartmentno));
@@ -14,7 +29,7 @@ const ApartmentCard = ({ apartment }) => {
   return (
     <div className={styles.card}>
       <div className={styles.cardHeader}>
-        <h3>Apartment no. {apartment.Apartmentno}</h3>
+        <h3>{translations["apartmentNo"]} {apartment.Apartmentno}</h3>
         <div className={styles.deleteButton} onClick={handleDelete}>
           <Image
             src="/images/icons/binIcon.svg"
@@ -27,24 +42,35 @@ const ApartmentCard = ({ apartment }) => {
       </div>
       <div className={styles.cardBody}>
         <div className={styles.row}>
-          <span>Floor</span>
-          <span>{apartment.floor}</span>
+          <span>{translations["Floor"]}</span>
+          <span>
+          {/* {translations[apartment.Floor]} */}
+            {apartment.Floor}
+          </span>
         </div>
         <div className={styles.row}>
-          <span>Type</span>
-          <span>{apartment.Type}</span>
+          <span>{translations["Type"]}</span>
+          <span>
+            {translations[apartment.Type]}
+          </span>
         </div>
         <div className={styles.row}>
-          <span>Bedrooms</span>
-          <span>{apartment.Bedrooms}</span>
+          <span>{translations["Bedrooms"]}</span>
+          <span>
+            {apartment.Bedrooms}
+            {/* {translations[apartment.Bedrooms]} */}
+          </span>
         </div>
         <div className={styles.row}>
-          <span>Area</span>
-          <span>{apartment.Area} sq.ft</span>
+          <span>{translations["Area"]}</span>
+          <span>
+          {apartment.Area}
+
+          </span>
         </div>
         {apartment.price && (
           <div className={styles.row}>
-            <span className={styles.price}>Price</span>
+            <span className={styles.price}>{translations["areaMeasure"]}</span>
             <span className={styles.price}>
               Rs. {apartment.price.toLocaleString()}
             </span>
@@ -56,11 +82,23 @@ const ApartmentCard = ({ apartment }) => {
 };
 
 const ApartmentListing = ({ apartments, onInterested }) => {
-  console.log("apartments", apartments);
+
+  const dispatch = useDispatch();
+
+
+  const languageState = useSelector((state) => {
+    const languageState = state.language.lang.find((site) => site.id === '1');
+    return languageState ? languageState.language : 'en';
+  });
+
+  const translations = useMemo(() => languageState === 'ur' ? ur : en, [languageState]);
+
+
+
   if (!apartments || apartments.length === 0) {
     return (
       <div className={styles.container}>
-        <h2 className={styles.header}>No favorite apartments selected yet.</h2>
+        <h2 className={styles.header}>{translations["noFavPopup"]}</h2>
       </div>
     );
   }
@@ -68,7 +106,7 @@ const ApartmentListing = ({ apartments, onInterested }) => {
   return (
     <div className={styles.container}>
       <h2 className={styles.header}>
-        Register your Interest before the unit sells out.
+        {translations["reserveHeader"]}
       </h2>
       <div className={styles.cardContainer}>
         {apartments.map((apartment) => (
@@ -76,7 +114,7 @@ const ApartmentListing = ({ apartments, onInterested }) => {
         ))}
       </div>
       <button onClick={onInterested} className={styles.interestedButton}>
-        Interested
+        {translations["Interested"]}
       </button>
     </div>
   );

@@ -13,33 +13,6 @@
   /* other styles... */
 }
 
-/* .apartmentButton {
-  background-color: rgba(255, 255, 255, 0.8);
-  border: 1px solid #000;
-  border-radius: 0.3rem;
-  width: 100rem;
-  height: 10rem;
-  font-size: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  z-index: 1000;
-} */
-
-/* .apartmentButton {
-  position: absolute;
-  transform: translate(-50%, -50%);
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 50%;
-  width: 30px;
-  height: 30px;
-  font-size: 12px;
-  cursor: pointer;
-  z-index: 1000;
-} */
 
 .interactivePolygon {
   fill: rgba(0, 0, 0, 0.1);
@@ -307,6 +280,11 @@
   background-color: #fcf7eb;
   color: #3a3a3a;
   height: 40px;
+}
+
+.popupTopBtnsGallery:hover {
+  /* background-color: rgb(252, 247, 235, 0.4); */
+
 }
 
 @keyframes fadeIn {
@@ -952,7 +930,7 @@ transition: all 0.3s ease;
     bottom: 100px;
     right: 38vw;
     user-select: none;
-    background-color: #fcf7eb;
+    background-color: #FCF7EB;
     border-radius: 30px;
     align-items: center;
     justify-content: center;
@@ -1002,7 +980,7 @@ transition: all 0.3s ease;
     cursor: pointer;
     transition: all 0.2s ease;
     overflow: hidden;
-    color: #fcf7eb;
+    color: #FCF7EB;
     z-index: 1000;
   }
 
@@ -1077,7 +1055,7 @@ transition: all 0.3s ease;
 
 .bedroomButton {
   background-color: #007bff;
-  color: white;
+  color: #FCF7EB;
   border: none;
   border-radius: 50%;
   width: 30px;

@@ -16,7 +16,6 @@ const ElevationBox = forwardRef(({ isVisible, elevationArray, onClose }, ref) =>
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (boxRef.current && !boxRef.current.contains(event.target)) {
-        console.log()
         onClose();
       }
     };

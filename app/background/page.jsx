@@ -169,12 +169,15 @@ export default function BackgroundImage() {
 
   const handleFilter = useCallback((event) => {
     // event.stopPropagation();
-    console.log("CLICKED");
     setFilterBox((prevState) => !prevState);
     setIsFilterBoxVisible((prev) => !prev);
     setTooltipContent(null); // Reset tooltip content when filter is toggled
   }, []);
 
+
+  const closeFilterBox= () => {
+    setIsFilterBoxVisible(false)
+  };
 
   const handleFavClickOutside = useCallback((event) => {
     if (
@@ -196,7 +199,6 @@ export default function BackgroundImage() {
 
   const handleFavorties = () => {
     setReservedClicked((prev) => !prev);
-    console.log("Favorites clicked");
   };
 
   const handleGetDirections = () => {
@@ -295,7 +297,6 @@ export default function BackgroundImage() {
     if (floorName == "valley-floor-2") return;
     else if (floorName) {
       const slug = floorName.replace(/\s+/g, "-");
-      console.log("Floor Name", slug);
       router.push(`/${slug}`);
     }
   };
@@ -305,10 +306,8 @@ export default function BackgroundImage() {
   };
 
   useEffect(() => {
-    console.log(selectedAmenities.length);
 
     if (selectedAmenities.length == 0) {
-      console.log("000")
       setFilterSelection(false);
     } else setFilterSelection(true);
   }, [filterbox, selectedAmenities.length, filterFloorMenu]);
@@ -316,12 +315,9 @@ export default function BackgroundImage() {
 
   const handleCall = () => {
     setIsContacted(!isContacted);
-    console.log("CALLED");
   };
 
-  useEffect(() => {
-    console.log("SCREENL:", ismediumScreen);
-  }, [ismediumScreen, ismediumbigScreen, isSmallScreen, verysmallScreen]);
+  const [svgHover, setSvgHover] = useState(false);
 
   useEffect(() => {
     const svg = svgRef.current;
@@ -337,7 +333,7 @@ export default function BackgroundImage() {
         });
       };
     }
-  }, [overlay, filterbox]);
+  }, [overlay, filterbox, svgHover]);
 
   const menuContainerRef = useRef(null);
   const menuBoxRef = useRef(null);
@@ -362,11 +358,6 @@ export default function BackgroundImage() {
 
   const handleMenu = () => {
     setMenuBox((prev) => !prev);
-    console.log("menu clicked");
-  };
-
-  const handleBackgroundMode = () => {
-    console.log("Background Mode clicked");
   };
 
   const amenityButtonRef = useRef(null);
@@ -394,7 +385,6 @@ export default function BackgroundImage() {
     };
   }, [handleAmenitiesClickOutside]);
 
-  setFilterFloorMenu
 
   useEffect(() => {
     if(!filterbox)
@@ -411,7 +401,10 @@ export default function BackgroundImage() {
 
   const handleAmenities = () => {
     setAmenityClicked((prev) => !prev);
-    console.log("Amenities clicked");
+  };
+
+  const handleAmenitiesCheck = () => {
+    setAmenityClicked(false);
   };
 
   const [loading, setLoading] = useState(false); // Add loading state
@@ -420,8 +413,6 @@ export default function BackgroundImage() {
     setLoading(true); 
     setBackView(!backView);
     setOverlay(!overlay);
-
-    console.log("BackView clicked : ", backView);
   };
 
   const toggleFullScreen = () => {
@@ -446,8 +437,6 @@ export default function BackgroundImage() {
 
   const elevationDropdown = () => {
     setIsElevationOpen(!isElevationOpen);
-    console.log("Elevation Opened");
-    console.log(isElevationOpen);
   };
 
   const handleElevationItemClick = (route) => {
@@ -569,7 +558,6 @@ export default function BackgroundImage() {
 
 
   useEffect(() => {
-    console.log( "CHANGE: ", ((filterbox && selectedAmenities.length != 0) || (filterFloorMenu && selectedAmenities.length != 0)))
   }
   , [filterbox, selectedAmenities.length, filterFloorMenu ])
 
@@ -611,8 +599,8 @@ export default function BackgroundImage() {
   const [isElevationOpen, setIsElevationOpen] = useState(false);
   const [isElevationClicked, setElevationClicked] = useState(false);
   const [elevationArray, setElevationArray] = useState([
-    { id: "2", label: "Map View", route: "/mapview" },
-    { id: "1", label: "Elevation", route: "/" },
+    { id: "2", label: translations["mapview"], route: "/mapview" },
+    { id: "1", label: translations["elevation"], route: "/" },
   ]);
 
   useEffect(() => {}, [backView]);
@@ -621,7 +609,6 @@ export default function BackgroundImage() {
     setLanguage(!language);
   };
   const handleElevationClicked = () => {
-    console.log("Elevation Clicked")
     setElevationClicked(!isElevationClicked);
   };
 
@@ -631,8 +618,6 @@ export default function BackgroundImage() {
     {
       setFilterBox(true);
     }
-
-
   }, [selectedAmenities.length]);
 
   useEffect(() => {
@@ -641,7 +626,6 @@ export default function BackgroundImage() {
   }, [language, dispatch]);
 
   useEffect(() => {
-    console.log("KJ");
   }, [isFilterBarVisible]);
 
   useEffect(() => {
@@ -690,6 +674,9 @@ export default function BackgroundImage() {
                 x="0px"
                 y="0px"
                 xmlSpace="preserve"
+                onMouseEnter={() =>setSvgHover(true)}
+                onMouseLeave={() =>setSvgHover(false)}
+
               >
                 <polygon
                   data-image="Third Floor"
@@ -1780,11 +1767,11 @@ export default function BackgroundImage() {
                     {tooltipContent.floorName}
                   </div>
                   {tooltipContent.floorName === "Valley Floor 2" ? (
-                    <span className={styles.tooltipUnits}>Parking Lot</span>
+                    <span className={styles.tooltipUnits}>{translations["parkinglot"]}</span>
                   ) : (filterbox && selectedAmenities.length != 0) || (filterFloorMenu && selectedAmenities.length != 0) ? (
                     <>
                       <div className={styles.tooltipFloor}>
-                        Apartment: <span className={styles.tooltipUnits}> {tooltipContent.apartmentNum} </span> 
+                        {translations["apartment"]}: <span className={styles.tooltipUnits}> {tooltipContent.apartmentNum} </span> 
                       </div>
                       <div className={styles.tooltipFloor}>
                         {tooltipContent.bedroomCount}{" "}
@@ -1837,7 +1824,7 @@ export default function BackgroundImage() {
                   width={20}
                 />
               </div>
-              <div className={styles.backViewButtonTitle}>Rotate View</div>
+              <div className={styles.backViewButtonTitle}>{translations["rotate"]}</div>
             </div>
 
             <div className={styles.filterElevationContainer}>
@@ -1917,7 +1904,7 @@ export default function BackgroundImage() {
                       width={17}
                     />
                   </div>
-                  <div className={styles.filtersButtonTitle}>Filter</div>
+                  <div className={styles.filtersButtonTitle}>{translations["filter"]}</div>
                 </div>
               </div>
             </div>
@@ -1926,12 +1913,10 @@ export default function BackgroundImage() {
 
             <div className={styles.bottomLogoContainer}>
               <div className={styles.bottomLogoContainerTitle}>
-                A Project by
+                  {translations["projectby"]}
               </div>
               <div
                 style={{
-                  // left: "2.5rem",
-                  // bottom: "8rem",
                   position: "relative",
                   zIndex: 1,
                 }}
@@ -1965,7 +1950,7 @@ export default function BackgroundImage() {
                   height={17}
                   width={17}
                 />
-                <span className={styles.buttonText}>Get Directions</span>
+                <span className={styles.buttonText}>{translations["direction"]}</span>
               </div>
 
               <div
@@ -1983,14 +1968,16 @@ export default function BackgroundImage() {
                   height={19}
                   width={19}
                 />
-                <span className={styles.buttonText}>Register Request</span>
+                <span className={styles.buttonText}>{translations["reqRegister"]}</span>
               </div>
             </div>
 
             <div className={styles.menuContainer}>
               <div ref={amenityButtonRef}>
                 <AmenityBtn
+                  translations={translations}
                   ref={amenityButtonRef}
+                  
                   handleMenu={handleAmenities}
                   inActive={amenityClicked}
                 />
@@ -2022,13 +2009,13 @@ export default function BackgroundImage() {
             />
 
             {amenityClicked && (
-              <div ref={amenityGridRef}>
-                <AmenityGrid amenityRef= {amenityGridRef} />
+              <div >
+                <AmenityGrid onClose={handleAmenitiesCheck} isMobile={isMobile} amenityRef= {amenityGridRef} />
               </div>
             )}
 
             {isFilterBoxVisible && (
-              <FilterBox ref={filterBoxRef} isVisible={isFilterBoxVisible} />
+              <FilterBox  isMobile= {isMobile} onClose ={closeFilterBox}  ref={filterBoxRef} isVisible={isFilterBoxVisible} />
                          
             )}
           </>
@@ -2055,13 +2042,8 @@ export default function BackgroundImage() {
 
 
           <div className={styles.bottomLogoContainer}>
-            <div className={styles.bottomLogoContainerTitle}>A Project by</div>
+            <div className={styles.bottomLogoContainerTitle}>{translations["projectBy"]}</div>
             <div
-              // style={{
-              //   left: "-0.7rem",
-              //   bottom: "-0.5rem",
-              //   position: "relative",
-              // }}
               onClick={() => router.push("https://almaymaar.com/")}
             >
               <Image
@@ -2077,7 +2059,7 @@ export default function BackgroundImage() {
           
           {amenityClicked && (
               <div ref={amenityGridRef}>
-                <AmenityGrid />
+                <AmenityGrid isMobile={isMobile} onClose={handleAmenitiesCheck} />
               </div>
             )}
 
@@ -2106,14 +2088,14 @@ export default function BackgroundImage() {
           />
 
           {isFilterBoxVisible && (
-              <FilterBox ref={filterBoxRef}  isVisible={isFilterBoxVisible} />
+              <FilterBox  onClose ={closeFilterBox} isMobile= {isMobile} translations= {translations} ref={filterBoxRef}  isVisible={isFilterBoxVisible} />
             )}
 
             { isElevationClicked &&
               (
               <ElevationBox
                 isVisible={isElevationClicked}
-                // onElevationChange={handleElevationClicked}
+                onClose={handleElevationClicked}
                 elevationArray={elevationArray}
               />              
               )
@@ -2131,7 +2113,7 @@ export default function BackgroundImage() {
                 width={20}
               />
             </div>
-            <div className={styles.backViewButtonTitle}>Rotate View</div>
+            <div className={styles.backViewButtonTitle}>{translations["rotate"]}</div>
           </div>
 
         
@@ -2152,7 +2134,7 @@ export default function BackgroundImage() {
                 height={17}
                 width={17}
               />
-              <span className={styles.buttonText}>Get Directions</span>
+              <span className={styles.buttonText}>{translations["direction"]}</span>
             </div>
 
             <div
@@ -2170,7 +2152,7 @@ export default function BackgroundImage() {
                 height={19}
                 width={19}
               />
-              <span className={styles.buttonText}>Register Request</span>
+              <span className={styles.buttonText}>{translations["reqRegister"]}</span>
             </div>
           </div>
         </>

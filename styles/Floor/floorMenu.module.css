@@ -284,6 +284,13 @@
   height: 300%;
 } */
 
+.floorButton:hover {
+  background-color: rgba(0, 109, 119, 0.1);
+
+}
+
+
+
 .floorButton.active {
   background-color: #006d77;
   color: #FCF7EB;

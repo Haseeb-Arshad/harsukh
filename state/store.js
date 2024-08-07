@@ -8,6 +8,7 @@ import favoriteApartmentsReducer from './apartment/favApartment';
 import elevationReducer from './Elevation/ElevationState';
 import floorMenuReducer from './floor/FloorMenu'; // Corrected import name
 import amenitiesReducer from './Amenity/amenityState';
+import GalleryReducer from './gallery/GalleryState';
 
 const persistConfig = {
   key: 'root',
@@ -25,6 +26,7 @@ export const store = configureStore({
     elevation: elevationReducer,
     floorMenu: floorMenuReducer, 
     amenities: amenitiesReducer,
+    gallery: GalleryReducer
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

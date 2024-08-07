@@ -27,7 +27,7 @@ const MenuIcon = () => (
 
 );
 
-const AmenityBtn = ({ ref,  handleMenu, inActive }) => (
+const AmenityBtn = ({ ref,  translations, handleMenu, inActive }) => (
 
 
   
@@ -40,7 +40,7 @@ const AmenityBtn = ({ ref,  handleMenu, inActive }) => (
     {/* <Image src="/images/icons/amenitiesIcon.svg" quality={100} alt="Menu" height={22} width={22} /> */}
     </div>
     <div className={styles.amenitiesButtonTitle}>
-    Amenities
+    {translations.amenities}
     </div>
   </div>
 );

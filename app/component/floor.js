@@ -8,7 +8,7 @@ import styles from "@/styles/Floor/floorApartment.module.css";
 import Image from "next/image";
 import { useParams, useRouter } from "next/navigation";
 import OpenSeadragon from "openseadragon";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Loading from "../[floor]/Loading";
 import LeftArrow from "./Icons/leftArrow";
@@ -16,6 +16,12 @@ import RightArrow from "./Icons/rightArrow";
 
 import StarAnimate from "@/public/json/StarAnimate.json"
 import Lottie from "react-lottie";
+
+import { setGalleryPressed } from "@/state/gallery/GalleryState";
+import Gallery from "@/app/component/Gallery/Gallery";
+
+import en from '@/app/locales/en.json';
+import ur from '@/app/locales/ur.json';
 
 const Floor = ({ imageName, imageLink }) => {
   const viewerRef = useRef(null);
@@ -39,6 +45,13 @@ const Floor = ({ imageName, imageLink }) => {
   const router = useRouter();
   const dispatch = useDispatch();
 
+
+  const languageState = useSelector((state) => {
+    const languageState = state.language.lang.find((site) => site.id === '1');
+    return languageState ? languageState.language : 'en';
+  });
+
+  const translations = useMemo(() => languageState === 'ur' ? ur : en, [languageState]);
 
 
   const defaultOptions = {
@@ -73,6 +86,10 @@ const Floor = ({ imageName, imageLink }) => {
   const favoriteApartments = useSelector(
     (state) => state.favoriteApartments.favoriteApartments
   );
+
+
+  const isGalleryPressed = useSelector(state => state.gallery.isGalleryPressed);
+
 
   useEffect(() => {
     let foundApartment = null;
@@ -112,7 +129,7 @@ const Floor = ({ imageName, imageLink }) => {
 
       if (isFavorite) {
         dispatch(removeFavoriteApartment(apartmentId));
-        setPopupMessage("Apartment has been removed from favorites.");
+        setPopupMessage(translations["favDelPopup"]);
       } else {
         const apartmentToAdd = {
           Apartmentno: apartmentId,
@@ -122,7 +139,7 @@ const Floor = ({ imageName, imageLink }) => {
           Area: activePolygon.Area,
         };
         dispatch(addFavoriteApartment(apartmentToAdd));
-        setPopupMessage("Apartment has been added to favorites.");
+        setPopupMessage(translations["favAddPopup"]);
       }
 
       setShowPopup(true);
@@ -250,7 +267,6 @@ const Floor = ({ imageName, imageLink }) => {
                 const apartmentInfo = apartmentData["3rd Floor"].find(
                   (apt) => apt.Apartmentno.toString() === dataImage
                 );
-                console.log(apartmentInfo);
                 if (apartmentInfo) {
                   setActivePolygon({
                     floor: "Third Floor",
@@ -337,14 +353,12 @@ const Floor = ({ imageName, imageLink }) => {
             polygon.addEventListener("click", (e) => {
               e.preventDefault();
               e.stopPropagation();
-              console.log("CONSOLE");
               const dataImage = e.target.getAttribute("data-image");
               if (dataImage) {
                 // Find the corresponding apartment data
                 const apartmentInfo = apartmentData["2nd Floor"].find(
                   (apt) => apt.Apartmentno.toString() === dataImage
                 );
-                console.log(apartmentInfo);
                 if (apartmentInfo) {
                   setActivePolygon({
                     floor: "Second Floor",
@@ -432,7 +446,6 @@ const Floor = ({ imageName, imageLink }) => {
                   const apartmentInfo = apartmentData["1st Floor"].find(
                     (apt) => apt.Apartmentno.toString() === dataImage
                   );
-                  console.log(apartmentInfo);
                   if (apartmentInfo) {
                     setActivePolygon({
                       floor: "First Floor",
@@ -511,7 +524,6 @@ const Floor = ({ imageName, imageLink }) => {
                 const apartmentInfo = apartmentData["Ground Floor"].find(
                   (apt) => apt.Apartmentno.toString() === dataImage
                 );
-                console.log(apartmentInfo);
                 if (apartmentInfo) {
                   setActivePolygon({
                     floor: "Ground Floor",
@@ -598,7 +610,6 @@ const Floor = ({ imageName, imageLink }) => {
                 const apartmentInfo = apartmentData["Basement 1"].find(
                   (apt) => apt.Apartmentno.toString() === dataImage
                 );
-                console.log(apartmentInfo);
                 if (apartmentInfo) {
                   setActivePolygon({
                     floor: "Valley Floor 1",
@@ -694,7 +705,6 @@ const Floor = ({ imageName, imageLink }) => {
                   const apartmentInfo = apartmentData["Basement 3"].find(
                     (apt) => apt.Apartmentno.toString() === dataImage
                   );
-                  console.log(apartmentInfo);
                   if (apartmentInfo) {
                     setActivePolygon({
                       floor: "Valley Floor 3",
@@ -782,7 +792,6 @@ const Floor = ({ imageName, imageLink }) => {
                   const apartmentInfo = apartmentData["Basement 4"].find(
                     (apt) => apt.Apartmentno.toString() === dataImage
                   );
-                  console.log(apartmentInfo);
                   if (apartmentInfo) {
                     setActivePolygon({
                       floor: "Valley Floor 4",
@@ -1127,18 +1136,32 @@ const Floor = ({ imageName, imageLink }) => {
     },
   };
 
+  const closeGallery = () => {
+    console.log("CLOSED")
+    dispatch(setGalleryPressed(false));
+
+  };
+
+  const [activePolygonType, setActivePolygonType] = useState(null);
+
   const openImageBox = (apartmentType) => {
-    console.log(apartmentType);
+    console.log("Apartment Type :", apartmentType);
 
-    if (galleryImagesMap[apartmentType]) {
-      setSelectedArea({
-        name: apartmentType,
-        details: galleryImagesMap[apartmentType],
-      });
-      setCurrentImageIndex(0);
-    }
+    setActivePolygonType(apartmentType);
+    dispatch(setGalleryPressed(true));
 
-    console.log(selectedArea);
+    // if (galleryImagesMap[apartmentType]) {
+    //   setSelectedArea({
+    //     name: apartmentType,
+    //     details: galleryImagesMap[apartmentType],
+    //   });
+    //   setCurrentImageIndex(0);
+    // }
+
+    // console.log(selectedArea);
+
+
+
   };
 
   const closeImageBox = () => {
@@ -1220,14 +1243,14 @@ const Floor = ({ imageName, imageLink }) => {
       <div className={styles.BottomZoomexitBack}>
         <div className={styles.ButtomZoomExitBtns}>
           <div className={styles.zoomReset} onClick={handleResetZoom}>
-            <div className={styles.zoomResetInside}>Zoom Out</div>
+            <div className={styles.zoomResetInside}>{translations["zoomout"]}</div>
           </div>
 
           <div
             className={styles.backToBuilding}
             onClick={() => router.push("/")}
           >
-            <div className={styles.backToBuildingInside}>Back to Building</div>
+            <div className={styles.backToBuildingInside}>{translations["backTobuilding"]}</div>
           </div>
         </div>
       </div>
@@ -1255,14 +1278,17 @@ const Floor = ({ imageName, imageLink }) => {
           >
             <div className={styles.popupTop}>
               <div className={styles.popupTopBtns} onClick={handleExplorePlan}>
-                Explore Plan
+                {/* Explore Plan */}
+                {translations["exploreplan"]}
+
               </div>
               <div
                 className={styles.popupTopBtnsGallery}
                 style={{cursor:'pointer'}}
                 onClick={() => openImageBox(activePolygon.Type)}
               >
-                Gallery
+                {/* Gallery */}
+                {translations["gallery"]}
               </div>
             </div>
 
@@ -1271,7 +1297,7 @@ const Floor = ({ imageName, imageLink }) => {
                 <div className={styles.apartmentInterestTitle}>
                   <div className={styles.apartmentInterestTitleText}>
                     {/* {translations.apartmentInterest || 'Apartment Interest'} */}
-                    Apartment no. {activePolygon.id}
+                    {translations["apartmentNo"]} {activePolygon.id}
                   </div>
                   <div
                     className={styles.apartmentInterestTitleIcon}
@@ -1295,28 +1321,28 @@ const Floor = ({ imageName, imageLink }) => {
                 </div>
                 <div className={styles.apartmentInterestList}>
                   <div className={styles.apartmentInterestItem}>
-                    <div className={styles.apartmentInterestItemKey}>Floor</div>
+                    <div className={styles.apartmentInterestItemKey}>{translations["Floor"]}</div>
                     <div className={styles.apartmentInterestItemValue}>
                       {activePolygon.floor || ""}
                     </div>
                   </div>
 
                   <div className={styles.apartmentInterestItem}>
-                    <div className={styles.apartmentInterestItemKey}>Type</div>
+                    <div className={styles.apartmentInterestItemKey}>{translations["Type"]}</div>
                     <div className={styles.apartmentInterestItemValue}>
                       {activePolygon.Type || ""}
                     </div>
                   </div>
                   <div className={styles.apartmentInterestItem}>
                     <div className={styles.apartmentInterestItemKey}>
-                      Bedrooms
+                      {translations["Bedrooms"]}
                     </div>
                     <div className={styles.apartmentInterestItemValue}>
                       {activePolygon.Bedrooms || ""}
                     </div>
                   </div>
                   <div className={styles.apartmentInterestItem}>
-                    <div className={styles.apartmentInterestItemKey}>Area</div>
+                    <div className={styles.apartmentInterestItemKey}>{translations["Area"]}</div>
                     <div className={styles.apartmentInterestItemValue}>
                       {activePolygon?.Area || ""}
                     </div>
@@ -1327,7 +1353,7 @@ const Floor = ({ imageName, imageLink }) => {
           </div>
         )}
 
-{showPopup && (
+      {showPopup && (
         <div
           className={`${styles.favpopupMenu} ${
             isPopupVisible ? styles.visible : ""
@@ -1348,35 +1374,13 @@ const Floor = ({ imageName, imageLink }) => {
       </div>
 
 
-      {selectedArea && (
-        <div className={styles.imageBoxOverlay} onClick={closeImageBox}>
-          <div className={styles.imageBox} onClick={(e) => e.stopPropagation()}>
-            <div className={styles.imageNavigation}>
-              <div
-                className={`${styles.navButton}`}
-                onClick={prevImage}
-              >
-                <LeftArrow />
-              </div>
-              <div className={styles.singleImageWrapper}>
-                <Image
-                  src={selectedArea.details[currentImageIndex]}
-                  alt={`${selectedArea.name} ${currentImageIndex + 1}`}
-                  layout="fill"
-                  objectFit="contain"
-                  quality={100}
-                />
-              </div>
-              <div
-                className={`${styles.navButton}`}
-                onClick={nextImage}
-              >
-                <RightArrow />
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
+      <div style={{overflow:"none", zIndex: '10000'}}>
+        <Gallery
+            apartmentType={activePolygonType} 
+            isOpen={isGalleryPressed} 
+            onClose={closeGallery}
+        />
+      </div>
     </>
   );
 };
