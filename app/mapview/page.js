@@ -135,12 +135,8 @@ const MapView = () => {
           ref={svgRef}
           className={styles.svgOverlay}
           preserveAspectRatio="xMidYMid slice"
-          // onMouseMove={handleSVGElementHover}
-          // onMouseLeave={() => setHoverInfo(null)}
-          // initial={{ opacity: 0, scale: 0.95 }}
-          // animate={{ opacity: svgVisibility.landmarks || svgVisibility.roads ? 1 : 0, scale: svgVisibility.landmarks || svgVisibility.roads ? 1 : 0.95 }}
-          // exit={{ opacity: 0, scale: 0.95 }}
-          // transition={{ duration: 0.5, ease: "easeOut" }}
+          onMouseMove={handleSVGElementHover}
+          onMouseLeave={() => setHoverInfo(null)}
         >
           <use href="/svg/buildingwb.svg#buidling" />
           <use href="/svg/AYUBIA/AyubiaPlace.svg#ayubia" />

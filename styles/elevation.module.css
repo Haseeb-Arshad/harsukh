@@ -18,7 +18,7 @@
     padding: 0 0.5rem;
     font-size: 0.7rem;
     cursor: pointer;
-    transition: background-color 0.3s, color 0.3s;
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   .elevationBtnGrid:hover {
@@ -71,7 +71,7 @@
   .elevationBtnTitle {
     flex: 1;
     height: 25px;
-    font-size: 0.8rem;
+    font-size: 0.7rem;
     justify-content: center;
     padding-left: 0.5rem;
     display: flex;

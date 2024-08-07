@@ -1,70 +1,114 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import Image from 'next/image';
-import styles from "@/styles/amenity/amenityGrid.module.css"
+import styles from "@/styles/gallery/gallery.module.css";
 import RightArrow from '@/app/component/Icons/rightArrow';
 import LeftArrow from '@/app/component/Icons/leftArrow';
 import Loader from '@/app/[floor]/Loading';
 
-// const areas = [
-//   { name: 'Parking', image: '/images/Amenity/Parking.png', details: [
-//     { src: '/images/gallery/Parking/Parking-1.webp', caption: 'Dedicated floors for parking' },
-//     { src: '/images/gallery/Parking/Parking-2.webp', caption: 'Dedicated floors for parking' }
-//   ]},
-//   { name: 'Restaurant', image: '/images/Amenity/Resturant.png', details: [
-//     { src: '/images/gallery/Restaurant/Restaurant-1.webp', caption: 'Experience the culinary luxury with our eateries floor' },
-//     { src: '/images/gallery/Restaurant/Restaurant-2.webp', caption: 'Experience the culinary luxury with our eateries floor' },
-//     { src: '/images/gallery/Restaurant/Restaurant-3.webp', caption: 'Experience the culinary luxury with our eateries floor' },
-//     { src: '/images/gallery/Restaurant/Restaurant-4.webp', caption: 'Experience the culinary luxury with our eateries floor' },
-//     { src: '/images/gallery/Restaurant/Restaurant-5.webp', caption: 'Experience the culinary luxury with our eateries floor' },
-//     { src: '/images/gallery/Restaurant/Restaurant-6.webp', caption: 'Experience the culinary luxury with our eateries floor' }
-//   ]},
-//   { name: 'Lobby', image: '/images/Amenity/Lobby.png', details: [
-//     { src: '/images/gallery/Lobby/Lobby-1.webp', caption: 'Welcoming & Luxurious. Our lobbies & corridors combing luxury & warmth' },
-//     { src: '/images/gallery/Lobby/Lobby-2.webp', caption: 'Welcoming & Luxurious. Our lobbies & corridors combing luxury & warmth' },
-//     { src: '/images/gallery/Lobby/Lobby-3.webp', caption: 'Welcoming & Luxurious. Our lobbies & corridors combing luxury & warmth' },
-//     { src: '/images/gallery/Lobby/Lobby-4.webp', caption: 'Welcoming & Luxurious. Our lobbies & corridors combing luxury & warmth' },
-//     { src: '/images/gallery/Lobby/Lobby-5.webp', caption: 'Welcoming & Luxurious. Our lobbies & corridors combing luxury & warmth' },
-//     { src: '/images/gallery/Lobby/Lobby-6.webp', caption: 'Welcoming & Luxurious. Our lobbies & corridors combing luxury & warmth' },
-//     { src: '/images/gallery/Lobby/Lobby-7.webp', caption: 'Welcoming & Luxurious. Our lobbies & corridors combing luxury & warmth' }
-//   ]},
-//   { name: 'Gym', image: '/images/Amenity/Gym.png', details: [
-//     { src: '/images/gallery/Gym/Gym-1.webp', caption: 'State-of-the-art fitness equipment' },
-//     { src: '/images/gallery/Gym/Gym-2.webp', caption: 'Spacious workout area with natural light' },
-//   ]},
-// ];
+const areas = {
+  Studio: {
+    name: "Studio",
+    image: "/images/Amenity/Studio.png",
+    details: [
+      { src: '/images/gallery/Studio/studio-1.webp', caption: 'Elegant Studio Apartments with a vallery view' },
+      { src: '/images/gallery/studio/studio-2.webp', caption: 'Elegant Studio Apartments with a vallery view' },
+      { src: '/images/gallery/studio/studio-3.webp', caption: 'Elegant Studio Apartments with a vallery view' },
+    ]
+  },
+  "One Bed": {
+    name: "One Bed",
+    image: "/images/Amenity/OneBed.png",
+    details: [
+      { src: '/images/gallery/OneBed/oneBed-1.webp', caption: 'Experience luxury Living with our 1 bed apartments' },
+      { src: '/images/gallery/OneBed/oneBed-2.webp', caption: 'Experience luxury Living with our 1 bed apartments' },
+      { src: '/images/gallery/OneBed/oneBed-3.webp', caption: 'Experience luxury Living with our 1 bed apartments' },
+      { src: '/images/gallery/OneBed/oneBed-4.webp', caption: 'Experience luxury Living with our 1 bed apartments' },
+    ]
+  },
+  "Two Bed": {
+    name: "Two Bed",
+    image: "/images/Amenity/TwoBed.png",
+    details: [
+      { src: '/images/gallery/TwoBed/twoBed-1.webp', caption: 'Indulge in our spacious 2 bed apartments. Make your living luxury' },
+      { src: '/images/gallery/TwoBed/twoBed-2.webp', caption: 'Indulge in our spacious 2 bed apartments. Make your living luxury' },
+      { src: '/images/gallery/TwoBed/twoBed-3.webp', caption: 'Indulge in our spacious 2 bed apartments. Make your living luxury' },
+      { src: '/images/gallery/TwoBed/twoBed-4.webp', caption: 'Indulge in our spacious 2 bed apartments. Make your living luxury' },
+      { src: '/images/gallery/TwoBed/twoBed-5.webp', caption: 'Indulge in our spacious 2 bed apartments. Make your living luxury' },
+      { src: '/images/gallery/TwoBed/twoBed-6.webp', caption: 'Indulge in our spacious 2 bed apartments. Make your living luxury' },
+    ]
+  },
+  "Three Bed": {
+    name: "Three Bed",
+    image: "/images/Amenity/ThreeBed.png",
+    details: [
+      { src: '/images/gallery/ThreeBed/threeBed-1.webp', caption: 'Find comfort in our 3 bed apartments where your comfort is luxury' },
+      { src: '/images/gallery/ThreeBed/threeBed-2.webp', caption: 'Find comfort in our 3 bed apartments where your comfort is luxury' },
+      { src: '/images/gallery/ThreeBed/threeBed-3.webp', caption: 'Find comfort in our 3 bed apartments where your comfort is luxury' },
+      { src: '/images/gallery/ThreeBed/threeBed-4.webp', caption: 'Find comfort in our 3 bed apartments where your comfort is luxury' },
+      { src: '/images/gallery/ThreeBed/threeBed-5.webp', caption: 'Find comfort in our 3 bed apartments where your comfort is luxury' },
+    ]
+  },
+  Penthouse: {
+    name: "Penthouse",
+    image: "/images/Amenity/Penthouse.png",
+    details: [
+      { src: '/images/gallery/Penthouse/penthouse-1.webp', caption: 'Live in a breathtaking penthouse santuary, away from the hassle' },
+      { src: '/images/gallery/Penthouse/penthouse-2.webp', caption: 'Live in a breathtaking penthouse santuary, away from the hassle' },
+      { src: '/images/gallery/Penthouse/penthouse-3.webp', caption: 'Live in a breathtaking penthouse santuary, away from the hassle' },
+      { src: '/images/gallery/Penthouse/penthouse-4.webp', caption: 'Live in a breathtaking penthouse santuary, away from the hassle' },
+      { src: '/images/gallery/Penthouse/penthouse-5.webp', caption: 'Live in a breathtaking penthouse santuary, away from the hassle' },
+      { src: '/images/gallery/Penthouse/penthouse-6.webp', caption: 'Live in a breathtaking penthouse santuary, away from the hassle' },
+      { src: '/images/gallery/Penthouse/penthouse-7.webp', caption: 'Live in a breathtaking penthouse santuary, away from the hassle' },
+      { src: '/images/gallery/Penthouse/penthouse-8.webp', caption: 'Live in a breathtaking penthouse santuary, away from the hassle' },
+    ]
+  },
+};
 
+const Gallery = ({ apartmentType, isOpen, onClose }) => {
+  const [selectedArea, setSelectedArea] = useState(null);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [isOverlayActive, setIsOverlayActive] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [direction, setDirection] = useState(null);
+  const imageBoxRef = useRef(null);
+  const autoPlayRef = useRef(null);
+  const imageLoadingRef = useRef(false);
 
-const Gallery = ({ selectedArea, setSelectedArea, currentImageIndex, setCurrentImageIndex }) => {
-  
-    const [isOverlayActive, setIsOverlayActive] = useState(false);
-    const [isLoading, setIsLoading] = useState(true);
-    const [direction, setDirection] = useState(null);
-    const imageBoxRef = useRef(null);
-    const autoPlayRef = useRef(null);
-    const imageLoadingRef = useRef(false);
-  
-    useEffect(() => {
-      setTimeout(() => setIsOverlayActive(true), 50);
-    }, []);
-  
-    const closeImageBox = useCallback(() => {
-      setIsOverlayActive(false);
-      setTimeout(() => setSelectedArea(null), 500);
-    }, [setSelectedArea]);
-  
-    const nextImage = useCallback(() => {
-      if (imageLoadingRef.current) return;
-      setDirection('next');
-      setCurrentImageIndex((prevIndex) => (prevIndex + 1) % selectedArea.details.length);
-    }, [selectedArea, setCurrentImageIndex]);
-  
-    const prevImage = useCallback(() => {
-      if (imageLoadingRef.current) return;
-      setDirection('prev');
-      setCurrentImageIndex((prevIndex) => (prevIndex - 1 + selectedArea.details.length) % selectedArea.details.length);
-    }, [selectedArea, setCurrentImageIndex]);
+  useEffect(() => {
+    console.log("Apartment Type: ", apartmentType)
+    if (isOpen && apartmentType && areas[apartmentType]) {
+      openImageBox(areas[apartmentType]);
+    } else {
+      closeImageBox();
+    }
+  }, [isOpen, apartmentType]);
 
+  const openImageBox = (area) => {
+    setSelectedArea(area);
+    setCurrentImageIndex(0);
+    setIsLoading(true);
+    setTimeout(() => setIsOverlayActive(true), 50);
+  };
 
+  const closeImageBox = useCallback(() => {
+    setIsOverlayActive(false);
+    setTimeout(() => {
+      setSelectedArea(null);
+      onClose();
+    }, 50);
+  }, [onClose]);
+
+  const nextImage = useCallback(() => {
+    if (imageLoadingRef.current) return;
+    setDirection('next');
+    setCurrentImageIndex((prevIndex) => (prevIndex + 1) % selectedArea.details.length);
+  }, [selectedArea]);
+
+  const prevImage = useCallback(() => {
+    if (imageLoadingRef.current) return;
+    setDirection('prev');
+    setCurrentImageIndex((prevIndex) => (prevIndex - 1 + selectedArea.details.length) % selectedArea.details.length);
+  }, [selectedArea]);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -114,56 +158,58 @@ const Gallery = ({ selectedArea, setSelectedArea, currentImageIndex, setCurrentI
     imageLoadingRef.current = false;
   };
 
+  if (!selectedArea) return null;
+
   return (
-    <div className={`${styles.imageBoxOverlay} ${isOverlayActive ? styles.active : ''}`} onClick={closeImageBox}>
-        <div className={styles.imageBox} ref={imageBoxRef} onClick={(e) => e.stopPropagation()}>
-            <div className={styles.singleImageWrapper}>
-                {isLoading && <Loader />}
-                <Image
-                key={currentImageIndex}
-                src={selectedArea.details[currentImageIndex].src}
-                alt={`${selectedArea.name} ${currentImageIndex + 1}`}
-                layout="fill"
-                objectFit="cover"
-                quality={100}
-                onLoadingComplete={handleImageLoad}
-                className={`${styles.slideImage} ${styles[direction]}`}
-                />
-                <div className={styles.imageCaption}>
-                {selectedArea.details[currentImageIndex].caption}
-                </div>
-            </div>
-            <div 
-              className={`${styles.navButtonLeft} ${styles.navButton}`}
-              onClick={prevImage}
-              aria-label="Previous image"
-            >
-              <LeftArrow />
-            </div>
-            <div 
-              className={`${styles.navButtonRight} ${styles.navButton}`}
-              onClick={nextImage}
-              aria-label="Next image"
-            >
-              <RightArrow />
-            </div>
-            <div className={styles.navigationDots}>
-              {selectedArea.details.map((_, index) => (
-                <div
-                  key={index}
-                  className={`${styles.dot} ${index === currentImageIndex ? styles.activeDot : ''}`}
-                  onClick={() => {
-                    if (index !== currentImageIndex) {
-                      setDirection(index > currentImageIndex ? 'next' : 'prev');
-                      setCurrentImageIndex(index);
-                    }
-                  }}
-                />
-              ))}
-            </div>
+    <div style={{zIndex:"100000000"}} className={`${styles.imageBoxOverlay} ${isOverlayActive ? styles.active : ''}`} onClick={closeImageBox}>
+      <div className={styles.imageBox} ref={imageBoxRef} onClick={(e) => e.stopPropagation()}>
+        <div className={styles.singleImageWrapper}>
+          {isLoading && <Loader />}
+          <Image
+            key={currentImageIndex}
+            src={selectedArea.details[currentImageIndex].src}
+            alt={`${selectedArea.name} ${currentImageIndex + 1}`}
+            layout="fill"
+            objectFit="cover"
+            quality={100}
+            onLoadingComplete={handleImageLoad}
+            className={`${styles.slideImage} ${styles[direction]}`}
+          />
+          <div className={styles.imageCaption}>
+            {selectedArea.details[currentImageIndex].caption}
           </div>
         </div>
-      
-            )}
+        <div 
+          className={`${styles.navButtonLeft} ${styles.navButton}`}
+          onClick={prevImage}
+          aria-label="Previous image"
+        >
+          <LeftArrow />
+        </div>
+        <div 
+          className={`${styles.navButtonRight} ${styles.navButton}`}
+          onClick={nextImage}
+          aria-label="Next image"
+        >
+          <RightArrow />
+        </div>
+        <div className={styles.navigationDots}>
+          {selectedArea.details.map((_, index) => (
+            <div
+              key={index}
+              className={`${styles.dot} ${index === currentImageIndex ? styles.activeDot : ''}`}
+              onClick={() => {
+                if (index !== currentImageIndex) {
+                  setDirection(index > currentImageIndex ? 'next' : 'prev');
+                  setCurrentImageIndex(index);
+                }
+              }}
+            />
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+};
 
 export default Gallery;

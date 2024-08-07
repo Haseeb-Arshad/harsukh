@@ -37,6 +37,10 @@ const Page = () => {
 
   const floorData = {
     basement1: { imageLink: "/Webpage/apartments/penthouse.webp", imageName: "penthouse" },
+    // basement1: { imageLink: "/Webpage/apartments/penthouse.webp", imageName: "penthouse" },
+    // basement1: { imageLink: "/Webpage/apartments/penthouse.webp", imageName: "penthouse" },
+    // basement1: { imageLink: "/Webpage/apartments/penthouse.webp", imageName: "penthouse" },
+    // basement1: { imageLink: "/Webpage/apartments/penthouse.webp", imageName: "penthouse" },
     // basement3: { imageLink: "/Webpage/apartments/penthouse.webp", imageName: "penthouse" },
     // basement4: { imageLink: "/Webpage/apartments/penthouse.webp", imageName: "penthouse" },
     // basement5: { imageLink: "/Webpage/apartments/penthouse.webp", imageName: "penthouse" },
@@ -71,7 +75,8 @@ const Page = () => {
   const currentFloor = floorData[floor] || floorData.basement1; 
 
   useEffect(() => {
-    console.log(currentFloor)
+    console.log("FLOOR: ",  floorData, floor )
+    console.log("Current Floor: ",currentFloor)
   }, [currentFloor])
 
   const handleResetZoom = () => {

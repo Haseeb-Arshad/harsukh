@@ -29,6 +29,7 @@ const Layout = ({ children }) => {
   const router = useRouter();
   const [isContacted, setIsContacted] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const [apartmentType, setApartmentType] = useState(null);
 
   const [menuBox, setMenuBox] = useState(false);
   const [overlay, setOverlay] = useState(true);
@@ -56,6 +57,7 @@ const Layout = ({ children }) => {
   );
   const menuContainerRef = useRef(null);
   const menuBoxRef = useRef(null);
+
 
   const handleMenuClickOutside = useCallback((event) => {
     if (
@@ -129,16 +131,12 @@ const Layout = ({ children }) => {
 
   const handleFavorties = () => {
     setReservedClicked((prev) => !prev);
-    console.log("Favorites clicked");
   };
 
   const toggleLanguage = () => {
     setLanguage(!language);
   };
 
-  useEffect(() => {
-    console.log("Favorite Apartments FLOOR:", favoriteApartments);
-  }, [reservedClicked]);
 
   useEffect(() => {
     setTranslations(language ? ur : en);
@@ -154,6 +152,10 @@ const Layout = ({ children }) => {
   const amenityButtonRef = useRef(null);
   const amenityGridRef = useRef(null);
   const [amenityClicked, setAmenityClicked] = useState(false);
+
+  const handleAmenitiesCheck = () => {
+    setAmenityClicked(false);
+  };
 
   const handleAmenitiesClickOutside = useCallback((event) => {
     if (
@@ -175,7 +177,6 @@ const Layout = ({ children }) => {
 
   const handleAmenities = () => {
     setAmenityClicked((prev) => !prev);
-    console.log("Amenities clicked");
   };
 
   const updateAmenityClicked = (value) => {
@@ -212,11 +213,12 @@ const Layout = ({ children }) => {
     setElevationClicked(!isElevationClicked);
   };
 
+
+
+  
   const handleFloorMenuClicked = () => {
-    console.log("Floor Menu Clicked");
     dispatch(toggleFloorMenu());
     setFloorClicked(!isFloorClicked);
-
   };
 
   const params = useParams();
@@ -242,9 +244,10 @@ const Layout = ({ children }) => {
     const currentFloor = totalFloor.find(item => item.id === floor);
     const floorLabel = currentFloor ? currentFloor.label : `Floor ${floor}`;
     setCurrentFloor(floorLabel)
+    console.log(floorLabel)
     setElevationArray([
-      { id: '1', label: 'Map View', route: '/mapview' },
-      { id: '2', label: 'Elevation', route: '/' },
+      { id: '1', label: translations["mapview"], route: '/mapview' },
+      { id: '2', label: translations["elevation"], route: '/' },
       { id: '3', label: floorLabel, route: `/${floor}` },
     ]);
   }, [params, translations]);
@@ -288,6 +291,15 @@ const Layout = ({ children }) => {
             />
           </div>
         )}
+
+        
+          {/* <div style={{overflow:"none", zIndex: '10000'}}>
+              <Gallery
+                  apartmentType={apartmentType} 
+                  isOpen={isGalleryPressed} 
+                  onClose={closeGallery}
+              />
+            </div> */}
 
         {!isMobile ? (
           <>
@@ -374,7 +386,7 @@ const Layout = ({ children }) => {
               height={17}
               width={17}
             />
-            <span className={styles.buttonText}>Get Directions</span>
+            <span className={styles.buttonText}>{translations["direction"]}</span>
           </div>
 
           <div
@@ -392,13 +404,13 @@ const Layout = ({ children }) => {
               height={19}
               width={19}
             />
-            <span className={styles.buttonText}>Register Request</span>
+            <span className={styles.buttonText}>{translations["reqRegister"]}</span>
           </div>
         </div>
       </div>
 
       <div className={styles.bottomLogoContainer}>
-        <div className={styles.bottomLogoContainerTitle}>A Project by</div>
+        <div className={styles.bottomLogoContainerTitle}>{translations["projectBy"]}</div>
         <div
           style={{
             left: "2.5rem",
@@ -427,7 +439,7 @@ const Layout = ({ children }) => {
 
       {amenityClicked && (
         <div ref={amenityGridRef}>
-          <AmenityGrid />
+          <AmenityGrid isMobile={isMobile} onClose={handleAmenitiesCheck} />
         </div>
       )}
     </>

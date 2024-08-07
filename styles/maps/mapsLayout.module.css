@@ -77,20 +77,25 @@
     column-gap: 0.4rem;
     grid-template-columns: auto auto auto;
     transition: all 0.3s ease-in-out;
+    /* flex-direction: row-reverse; */
+
 }
 
 .videosubTab
 {
     /* border: 1px saddlebrown solid; */
-    padding: 0.4rem;
+    /* padding: 0.4rem;
     padding-left: 0.6rem;
     padding-right: 0.4rem;
+    border-radius: 1.5rem; */
+    width: 100px;
+    height: 38px;
+    padding: 0.4rem;
+    display: grid;
     border-radius: 1.5rem;
-    display: flex;
     /* display: grid; */
-    /* grid-template-columns: 1fr 0.5fr; */
+    grid-template-columns: 0.5fr 1fr;
     background-color: #FCF7EB;
-
     transition: all 0.3s ease-in-out;
 
 }
@@ -390,18 +395,14 @@
 .videosubTab
 {
     /* border: 1px saddlebrown solid; */
+    width: 100px;
+    height: 38px;
     padding: 0.4rem;
-    padding-left: 0.6rem;
-    padding-right: 0.4rem;
+    display: grid;
     border-radius: 1.5rem;
-    width: fit-content;
-    display: flex;
-    /* justify-content: end; */
-    /* align-items: flex-end; */
     /* display: grid; */
-    /* grid-template-columns: 1fr 0.5fr; */
+    grid-template-columns: 0.5fr 1fr;
     background-color: #FCF7EB;
-
     transition: all 0.3s ease-in-out;
 
 }

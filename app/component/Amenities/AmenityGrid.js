@@ -1,9 +1,14 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React, { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import Image from 'next/image';
 import styles from "@/styles/amenity/amenityGrid.module.css"
 import RightArrow from '../Icons/rightArrow';
 import LeftArrow from '../Icons/leftArrow';
 import Loader from '@/app/[floor]/Loading';
+
+import { useSelector, useDispatch } from 'react-redux';
+
+import en from '@/app/locales/en.json';
+import ur from '@/app/locales/ur.json';
 
 const areas = [
   { name: 'Parking', image: '/images/Amenity/Parking.png', details: [
@@ -28,13 +33,13 @@ const areas = [
     { src: '/images/gallery/Lobby/Lobby-7.webp', caption: 'Welcoming & Luxurious. Our lobbies & corridors combing luxury & warmth' }
   ]},
   { name: 'Gym', image: '/images/Amenity/Gym.png', details: [
-    { src: '/images/gallery/Gym/Gym-1.webp', caption: 'State-of-the-art fitness equipment' },
-    { src: '/images/gallery/Gym/Gym-2.webp', caption: 'Spacious workout area with natural light' },
+    { src: '/images/gallery/Gym/Gym-1.webp', caption: 'Experience premier fitness with stunning mountain backdrops' },
+    { src: '/images/gallery/Gym/Gym-2.webp', caption: 'Experience premier fitness with stunning mountain backdrops' },
   ]},
 ];
 
 
-const AmenityGrid = ({amenityRef}) => {
+const AmenityGrid = ({ isMobile, onClose }) => {
   const [selectedArea, setSelectedArea] = useState(null);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isOverlayActive, setIsOverlayActive] = useState(false);
@@ -43,6 +48,14 @@ const AmenityGrid = ({amenityRef}) => {
   const imageBoxRef = useRef(null);
   const autoPlayRef = useRef(null);
   const imageLoadingRef = useRef(false);
+  const amenityGridRef = useRef(null);
+
+  const languageState = useSelector((state) => {
+    const languageState = state.language.lang.find((site) => site.id === '1');
+    return languageState ? languageState.language : 'en';
+  });
+
+  const translations = useMemo(() => languageState === 'ur' ? ur : en, [languageState]);
 
   const openImageBox = (area) => {
     setSelectedArea(area);
@@ -68,6 +81,17 @@ const AmenityGrid = ({amenityRef}) => {
     setCurrentImageIndex((prevIndex) => (prevIndex - 1 + selectedArea.details.length) % selectedArea.details.length);
   }, [selectedArea]);
 
+  const handleImageLoad = () => {
+    setIsLoading(false);
+    imageLoadingRef.current = false;
+  };
+
+  const handleOutsideClick = useCallback((event) => {
+    if (amenityGridRef.current && !amenityGridRef.current.contains(event.target)) {
+      onClose();
+    }
+  }, [onClose]);
+
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (imageBoxRef.current && !imageBoxRef.current.contains(event.target)) {
@@ -77,22 +101,31 @@ const AmenityGrid = ({amenityRef}) => {
 
     const handleEscapeKey = (event) => {
       if (event.key === 'Escape') {
-        closeImageBox();
+        if (selectedArea) {
+          closeImageBox();
+        } else {
+          onClose();
+        }
       }
     };
 
-    if (selectedArea) {
-      document.addEventListener('mousedown', handleClickOutside);
-      document.addEventListener('touchstart', handleClickOutside);
-      document.addEventListener('keydown', handleEscapeKey);
+    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener('touchstart', handleClickOutside);
+    document.addEventListener('keydown', handleEscapeKey);
+    
+    if (!selectedArea) {
+      document.addEventListener('mousedown', handleOutsideClick);
+      document.addEventListener('touchstart', handleOutsideClick);
     }
 
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
       document.removeEventListener('touchstart', handleClickOutside);
       document.removeEventListener('keydown', handleEscapeKey);
+      document.removeEventListener('mousedown', handleOutsideClick);
+      document.removeEventListener('touchstart', handleOutsideClick);
     };
-  }, [selectedArea, closeImageBox]);
+  }, [selectedArea, closeImageBox, handleOutsideClick, onClose]);
 
   useEffect(() => {
     if (selectedArea && !isLoading) {
@@ -111,15 +144,10 @@ const AmenityGrid = ({amenityRef}) => {
     };
   }, [selectedArea, isLoading, nextImage]);
 
-  const handleImageLoad = () => {
-    setIsLoading(false);
-    imageLoadingRef.current = false;
-  };
-
   return (
-    <div ref={amenityRef} className={styles.container}>
-      <div className={styles.gridContainer}>
-        {areas.map((area, index) => (
+    <div className={styles.container} >
+      <div ref={amenityGridRef} className={styles.gridContainer}>
+        {areas.map((area) => (
           <div
             key={area.name}
             className={styles.gridItem}
@@ -134,7 +162,9 @@ const AmenityGrid = ({amenityRef}) => {
                 quality={100}
               />
             </div>
-            <div className={styles.areaName}>{area.name}</div>
+            <div className={styles.areaName}>
+              {translations[area.name]}
+            </div>
           </div>
         ))}
       </div>

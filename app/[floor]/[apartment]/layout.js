@@ -13,29 +13,31 @@ import { useDispatch, useSelector } from "react-redux";
 import StarAnimate from "@/public/json/StarAnimate.json"
 import Lottie from "react-lottie";
 
-
-
 import {
   addFavoriteApartment,
   removeFavoriteApartment,
 } from "@/state/apartment/favApartment";
 import ElevationBox from "@/app/component/Bars/elevationBox";
+import Gallery from "@/app/component/Gallery/Gallery";
+import { setGalleryPressed } from "@/state/gallery/GalleryState";
 
 const Layout = ({ children }) => {
   const router = useRouter();
-  const dispatch = useDispatch();
   const [isContacted, setIsContacted] = useState(false);
-
+  const dispatch = useDispatch();
   const params = useParams();
 
   const [isMobile, setIsMobile] = useState(false);
   const [apartmentInfo, setApartmentInfo] = useState(null);
   const [apartmentNum, setApartmentNum] = useState(0);
   const [floor, setFloor] = useState("");
+  const [isGalleryOpen, setIsGalleryOpen] = useState(false);
 
   const favoriteApartments = useSelector(
     (state) => state.favoriteApartments.favoriteApartments
   );
+
+  const [apartmentType, setApartmentType] = useState(null);
 
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth <= 768);
@@ -45,6 +47,30 @@ const Layout = ({ children }) => {
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
+
+  const isGalleryPressed = useSelector(state => state.gallery.isGalleryPressed);
+
+
+
+  useEffect(() => {
+    const apartmentParam = params.apartment; // e.g., "Apartment1"
+    const match = apartmentParam.match(/\d+/); // Extracts the digits from the string
+    const apartmentNumber = match ? parseInt(match[0]) : null; // Gets the first match or null if no match
+    const floorName = floorNameMapping[params.floor];
+    // setApartmentType(apartmentInfo.Type);  
+    console.log(floorNameMapping)
+    console.log(params.floor)
+    console.log(floorName, " --- ", apartmentNumber);
+
+    if (floorName && apartmentNumber) {
+      const apartmentInfo = apartmentData[floorName].find(apt => apt.Apartmentno === apartmentNumber);
+      if (apartmentInfo) {
+        console.log("TYPE: ",apartmentInfo.Type)
+        setApartmentType(apartmentInfo.Type);
+      }
+    }
+  }, [params, isGalleryPressed]);
+
   useEffect(() => {
     let foundApartment = null;
     let foundFloor = "";
@@ -53,7 +79,6 @@ const Layout = ({ children }) => {
     const match = apartmentParam.match(/\d+/); // Extracts the digits from the string
     const apartmentNumber = match ? match[0] : null; // Gets the first match or null if no match
     setApartmentNum(apartmentNumber);
-
     // Search for the apartment in all floors
     for (const floorName in apartmentData) {
       const apartment = apartmentData[floorName].find(
@@ -73,7 +98,7 @@ const Layout = ({ children }) => {
       // Redirect to apartment 1 if the apartment is not found
       router.push("/third-floor/Apartment1");
     }
-  }, [params.apartment, router]);
+  }, [params.apartment]);
 
   useEffect(() => {
     function handleClickOutside(event) {
@@ -104,6 +129,35 @@ const Layout = ({ children }) => {
   const [showPopup, setShowPopup] = useState(false);
   const [popupMessage, setPopupMessage] = useState("");
   const [isPopupVisible, setIsPopupVisible] = useState(false);
+
+
+  useEffect(() => {
+    const apartmentParam = params.apartment; // e.g., "Apartment1"
+    const match = apartmentParam.match(/\d+/); // Extracts the digits from the string
+    const apartmentNumber = match ? parseInt(match[0]) : null; // Gets the first match or null if no match
+    const floorName = floorNameMapping[params.floor];
+
+    if (floorName && apartmentNumber) {
+      const apartmentInfo = apartmentData[floorName].find(apt => apt.Apartmentno === apartmentNumber);
+      if (apartmentInfo) {
+        setApartmentType(apartmentInfo.Type);
+      }
+    }
+  }, [params]);
+
+
+  
+  const floorNameMapping = {
+    'third-floor': "3rd Floor",
+    'second-floor': "2nd Floor",
+    'first-floor': "1st Floor",
+    'ground-floor': "Ground Floor",
+    'valley-floor-1': "Basement 1",
+    'valley-floor-3': "Basement 3",
+    'valley-floor-4': "Basement 4",
+    'valley-floor-5': "Basement 5",
+    'valley-floor-6': "Basement 6"
+  };
 
   const handleIconClick = () => {
     if (apartmentInfo) {
@@ -198,6 +252,13 @@ const Layout = ({ children }) => {
     router.push(`/${floor}`);
   };
 
+  const closeGallery = () => {
+    // setIsGalleryOpen(false);
+    console.log("CLOSED")
+    dispatch(setGalleryPressed(false));
+
+  };
+
   const handleContactClose = () => {
     setIsContacted(false);
   };
@@ -225,20 +286,34 @@ const Layout = ({ children }) => {
       ,[isMobile])
 
 
-      const defaultOptions = {
-    loop: true,
-    autoplay: true, 
-    animationData: StarAnimate,
-    rendererSettings: {
-      preserveAspectRatio: "xMidYMid slice"
-    }
-  };
+      const defaultOptions = 
+      {
+        loop: true,
+        autoplay: true, 
+        animationData: StarAnimate,
+        rendererSettings: 
+        {
+          preserveAspectRatio: "xMidYMid slice"
+        }
+      };
 
   return (
     <>
+    
+
       <div>{children}</div>
+    
+
+      <div style={{overflow:"none", zIndex: '10000'}}>
+        <Gallery
+            apartmentType={apartmentType} 
+            isOpen={isGalleryPressed} 
+            onClose={closeGallery}
+        />
+      </div>
 
       {!isMobile && (
+
         <div className={ElevStyles.elevationApContainer}>
           <div className={ElevStyles.elevationButtonBox} ref={elevationRef}>
             <div
@@ -299,8 +374,7 @@ const Layout = ({ children }) => {
       )}
 
       <div className={styles.Harsukhlogo}>
-      <Image onClick={()=>router.push("/")} src="/Webpage/floors/HarsukhLogo.webp" quality={100} alt="Harsukh Logo" height={harsukhHeight} width={harsukhWidth} />
-
+        <Image onClick={()=>router.push("/")} src="/Webpage/floors/HarsukhLogo.webp" quality={100} alt="Harsukh Logo" height={harsukhHeight} width={harsukhWidth} />
       </div>
 
       <div className={styles.apartmentInterestBox}>
@@ -340,19 +414,19 @@ const Layout = ({ children }) => {
             </div>
 
             <div className={styles.apartmentInterestItem}>
-              <div className={styles.apartmentInterestItemKey}>Type</div>
+              <div className={styles.apartmentInterestItemKey}>{translations.Type}</div>
               <div className={styles.apartmentInterestItemValue}>
                 {apartmentInfo?.Type || ""}
               </div>
             </div>
             <div className={styles.apartmentInterestItem}>
-              <div className={styles.apartmentInterestItemKey}>Bedrooms</div>
+              <div className={styles.apartmentInterestItemKey}>{translations.Bedrooms}</div>
               <div className={styles.apartmentInterestItemValue}>
                 {apartmentInfo?.Bedrooms || ""}
               </div>
             </div>
             <div className={styles.apartmentInterestItem}>
-              <div className={styles.apartmentInterestItemKey}>Area</div>
+              <div className={styles.apartmentInterestItemKey}>{translations.Area}</div>
               <div className={styles.apartmentInterestItemValue}>
                 {apartmentInfo?.Area || ""}
               </div>
@@ -362,21 +436,20 @@ const Layout = ({ children }) => {
             className={styles.apartmentInterestButtonBox}
             onClick={handleCall}
           >
-            <div className={styles.apartmentInterestButton}>Interested</div>
+            <div className={styles.apartmentInterestButton}>{translations.Interested}</div>
           </div>
         </div>
       </div>
 
-
-          { isElevationClicked &&
-              (
-              <ElevationBox
-                isVisible={isElevationClicked}
-                // onElevationChange={handleElevationClicked}
-                elevationArray={elevationArray}
-              />              
-              )
-            }
+      { isElevationClicked &&
+          (
+          <ElevationBox
+            isVisible={isElevationClicked}
+            // onElevationChange={handleElevationClicked}
+            elevationArray={elevationArray}
+          />              
+          )
+        }
 
       {isContacted && (
         <div className={styles.ContactedContainer}>
@@ -391,13 +464,6 @@ const Layout = ({ children }) => {
           }`}
         >
           <div className={styles.popupMenuIcon}>
-            {/* <Image
-              src="/images/icons/favIconFilled.svg"
-              quality={100}
-              alt="Favorite"
-              height={30}
-              width={30}
-            /> */}
 
             <Lottie 
               options={defaultOptions}
@@ -409,6 +475,7 @@ const Layout = ({ children }) => {
           <div className={styles.popupMenuContent}>{popupMessage}</div>
         </div>
       )}
+      
     </>
   );
 };

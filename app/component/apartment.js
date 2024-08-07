@@ -12,11 +12,13 @@ import Image from 'next/image';
 import apartmentData from '@/app/component/data/floorData';
 import amenstyles from "@/styles/amenity/amenityGrid.module.css"
 
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 import en from "../locales/en.json";
 import ur from "../locales/ur.json";
 import Loader from '../[floor]/Loading';
+import Gallery from './Gallery/Gallery';
+import { setGalleryPressed } from '@/state/gallery/GalleryState';
 
 const Apartment = ({ imageName, imageLink }) => {
   const viewerRef = useRef(null);
@@ -29,6 +31,9 @@ const Apartment = ({ imageName, imageLink }) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [apartmentType, setApartmentType] = useState(null);
   const [isMobile, setIsMobile] = useState(false);
+  const [isGalleryOpen, setIsGalleryOpen] = useState(false);
+
+  const dispatch = useDispatch();
 
 
   const amenityRef = useRef(null);
@@ -55,12 +60,26 @@ const Apartment = ({ imageName, imageLink }) => {
     languageState === "ur" ? ur : en
   );
 
+
+  
+  const openGallery = () => {
+    dispatch(setGalleryPressed(true));
+
+    // setIsGalleryOpen(true);
+  };
+
+  const closeGallery = () => {
+    setIsGalleryOpen(false);
+  };
+
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth <= 768);
     checkMobile();
     window.addEventListener('resize', checkMobile);
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
+
+
 
   const floorNameMapping = {
     'third-floor': "3rd Floor",
@@ -132,36 +151,6 @@ const Apartment = ({ imageName, imageLink }) => {
     },
   ];
 
-
-  
-// const areas = [
-//   { name: 'Parking', image: '/images/Amenity/Parking.png', details: [
-//     { src: '/images/gallery/Parking/Parking-1.webp', caption: 'Dedicated floors for parking' },
-//     { src: '/images/gallery/Parking/Parking-2.webp', caption: 'Dedicated floors for parking' }
-//   ]},
-//   { name: 'Restaurant', image: '/images/Amenity/Resturant.png', details: [
-//     { src: '/images/gallery/Restaurant/Restaurant-1.webp', caption: 'Experience the culinary luxury with our eateries floor' },
-//     { src: '/images/gallery/Restaurant/Restaurant-2.webp', caption: 'Experience the culinary luxury with our eateries floor' },
-//     { src: '/images/gallery/Restaurant/Restaurant-3.webp', caption: 'Experience the culinary luxury with our eateries floor' },
-//     { src: '/images/gallery/Restaurant/Restaurant-4.webp', caption: 'Experience the culinary luxury with our eateries floor' },
-//     { src: '/images/gallery/Restaurant/Restaurant-5.webp', caption: 'Experience the culinary luxury with our eateries floor' },
-//     { src: '/images/gallery/Restaurant/Restaurant-6.webp', caption: 'Experience the culinary luxury with our eateries floor' }
-//   ]},
-//   { name: 'Lobby', image: '/images/Amenity/Lobby.png', details: [
-//     { src: '/images/gallery/Lobby/Lobby-1.webp', caption: 'Welcoming & Luxurious. Our lobbies & corridors combing luxury & warmth' },
-//     { src: '/images/gallery/Lobby/Lobby-2.webp', caption: 'Welcoming & Luxurious. Our lobbies & corridors combing luxury & warmth' },
-//     { src: '/images/gallery/Lobby/Lobby-3.webp', caption: 'Welcoming & Luxurious. Our lobbies & corridors combing luxury & warmth' },
-//     { src: '/images/gallery/Lobby/Lobby-4.webp', caption: 'Welcoming & Luxurious. Our lobbies & corridors combing luxury & warmth' },
-//     { src: '/images/gallery/Lobby/Lobby-5.webp', caption: 'Welcoming & Luxurious. Our lobbies & corridors combing luxury & warmth' },
-//     { src: '/images/gallery/Lobby/Lobby-6.webp', caption: 'Welcoming & Luxurious. Our lobbies & corridors combing luxury & warmth' },
-//     { src: '/images/gallery/Lobby/Lobby-7.webp', caption: 'Welcoming & Luxurious. Our lobbies & corridors combing luxury & warmth' }
-//   ]},
-//   { name: 'Gym', image: '/images/Amenity/Gym.png', details: [
-//     { src: '/images/gallery/Gym/Gym-1.webp', caption: 'State-of-the-art fitness equipment' },
-//     { src: '/images/gallery/Gym/Gym-2.webp', caption: 'Spacious workout area with natural light' },
-//   ]},
-// ];
-
   useEffect(() => {
     const apartmentParam = params.apartment; // e.g., "Apartment1"
     const match = apartmentParam.match(/\d+/); // Extracts the digits from the string
@@ -182,16 +171,7 @@ const Apartment = ({ imageName, imageLink }) => {
     router.push(`/${floor}`);
   };
 
-  // const openImageBox = () => {
-  //   console.log(apartmentType );
-  //   console.log(galleryImagesMap[apartmentType])
-  //   if (apartmentType && galleryImagesMap[apartmentType]) {
-  //     setSelectedArea({ name: apartmentType, details: galleryImagesMap[apartmentType] });
-  //     setCurrentImageIndex(0);
-  //   }
-  // };
   const [amenityClicked, setAmenityClicked] = useState(false);
-
 
   const handleAmenitiesClickOutside = useCallback((event) => {
     if (
@@ -292,23 +272,6 @@ const Apartment = ({ imageName, imageLink }) => {
     setIsLoading(false);
     imageLoadingRef.current = false;
   };
-
-  // const closeImageBox = () => {
-  //   setSelectedArea(null);
-  // };
-
-  // const nextImage = () => {
-  //   if (selectedArea && currentImageIndex < selectedArea.details.length - 1) {
-  //     setCurrentImageIndex(prevIndex => prevIndex + 1);
-  //   }
-  // };
-
-  // const prevImage = () => {
-  //   if (currentImageIndex > 0) {
-  //     setCurrentImageIndex(prevIndex => prevIndex - 1);
-  //   }
-  // };
-
   
   useEffect(() => {
     let viewer;
@@ -477,7 +440,6 @@ const Apartment = ({ imageName, imageLink }) => {
 
 
   return (
-    // <Suspense fallback={<div className={styles.loadingOverlay}><Loading /></div>}>
     
     <>
       <div style={{ position: 'relative' }}>
@@ -510,79 +472,26 @@ const Apartment = ({ imageName, imageLink }) => {
             </div>
           </div>
 
-          <div ref={amenityButtonRef}  className={styles3.backToBuilding} onClick={openImageBox(areas["Penthouse"])}>
+          <div ref={amenityButtonRef}  className={styles3.backToBuilding}         onClick={openGallery}
+          >
             <div className={styles3.backToBuildingInside}>
               {translations.gallery}
             </div>
           </div>
-
-
         </div>
         
-      </div>}
-
-
-
-      <div ref={amenityRef} className={amenstyles.container}>
-        {selectedArea && selectedArea.details && selectedArea.details.length > 0 && (
-          <div className={`${amenstyles.imageBoxOverlay} ${isOverlayActive ? styles.active : ''}`} onClick={closeImageBox}>
-            <div className={amenstyles.imageBox} ref={imageBoxRef} onClick={(e) => e.stopPropagation()}>
-              <div className={amenstyles.singleImageWrapper}>
-                {isLoading && <Loader />}
-                {selectedArea.details[currentImageIndex] && (
-                  <Image
-                    key={currentImageIndex}
-                    src={selectedArea.details[currentImageIndex].src}
-                    alt={`${selectedArea.name} ${currentImageIndex + 1}`}
-                    layout="fill"
-                    objectFit="cover"
-                    quality={100}
-                    onLoadingComplete={handleImageLoad}
-                    className={`${amenstyles.slideImage} ${amenstyles[direction]}`}
-                  />
-                )}
-                {selectedArea.details[currentImageIndex] && (
-                  <div className={amenstyles.imageCaption}>
-                    {selectedArea.details[currentImageIndex].caption}
-                  </div>
-                )}
-              </div>
-              {selectedArea.details.length > 1 && (
-                <>
-                  <div
-                    className={`${amenstyles.navButtonLeft} ${amenstyles.navButton}`}
-                    onClick={prevImage}
-                    aria-label="Previous image"
-                  >
-                    <LeftArrow />
-                  </div>
-                  <div
-                    className={`${amenstyles.navButtonRight} ${amenstyles.navButton}`}
-                    onClick={nextImage}
-                    aria-label="Next image"
-                  >
-                    <RightArrow />
-                  </div>
-                </>
-              )}
-              <div className={amenstyles.navigationDots}>
-                {selectedArea.details.map((_, index) => (
-                  <div
-                    key={index}
-                    className={`${amenstyles.dot} ${index === currentImageIndex ? amenstyles.activeDot : ''}`}
-                    onClick={() => {
-                      if (index !== currentImageIndex) {
-                        setDirection(index > currentImageIndex ? 'next' : 'prev');
-                        setCurrentImageIndex(index);
-                      }
-                    }}
-                  />
-                ))}
-              </div>
-            </div>
-          </div>
-        )}
       </div>
+      }
+
+      {/* <div style={{overflow:"none"}}>
+
+        <Gallery
+            apartmentType={apartmentType} 
+            isOpen={isGalleryOpen} 
+            onClose={closeGallery}
+        />
+      </div> */}
+   
     </>
 
   );
