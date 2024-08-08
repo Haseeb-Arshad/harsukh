@@ -35,6 +35,8 @@ const ElevationBox = forwardRef(({ isVisible, elevationArray, onClose }, ref) =>
   };
 
   return (
+  <div className={styles.elevationContainer}>
+
     <div 
       ref={boxRef}
       className={`${styles.elevationBox} ${isVisible ? styles.visible : ''}`}
@@ -55,6 +57,7 @@ const ElevationBox = forwardRef(({ isVisible, elevationArray, onClose }, ref) =>
         </div>
       </div>
     </div>
+  </div>
   );
 });
 

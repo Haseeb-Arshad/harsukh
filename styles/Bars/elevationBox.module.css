@@ -5,7 +5,17 @@
     font-weight: normal;
   }
   
-  
+  .elevationContainer
+  {
+    position: absolute;
+    display: flex;
+    /* align-items: center;
+    justify-content: center; */
+    /* width: 100vw;
+    height: 100vh; */
+    top: 17rem;
+    left: 37vw;
+  }
   
   .elevationBox {
     font-family: 'Gill Sans Light';
@@ -20,8 +30,8 @@
     /* padding: 0.3rem; */
     /* padding-top: 0.8rem; */
     position: absolute;
-    top: 14.5rem;
-    left: 30vw;
+    /* top: 14.5rem;
+    left: 30vw; */
     z-index: 10000;
     transform: translateY(-20px) scale(0.95);
     opacity: 0;
