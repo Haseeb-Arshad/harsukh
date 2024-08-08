@@ -44,12 +44,20 @@ const MapView = () => {
         const containerWidth = container.clientWidth;
         const containerHeight = container.clientHeight;
 
-        let newWidth, newHeight;
+        let newWidth, newHeight, left, top;
 
         if (isMobile) {
+          // On mobile, set the height to 100% and adjust width to maintain aspect ratio
           newHeight = containerHeight;
           newWidth = newHeight * aspectRatio;
+          left = 0;
+          top = 0;
+          container.style.overflowX = "auto";
+
+          // Center the scroll position
+          container.scrollLeft = (newWidth - containerWidth) / 2;
         } else {
+          // On desktop, fit the video within the container while maintaining aspect ratio
           if (containerWidth / containerHeight > aspectRatio) {
             newWidth = containerWidth;
             newHeight = newWidth / aspectRatio;
@@ -57,34 +65,41 @@ const MapView = () => {
             newHeight = containerHeight;
             newWidth = newHeight * aspectRatio;
           }
+          left = (containerWidth - newWidth) / 2;
+          top = (containerHeight - newHeight) / 2;
+          container.style.overflowX = "hidden";
         }
 
+        // Set video dimensions and position
         video.style.width = `${newWidth}px`;
         video.style.height = `${newHeight}px`;
+        video.style.left = `${left}px`;
+        video.style.top = `${top}px`;
 
+        // Adjust SVG to match video dimensions and position
         svg.style.width = `${newWidth}px`;
         svg.style.height = `${newHeight}px`;
+        svg.style.left = `${left}px`;
+        svg.style.top = `${top}px`;
 
-        svg.setAttribute('viewBox', `0 0 ${video.videoWidth} ${video.videoHeight}`);
-
-        if (isMobile) {
-          container.scrollLeft = (newWidth - containerWidth) / 2;
-        }
+        // Update SVG viewBox to match new dimensions
+        svg.setAttribute("viewBox", `0 0 ${video.videoWidth} ${video.videoHeight}`);
       }
     };
 
     const video = videoRef.current;
     if (video) {
-      video.addEventListener('loadedmetadata', adjustVideoAndSVG);
+      if (video.readyState >= 2) {
+        adjustVideoAndSVG();
+      } else {
+        video.onloadedmetadata = adjustVideoAndSVG;
+      }
     }
 
-    window.addEventListener('resize', adjustVideoAndSVG);
+    window.addEventListener("resize", adjustVideoAndSVG);
 
     return () => {
-      if (video) {
-        video.removeEventListener('loadedmetadata', adjustVideoAndSVG);
-      }
-      window.removeEventListener('resize', adjustVideoAndSVG);
+      window.removeEventListener("resize", adjustVideoAndSVG);
     };
   }, [isMobile]);
 
@@ -96,16 +111,18 @@ const MapView = () => {
       const drivingTime = hoveredElement.getAttribute('data-driving-time');
       const walkingTime = hoveredElement.getAttribute('data-walking-time');
       
-      const rect = hoveredElement.getBoundingClientRect();
       const containerRect = containerRef.current.getBoundingClientRect();
-
+      const scrollLeft = containerRef.current.scrollLeft; // Get current horizontal scroll position
+      const x = event.clientX - containerRect.left + scrollLeft; // Adjust x position based on scroll
+      const y = event.clientY - containerRect.top;
+  
       setHoverInfo({
         name,
         distance,
         drivingTime,
         walkingTime,
-        x: rect.left - containerRect.left + rect.width / 2,
-        y: rect.top - containerRect.top
+        x,
+        y
       });
     } else {
       setHoverInfo(null);
@@ -115,6 +132,9 @@ const MapView = () => {
   const handleHarsukhClick = () => {
     router.push('/'); // Replace with the actual route you want to navigate to
   };
+
+
+  
 
   return (
     <div ref={containerRef} className={`${styles.container} ${isMobile ? styles.scrollable : ''}`}>
@@ -176,8 +196,8 @@ const MapView = () => {
             style={{
               position: 'absolute',
               left: `${hoverInfo.x}px`,
-              top: `${hoverInfo.y - 70}px`,
-              transform: 'translate(-50%, -100%)',
+              top: isMobile ? `${hoverInfo.y + 20}px` : `${hoverInfo.y - 70}px`,
+              transform: isMobile ? 'translate(-50%, 0)' : 'translate(-50%, -100%)',
             }}
           >
             <div className={styles.popupGrid}>

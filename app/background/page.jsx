@@ -401,13 +401,20 @@ export default function BackgroundImage() {
 
   const handleAmenities = () => {
     setAmenityClicked((prev) => !prev);
+    // setAmenityClicked(false);
   };
 
-  const handleAmenitiesCheck = () => {
-    setAmenityClicked(false);
-  };
 
-  const [loading, setLoading] = useState(false); // Add loading state
+
+  
+  const amenityVisibilityRef = useRef(false);
+
+const handleAmenitiesCheck = () => {
+  amenityVisibilityRef.current = false;
+  setAmenityClicked(false);
+};
+
+  const [loading, setLoading] = useState(false); 
 
   const handleBackView = () => {
     setLoading(true); 
@@ -554,12 +561,12 @@ export default function BackgroundImage() {
         });
       };
     }
-  }, [overlay, filterbox, selectedAmenities.length, filterFloorMenu ]);
+  }, [overlay, filterbox, selectedAmenities.length, filterFloorMenu]);
 
 
   useEffect(() => {
   }
-  , [filterbox, selectedAmenities.length, filterFloorMenu ])
+  , [filterbox, selectedAmenities.length, filterFloorMenu, backView ])
 
 
   useEffect(() => {
@@ -586,7 +593,7 @@ export default function BackgroundImage() {
         element.style.display = shouldShow ? "block" : "none";
       });
     }
-  }, [selectedAmenities, filterbox, filterFloorMenu]);
+  }, [selectedAmenities, filterbox, filterFloorMenu, backView]);
 
 
   const [isFilterBarVisible, setIsFilterBarVisible] = useState(false);
@@ -1973,14 +1980,14 @@ export default function BackgroundImage() {
             </div>
 
             <div className={styles.menuContainer}>
-              <div ref={amenityButtonRef}>
+              <div >
                 <AmenityBtn
                   translations={translations}
-                  ref={amenityButtonRef}
+                  // ref={amenityButtonRef}
                   
                   handleMenu={handleAmenities}
-                  inActive={amenityClicked}
-                />
+                  inActive={!amenityVisibilityRef.current}
+                  />
               </div>
 
               <div className={styles.menuContainerInside} ref={favContainerRef}>
@@ -2010,7 +2017,7 @@ export default function BackgroundImage() {
 
             {amenityClicked && (
               <div >
-                <AmenityGrid onClose={handleAmenitiesCheck} isMobile={isMobile} amenityRef= {amenityGridRef} />
+                <AmenityGrid onClose={handleAmenitiesCheck} isMobile={isMobile}  />
               </div>
             )}
 
@@ -2058,7 +2065,7 @@ export default function BackgroundImage() {
 
           
           {amenityClicked && (
-              <div ref={amenityGridRef}>
+              <div >
                 <AmenityGrid isMobile={isMobile} onClose={handleAmenitiesCheck} />
               </div>
             )}

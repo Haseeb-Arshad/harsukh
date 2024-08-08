@@ -188,11 +188,34 @@ const Layout = ({children}) =>
     // Open the URL in a new tab
     window.open(url, '_blank');
   };
+
+
+  const [isLoading, setIsLoading] = useState(true); // New state for loading
+  const [delayPassed, setDelayPassed] = useState(false); // New state for delay
+
+  useEffect(() => {
+    // Simulate a delay of 1-2 seconds after loading
+    if (isLoading) {
+      const timer = setTimeout(() => {
+        setIsLoading(false);
+        setDelayPassed(true);
+      }, 2000); // Adjust the delay as needed
+      return () => clearTimeout(timer);
+    }
+  }, [isLoading]);
   
+
+   if (isLoading) {
+    return (
+      <div className={styles.loadingOverlay}>
+        <Loading />
+      </div>
+    );
+  }
 
   return (     
     <div style={{ position: 'relative', background: 'rgba(0, 29, 32, 1)' , height: '100vh', width: '100%'}}>
-      <Suspense fallback={
+      {/* <Suspense fallback={
         <div className={styles.loadingOverlay}>
           <Loading />
         </div>
@@ -202,7 +225,23 @@ const Layout = ({children}) =>
         <div className={`${styles.transitionContainer} ${isTransitioning ? styles.fadeOut : styles.fadeIn}`}>
           {children}
         </div>
-      </Suspense>     
+      </Suspense>      */}
+
+
+        {delayPassed && (
+          <Suspense fallback={
+            <div className={styles.loadingOverlay}>
+              <Loading />
+            </div>
+          }>
+            <div className={`${styles.transitionContainer} ${isTransitioning ? styles.fadeOut : styles.fadeIn}`}>
+              {children}
+            </div>
+          </Suspense>
+        )}
+
+
+
 
       {/* <FloorMenu /> */}
 
@@ -326,25 +365,20 @@ const Layout = ({children}) =>
                   {translations['radius'] }
                 </div>
             </div>
-
         </div>
-
-     
-        
       </div>
       
-      
       }
-
           <MenuBox 
-          ref={menuBoxRef} 
-          isActive={menuBox} 
-          handleOverlay={handleOverlay} 
-          translations={translations} 
-          toggleLanguage={toggleLanguage} 
-          overlay={overlay} 
-          fullScreen={fullScreen} 
-          toggleFullScreen={toggleFullScreen}/>
+            ref={menuBoxRef} 
+            isActive={menuBox} 
+            handleOverlay={handleOverlay} 
+            translations={translations} 
+            toggleLanguage={toggleLanguage} 
+            overlay={overlay} 
+            fullScreen={fullScreen} 
+            toggleFullScreen={toggleFullScreen}
+          />
       
             <div className={styles.container}>
               <div
@@ -352,7 +386,6 @@ const Layout = ({children}) =>
                 onMouseEnter={() => setIsMapHovered(true)}
                 onMouseLeave={() => setIsMapHovered(false)}
                 onClick={handleGetDirections}
-
               >
                 <Image 
                   src="/images/icons/mapsViewIcon.svg" 
@@ -363,7 +396,6 @@ const Layout = ({children}) =>
                 />
                 <span className={styles.buttonText}>{translations['direction'] }</span>
               </div>
-
               <div
                 className={`${styles.buttonss} ${styles.callButton} ${isCallHovered ? styles.expanded : ''}`}
                 onMouseEnter={() => setIsCallHovered(true)}
