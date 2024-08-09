@@ -8,7 +8,6 @@
 
 .menuOptionContainer {
   font-family: 'Gill Sans Light';
-
     position: absolute;
     top: 7rem;
     right: 3rem;
@@ -33,6 +32,36 @@
     /* transform: translateY(0) scale(1); */
     opacity: 1;
   }
+
+  .menumapOptionContainer
+  {
+    font-family: 'Gill Sans Light';
+      position: absolute;
+      top: 7rem;
+      right: 3rem;
+      padding: 0.5rem 0.6rem;
+      min-width: 13.5rem;
+      background: #FCF7EB;
+      /* linear-gradient(135deg, #FCF7EB, #f0f0f0); Luxurious gradient */
+      border-radius: 0.3rem 0.3rem 0.3rem 0.3rem;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+      display: grid;
+      grid-template-rows: repeat(3, 1fr) 1.5fr;
+      gap: 0.3rem;
+      align-items: center;
+      /* transform: translateY(0px) scale(0.1); */
+      opacity: 0;
+      animation: fadeIn 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+      backdrop-filter: blur(5px);
+    }
+    
+    .menuOptionContainer.active {
+      /* transform: translateY(0) scale(1); */
+      opacity: 1;
+    }
+
+
+  
   
   .menuBox {
     width: 100%;
@@ -143,6 +172,30 @@
         transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
         backdrop-filter: blur(5px);
       }
+
+      .menumapOptionContainer {
+        font-family: 'Gill Sans Light';
+      
+          position: absolute;
+          top: 7rem;
+          right: 2rem;
+          z-index: 100000;
+          padding: 0.5rem 0.6rem;
+          min-width: 13.5rem;
+          background: #FCF7EB;
+          /* linear-gradient(135deg, #FCF7EB, #f0f0f0); Luxurious gradient */
+          border-radius: 0.3rem 0 0.3rem 0.3rem;
+          box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+          display: grid;
+          grid-template-rows: repeat(5, 1fr) 1.5fr;
+          gap: 0.3rem;
+          align-items: center;
+          transform: translateY(-20px) scale(0.95);
+          opacity: 0;
+          transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+          backdrop-filter: blur(5px);
+        }
+
 
       .apartmentView
       {

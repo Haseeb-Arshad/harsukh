@@ -39,7 +39,7 @@ const areas = [
 ];
 
 
-const AmenityGrid = ({ isMobile, onClose }) => {
+const AmenityGrid = ({ isMobile, onClose, ref }) => {
   const [selectedArea, setSelectedArea] = useState(null);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isOverlayActive, setIsOverlayActive] = useState(false);
@@ -113,17 +113,17 @@ const AmenityGrid = ({ isMobile, onClose }) => {
     document.addEventListener('touchstart', handleClickOutside);
     document.addEventListener('keydown', handleEscapeKey);
     
-    if (!selectedArea) {
-      document.addEventListener('mousedown', handleOutsideClick);
-      document.addEventListener('touchstart', handleOutsideClick);
-    }
+    // if (!selectedArea) {
+    //   document.addEventListener('mousedown', handleOutsideClick);
+    //   document.addEventListener('touchstart', handleOutsideClick);
+    // }
 
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
       document.removeEventListener('touchstart', handleClickOutside);
       document.removeEventListener('keydown', handleEscapeKey);
-      document.removeEventListener('mousedown', handleOutsideClick);
-      document.removeEventListener('touchstart', handleOutsideClick);
+      // document.removeEventListener('mousedown', handleOutsideClick);
+      // document.removeEventListener('touchstart', handleOutsideClick);
     };
   }, [selectedArea, closeImageBox, handleOutsideClick, onClose]);
 
@@ -146,7 +146,7 @@ const AmenityGrid = ({ isMobile, onClose }) => {
 
   return (
     <div className={styles.container} >
-      <div ref={amenityGridRef} className={styles.gridContainer}>
+      <div ref={ref} className={styles.gridContainer}>
         {areas.map((area) => (
           <div
             key={area.name}

@@ -128,6 +128,9 @@ export default function BackgroundImage() {
   const isSmallScreen = useMediaQuery({ query: "(max-width: 700px)" });
   const verysmallScreen = useMediaQuery({ query: "(max-width: 500px)" });
   const [filterFloorMenu, setFilterFloorMenu] = useState(true);
+  const amenityButtonRef = useRef(null);
+  const amenityGridRef = useRef(null);
+  const [amenityClicked, setAmenityClicked] = useState(false);
 
   const languageState = useSelector((state) => {
     const languageState = state.language.lang.find((site) => site.id === "1");
@@ -147,37 +150,58 @@ export default function BackgroundImage() {
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
-  
-  const handleClickOutside = useCallback((event) => {
-    if (
-      filterContainerRef.current &&
-      !filterContainerRef.current.contains(event.target) &&
-      filterBoxRef.current &&
-      !filterBoxRef.current.contains(event.target)
-    ) {
-      setIsFilterBoxVisible(false);
-      setFilterBox(false);
-    }
-  }, []);
 
-  useEffect(() => {
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [handleClickOutside]);
+  const filterButtonRef = useRef(null);
 
   const handleFilter = useCallback((event) => {
-    // event.stopPropagation();
-    setFilterBox((prevState) => !prevState);
+    event.stopPropagation();
     setIsFilterBoxVisible((prev) => !prev);
-    setTooltipContent(null); // Reset tooltip content when filter is toggled
+  }, []);
+
+  const handleAmenities = useCallback((event) => {
+    // event.stopPropagation();
+    setAmenityClicked((prev) => !prev);
+  }, []);
+
+  const closeFilterBox = useCallback(() => {
+    setIsFilterBoxVisible(false);
+  }, []);
+
+  const handleAmenitiesCheck = useCallback(() => {
+    setAmenityClicked(false);
   }, []);
 
 
-  const closeFilterBox= () => {
-    setIsFilterBoxVisible(false)
-  };
+  const handleOutsideClick = useCallback((event) => {
+    if (
+      isFilterBoxVisible &&
+      !filterBoxRef.current?.contains(event.target) &&
+      !filterButtonRef.current?.contains(event.target)
+    ) {
+      closeFilterBox();
+    }
+
+    if (
+      amenityClicked &&
+      amenityButtonRef.current &&
+      !amenityButtonRef.current.contains(event.target) &&
+      amenityGridRef.current &&
+      !amenityGridRef.current.contains(event.target)
+    ) {
+      setAmenityClicked(false);
+    }
+  }, [isFilterBoxVisible, amenityClicked, closeFilterBox]);
+
+  useEffect(() => {
+    document.addEventListener('mousedown', handleOutsideClick);
+    document.addEventListener('touchstart', handleOutsideClick);
+
+    return () => {
+      document.removeEventListener('mousedown', handleOutsideClick);
+      document.removeEventListener('touchstart', handleOutsideClick);
+    };
+  }, [handleOutsideClick]);
+
 
   const handleFavClickOutside = useCallback((event) => {
     if (
@@ -195,7 +219,7 @@ export default function BackgroundImage() {
     return () => {
       document.removeEventListener("mousedown", handleFavClickOutside);
     };
-  }, [handleClickOutside]);
+  }, [handleFavClickOutside]);
 
   const handleFavorties = () => {
     setReservedClicked((prev) => !prev);
@@ -360,17 +384,18 @@ export default function BackgroundImage() {
     setMenuBox((prev) => !prev);
   };
 
-  const amenityButtonRef = useRef(null);
-  const amenityGridRef = useRef(null);
-  const [amenityClicked, setAmenityClicked] = useState(false);
-
+  
   const handleAmenitiesClickOutside = useCallback((event) => {
+    console.log("KJNKJNKJNKJNJ")
+
     if (
       amenityButtonRef.current &&
       !amenityButtonRef.current.contains(event.target) &&
       amenityGridRef.current &&
       !amenityGridRef.current.contains(event.target)
     ) {
+      console.log("AMLKMLKMLMLMKLMK")
+
       setAmenityClicked(false);
     }
   }, []);
@@ -399,22 +424,19 @@ export default function BackgroundImage() {
 
   }, [filterbox]);
 
-  const handleAmenities = () => {
-    setAmenityClicked((prev) => !prev);
-    // setAmenityClicked(false);
-  };
+  // const handleAmenities = () => {
+  //   setAmenityClicked((prev) => !prev);
+  //   // setAmenityClicked(false);
+  // };
 
 
 
   
-  const amenityVisibilityRef = useRef(false);
+  // const handleAmenitiesCheck = () => {
+  //   setAmenityClicked(false);
+  // };
 
-const handleAmenitiesCheck = () => {
-  amenityVisibilityRef.current = false;
-  setAmenityClicked(false);
-};
-
-  const [loading, setLoading] = useState(false); 
+  const [loading, setLoading] = useState(false); // Add loading state
 
   const handleBackView = () => {
     setLoading(true); 
@@ -473,8 +495,22 @@ const handleAmenitiesCheck = () => {
 
   const [tooltipContent, setTooltipContent] = useState(null);
   const [tooltipPosition, setTooltipPosition] = useState({ x: 0, y: 0 });
+  // const [previousTarget, setPreviousTarget] = useState(null);
+  // const tooltipTimeout = useRef(null); // Add a ref for the timeout
+
+  const [tooltipVisible, setTooltipVisible] = useState(false);
+  const [tooltipLeave, setToolTipLeave]  = useState(false);
+  const hideTimeout = useRef(null);
+
+  // const clearHideTimeout = () => {
+  //   if (hideTimeout) {
+  //     clearTimeout(hideTimeout);
+  //     setHideTimeout(null);
+  //   }
+  // };
 
   const handlePolygonHover = (event) => {
+    setToolTipLeave(true);
     const element = event.target;
     const floorName = element.getAttribute("data-image");
     if (floorName) {
@@ -486,31 +522,37 @@ const handleAmenitiesCheck = () => {
           normalizedFloorName.includes(normalizedKey)
         );
       });
-
+  
       const floorInfo = floorData[floorKey];
       const totalUnits = floorInfo
         ? Object.values(floorInfo).reduce((a, b) => a + b, 0)
         : 0;
-
+  
       setTooltipContent({
         floorName,
         totalUnits,
         details: floorInfo,
       });
+  
       setTooltipPosition({
-        x: event.clientX + 15,
-        y: event.clientY + 15,
+        x: event.clientX - 220, // Adjust this value to position tooltip to the left of the cursor
+        y: event.clientY - 30, // Adjust this value to position tooltip above the cursor
       });
+  
+      clearTimeout(hideTimeout.current);
+      setTooltipVisible(true);
     }
   };
-
+  
   const handlePolygonHoverFiltered = (event) => {
+    setToolTipLeave(true);
+
     const element = event.target;
     const floorName = element.getAttribute("data-image");
     const apartmentNum = element.getAttribute("ApartmentNum");
     const bedroomCount = element.getAttribute("bedroomCount");
     const apartmentType = element.getAttribute("apartmentType");
-
+  
     if (floorName) {
       setTooltipContent({
         floorName,
@@ -519,40 +561,48 @@ const handleAmenitiesCheck = () => {
         apartmentType,
       });
       setTooltipPosition({
-        x: event.clientX + 15,
-        y: event.clientY + 15,
+        x: event.clientX - 220, // Adjust this value to position tooltip to the left of the cursor
+        y: event.clientY - 30, // Adjust this value to position tooltip above the cursor
       });
+  
+      clearTimeout(hideTimeout.current);
+      setTooltipVisible(true);
     }
   };
-
+  
   const handlePolygonMove = (event) => {
     if (tooltipContent) {
       setTooltipPosition({
-        x: event.clientX + 15,
-        y: event.clientY + 15,
+        x: event.clientX - 220, // Adjust this value to position tooltip to the left of the cursor
+        y: event.clientY - 40, // Adjust this value to position tooltip above the cursor
       });
     }
   };
-
+  
   const handlePolygonLeave = () => {
-    setTooltipContent(null);
+    // Set a timeout to hide the tooltip
+    hideTimeout.current = setTimeout(() => {
+      setTooltipVisible(false);
+    }, 500); // 1-second delay
   };
-
+  
   useEffect(() => {
     const svg = svgRef.current;
     if (svg) {
       const elements = svg.querySelectorAll("polygon, polyline, path, rect");
-
-      const hoverHandler = ((filterbox && selectedAmenities.length != 0) || (filterFloorMenu && selectedAmenities.length != 0))
-        ? handlePolygonHoverFiltered
-        : handlePolygonHover;
-
+  
+      const hoverHandler =
+        (filterbox && selectedAmenities.length !== 0) ||
+        (filterFloorMenu && selectedAmenities.length !== 0)
+          ? handlePolygonHoverFiltered
+          : handlePolygonHover;
+  
       elements.forEach((element) => {
         element.addEventListener("mouseenter", hoverHandler);
         element.addEventListener("mousemove", handlePolygonMove);
         element.addEventListener("mouseleave", handlePolygonLeave);
       });
-
+  
       return () => {
         elements.forEach((element) => {
           element.removeEventListener("mouseenter", hoverHandler);
@@ -562,12 +612,7 @@ const handleAmenitiesCheck = () => {
       };
     }
   }, [overlay, filterbox, selectedAmenities.length, filterFloorMenu]);
-
-
-  useEffect(() => {
-  }
-  , [filterbox, selectedAmenities.length, filterFloorMenu, backView ])
-
+  
 
   useEffect(() => {
     if (svgRef.current) {
@@ -1752,13 +1797,13 @@ const handleAmenitiesCheck = () => {
             ))}
 
           {tooltipContent && !backView && (
-            <div
-              className={styles.tooltip}
-              style={{
-                left: `${tooltipPosition.x}px`,
-                top: `${tooltipPosition.y}px`,
-              }}
-            >
+           <div
+           className={`${styles.tooltip} ${!tooltipVisible ? styles.fadeOut : ''}`}
+           style={{
+             left: `${tooltipPosition.x}px`,
+             top: `${tooltipPosition.y}px`,
+           }}
+         >
               <div className={styles.tooltipContent}>
                 <div className={styles.tooltipLetter}>
                   <Image
@@ -1818,6 +1863,7 @@ const handleAmenitiesCheck = () => {
                 alt="bird"
                 height={120}
                 width={190}
+                style={{cursor: "pointer"}}
               />
             </div>
 
@@ -1899,7 +1945,7 @@ const handleAmenitiesCheck = () => {
               <div
                 className={`${styles.filterContainer}`}
                 onClick={handleFilter}
-                ref={filterContainerRef}
+                ref={filterButtonRef}
               >
                 <div className={`${styles.filtersBox}`}>
                   <div className={styles.filtersButtonLeft}>
@@ -1984,10 +2030,11 @@ const handleAmenitiesCheck = () => {
                 <AmenityBtn
                   translations={translations}
                   // ref={amenityButtonRef}
-                  
+                  ref={amenityButtonRef}
+
                   handleMenu={handleAmenities}
-                  inActive={!amenityVisibilityRef.current}
-                  />
+                  inActive={amenityClicked}
+                />
               </div>
 
               <div className={styles.menuContainerInside} ref={favContainerRef}>
@@ -2015,16 +2062,19 @@ const handleAmenitiesCheck = () => {
 
             />
 
-            {amenityClicked && (
+            { amenityClicked && (
               <div >
-                <AmenityGrid onClose={handleAmenitiesCheck} isMobile={isMobile}  />
+                <AmenityGrid ref={amenityGridRef} onClose={handleAmenitiesCheck} isMobile={isMobile} />
               </div>
             )}
-
             {isFilterBoxVisible && (
-              <FilterBox  isMobile= {isMobile} onClose ={closeFilterBox}  ref={filterBoxRef} isVisible={isFilterBoxVisible} />
-                         
-            )}
+                    <FilterBox
+                      isMobile={isMobile}
+                      onClose={closeFilterBox}
+                      Filterref={filterBoxRef}
+                      isVisible={isFilterBoxVisible}
+                    />
+                  )}
           </>
         )}
       </div>
@@ -2066,8 +2116,8 @@ const handleAmenitiesCheck = () => {
           
           {amenityClicked && (
               <div >
-                <AmenityGrid isMobile={isMobile} onClose={handleAmenitiesCheck} />
-              </div>
+                <AmenityGrid ref={amenityGridRef} onClose={handleAmenitiesCheck} isMobile={isMobile} />
+                </div>
             )}
 
 
@@ -2094,9 +2144,14 @@ const handleAmenitiesCheck = () => {
 
           />
 
-          {isFilterBoxVisible && (
-              <FilterBox  onClose ={closeFilterBox} isMobile= {isMobile} translations= {translations} ref={filterBoxRef}  isVisible={isFilterBoxVisible} />
-            )}
+        {isFilterBoxVisible && (
+                <FilterBox
+                  isMobile={isMobile}
+                  onClose={closeFilterBox}
+                  Filterref={filterBoxRef}
+                  isVisible={isFilterBoxVisible}
+                />
+              )}
 
             { isElevationClicked &&
               (

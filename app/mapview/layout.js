@@ -22,6 +22,8 @@ import { toggleVisibility } from '@/state/mapView/mapViewState'; // Adjust the i
 import en from '../locales/en.json';
 import ur from '../locales/ur.json';
 import ContactBox from '../component/Bars/contactBox';
+import MapMenuBox from '../component/Bars/mapMenuBox';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const Layout = ({children}) => 
 {   
@@ -40,6 +42,8 @@ const Layout = ({children}) =>
   const [isMapHovered, setIsMapHovered] = useState(false);
   const [isCallHovered, setIsCallHovered] = useState(false);
   const [isContacted, setIsContacted] = useState(false);
+  const [isElevationClicked, setElevationClicked] = useState(false);
+  const [hoverInfo, setHoverInfo] = useState(null);
 
 
   const languageState = useSelector((state) => {
@@ -49,6 +53,11 @@ const Layout = ({children}) =>
 
   const [language, setLanguage] = useState(languageState === 'ur');
   const [translations, setTranslations] = useState(languageState === 'ur' ? ur : en);
+
+  function handleElevationClicked ()  {
+    setElevationClicked(!isElevationClicked);
+  };
+
 
   const handleMenu = () => {
     setMenuBox((prev) => !prev);
@@ -242,11 +251,12 @@ const Layout = ({children}) =>
 
 
 
-
       {/* <FloorMenu /> */}
 
-      <div className={styles.Harsukhlogo}>
-        <Image src="/Webpage/floors/HarsukhLogo.webp" quality={100} alt="Harsukh Logo" height={105} width={180} />
+      <div className={styles.Harsukhlogo} onClick={()=>router.push("/") }>
+      { isMobile?<Image src="/Webpage/floors/HarsukhLogo.webp" quality={100} alt="Harsukh Logo" height={80} width={130} />
+      :<Image src="/Webpage/floors/HarsukhLogo.webp" quality={100} alt="Harsukh Logo" height={120} width={190} />
+      }
       </div>
       
       {/* <div className={styles.AlyamarLogo}>
@@ -369,8 +379,9 @@ const Layout = ({children}) =>
       </div>
       
       }
-          <MenuBox 
+          <MapMenuBox 
             ref={menuBoxRef} 
+            setMenuBox ={setMenuBox}
             isActive={menuBox} 
             handleOverlay={handleOverlay} 
             translations={translations} 
@@ -408,11 +419,7 @@ const Layout = ({children}) =>
             </div>
 
 
-            { isContacted &&
-            <div className={styles.ContactedContainer}>
-                <ContactBox onClose={handleContactClose}/>
-            </div>
-            }
+           
     
       <div className={styles.elevationContainer}>
         <div className={ElevStyles.elevationButtonBox} ref={elevationRef}                
@@ -455,7 +462,23 @@ const Layout = ({children}) =>
             </div>
           </div>
       </div>
+
+       { isContacted &&
+            <div className={styles.ContactedContainer}>
+                <ContactBox onClose={handleContactClose}/>
+            </div>
+            }
     
+      { isElevationClicked &&
+        (
+        <ElevationBox
+            isVisible={isElevationClicked}
+            onClose={handleElevationClicked}
+            elevationArray={elevationArray}
+        />              
+        )
+        }
+
 
     </div>   
   )
