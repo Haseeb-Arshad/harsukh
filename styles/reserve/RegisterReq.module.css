@@ -43,7 +43,7 @@
   padding: 1rem;
   padding-left: 2rem;
   padding-right: 2rem;
-  height: 60vh;
+  height: 65vh;
   width: 100%;
   max-width: 600px;
   margin: 2rem auto;
@@ -52,8 +52,27 @@
   flex-direction: column;
 }
 
+
+.formContainerBox {
+  background-color: #fcf7eb;
+  border-radius: 0.3rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 1rem;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  height: 70vh;
+  width: 100%;
+  max-width: 600px;
+  margin: 2rem auto;
+  font-family: "Gill Sans Light";
+  display: flex;
+  flex-direction: column;
+}
+
+
+
 .formContainer *::-webkit-scrollbar {
-  width: 8px;
+  width: 5px;
 }
 
 .formContainer *::-webkit-scrollbar-track {
@@ -62,13 +81,34 @@
 }
 
 .formContainer *::-webkit-scrollbar-thumb {
-  background: #888;
+  /* background: #888; */
   border-radius: 4px;
 }
 
 .formContainer *::-webkit-scrollbar-thumb:hover {
   background: #555;
 }
+
+
+.formContainerBox *::-webkit-scrollbar {
+  width: 5px;
+}
+
+.formContainerBox *::-webkit-scrollbar-track {
+  background: transparent;
+  border-radius: 4px;
+}
+
+.formContainerBox *::-webkit-scrollbar-thumb {
+  /* background: #888; */
+  border-radius: 4px;
+}
+
+.formContainerBox *::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+
 
 .closeButtonBox {
   display: flex;
@@ -141,7 +181,7 @@
 .inputGroup {
   display: flex;
   /* gap: 1rem; */
-  margin-bottom: 1rem;
+  margin-bottom: 0.2rem;
 }
 
 .inputBox {
@@ -324,7 +364,7 @@
 .row {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 5px;
+  margin-bottom: 3px;
 }
 
 .row span {

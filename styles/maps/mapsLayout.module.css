@@ -233,10 +233,11 @@
 
   .Harsukhlogo {
     position: fixed;
-    top: 2rem;
+    top: 1rem;
     left: 3rem;
     overflow: hidden;
     transition: all 0.3s ease;
+    cursor: pointer;
   }
   
   .AlyamarLogo {
@@ -377,10 +378,16 @@
 
 @media (max-width: 768px) {
 
+  .Harsukhlogo
+  {
+      top: 2.5rem;
+      left: 2rem;
+    
+  }
 
   .menuContainer {
     top: 3rem;
-    right: 30px;
+    right: 20px;
     height: 10rem;
     width: 8.5rem;
     display: grid;

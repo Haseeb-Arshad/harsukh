@@ -157,7 +157,7 @@ const RegisterRequestForm = ({ onClose }) => {
 
   return (
     <div className={styles.overlay}>
-      <div className={styles.formContainer} ref={formRef}>
+      <div className={styles.formContainerBox} ref={formRef}>
         <div className={styles.closeButtonBox} >
           {/* <div className={styles.closeButton}>
             <Image src="/images/icons/closeIcon.svg" width="20" height="20" alt="Close"/>

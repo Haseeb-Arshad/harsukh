@@ -103,11 +103,7 @@ const Layout = ({ children }) => {
       }
     }
   };
-
-  const handleBackgroundMode = () => {
-    console.log("Background Mode clicked");
-  };
-
+  
   const favContainerRef = useRef(null);
   const apartmentListingRef = useRef(null);
 
