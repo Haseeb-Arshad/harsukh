@@ -9,7 +9,6 @@ import CloseIcon from '../Icons/closeBtn';
 
 const ApartmentCard = ({ apartment }) => {
   const dispatch = useDispatch();
-  console.log('apartment', apartment);
   const handleDelete = () => {
     dispatch(removeFavoriteApartment(apartment.Apartmentno));
   };
@@ -86,7 +85,6 @@ const RegisterRequestForm = ({ onClose }) => {
     if (currentStep < totalSteps) {
       setCurrentStep(currentStep + 1);
     } else {
-      console.log('Form submitted:', formData);
       onClose();
     }
   };
