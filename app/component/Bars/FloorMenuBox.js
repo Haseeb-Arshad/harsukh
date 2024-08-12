@@ -44,10 +44,11 @@ const FloorMenuBox = forwardRef(({
     const handleMenuItemClick = (handler) => {
       return () => {
         handler();
-        onClose(); // Close the menu after handling the click
+        if (typeof onClose === 'function') {
+          onClose(); // Only call onClose if it's a function
+        }
       };
     };
-  
 
   return (
     <>

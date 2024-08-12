@@ -76,6 +76,11 @@ const Layout = ({ children }) => {
     }
   }, []);
 
+
+  const closeMenu = () => {
+    setMenuBox(false);
+  };
+
   useEffect(() => {
     document.addEventListener("mousedown", handleMenuClickOutside);
     return () => {
@@ -84,10 +89,14 @@ const Layout = ({ children }) => {
   }, [handleMenuClickOutside]);
 
   const handleMenu = () => {
+    closeMenu();
+
     setMenuBox((prev) => !prev);
   };
 
   const handleOverlay = () => {
+    closeMenu();
+
     setOverlay(!overlay);
   };
 
@@ -95,6 +104,8 @@ const Layout = ({ children }) => {
     setIsContacted(!isContacted);
   };
   const handleContactClose = () => {
+    closeMenu();
+
     setIsContacted(false);
   };
 
@@ -108,6 +119,8 @@ const Layout = ({ children }) => {
         setFullScreen(!fullScreen);
       }
     }
+    closeMenu();
+
   };
   
   const favContainerRef = useRef(null);
@@ -137,6 +150,8 @@ const Layout = ({ children }) => {
 
   const toggleLanguage = () => {
     setLanguage(!language);
+        closeMenu();
+
   };
 
 
@@ -196,6 +211,8 @@ const Layout = ({ children }) => {
 
   const handleAmenities = useCallback(() => {
     setAmenityClicked((prev) => !prev);
+        closeMenu();
+
   }, []);
 
   
@@ -228,7 +245,7 @@ const Layout = ({ children }) => {
 
   const handleElevationClicked = () => {
     dispatch(toggleElevation());
-
+    closeMenu();
     setElevationClicked(!isElevationClicked);
   };
 
@@ -237,6 +254,8 @@ const Layout = ({ children }) => {
   
   const handleFloorMenuClicked = () => {
     dispatch(toggleFloorMenu());
+    closeMenu();
+
     setFloorClicked(!isFloorClicked);
   };
 
@@ -387,7 +406,7 @@ const Layout = ({ children }) => {
           toggleFullScreen={toggleFullScreen}
           handleElevation={handleElevationClicked}
           handleFloorMenu={handleFloorMenuClicked}
-
+          onCLose={closeMenu}
         />
         {/* <div className={styles.callContainer} onClick={handleCall}>
         <div className={styles.mapsViewBox}>
