@@ -413,9 +413,7 @@ export default function BackgroundImage() {
 
   
   const handleAmenitiesClickOutside = useCallback((event) => {
-    console.log("JKMKLMKLML")
-    console.log("BTN: ", amenityButtonRef.current)
-    console.log("GRID: ", amenityGridRef.current)
+
 
     if (
       amenityButtonRef.current &&

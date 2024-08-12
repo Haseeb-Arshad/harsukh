@@ -144,6 +144,7 @@ const MapMenuBox = forwardRef(({
             {socialLinks.map((link, index) => (
               <div key={index} className={styles.menuBoxContactIconbox} onClick={() => window.open(link.url, "_blank")}>
                 <Image 
+                
                   src={link.icon} 
                   quality={100} 
                   alt="Social Icon" 

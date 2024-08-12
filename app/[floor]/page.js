@@ -41,13 +41,11 @@ const Page = ({ amenityClicked, updateAmenityClicked }) => {
 
   const handleMenu = () => {
     setMenuBox(!menuBox);
-    console.log("menu clicked");
   }
   
   const handleOverlay = () => {
     setOverlay(!overlay);
-    console.log(overlay)
-    console.log("overlay clicked");
+
   }
   
   const toggleFullScreen = () => {

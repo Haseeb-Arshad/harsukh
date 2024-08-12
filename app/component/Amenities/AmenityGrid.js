@@ -171,10 +171,11 @@ const AmenityGrid = ({ isMobile, onClose, Amenref }) => {
 
       {selectedArea && (
         <div className={`${styles.imageBoxOverlay} ${isOverlayActive ? styles.active : ''}`} onClick={closeImageBox}>
-          <div className={styles.imageBox} ref={imageBoxRef} >
+          <div className={styles.imageBox} ref={imageBoxRef} onClick={(e)=> e.stopPropagation()} >
             <div className={styles.singleImageWrapper}>
               {isLoading && <Loader />}
               <Image
+              
                 key={currentImageIndex}
                 src={selectedArea.details[currentImageIndex].src}
                 alt={`${selectedArea.name} ${currentImageIndex + 1}`}
