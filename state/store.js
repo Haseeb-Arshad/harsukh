@@ -5,7 +5,7 @@ import storage from 'redux-persist/lib/storage';
 import languageReducer from './language/languageState';
 import svgVisibilityReducer from './mapView/mapViewState';
 import favoriteApartmentsReducer from './apartment/favApartment';
-import elevationReducer from './Elevation/ElevationState';
+import elevation  from './Elevation/ElevationState';
 import floorMenuReducer from './floor/FloorMenu'; // Corrected import name
 import amenitiesReducer from './Amenity/amenityState';
 import GalleryReducer from './gallery/GalleryState';
@@ -23,7 +23,7 @@ export const store = configureStore({
     language: languageReducer,
     svgVisibility: svgVisibilityReducer,
     favoriteApartments: persistedFavoriteApartmentsReducer,
-    elevation: elevationReducer,
+    elevation: elevation,
     floorMenu: floorMenuReducer, 
     amenities: amenitiesReducer,
     gallery: GalleryReducer

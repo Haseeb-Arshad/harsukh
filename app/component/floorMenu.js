@@ -6,7 +6,7 @@ import { useMediaQuery } from 'react-responsive';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'next/navigation';
 import ElevStyles from "@/styles/elevation.module.css";
-import { toggleElevation } from "@/state/floor/FloorMenu";
+import { toggleElevation } from "@/state/elevation/ElevationState";
 
 // import totalFloor from './data/TotalFloorData';
 // Import translations
@@ -79,8 +79,7 @@ const FloorMenu = () => {
   const [currentFloorLabel, setCurrentFloor ] = useState(null);
 
   const handleBackClick = () => {
-    // Extract the floor from the current URL
-    // Navigate to the floor route
+
     router.push(`/`);
 };
 
@@ -128,10 +127,9 @@ const FloorMenu = () => {
 
 
   const handleElevationClicked = () => {
-    
     dispatch(toggleElevation());
   };
-
+  
   const handleFloorSelect = useCallback((floor) => {
     setSelectedFloor(floor.id);
     setIsOpen(false);
@@ -184,8 +182,8 @@ const FloorMenu = () => {
   return (
     <>
     
-      <div className={styles.Harsukhlogo} >
-      <Image style={{cursor:'pointer'}} onClick={()=>router.push("/")} src="/Webpage/floors/HarsukhLogo.webp" quality={100} alt="Harsukh Logo" height={harsukhHeight} width={harsukhWidth} />
+      <div className={styles.Harsukhlogo} onClick={()=>router.push("/")} >
+      <Image style={{cursor:'pointer', }}  src="/Webpage/floors/HarsukhLogo.webp" quality={100} alt="Harsukh Logo" height={harsukhHeight} width={harsukhWidth} />
       </div>
       
         {

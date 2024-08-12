@@ -164,6 +164,8 @@
     left: 3rem;
     overflow: hidden;
     transition: all 0.3s ease;
+    pointer-events: none; /* This prevents any interaction */
+    user-select: none;
   }
   
   /* .bottomLogoContainer {
@@ -273,9 +275,23 @@
 @media (max-width: 786px) {
 
 
+
+  .mapButton {
+    bottom: 110px;
+    right: 20px;
+    background: linear-gradient(135deg, #FCF7EB, #f0f0f0);
+    border: 1px solid #dcdcdc;
+  }
+  
+  .callButton {
+    bottom: 48px;
+    right: 20px;
+    background-color: #FCF7EB;
+  }
+  
     .menuContainer {
-      top: 3rem;
-      right: 3rem;
+      top: 2rem;
+      right: 20px;
       height: 7rem;
       width: 5rem;
       z-index: 100000000s;

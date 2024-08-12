@@ -129,7 +129,7 @@ const Floor = ({ imageName, imageLink }) => {
 
       if (isFavorite) {
         dispatch(removeFavoriteApartment(apartmentId));
-        setPopupMessage(translations["favDelPopup"]);
+        setPopupMessage(translations["favAddPopup"]);
       } else {
         const apartmentToAdd = {
           Apartmentno: apartmentId,
@@ -139,7 +139,7 @@ const Floor = ({ imageName, imageLink }) => {
           Area: activePolygon.Area,
         };
         dispatch(addFavoriteApartment(apartmentToAdd));
-        setPopupMessage(translations["favAddPopup"]);
+        setPopupMessage(translations["favDelPopup"]);
       }
 
       setShowPopup(true);
@@ -170,12 +170,17 @@ const Floor = ({ imageName, imageLink }) => {
   }
 
   useEffect(() => {
-    if (isMobile) {
-      setZoomCoord(4);
-    } else {
-      setZoomCoord(0.7);
-    }
-  }, [isMobile]);
+    const checkScreenSize = () => {
+      const isMobileView = window.innerWidth <= 768;
+      setIsMobile(isMobileView);
+      setZoomCoord(isMobileView ? 1.2 : 0.7); // Adjust these values as needed
+    };
+  
+    checkScreenSize();
+    window.addEventListener("resize", checkScreenSize);
+    return () => window.removeEventListener("resize", checkScreenSize);
+  }, []);
+
 
   useEffect(() => {
     let viewer;
@@ -226,6 +231,9 @@ const Floor = ({ imageName, imageLink }) => {
       viewer.addHandler("open", function () {
         if (imageName === "third-floor") {
           const svgOverlay = document.createElement("div");
+          svgOverlay.className = "openSeadragonOverlay"; // Add this line
+          svgOverlay.style.position = "absolute";
+
           svgOverlay.style.position = "absolute";
           svgOverlay.style.left = "0";
           svgOverlay.style.top = "0";
@@ -902,6 +910,10 @@ const Floor = ({ imageName, imageLink }) => {
           const svgOverlay = document.createElement("div");
           svgOverlay.style.position = "absolute";
           svgOverlay.style.left = "0";
+          svgOverlay.style.outline = "none";
+          svgOverlay.style.border = "none";
+          svgOverlay.style.pointerEvents = "none";
+          
           svgOverlay.style.top = "0";
           svgOverlay.style.width = "100%";
           svgOverlay.style.height = "100%";
@@ -1010,7 +1022,7 @@ const Floor = ({ imageName, imageLink }) => {
         viewer.destroy();
       }
     };
-  }, [imageName, imageLink, router]);
+  }, [imageName, imageLink, router , zoomCoord]);
 
   useEffect(() => {
     const handleResize = () => {

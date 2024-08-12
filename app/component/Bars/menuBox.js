@@ -4,7 +4,7 @@ import styles from "@/styles/menubox.module.css";
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 
-const MenuBox = forwardRef(({ handleOverlay, handleElevation, amenitiesBtn, handleFilter, isActive, translations, setMenuBox, toggleLanguage, overlay, fullScreen, toggleFullScreen }, ref) => {
+const MenuBox = forwardRef(({ refAmen, handleOverlay, handleContact, handleElevation, amenitiesBtn, handleFilter, isActive, translations, setMenuBox, toggleLanguage, overlay, fullScreen, toggleFullScreen }, ref) => {
  
   const [isMobile, setIsMobile] = useState(false);
   const menuBoxRef = useRef(null);
@@ -40,7 +40,7 @@ const MenuBox = forwardRef(({ handleOverlay, handleElevation, amenitiesBtn, hand
     ) {
       setMenuBox(false);
     }
-  }, [setMenuBox]);
+  }, [setMenuBox, ref]);
 
   useEffect(() => {
     document.addEventListener('mousedown', handleClickOutside);
@@ -93,7 +93,7 @@ const MenuBox = forwardRef(({ handleOverlay, handleElevation, amenitiesBtn, hand
               {fullScreen ? translations.exitFullScreen : translations.fullScreen}
             </div>
           </div>
-          <div className={styles.menuBox}  onClick={()=>router.push("/contactus")}>
+          <div className={styles.menuBox}  onClick={ ()=>handleMenuItemClick(handleContact)}  >
             <div className={styles.menuBoxIcon}>
               <Image src="/images/icons/contactIcon.svg" quality={100} alt="Contact" height={26} width={26} />
             </div>
@@ -132,7 +132,7 @@ const MenuBox = forwardRef(({ handleOverlay, handleElevation, amenitiesBtn, hand
               {translations.elevation}
             </div>
           </div>
-          <div className={styles.menuBox} onClick={()=>handleMenuItemClick(amenitiesBtn) }>
+          <div ref ={refAmen} className={styles.menuBox} onClick={()=>handleMenuItemClick(amenitiesBtn) }>
             <div className={styles.menuBoxIcon}>
               <Image src="/images/icons/amenitiesIcon.svg" quality={100} alt="Amenity" height={21} width={21} />
             </div>
@@ -177,7 +177,7 @@ const MenuBox = forwardRef(({ handleOverlay, handleElevation, amenitiesBtn, hand
               {fullScreen ? translations.exitFullScreen : translations.fullScreen}
             </div>
           </div>
-          <div className={styles.menuBox} onClick={()=>router.push("/contactus")}>
+          <div className={styles.menuBox} onClick={ ()=>handleMenuItemClick(handleContact)} >
             <div className={styles.menuBoxIcon}>
               <Image src="/images/icons/contactIcon.svg" quality={100} alt="Contact" height={26} width={26} />
             </div>

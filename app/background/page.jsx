@@ -20,6 +20,7 @@ import en from "../locales/en.json";
 import ur from "../locales/ur.json";
 import ElevationBox from "../component/Bars/elevationBox";
 import Loader from "../[floor]/Loading";
+import ContactUsPopup from "../component/contactus/page";
 
 const floorData = {
   "Third Floor": {
@@ -131,6 +132,7 @@ export default function BackgroundImage() {
   const amenityButtonRef = useRef(null);
   const amenityGridRef = useRef(null);
   const [amenityClicked, setAmenityClicked] = useState(false);
+  const [isContactusClicked, setContactUs]= useState(false);
 
   const languageState = useSelector((state) => {
     const languageState = state.language.lang.find((site) => site.id === "1");
@@ -142,19 +144,27 @@ export default function BackgroundImage() {
     (state) => state.favoriteApartments.favoriteApartments
   );
 
+  const handleContact = () => {
+    setContactUs(!isContactusClicked)
+  }
+
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth <= 768);
     const checkLaptop = () => setIsLaptop(window.innerWidth > 768);
     checkMobile();
     window.addEventListener("resize", checkMobile);
-    return () => window.removeEventListener("resize", checkMobile);
+    
+    return () => {
+      window.removeEventListener("resize", checkMobile); // Clean up resize listener
+      window.removeEventListener("resize", checkLaptop); // Clean up laptop check listener
+    };
   }, []);
 
 
   const filterButtonRef = useRef(null);
 
   const handleFilter = useCallback((event) => {
-    event.stopPropagation();
+    // event.stopPropagation();
     setIsFilterBoxVisible((prev) => !prev);
   }, []);
 
@@ -181,15 +191,15 @@ export default function BackgroundImage() {
       closeFilterBox();
     }
 
-    if (
-      amenityClicked &&
-      amenityButtonRef.current &&
-      !amenityButtonRef.current.contains(event.target) &&
-      amenityGridRef.current &&
-      !amenityGridRef.current.contains(event.target)
-    ) {
-      setAmenityClicked(false);
-    }
+    // if (
+    //   amenityClicked &&
+    //   amenityButtonRef.current &&
+    //   !amenityButtonRef.current.contains(event.target) &&
+    //   amenityGridRef.current &&
+    //   !amenityGridRef.current.contains(event.target)
+    // ) {
+    //   setAmenityClicked(false);
+    // }
   }, [isFilterBoxVisible, amenityClicked, closeFilterBox]);
 
   useEffect(() => {
@@ -197,8 +207,8 @@ export default function BackgroundImage() {
     document.addEventListener('touchstart', handleOutsideClick);
 
     return () => {
-      document.removeEventListener('mousedown', handleOutsideClick);
-      document.removeEventListener('touchstart', handleOutsideClick);
+      document.removeEventListener('mousedown', handleOutsideClick); // Clean up
+      document.removeEventListener('touchstart', handleOutsideClick); // Clean up
     };
   }, [handleOutsideClick]);
 
@@ -217,7 +227,7 @@ export default function BackgroundImage() {
   useEffect(() => {
     document.addEventListener("mousedown", handleFavClickOutside);
     return () => {
-      document.removeEventListener("mousedown", handleFavClickOutside);
+      document.removeEventListener("mousedown", handleFavClickOutside); // Clean up
     };
   }, [handleFavClickOutside]);
 
@@ -315,15 +325,15 @@ export default function BackgroundImage() {
     };
   }, [isMobile, overlay]);
 
-  const handleSVGElementClick = (event) => {
+  const handleSVGElementClick = useCallback((event) => { // Use useCallback to memoize the function
     const element = event.target;
     const floorName = element.getAttribute("data-tip");
-    if (floorName == "valley-floor-2") return;
-    else if (floorName) {
+    if (floorName === "valley-floor-2") return; // Use strict equality
+    if (floorName) {
       const slug = floorName.replace(/\s+/g, "-");
-      router.push(`/${slug}`);
+      router.push(`/${slug}`); // Navigate immediately
     }
-  };
+  }, [router]); 
 
   const handleContactClose = () => {
     setIsContacted(false);
@@ -343,6 +353,7 @@ export default function BackgroundImage() {
 
   const [svgHover, setSvgHover] = useState(false);
 
+
   useEffect(() => {
     const svg = svgRef.current;
     if (svg) {
@@ -353,11 +364,27 @@ export default function BackgroundImage() {
 
       return () => {
         elements.forEach((element) => {
-          element.removeEventListener("click", handleSVGElementClick);
+          element.removeEventListener("click", handleSVGElementClick); // Clean up
         });
       };
     }
-  }, [overlay, filterbox, svgHover]);
+  }, [handleSVGElementClick, overlay, filterbox, svgHover]);
+
+  // useEffect(() => {
+  //   const svg = svgRef.current;
+  //   if (svg) {
+  //     const elements = svg.querySelectorAll("polygon, polyline, path, rect");
+  //     elements.forEach((element) => {
+  //       element.addEventListener("click", handleSVGElementClick);
+  //     });
+
+  //     return () => {
+  //       elements.forEach((element) => {
+  //         element.removeEventListener("click", handleSVGElementClick); // Clean up
+  //       });
+  //     };
+  //   }
+  // }, [overlay, filterbox, svgHover]);
 
   const menuContainerRef = useRef(null);
   const menuBoxRef = useRef(null);
@@ -376,7 +403,7 @@ export default function BackgroundImage() {
   useEffect(() => {
     document.addEventListener("mousedown", handleMenuClickOutside);
     return () => {
-      document.removeEventListener("mousedown", handleMenuClickOutside);
+      document.removeEventListener("mousedown", handleMenuClickOutside); // Clean up
     };
   }, [handleMenuClickOutside]);
 
@@ -386,7 +413,9 @@ export default function BackgroundImage() {
 
   
   const handleAmenitiesClickOutside = useCallback((event) => {
-    console.log("KJNKJNKJNKJNJ")
+    console.log("JKMKLMKLML")
+    console.log("BTN: ", amenityButtonRef.current)
+    console.log("GRID: ", amenityGridRef.current)
 
     if (
       amenityButtonRef.current &&
@@ -394,22 +423,17 @@ export default function BackgroundImage() {
       amenityGridRef.current &&
       !amenityGridRef.current.contains(event.target)
     ) {
-      console.log("AMLKMLKMLMLMKLMK")
-
       setAmenityClicked(false);
     }
   }, []);
 
   useEffect(() => {
-    document.addEventListener('mousedown', handleAmenitiesClickOutside);
-    document.addEventListener('touchstart', handleAmenitiesClickOutside);
-
+    document.addEventListener("mousedown", handleAmenitiesClickOutside);
     return () => {
-      document.removeEventListener('mousedown', handleAmenitiesClickOutside);
-      document.removeEventListener('touchstart', handleAmenitiesClickOutside);
+      document.removeEventListener("mousedown", handleAmenitiesClickOutside);
     };
   }, [handleAmenitiesClickOutside]);
-
+  
 
   useEffect(() => {
     if(!filterbox)
@@ -438,11 +462,18 @@ export default function BackgroundImage() {
 
   const [loading, setLoading] = useState(false); // Add loading state
 
-  const handleBackView = () => {
-    setLoading(true); 
-    setBackView(!backView);
-    setOverlay(!overlay);
-  };
+  // const handleBackView = () => {
+  //   setLoading(true); // Set loading state before changing the image
+  //   setBackView(!backView);
+  //   setOverlay(!overlay);
+    
+  //   // Preload the next image
+  //   const nextImage = !backView ? "/Webpage/BackView.webp" : "/Webpage/image-low.webp";
+  //   const img = new Image();
+  //   img.src = nextImage; // Preload the image
+  // };
+
+
 
   const toggleFullScreen = () => {
     if (!document.fullscreenElement) {
@@ -489,7 +520,7 @@ export default function BackgroundImage() {
 
     document.addEventListener("mousedown", handleClickOutside);
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOutside); // Clean up
     };
   }, []);
 
@@ -677,13 +708,22 @@ export default function BackgroundImage() {
     dispatch(modifyLanguage({ language: language ? "ur" : "en" }));
   }, [language, dispatch]);
 
+
+  const handleBackView = () => {
+    setLoading(true);
+    setBackView((prev) => !prev);
+    setOverlay((prev) => !prev);
+  };
+
   useEffect(() => {
   }, [isFilterBarVisible]);
 
   useEffect(() => {
     const img = imageRef.current;
     if (img) {
-      const handleLoad = () => setLoading(false);
+      const handleLoad = () => {
+        setLoading(false);
+      };
       img.addEventListener("load", handleLoad);
       return () => img.removeEventListener("load", handleLoad);
     }
@@ -698,22 +738,18 @@ export default function BackgroundImage() {
         }`}
       >
         <div className={styles.imageWrapper}>
-          {loading && <Loader />} {/* Show Loader while loading */}
-          {!backView ? (
-            <img
-              ref={imageRef}
-              src="/Webpage/image-low.webp"
-              alt="Background"
-              className={styles.backgroundImage}
-            />
-          ) : (
-            <img
-              ref={imageRef}
-              src="/Webpage/BackView.webp"
-              alt="Background"
-              className={styles.backgroundImage}
-            />
+         
+        {loading && (
+            <div className={styles.loadingWrapper}>
+              <Loader />
+            </div>
           )}
+            <img
+              ref={imageRef}
+              src={backView ? "/Webpage/BackView.webp" : "/Webpage/image-low.webp"}
+              alt="Background"
+              className={`${styles.backgroundImage} ${loading ? styles.loading : ''}`}
+            />
 
           {overlay &&
             ((filterbox && selectedAmenities.length != 0) || (filterFloorMenu && selectedAmenities.length != 0) ? (
@@ -1861,8 +1897,8 @@ export default function BackgroundImage() {
                 src="/Webpage/floors/HarsukhLogo.webp"
                 quality={100}
                 alt="bird"
-                height={120}
-                width={190}
+                height={105}
+                width={180}
                 style={{cursor: "pointer"}}
               />
             </div>
@@ -1972,6 +2008,7 @@ export default function BackgroundImage() {
                 style={{
                   position: "relative",
                   zIndex: 1,
+                  cursor: 'pointer'
                 }}
                 onClick={() => window.open("https://almaymaar.com/", "_blank")}
               >
@@ -2026,11 +2063,11 @@ export default function BackgroundImage() {
             </div>
 
             <div className={styles.menuContainer}>
-              <div >
+              <div ref={amenityButtonRef}>
                 <AmenityBtn
                   translations={translations}
                   // ref={amenityButtonRef}
-                  ref={amenityButtonRef}
+                  // ref={amenityButtonRef}
 
                   handleMenu={handleAmenities}
                   inActive={amenityClicked}
@@ -2052,7 +2089,9 @@ export default function BackgroundImage() {
             </div>
             <MenuBox
               ref={menuBoxRef}
+              refAmen ={amenityButtonRef}
               isActive={menuBox}
+              handleContact={handleContact}
               handleOverlay={handleOverlay}
               translations={translations}
               toggleLanguage={toggleLanguage}
@@ -2063,8 +2102,8 @@ export default function BackgroundImage() {
             />
 
             { amenityClicked && (
-              <div >
-                <AmenityGrid ref={amenityGridRef} onClose={handleAmenitiesCheck} isMobile={isMobile} />
+              <div  >
+                <AmenityGrid Amenref={amenityGridRef} onClose={handleAmenitiesCheck} isMobile={isMobile} />
               </div>
             )}
             {isFilterBoxVisible && (
@@ -2085,25 +2124,34 @@ export default function BackgroundImage() {
         </div>
       )}
 
+      
+    {isContactusClicked && (
+          <div className={styles.ContactedContainer}>
+              <ContactUsPopup onClose={handleContact} />
+          </div>
+      )}
+
       {isMobile && (
         <>
           <div className={styles.topLogoContainer}>
             <Image
+              style={{cursor: 'pointer'}}
               src="/Webpage/floors/HarsukhLogo.webp"
               quality={100}
               alt="bird"
-              height={80}
-              width={130}
+              height={85}
+              width={150}
             />
           </div>
 
 
           <div className={styles.bottomLogoContainer}>
-            <div className={styles.bottomLogoContainerTitle}>{translations["projectBy"]}</div>
+            <div className={styles.bottomLogoContainerTitle}>{translations["projectby"]}</div>
             <div
               onClick={() => router.push("https://almaymaar.com/")}
             >
               <Image
+                style={{cursor:"pointer"}}
                 src="/Webpage/floors/MainLogo.png"
                 quality={100}
                 alt="Almaymar"
@@ -2115,8 +2163,8 @@ export default function BackgroundImage() {
 
           
           {amenityClicked && (
-              <div >
-                <AmenityGrid ref={amenityGridRef} onClose={handleAmenitiesCheck} isMobile={isMobile} />
+              <div>
+                <AmenityGrid Amenref={amenityGridRef} onClose={handleAmenitiesCheck} isMobile={isMobile} />
                 </div>
             )}
 
@@ -2130,6 +2178,8 @@ export default function BackgroundImage() {
           <MenuBox
             isMobile={isMobile}
             ref={menuBoxRef}
+            refAmen ={amenityButtonRef}
+
             setMenuBox={setMenuBox}
             isActive={menuBox}
             handleOverlay={handleOverlay}
@@ -2144,7 +2194,7 @@ export default function BackgroundImage() {
 
           />
 
-        {isFilterBoxVisible && (
+            {isFilterBoxVisible && (
                 <FilterBox
                   isMobile={isMobile}
                   onClose={closeFilterBox}

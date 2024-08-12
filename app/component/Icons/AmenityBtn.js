@@ -35,7 +35,7 @@ const AmenityBtn = ({ ref,  translations, handleMenu, inActive }) => (
     //   <MenuIcon />
     // </div>
   <div className={`${styles.amenitiesButton} ${inActive ? styles.active : ''}`} onClick={handleMenu} ref={ref}>
-    <div className={styles.amenitiesButtonLeft}>
+    <div ref={ref} className={styles.amenitiesButtonLeft}>
         <MenuIcon/>
     {/* <Image src="/images/icons/amenitiesIcon.svg" quality={100} alt="Menu" height={22} width={22} /> */}
     </div>

@@ -238,6 +238,8 @@
     overflow: hidden;
     transition: all 0.3s ease;
     cursor: pointer;
+    pointer-events: none; /* This prevents any interaction */
+    user-select: none;
   }
   
   .AlyamarLogo {
@@ -246,6 +248,8 @@
     left: 0rem;
     overflow: hidden;
     transition: all 0.3s ease;
+    pointer-events: none; /* This prevents any interaction */
+    user-select: none;
   }
   
 .elevationContainer
@@ -267,7 +271,7 @@
 
 
 .container {
-  position: absolute;
+  position: fixed;
   bottom: -0.5rem;
   right: 0rem;  
   height: 100px;
@@ -347,6 +351,18 @@
     animation: fadeIn 0.3s ease-in-out;
 }
 
+.elevationsContainer {
+  position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
 .backgroundVideoContainer {
   position: relative;
   width: 100%;
@@ -382,11 +398,12 @@
   {
       top: 2.5rem;
       left: 2rem;
-    
+      pointer-events: none;
+      cursor: pointer;
   }
 
   .menuContainer {
-    top: 3rem;
+    top: 0rem;
     right: 20px;
     height: 10rem;
     width: 8.5rem;
@@ -398,6 +415,18 @@
     grid-template-columns: 1fr;
 }
 
+.mapButton {
+  bottom: 110px;
+  right: 20px;
+  background: linear-gradient(135deg, #FCF7EB, #f0f0f0);
+  border: 1px solid #dcdcdc;
+}
+
+.callButton {
+  bottom: 48px;
+  right: 20px;
+  background-color: #FCF7EB;
+}
 
 
 .longvideoTab
