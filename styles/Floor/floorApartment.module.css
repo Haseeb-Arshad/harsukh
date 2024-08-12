@@ -118,6 +118,12 @@
 
 }
 
+.openSeadragonOverlay {
+  outline: none; /* Prevent default outline */
+  border: none; /* Remove any border */
+  pointer-events: none; /* Prevent interaction with the overlay */
+}
+
 .zoomResetInside {
   display: flex;
   align-items: center;
@@ -927,7 +933,7 @@ transition: all 0.3s ease;
     position: absolute;
     width: 20vw;
     /* top:0rem; */
-    bottom: 100px;
+    bottom: 120px;
     right: 38vw;
     user-select: none;
     background-color: #FCF7EB;
@@ -966,7 +972,7 @@ transition: all 0.3s ease;
   .ZoomOutMobbuttonStyle {
     position: absolute;
     width: 20vw;
-    bottom: 100px;
+    bottom: 120px;
     left: 38vw;
     user-select: none;
     background-color: #303d3e;

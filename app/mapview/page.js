@@ -1,12 +1,12 @@
-
 'use client'
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useRef, useEffect, useState, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { toggleVisibility } from '@/state/mapView/mapViewState'; // Adjust the import path as needed
 import styles from '@/styles/maps/mapview.module.css';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
+import Loader from '../[floor]/Loading';
 
 const MapView = () => {
   const containerRef = useRef(null);
@@ -16,8 +16,82 @@ const MapView = () => {
   const svgVisibility = useSelector((state) => state.svgVisibility);
   const [isMobile, setIsMobile] = useState(false);
   const [hoverInfo, setHoverInfo] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   const router = useRouter();
+
+  const adjustVideoAndSVG = useCallback(() => {
+    const video = videoRef.current;
+    const container = containerRef.current;
+    const svg = svgRef.current;
+    
+    if (video && container && svg) {
+      const aspectRatio = video.videoWidth / video.videoHeight;
+      const containerWidth = container.clientWidth;
+      const containerHeight = container.clientHeight;
+
+      let newWidth, newHeight, left, top;
+
+      if (isMobile) {
+        newHeight = containerHeight;
+        newWidth = newHeight * aspectRatio;
+        left = 0;
+        top = 0;
+        container.style.overflowX = "auto";
+        container.scrollLeft = (newWidth - containerWidth) / 2;
+      } else {
+        if (containerWidth / containerHeight > aspectRatio) {
+          newWidth = containerWidth;
+          newHeight = newWidth / aspectRatio;
+        } else {
+          newHeight = containerHeight;
+          newWidth = newHeight * aspectRatio;
+        }
+        left = (containerWidth - newWidth) / 2;
+        top = (containerHeight - newHeight) / 2;
+        container.style.overflowX = "hidden";
+      }
+
+      video.style.width = `${newWidth}px`;
+      video.style.height = `${newHeight}px`;
+      video.style.left = `${left}px`;
+      video.style.top = `${top}px`;
+
+      svg.style.width = `${newWidth}px`;
+      svg.style.height = `${newHeight}px`;
+      svg.style.left = `${left}px`;
+      svg.style.top = `${top}px`;
+
+      svg.setAttribute("viewBox", `0 0 ${video.videoWidth} ${video.videoHeight}`);
+      
+      setIsLoading(false);
+    }
+  }, [isMobile]);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (video) {
+      const handleLoad = () => {
+        adjustVideoAndSVG();
+        video.play();
+      };
+
+      if (video.readyState >= 2) {
+        handleLoad();
+      } else {
+        video.onloadeddata = handleLoad;
+      }
+    }
+
+    window.addEventListener("resize", adjustVideoAndSVG);
+    
+    return () => {
+      window.removeEventListener("resize", adjustVideoAndSVG);
+      if (video) {
+        video.onloadeddata = null;
+      }
+    };
+  }, [isMobile, adjustVideoAndSVG]);
 
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth <= 768);
@@ -32,76 +106,6 @@ const MapView = () => {
       videoRef.current.play();
     }
   }, []);
-
-  useEffect(() => {
-    const adjustVideoAndSVG = () => {
-      const video = videoRef.current;
-      const container = containerRef.current;
-      const svg = svgRef.current;
-      
-      if (video && container && svg) {
-        const aspectRatio = video.videoWidth / video.videoHeight;
-        const containerWidth = container.clientWidth;
-        const containerHeight = container.clientHeight;
-
-        let newWidth, newHeight, left, top;
-
-        if (isMobile) {
-          // On mobile, set the height to 100% and adjust width to maintain aspect ratio
-          newHeight = containerHeight;
-          newWidth = newHeight * aspectRatio;
-          left = 0;
-          top = 0;
-          container.style.overflowX = "auto";
-
-          // Center the scroll position
-          container.scrollLeft = (newWidth - containerWidth) / 2;
-        } else {
-          // On desktop, fit the video within the container while maintaining aspect ratio
-          if (containerWidth / containerHeight > aspectRatio) {
-            newWidth = containerWidth;
-            newHeight = newWidth / aspectRatio;
-          } else {
-            newHeight = containerHeight;
-            newWidth = newHeight * aspectRatio;
-          }
-          left = (containerWidth - newWidth) / 2;
-          top = (containerHeight - newHeight) / 2;
-          container.style.overflowX = "hidden";
-        }
-
-        // Set video dimensions and position
-        video.style.width = `${newWidth}px`;
-        video.style.height = `${newHeight}px`;
-        video.style.left = `${left}px`;
-        video.style.top = `${top}px`;
-
-        // Adjust SVG to match video dimensions and position
-        svg.style.width = `${newWidth}px`;
-        svg.style.height = `${newHeight}px`;
-        svg.style.left = `${left}px`;
-        svg.style.top = `${top}px`;
-
-        // Update SVG viewBox to match new dimensions
-        svg.setAttribute("viewBox", `0 0 ${video.videoWidth} ${video.videoHeight}`);
-      }
-    };
-
-    const video = videoRef.current;
-    if (video) {
-      if (video.readyState >= 2) {
-        adjustVideoAndSVG();
-      } else {
-        video.onloadedmetadata = adjustVideoAndSVG;
-      }
-    }
-
-    window.addEventListener("resize", adjustVideoAndSVG);
-
-    return () => {
-      window.removeEventListener("resize", adjustVideoAndSVG);
-    };
-  }, [isMobile]);
 
   const handleSVGElementHover = (event) => {
     const hoveredElement = event.target.closest('[data-name]');
@@ -138,26 +142,32 @@ const MapView = () => {
 
   return (
     <div ref={containerRef} className={`${styles.container} ${isMobile ? styles.scrollable : ''}`}>
-      <div className={styles.videoWrapper}>
-        <video
-          ref={videoRef}
-          className={styles.video}
-          autoPlay
-          loop
-          muted
-          playsInline
-          preload="auto"
-        >
-          <source src="/video/mapVideo.mp4" type="video/mp4" />
-          Your browser does not support the video tag.
-        </video>
-        <svg
-          ref={svgRef}
-          className={styles.svgOverlay}
-          preserveAspectRatio="xMidYMid slice"
-          onMouseMove={handleSVGElementHover}
-          onMouseLeave={() => setHoverInfo(null)}
-        >
+    {isLoading && (
+      <div className={styles.loadingOverlay}>
+        {/* <div className={styles.loadingSpinner}></div> */}
+        <Loader />
+      </div>
+    )}
+    <div className={styles.videoWrapper} style={{ opacity: isLoading ? 0 : 1 }}>
+      <video
+        ref={videoRef}
+        className={styles.video}
+        autoPlay
+        loop
+        muted
+        playsInline
+        preload="auto"
+      >
+        <source src="/video/mapVideo.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+      <svg
+        ref={svgRef}
+        className={styles.svgOverlay}
+        preserveAspectRatio="xMidYMid slice"
+        onMouseMove={handleSVGElementHover}
+        onMouseLeave={() => setHoverInfo(null)}
+      >
           <use href="/svg/buildingwb.svg#buidling" />
           <use href="/svg/AYUBIA/AyubiaPlace.svg#ayubia" />
           <use 

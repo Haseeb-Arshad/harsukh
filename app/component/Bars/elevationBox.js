@@ -35,29 +35,34 @@ const ElevationBox = forwardRef(({ isVisible, elevationArray, onClose }, ref) =>
   };
 
   return (
-  <div className={styles.elevationContainer}>
 
-    <div 
-      ref={boxRef}
-      className={`${styles.elevationBox} ${isVisible ? styles.visible : ''}`}
-    >
-      <div className={styles.elevationBoxInside}>
-        <div className={styles.elevationGrid}>
-          {elevationArray.map((elevation) => (
-            <div
-              key={elevation.route}
-              className={`${styles.elevationButton} ${
-                selectedElevation?.route === elevation.route ? styles.elevationButtonSelected : ''
-              }`}
-              onClick={() => handleElevationClick(elevation)}
-            >
-              {elevation.label}
-            </div>
-          ))}
+    // <div className={styles.overlay}>
+
+      <div className={styles.elevationContainer}>
+
+      <div 
+        ref={boxRef}
+        className={`${styles.elevationBox} ${isVisible ? styles.visible : ''}`}
+      >
+        <div className={styles.elevationBoxInside}>
+          <div className={styles.elevationGrid}>
+            {elevationArray.map((elevation) => (
+              <div
+                key={elevation.route}
+                className={`${styles.elevationButton} ${
+                  selectedElevation?.route === elevation.route ? styles.elevationButtonSelected : ''
+                }`}
+                onClick={() => handleElevationClick(elevation)}
+              >
+                {elevation.label}
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </div>
-  </div>
+  // </div>
+
   );
 });
 

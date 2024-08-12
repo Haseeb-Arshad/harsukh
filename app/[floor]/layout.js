@@ -19,9 +19,10 @@ import ApartmentListing from "../component/Reserve/ApartmentListing";
 import en from "../locales/en.json";
 import ur from "../locales/ur.json";
 import ElevationBox from "../component/Bars/elevationBox";
-import { toggleElevation } from "@/state/Elevation/ElevationState";
+import { toggleElevation  } from "@/state/Elevation/ElevationState";
 import { toggleFloorMenu } from "@/state/floor/FloorMenu";
 import { useParams } from 'next/navigation';
+import ContactUsPopup from "../component/contactus/page";
 
 
 const Layout = ({ children }) => {
@@ -39,6 +40,7 @@ const Layout = ({ children }) => {
   const [isTransitioning, setIsTransitioning] = useState(false);
   const pathname = usePathname();
   const [reservedClicked, setReservedClicked] = useState(false);
+  const [isContactusClicked, setContactUs]= useState(false);
 
   const languageState = useSelector((state) => {
     const languageState = state.language.lang.find((site) => site.id === "1");
@@ -57,6 +59,10 @@ const Layout = ({ children }) => {
   );
   const menuContainerRef = useRef(null);
   const menuBoxRef = useRef(null);
+
+  const handleContact = () => {
+    setContactUs(!isContactusClicked)
+  }
 
 
   const handleMenuClickOutside = useCallback((event) => {
@@ -149,10 +155,16 @@ const Layout = ({ children }) => {
   const amenityGridRef = useRef(null);
   const [amenityClicked, setAmenityClicked] = useState(false);
 
-  const handleAmenitiesCheck = () => {
-    setAmenityClicked(false);
-  };
+  // const handleAmenitiesCheck = () => {
+  //   setAmenityClicked(false);
+  // };
 
+  
+  const handleAmenitiesCheck = useCallback(() => {
+    setAmenityClicked(false);
+  }, []);
+
+  
   const handleAmenitiesClickOutside = useCallback((event) => {
     if (
       amenityButtonRef.current &&
@@ -164,6 +176,17 @@ const Layout = ({ children }) => {
     }
   }, []);
 
+  // const handleAmenitiesClickOutside = useCallback((event) => {
+  //   if (
+  //     amenityButtonRef.current &&
+  //     !amenityButtonRef.current.contains(event.target) &&
+  //     amenityGridRef.current &&
+  //     !amenityGridRef.current.contains(event.target)
+  //   ) {
+  //     setAmenityClicked(false);
+  //   }
+  // }, []);
+
   useEffect(() => {
     document.addEventListener("mousedown", handleAmenitiesClickOutside);
     return () => {
@@ -171,10 +194,11 @@ const Layout = ({ children }) => {
     };
   }, [handleAmenitiesClickOutside]);
 
-  const handleAmenities = () => {
+  const handleAmenities = useCallback(() => {
     setAmenityClicked((prev) => !prev);
-  };
+  }, []);
 
+  
   const updateAmenityClicked = (value) => {
     setAmenityClicked(value);
   };
@@ -203,7 +227,6 @@ const Layout = ({ children }) => {
   const [isFloorClicked, setFloorClicked] = useState(false);
 
   const handleElevationClicked = () => {
-    console.log("Elevation Clicked")
     dispatch(toggleElevation());
 
     setElevationClicked(!isElevationClicked);
@@ -300,7 +323,7 @@ const Layout = ({ children }) => {
         {!isMobile ? (
           <>
             <div className={styles.menuContainer}>
-              <div ref={amenityButtonRef}>
+              <div>
                 <AmenityBtn
                   translations={translations}
                   ref={amenityButtonRef}
@@ -346,9 +369,15 @@ const Layout = ({ children }) => {
           </>
         )}
 
+         {/* const handleAmenities = useCallback((event) => {
+    // event.stopPropagation();
+    setAmenityClicked((prev) => !prev);
+  }, []); */}
+
         <FloorMenuBox
           isActive={menuBox}
           ref={menuBoxRef}
+          handleContact={handleContact}
           handleAmenities={handleAmenities}
           handleOverlay={handleOverlay}
           translations={translations}
@@ -406,7 +435,7 @@ const Layout = ({ children }) => {
       </div>
 
       <div className={styles.bottomLogoContainer}>
-        <div className={styles.bottomLogoContainerTitle}>{translations["projectBy"]}</div>
+        <div className={styles.bottomLogoContainerTitle}>{translations["projectby"]}</div>
         <div
           style={{
             left: "2.5rem",
@@ -414,15 +443,16 @@ const Layout = ({ children }) => {
             position: "relative",
             zIndex: 1,
           }}
-          onClick={() => window.open("https://almaymaar.com/", "_blank")}
+          
         >
           <Image
             style={{ cursor: "pointer" }}
             src="/Webpage/floors/MainLogo.png"
             quality={100}
             alt="Almaymar"
-            height={22}
-            width={160}
+            height={isMobile? 22: 28}
+            width={isMobile? 140: 210}
+            onClick={() => window.open("https://almaymaar.com/", "_blank")}
           />
         </div>
       </div>
@@ -431,6 +461,12 @@ const Layout = ({ children }) => {
         <div className={styles.ContactedContainer}>
           <ContactBox onClose={handleContactClose} />
         </div>
+      )}
+
+    {isContactusClicked && (
+          <div className={styles.ContactedContainer}>
+              <ContactUsPopup onClose={handleContact} />
+          </div>
       )}
 
       {amenityClicked && (

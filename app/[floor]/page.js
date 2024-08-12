@@ -99,11 +99,11 @@ const Page = ({ amenityClicked, updateAmenityClicked }) => {
       <FloorMenu />
 
       {/* </Suspense> */}
-      {amenityClicked && (
+      {/* {amenityClicked && (
         <div className="amenity-grid">
           <AmenityGrid amenityClicked={amenityClicked} updateAmenityClicked={updateAmenityClicked} />
         </div>
-      )}
+      )} */}
 
     </>
   );

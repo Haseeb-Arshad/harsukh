@@ -24,6 +24,8 @@ import ur from '../locales/ur.json';
 import ContactBox from '../component/Bars/contactBox';
 import MapMenuBox from '../component/Bars/mapMenuBox';
 import { motion, AnimatePresence } from 'framer-motion';
+import ElevationBox from '../component/Bars/elevationBox';
+import ContactUsPopup from '../component/contactus/page';
 
 const Layout = ({children}) => 
 {   
@@ -44,7 +46,7 @@ const Layout = ({children}) =>
   const [isContacted, setIsContacted] = useState(false);
   const [isElevationClicked, setElevationClicked] = useState(false);
   const [hoverInfo, setHoverInfo] = useState(null);
-
+  const [isContactusClicked, setContactUs]= useState(false);
 
   const languageState = useSelector((state) => {
     const languageState = state.language.lang.find((site) => site.id === '1');
@@ -55,12 +57,13 @@ const Layout = ({children}) =>
   const [translations, setTranslations] = useState(languageState === 'ur' ? ur : en);
 
   function handleElevationClicked ()  {
+    console.log("CLICKED ELEVATION")
     setElevationClicked(!isElevationClicked);
   };
 
 
   const handleMenu = () => {
-    setMenuBox((prev) => !prev);
+    setMenuBox((prev) => !prev); // Toggle the menuBox state
     console.log("menu clicked");
   };
   
@@ -89,6 +92,11 @@ const Layout = ({children}) =>
     console.log("Background Mode clicked");
   }
 
+  const handleContact = () => {
+    setContactUs(!isContactusClicked)
+  }
+
+  
   const handleFavorties = () => {
     console.log("Favorties clicked");
   }
@@ -141,8 +149,8 @@ const Layout = ({children}) =>
   }, []);
 
 
-  const menuBoxRef = useRef(null);
   const menuContainerRef = useRef(null);
+  const menuBoxRef = useRef(null);
 
   const handleMenuClickOutside = useCallback((event) => {
     if (
@@ -158,9 +166,10 @@ const Layout = ({children}) =>
   useEffect(() => {
     document.addEventListener("mousedown", handleMenuClickOutside);
     return () => {
-      document.removeEventListener("mousedown", handleMenuClickOutside);
+      document.removeEventListener("mousedown", handleMenuClickOutside); // Clean up
     };
   }, [handleMenuClickOutside]);
+
 
   const elevationRef = useRef(null);
 
@@ -203,18 +212,15 @@ const Layout = ({children}) =>
   const [delayPassed, setDelayPassed] = useState(false); // New state for delay
 
   useEffect(() => {
-    // Simulate a delay of 1-2 seconds after loading
-    if (isLoading) {
-      const timer = setTimeout(() => {
-        setIsLoading(false);
-        setDelayPassed(true);
-      }, 2000); // Adjust the delay as needed
-      return () => clearTimeout(timer);
-    }
-  }, [isLoading]);
-  
+    // Simulate initial loading
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 100); // Adjust the delay as needed
 
-   if (isLoading) {
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (isLoading) {
     return (
       <div className={styles.loadingOverlay}>
         <Loading />
@@ -237,25 +243,21 @@ const Layout = ({children}) =>
       </Suspense>      */}
 
 
-        {delayPassed && (
-          <Suspense fallback={
-            <div className={styles.loadingOverlay}>
-              <Loading />
-            </div>
-          }>
-            <div className={`${styles.transitionContainer} ${isTransitioning ? styles.fadeOut : styles.fadeIn}`}>
-              {children}
-            </div>
-          </Suspense>
-        )}
+      <Suspense fallback={
+        <div className={styles.loadingOverlay}>
+          <Loading />
+        </div>
+      }>
+        {children}
+      </Suspense>
 
 
 
       {/* <FloorMenu /> */}
 
       <div className={styles.Harsukhlogo} onClick={()=>router.push("/") }>
-      { isMobile?<Image src="/Webpage/floors/HarsukhLogo.webp" quality={100} alt="Harsukh Logo" height={80} width={130} />
-      :<Image src="/Webpage/floors/HarsukhLogo.webp" quality={100} alt="Harsukh Logo" height={120} width={190} />
+      { isMobile?<Image src="/Webpage/floors/HarsukhLogo.webp" quality={100} alt="Harsukh Logo" height={85} width={150} />
+      :<Image src="/Webpage/floors/HarsukhLogo.webp" quality={100} alt="Harsukh Logo" height={105} width={180} />
       }
       </div>
       
@@ -266,10 +268,12 @@ const Layout = ({children}) =>
       <div className={styles.bottomLogoContainer}>
         <div className={styles.bottomLogoContainerTitle}>
           {/* A Project by */}
-          {translations['projectBy'] }
+          {translations['projectby'] }
         </div>
         <div style={{left: '2.5rem', bottom:'8rem', position: 'relative', zIndex: 1}}onClick={() => window.open("https://almaymaar.com/", '_blank')}>
-        <Image style={{cursor:'pointer'}} src="/Webpage/floors/MainLogo.png"  quality={100} alt="Almaymar" height={28} width={210} />
+        <Image style={{cursor:'pointer'}} src="/Webpage/floors/MainLogo.png"  quality={100} alt="Almaymar" 
+        height={isMobile? 22:28} 
+        width={isMobile? 140: 210} />
         </div>
       </div>
 
@@ -381,7 +385,9 @@ const Layout = ({children}) =>
       }
           <MapMenuBox 
             ref={menuBoxRef} 
+            handleContact={handleContact}
             setMenuBox ={setMenuBox}
+            handleElevation = {handleElevationClicked}
             isActive={menuBox} 
             handleOverlay={handleOverlay} 
             translations={translations} 
@@ -421,7 +427,7 @@ const Layout = ({children}) =>
 
            
     
-      <div className={styles.elevationContainer}>
+      {!isMobile && <div className={styles.elevationContainer}>
         <div className={ElevStyles.elevationButtonBox} ref={elevationRef}                
          onClick={elevationDropdown}
         >
@@ -461,21 +467,29 @@ const Layout = ({children}) =>
               ))}
             </div>
           </div>
-      </div>
+      </div>}
 
        { isContacted &&
             <div className={styles.ContactedContainer}>
                 <ContactBox onClose={handleContactClose}/>
             </div>
             }
+
+      {isContactusClicked && (
+          <div className={styles.ContactedContainer}>
+              <ContactUsPopup onClose={handleContact} />
+          </div>
+      )}
     
       { isElevationClicked &&
         (
-        <ElevationBox
-            isVisible={isElevationClicked}
-            onClose={handleElevationClicked}
-            elevationArray={elevationArray}
-        />              
+        // <div className={styles.elevationsContainer}>
+          <ElevationBox
+              isVisible={isElevationClicked}
+              onClose={handleElevationClicked}
+              elevationArray={elevationArray}
+          />      
+        // </div>         
         )
         }
 

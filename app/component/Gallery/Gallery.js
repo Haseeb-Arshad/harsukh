@@ -102,12 +102,14 @@ const Gallery = ({ apartmentType, isOpen, onClose }) => {
     if (imageLoadingRef.current) return;
     setDirection('next');
     setCurrentImageIndex((prevIndex) => (prevIndex + 1) % selectedArea.details.length);
+    setIsLoading(true);
   }, [selectedArea]);
 
   const prevImage = useCallback(() => {
     if (imageLoadingRef.current) return;
     setDirection('prev');
     setCurrentImageIndex((prevIndex) => (prevIndex - 1 + selectedArea.details.length) % selectedArea.details.length);
+    setIsLoading(true);
   }, [selectedArea]);
 
   useEffect(() => {
@@ -136,14 +138,24 @@ const Gallery = ({ apartmentType, isOpen, onClose }) => {
     };
   }, [selectedArea, closeImageBox]);
 
+  const startAutoPlayTimer = useCallback(() => {
+    if (autoPlayRef.current) {
+      clearTimeout(autoPlayRef.current);
+    }
+    autoPlayRef.current = setTimeout(() => {
+      nextImage();
+    }, 5000); // Changed to 5 seconds as per your previous request
+  }, [nextImage]);
+
+  const handleImageLoad = useCallback(() => {
+    setIsLoading(false);
+    imageLoadingRef.current = false;
+    startAutoPlayTimer();
+  }, [startAutoPlayTimer]);
+
   useEffect(() => {
     if (selectedArea && !isLoading) {
-      if (autoPlayRef.current) {
-        clearTimeout(autoPlayRef.current);
-      }
-      autoPlayRef.current = setTimeout(() => {
-        nextImage();
-      }, 7000);
+      startAutoPlayTimer();
     }
 
     return () => {
@@ -151,12 +163,7 @@ const Gallery = ({ apartmentType, isOpen, onClose }) => {
         clearTimeout(autoPlayRef.current);
       }
     };
-  }, [selectedArea, isLoading, nextImage]);
-
-  const handleImageLoad = () => {
-    setIsLoading(false);
-    imageLoadingRef.current = false;
-  };
+  }, [selectedArea, isLoading, startAutoPlayTimer]);
 
   if (!selectedArea) return null;
 
@@ -181,14 +188,20 @@ const Gallery = ({ apartmentType, isOpen, onClose }) => {
         </div>
         <div 
           className={`${styles.navButtonLeft} ${styles.navButton}`}
-          onClick={prevImage}
+          onClick={() => {
+            prevImage();
+            startAutoPlayTimer(); // Restart timer on manual navigation
+          }}
           aria-label="Previous image"
         >
           <LeftArrow />
         </div>
         <div 
           className={`${styles.navButtonRight} ${styles.navButton}`}
-          onClick={nextImage}
+          onClick={() => {
+            nextImage();
+            startAutoPlayTimer(); // Restart timer on manual navigation
+          }}
           aria-label="Next image"
         >
           <RightArrow />
@@ -202,6 +215,8 @@ const Gallery = ({ apartmentType, isOpen, onClose }) => {
                 if (index !== currentImageIndex) {
                   setDirection(index > currentImageIndex ? 'next' : 'prev');
                   setCurrentImageIndex(index);
+                  setIsLoading(true);
+                  startAutoPlayTimer(); // Restart timer on manual navigation
                 }
               }}
             />

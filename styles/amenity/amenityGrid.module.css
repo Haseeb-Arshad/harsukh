@@ -22,6 +22,20 @@
   z-index: 100000;
 }
 
+.closeContainer
+{
+  position: absolute; 
+  top: 100px;
+  right: 20px;
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  background-color: #FCF7EB ;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 
   @keyframes fadeIn 
   {     

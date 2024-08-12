@@ -51,6 +51,7 @@
   left: 3rem;
   overflow: hidden;
   transition: all 0.3s ease;
+    user-select: none;
 }
 
 .bottomLogoContainer {

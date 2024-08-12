@@ -39,7 +39,7 @@ const areas = [
 ];
 
 
-const AmenityGrid = ({ isMobile, onClose, ref }) => {
+const AmenityGrid = ({ isMobile, onClose, Amenref }) => {
   const [selectedArea, setSelectedArea] = useState(null);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isOverlayActive, setIsOverlayActive] = useState(false);
@@ -73,18 +73,28 @@ const AmenityGrid = ({ isMobile, onClose, ref }) => {
     if (imageLoadingRef.current) return;
     setDirection('next');
     setCurrentImageIndex((prevIndex) => (prevIndex + 1) % selectedArea.details.length);
+    setIsLoading(true);
   }, [selectedArea]);
 
   const prevImage = useCallback(() => {
     if (imageLoadingRef.current) return;
     setDirection('prev');
     setCurrentImageIndex((prevIndex) => (prevIndex - 1 + selectedArea.details.length) % selectedArea.details.length);
+    setIsLoading(true);
   }, [selectedArea]);
 
-  const handleImageLoad = () => {
+  const handleImageLoad = useCallback(() => {
     setIsLoading(false);
     imageLoadingRef.current = false;
-  };
+    
+    // Start the autoplay timer after the image has loaded
+    if (autoPlayRef.current) {
+      clearTimeout(autoPlayRef.current);
+    }
+    autoPlayRef.current = setTimeout(() => {
+      nextImage();
+    }, 5000);
+  }, [nextImage]);
 
   const handleOutsideClick = useCallback((event) => {
     if (amenityGridRef.current && !amenityGridRef.current.contains(event.target)) {
@@ -108,45 +118,35 @@ const AmenityGrid = ({ isMobile, onClose, ref }) => {
         }
       }
     };
+    
 
     document.addEventListener('mousedown', handleClickOutside);
     document.addEventListener('touchstart', handleClickOutside);
     document.addEventListener('keydown', handleEscapeKey);
-    
-    // if (!selectedArea) {
-    //   document.addEventListener('mousedown', handleOutsideClick);
-    //   document.addEventListener('touchstart', handleOutsideClick);
-    // }
 
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
       document.removeEventListener('touchstart', handleClickOutside);
       document.removeEventListener('keydown', handleEscapeKey);
-      // document.removeEventListener('mousedown', handleOutsideClick);
-      // document.removeEventListener('touchstart', handleOutsideClick);
     };
   }, [selectedArea, closeImageBox, handleOutsideClick, onClose]);
 
   useEffect(() => {
-    if (selectedArea && !isLoading) {
-      if (autoPlayRef.current) {
-        clearTimeout(autoPlayRef.current);
-      }
-      autoPlayRef.current = setTimeout(() => {
-        nextImage();
-      }, 7000);
-    }
-
+    // Clear the autoplay timer when the component unmounts or when selectedArea changes
     return () => {
       if (autoPlayRef.current) {
         clearTimeout(autoPlayRef.current);
       }
     };
-  }, [selectedArea, isLoading, nextImage]);
+  }, [selectedArea]);
 
+  
   return (
-    <div className={styles.container} >
-      <div ref={ref} className={styles.gridContainer}>
+    <div className={styles.container} ref= {Amenref}>
+      <div className={styles.closeContainer} onClick={onClose}>
+          <Image src="/images/icons/closeIcon.svg" height={10} width={10} alt='Close'/>
+      </div>
+      <div className={styles.gridContainer}>
         {areas.map((area) => (
           <div
             key={area.name}
@@ -171,7 +171,7 @@ const AmenityGrid = ({ isMobile, onClose, ref }) => {
 
       {selectedArea && (
         <div className={`${styles.imageBoxOverlay} ${isOverlayActive ? styles.active : ''}`} onClick={closeImageBox}>
-          <div className={styles.imageBox} ref={imageBoxRef} onClick={(e) => e.stopPropagation()}>
+          <div className={styles.imageBox} ref={imageBoxRef} >
             <div className={styles.singleImageWrapper}>
               {isLoading && <Loader />}
               <Image
