@@ -6,7 +6,7 @@ import { useMediaQuery } from 'react-responsive';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'next/navigation';
 import ElevStyles from "@/styles/elevation.module.css";
-import { toggleElevation } from "@/state/elevation/ElevationState";
+import { toggleElevation } from "@/state/Elevation/ElevationState";
 
 // import totalFloor from './data/TotalFloorData';
 // Import translations
