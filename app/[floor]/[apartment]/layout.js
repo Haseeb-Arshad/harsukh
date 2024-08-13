@@ -58,14 +58,11 @@ const Layout = ({ children }) => {
     const apartmentNumber = match ? parseInt(match[0]) : null; // Gets the first match or null if no match
     const floorName = floorNameMapping[params.floor];
     // setApartmentType(apartmentInfo.Type);  
-    console.log(floorNameMapping)
-    console.log(params.floor)
-    console.log(floorName, " --- ", apartmentNumber);
+ 
 
     if (floorName && apartmentNumber) {
       const apartmentInfo = apartmentData[floorName].find(apt => apt.Apartmentno === apartmentNumber);
       if (apartmentInfo) {
-        console.log("TYPE: ",apartmentInfo.Type)
         setApartmentType(apartmentInfo.Type);
       }
     }
@@ -166,10 +163,10 @@ const Layout = ({ children }) => {
       );
       if (isFavorite) {
         dispatch(removeFavoriteApartment(apartmentInfo.Apartmentno));
-        setPopupMessage(translations.favDelPopup);
+        setPopupMessage(translations.favAddPopup );
       } else {
         dispatch(addFavoriteApartment({ ...apartmentInfo, floor }));
-        setPopupMessage(translations.favAddPopup);
+        setPopupMessage(translations.favDelPopup);
       }
       setShowPopup(true);
       setIsPopupVisible(true);
@@ -254,7 +251,6 @@ const Layout = ({ children }) => {
 
   const closeGallery = () => {
     // setIsGalleryOpen(false);
-    console.log("CLOSED")
     dispatch(setGalleryPressed(false));
 
   };

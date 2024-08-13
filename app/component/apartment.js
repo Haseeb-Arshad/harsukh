@@ -32,6 +32,7 @@ const Apartment = ({ imageName, imageLink }) => {
   const [apartmentType, setApartmentType] = useState(null);
   const [isMobile, setIsMobile] = useState(false);
   const [isGalleryOpen, setIsGalleryOpen] = useState(false);
+  const [zoomCoord, setZoomCoord] = useState(0.7);
 
   const dispatch = useDispatch();
 
@@ -201,7 +202,6 @@ const Apartment = ({ imageName, imageLink }) => {
       setIsLoading(true);
       setTimeout(() => setIsOverlayActive(true), 50);
     } else {
-      console.error('Invalid area or empty details');
       // Optionally, you can show an error message to the user
     }
   };
@@ -273,6 +273,21 @@ const Apartment = ({ imageName, imageLink }) => {
     imageLoadingRef.current = false;
   };
   
+
+  useEffect(() => {
+    const checkScreenSize = () => {
+      const isMobileView = window.innerWidth <= 768;
+      setIsMobile(isMobileView);
+      setZoomCoord(isMobileView ? 1.2 : 0.7); // Adjust these values as needed
+    };
+  
+    checkScreenSize();
+    window.addEventListener("resize", checkScreenSize);
+    return () => window.removeEventListener("resize", checkScreenSize);
+  }, []);
+
+
+
   useEffect(() => {
     let viewer;
 
@@ -292,10 +307,10 @@ const Apartment = ({ imageName, imageLink }) => {
         smoothTileEdgesMinZoom: 1,
         blendTime: 0.1,
         constrainDuringPan: true,
-        minZoomImageRatio: 0.7,
+        minZoomImageRatio:zoomCoord,
         minZoomImageRatio: 1,
-        visibilityRatio: 0.7,
-        defaultZoomLevel: 0.7, 
+        visibilityRatio: zoomCoord,
+        defaultZoomLevel:zoomCoord, 
         minZoomLevel: 0.7, 
         maxZoomLevel: 7,  
         wrapHorizontal: false,

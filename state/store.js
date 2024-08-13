@@ -9,6 +9,7 @@ import elevation  from './Elevation/ElevationState';
 import floorMenuReducer from './floor/FloorMenu'; // Corrected import name
 import amenitiesReducer from './Amenity/amenityState';
 import GalleryReducer from './gallery/GalleryState';
+import fullscreenReducer from './fullScreen/fullScreen';
 
 const persistConfig = {
   key: 'root',
@@ -26,7 +27,8 @@ export const store = configureStore({
     elevation: elevation,
     floorMenu: floorMenuReducer, 
     amenities: amenitiesReducer,
-    gallery: GalleryReducer
+    gallery: GalleryReducer,
+    fullscreen: fullscreenReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

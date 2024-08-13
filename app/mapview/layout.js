@@ -14,6 +14,7 @@ import MenubarButton from '@/app/component/Icons/menuBarBtn';
 import FavButton from '@/app/component/Icons/favButton';
 import BackgroundMode from '@/app/component/Icons/BackgroundMode';
 import MenuBox from '@/app/component/Bars/menuBox';
+import { toggleFullScreen } from '@/state/fullScreen/fullScreen';
 
 
 import { toggleVisibility } from '@/state/mapView/mapViewState'; // Adjust the import path as needed
@@ -76,17 +77,62 @@ const Layout = ({children}) =>
     console.log("CALLED");
   }
   
-  const toggleFullScreen = () => {
+  
+  const isFullScreen = useSelector((state) => state.fullscreen.isFullScreen);
+ 
+  const handleToggleFullScreen = () => {
     if (!document.fullscreenElement) {
-      setFullScreen(!fullScreen);
-      document.documentElement.requestFullscreen();
+      document.documentElement.requestFullscreen().then(() => {
+        dispatch(toggleFullScreen());
+      }).catch((err) => {
+        console.error(`Error attempting to enable fullscreen: ${err.message}`);
+      });
     } else {
-      if (document.exitFullscreen) {
-        document.exitFullscreen();
-        setFullScreen(!fullScreen);
-      }
+      exitFullscreen();
     }
-  }
+  };
+
+  const exitFullscreen = () => {
+    if (document.exitFullscreen) {
+      document.exitFullscreen().then(() => {
+        dispatch(toggleFullScreen());
+      }).catch((err) => {
+        console.error(`Error attempting to exit fullscreen: ${err.message}`);
+      });
+    }
+  };
+
+  useEffect(() => {
+    const handleKeyPress = (event) => {
+      if (event.key === 'Escape' && isFullScreen) {
+        exitFullscreen();
+        dispatch(toggleFullScreen());
+
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyPress);
+
+    // Cleanup function to remove the event listener
+    return () => {
+      document.removeEventListener('keydown', handleKeyPress);
+    };
+  }, [isFullScreen]); // Dependency array includes isFullScreen
+
+
+  useEffect(() => {
+    const handleFullscreenChange = () => {
+      if (!document.fullscreenElement && isFullScreen) {
+        dispatch(toggleFullScreen());
+      }
+    };
+
+    document.addEventListener('fullscreenchange', handleFullscreenChange);
+
+    return () => {
+      document.removeEventListener('fullscreenchange', handleFullscreenChange);
+    };
+  }, [dispatch, isFullScreen]);
 
   const handleBackgroundMode = () => {
     console.log("Background Mode clicked");
@@ -393,8 +439,8 @@ const Layout = ({children}) =>
             translations={translations} 
             toggleLanguage={toggleLanguage} 
             overlay={overlay} 
-            fullScreen={fullScreen} 
-            toggleFullScreen={toggleFullScreen}
+            fullScreen={isFullScreen} 
+            toggleFullScreen={handleToggleFullScreen}
           />
       
             <div className={styles.container}>

@@ -7,7 +7,7 @@ import { modifyLanguage } from "@/state/language/languageState";
 import styles from "@/styles/ImageBackground.module.css";
 import ElevStyles from "@/styles/elevation.module.css";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
 import { useMediaQuery } from "react-responsive";
 import AmenityGrid from "../component/Amenities/AmenityGrid";
@@ -21,6 +21,7 @@ import ur from "../locales/ur.json";
 import ElevationBox from "../component/Bars/elevationBox";
 import Loader from "../[floor]/Loading";
 import ContactUsPopup from "../component/contactus/page";
+import { toggleFullScreen } from '@/state/fullScreen/fullScreen';
 
 const floorData = {
   "Third Floor": {
@@ -133,6 +134,7 @@ export default function BackgroundImage() {
   const amenityGridRef = useRef(null);
   const [amenityClicked, setAmenityClicked] = useState(false);
   const [isContactusClicked, setContactUs]= useState(false);
+  const params = useParams();
 
   const languageState = useSelector((state) => {
     const languageState = state.language.lang.find((site) => site.id === "1");
@@ -368,7 +370,7 @@ export default function BackgroundImage() {
         });
       };
     }
-  }, [handleSVGElementClick, overlay, filterbox, svgHover]);
+  }, [handleSVGElementClick, overlay, filterbox, svgHover, params, filterBoxRef, isFilterBoxVisible ]);
 
   // useEffect(() => {
   //   const svg = svgRef.current;
@@ -472,18 +474,68 @@ export default function BackgroundImage() {
   // };
 
 
+  const isFullScreen = useSelector((state) => state.fullscreen.isFullScreen);
 
-  const toggleFullScreen = () => {
+  // const handleToggleFullScreen = () => {
+  //   dispatch(toggleFullScreen());
+  // };
+  
+ 
+  const handleToggleFullScreen = () => {
     if (!document.fullscreenElement) {
-      setFullScreen(!fullScreen);
-      document.documentElement.requestFullscreen();
+      document.documentElement.requestFullscreen().then(() => {
+        dispatch(toggleFullScreen());
+      }).catch((err) => {
+        console.error(`Error attempting to enable fullscreen: ${err.message}`);
+      });
     } else {
-      if (document.exitFullscreen) {
-        document.exitFullscreen();
-        setFullScreen(!fullScreen);
-      }
+      exitFullscreen();
     }
   };
+
+  const exitFullscreen = () => {
+    if (document.exitFullscreen) {
+      document.exitFullscreen().then(() => {
+        dispatch(toggleFullScreen());
+      }).catch((err) => {
+        console.error(`Error attempting to exit fullscreen: ${err.message}`);
+      });
+    }
+  };
+
+  useEffect(() => {
+    const handleKeyPress = (event) => {
+      if (event.key === 'Escape' && isFullScreen) {
+        exitFullscreen();
+        dispatch(toggleFullScreen());
+
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyPress);
+
+    // Cleanup function to remove the event listener
+    return () => {
+      document.removeEventListener('keydown', handleKeyPress);
+    };
+  }, [isFullScreen]); // Dependency array includes isFullScreen
+
+
+
+  useEffect(() => {
+    const handleFullscreenChange = () => {
+      if (!document.fullscreenElement && isFullScreen) {
+        dispatch(toggleFullScreen());
+      }
+    };
+
+    document.addEventListener('fullscreenchange', handleFullscreenChange);
+
+    return () => {
+      document.removeEventListener('fullscreenchange', handleFullscreenChange);
+    };
+  }, [dispatch, isFullScreen]);
+
 
   const handleOverlay = () => {
     setOverlay(!overlay);
@@ -564,7 +616,7 @@ export default function BackgroundImage() {
       });
   
       setTooltipPosition({
-        x: event.clientX - 220, // Adjust this value to position tooltip to the left of the cursor
+        x: event.clientX - 100, // Adjust this value to position tooltip to the left of the cursor
         y: event.clientY - 30, // Adjust this value to position tooltip above the cursor
       });
   
@@ -640,7 +692,7 @@ export default function BackgroundImage() {
         });
       };
     }
-  }, [overlay, filterbox, selectedAmenities.length, filterFloorMenu]);
+  }, [overlay, filterbox, selectedAmenities.length, filterFloorMenu, params, filterBoxRef]);
   
 
   useEffect(() => {
@@ -1853,23 +1905,23 @@ export default function BackgroundImage() {
                     {tooltipContent.floorName}
                   </div>
                   {tooltipContent.floorName === "Valley Floor 2" ? (
-                    <span className={styles.tooltipUnits}>{translations["parkinglot"]}</span>
-                  ) : (filterbox && selectedAmenities.length != 0) || (filterFloorMenu && selectedAmenities.length != 0) ? (
-                    <>
-                      <div className={styles.tooltipFloor}>
-                        {translations["apartment"]}: <span className={styles.tooltipUnits}> {tooltipContent.apartmentNum} </span> 
+                      <span className={styles.tooltipUnits}>{translations["parkinglot"]}</span>
+                    ) : (filterbox && selectedAmenities.length !== 0) || (filterFloorMenu && selectedAmenities.length !== 0) ? (
+                      <>
+                        <div className={styles.tooltipFloor}>
+                          {translations["apartment"]}: <span className={styles.tooltipUnits}> {tooltipContent.apartmentNum} </span>
+                        </div>
+                        <div className={styles.tooltipFloor}>
+                          {tooltipContent.apartmentType === "Penthouse" || tooltipContent.apartmentType === "Studio" 
+                            ? tooltipContent.apartmentType
+                            : `${tooltipContent.bedroomCount} ${tooltipContent.apartmentType}`}
+                        </div>
+                      </>
+                    ) : (
+                      <div className={styles.tooltipUnits}>
+                        {tooltipContent.totalUnits} Units
                       </div>
-                      <div className={styles.tooltipFloor}>
-                        {tooltipContent.bedroomCount}{" "}
-                        {tooltipContent.apartmentType}
-                      </div>
-                      {/* <div className={styles.tooltipType}>{tooltipContent.apartmentType}</div> */}
-                    </>
-                  ) : (
-                    <div className={styles.tooltipUnits}>
-                      {tooltipContent.totalUnits} Units
-                    </div>
-                  )}
+                    )}
                 </div>
               </div>
             </div>
@@ -2076,6 +2128,8 @@ export default function BackgroundImage() {
                 <FavButton
                   inActive={reservedClicked}
                   handleMenu={handleFavorties}
+                  count={favoriteApartments.length}
+
                 />
               </div>
               <div
@@ -2094,8 +2148,8 @@ export default function BackgroundImage() {
               translations={translations}
               toggleLanguage={toggleLanguage}
               overlay={overlay}
-              fullScreen={fullScreen}
-              toggleFullScreen={toggleFullScreen}
+              fullScreen={isFullScreen}
+              toggleFullScreen={handleToggleFullScreen}
 
             />
 
@@ -2185,8 +2239,8 @@ export default function BackgroundImage() {
             translations={translations}
             toggleLanguage={toggleLanguage}
             overlay={overlay}
-            fullScreen={fullScreen}
-            toggleFullScreen={toggleFullScreen}
+            fullScreen={isFullScreen}
+            toggleFullScreen={handleToggleFullScreen}
             amenitiesBtn={handleAmenities}
             handleElevation={handleElevationClicked}
 

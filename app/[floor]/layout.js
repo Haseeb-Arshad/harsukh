@@ -23,6 +23,7 @@ import { toggleElevation  } from "@/state/Elevation/ElevationState";
 import { toggleFloorMenu } from "@/state/floor/FloorMenu";
 import { useParams } from 'next/navigation';
 import ContactUsPopup from "../component/contactus/page";
+import { toggleFullScreen } from '@/state/fullScreen/fullScreen';
 
 
 const Layout = ({ children }) => {
@@ -89,7 +90,6 @@ const Layout = ({ children }) => {
   }, [handleMenuClickOutside]);
 
   const handleMenu = () => {
-    closeMenu();
 
     setMenuBox((prev) => !prev);
   };
@@ -109,20 +109,83 @@ const Layout = ({ children }) => {
     setIsContacted(false);
   };
 
-  const toggleFullScreen = () => {
-    if (!document.fullscreenElement) {
-      setFullScreen(!fullScreen);
-      document.documentElement.requestFullscreen();
-    } else {
-      if (document.exitFullscreen) {
-        document.exitFullscreen();
-        setFullScreen(!fullScreen);
-      }
-    }
-    closeMenu();
+  // const toggleFullScreen = () => {
+  //   if (!document.fullscreenElement) {
+  //     setFullScreen(!fullScreen);
+  //     document.documentElement.requestFullscreen();
+  //   } else {
+  //     if (document.exitFullscreen) {
+  //       document.exitFullscreen();
+  //       setFullScreen(!fullScreen);
+  //     }
+  //   }
+  //   closeMenu();
 
-  };
+  // };
   
+
+  const isFullScreen = useSelector((state) => state.fullscreen.isFullScreen);
+
+  // const handleToggleFullScreen = () => {
+  //   dispatch(toggleFullScreen());
+  // };
+  
+ 
+  const handleToggleFullScreen = () => {
+    if (!document.fullscreenElement) {
+      document.documentElement.requestFullscreen().then(() => {
+        dispatch(toggleFullScreen());
+      }).catch((err) => {
+        console.error(`Error attempting to enable fullscreen: ${err.message}`);
+      });
+    } else {
+      exitFullscreen();
+    }
+  };
+
+  const exitFullscreen = () => {
+    if (document.exitFullscreen) {
+      document.exitFullscreen().then(() => {
+        dispatch(toggleFullScreen());
+      }).catch((err) => {
+        console.error(`Error attempting to exit fullscreen: ${err.message}`);
+      });
+    }
+  };
+
+  useEffect(() => {
+    const handleKeyPress = (event) => {
+      if (event.key === 'Escape' && isFullScreen) {
+        exitFullscreen();
+        dispatch(toggleFullScreen());
+
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyPress);
+
+    // Cleanup function to remove the event listener
+    return () => {
+      document.removeEventListener('keydown', handleKeyPress);
+    };
+  }, [isFullScreen]); // Dependency array includes isFullScreen
+
+
+  useEffect(() => {
+    const handleFullscreenChange = () => {
+      if (!document.fullscreenElement && isFullScreen) {
+        dispatch(toggleFullScreen());
+      }
+    };
+
+    document.addEventListener('fullscreenchange', handleFullscreenChange);
+
+    return () => {
+      document.removeEventListener('fullscreenchange', handleFullscreenChange);
+    };
+  }, [dispatch, isFullScreen]);
+
+
   const favContainerRef = useRef(null);
   const apartmentListingRef = useRef(null);
 
@@ -214,6 +277,7 @@ const Layout = ({ children }) => {
         closeMenu();
 
   }, []);
+  
 
   
   const updateAmenityClicked = (value) => {
@@ -251,6 +315,31 @@ const Layout = ({ children }) => {
 
 
 
+
+  const handleClickOutside = useCallback((event) => {
+    if (
+      (menuContainerRef.current && !menuContainerRef.current.contains(event.target)) &&
+      (menuBoxRef.current && !menuBoxRef.current.contains(event.target)) &&
+      (favContainerRef.current && !favContainerRef.current.contains(event.target)) &&
+      (apartmentListingRef.current && !apartmentListingRef.current.contains(event.target)) &&
+      (amenityButtonRef.current && !amenityButtonRef.current.contains(event.target)) &&
+      (amenityGridRef.current && !amenityGridRef.current.contains(event.target))
+    ) {
+      setMenuBox(false);
+      setReservedClicked(false);
+      setAmenityClicked(false);
+    }
+  }, []);
+  
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [handleClickOutside]);
+
+
+
   
   const handleFloorMenuClicked = () => {
     dispatch(toggleFloorMenu());
@@ -282,7 +371,6 @@ const Layout = ({ children }) => {
     const currentFloor = totalFloor.find(item => item.id === floor);
     const floorLabel = currentFloor ? currentFloor.label : `Floor ${floor}`;
     setCurrentFloor(floorLabel)
-    console.log(floorLabel)
     setElevationArray([
       { id: '1', label: translations["mapview"], route: '/mapview' },
       { id: '2', label: translations["elevation"], route: '/' },
@@ -321,14 +409,7 @@ const Layout = ({ children }) => {
 
         {/* <FloorMenu /> */}
 
-        {reservedClicked && (
-          <div className={styles.reservedContainer}>
-            <ApartmentListing
-              onInterested={handleCall}
-              apartments={favoriteApartments}
-            />
-          </div>
-        )}
+        
 
         
           {/* <div style={{overflow:"none", zIndex: '10000'}}>
@@ -342,7 +423,7 @@ const Layout = ({ children }) => {
         {!isMobile ? (
           <>
             <div className={styles.menuContainer}>
-              <div>
+              <div ref={amenityButtonRef}>
                 <AmenityBtn
                   translations={translations}
                   ref={amenityButtonRef}
@@ -369,6 +450,8 @@ const Layout = ({ children }) => {
           </>
         ) : (
           <>
+          <div className={styles.menuContainerOutside}>
+
             <div className={styles.menuContainer}>
               <div
                 className={styles.menuContainerInside}
@@ -385,6 +468,8 @@ const Layout = ({ children }) => {
                 />
               </div>
             </div>
+          </div>
+
           </>
         )}
 
@@ -393,21 +478,7 @@ const Layout = ({ children }) => {
     setAmenityClicked((prev) => !prev);
   }, []); */}
 
-        <FloorMenuBox
-          isActive={menuBox}
-          ref={menuBoxRef}
-          handleContact={handleContact}
-          handleAmenities={handleAmenities}
-          handleOverlay={handleOverlay}
-          translations={translations}
-          toggleLanguage={toggleLanguage}
-          overlay={overlay}
-          fullScreen={fullScreen}
-          toggleFullScreen={toggleFullScreen}
-          handleElevation={handleElevationClicked}
-          handleFloorMenu={handleFloorMenuClicked}
-          onCLose={closeMenu}
-        />
+      
         {/* <div className={styles.callContainer} onClick={handleCall}>
         <div className={styles.mapsViewBox}>
           <Image src="/images/icons/callIcon.svg" quality={100} alt="Maps View Icon" height={19} width={19} />
@@ -488,12 +559,50 @@ const Layout = ({ children }) => {
           </div>
       )}
 
-      {amenityClicked && (
-        <div ref={amenityGridRef}>
-          <AmenityGrid isMobile={isMobile} onClose={handleAmenitiesCheck} />
+        {amenityClicked && (
+          <div className={styles.reserveContainerBox}>
+            <div ref={amenityGridRef}>
+              <AmenityGrid isMobile={isMobile} onClose={handleAmenitiesCheck} />
+            </div>
+          </div>
+          
+        )}
+
+      {reservedClicked && (
+        <div className={styles.reserveContainerBox}>
+
+            <div className={styles.reservedContainer} ref={apartmentListingRef}>
+              <ApartmentListing
+                onInterested={handleCall}
+                apartments={favoriteApartments}
+              />
+            </div>
         </div>
-      )}
+
+          )}
+        {/* <div className={styles.reserveContainerBox}> */}
+
+        <FloorMenuBox
+          isActive={menuBox}
+          ref={menuBoxRef}
+          handleContact={handleContact}
+          handleAmenities={handleAmenities}
+          handleOverlay={handleOverlay}
+          translations={translations}
+          toggleLanguage={toggleLanguage}
+          overlay={overlay}
+          fullScreen={isFullScreen}
+          toggleFullScreen={handleToggleFullScreen}
+          handleElevation={handleElevationClicked}
+          handleFloorMenu={handleFloorMenuClicked}
+          onCLose={closeMenu}
+        />
+        {/* </div> */}
+
+      
+
     </>
+    
   );
 };
 
