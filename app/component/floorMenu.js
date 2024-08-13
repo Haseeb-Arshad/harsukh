@@ -7,6 +7,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'next/navigation';
 import ElevStyles from "@/styles/elevation.module.css";
 import { toggleElevation } from "@/state/Elevation/ElevationState";
+import { toggleFloorMenu } from '@/state/floor/FloorMenu';
+
 
 // import totalFloor from './data/TotalFloorData';
 // Import translations
@@ -32,7 +34,8 @@ const FloorMenu = () => {
   const { isElevationClicked } = useSelector((state) => state.elevation);
   const { isFloorClicked } = useSelector((state) => state.floorMenu); // Corrected selector
 
-  
+  const floorMenuRef = useRef(null);
+
   
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth <= 768);
@@ -56,6 +59,8 @@ const FloorMenu = () => {
     }
   }
     ,[isMobile])
+
+
 
 
   const params = useParams();
@@ -96,6 +101,28 @@ const FloorMenu = () => {
     };
   }, []);
 
+
+  
+  useEffect(() => {
+    setIsOpen(isFloorClicked);
+  }, [isFloorClicked]);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (floorMenuRef.current && !floorMenuRef.current.contains(event.target)) {
+        setIsOpen(false);
+        dispatch(toggleFloorMenu());
+      }
+    };
+
+    if (isOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isOpen, dispatch]);
   
 
   const floors = useMemo(() => [
@@ -200,12 +227,18 @@ const FloorMenu = () => {
           :
           <>
 
-     {isFloorClicked && <div className={styles.container}>
-          <div className={styles.floorLabel}>{translations["Floor"]}</div>
-          <div className={`${styles.floorBar} ${styles.open}`}>
+     {isFloorClicked && 
+     
+     <div className={styles.containerOutside}>
+      <div className={styles.containerMob} ref={floorMenuRef}>
+    
+        <div className={styles.floorLabel}>{translations["Floor"]}</div>
+          <div className={`${styles.floorBar}  ${styles.open}`} >
             {renderFloorButtons()}
           </div>
-        </div>}
+        </div>
+      </div>
+    }
 
           </>
         }

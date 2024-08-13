@@ -185,9 +185,6 @@
 
 }
 
-
-
-
 .container {
   position: absolute;
   bottom: 0rem;
@@ -268,14 +265,22 @@
     animation: fadeIn 0.3s ease-in-out;
 }
 
-
-
+.reserveContainerBox
+{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  min-height: 100vh;
+  /* background: rgba(0, 0, 0, 0.5); Optional: for a semi-transparent background */
+  /* display: flex;
+  justify-content: center;
+  align-items: center; */
+  /* animation: fadeIn 0.3s ease-in-out; */
+}
 
 
 @media (max-width: 786px) {
-
-
-
   .mapButton {
     bottom: 110px;
     right: 20px;
@@ -288,8 +293,40 @@
     right: 20px;
     background-color: #FCF7EB;
   }
+
+  .reservedContainer
+{
+  z-index: 999999;
+  position: absolute;
+  top: 50px;
+  right: 50px;
+  left: 50px;
+  animation: fadeIn 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+
+}
+
+
+.reserveContainerBox
+{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* animation: fadeIn 0.3s ease-in-out; */
+}
+  
+
+.menuContainerOutside
+{
+
+}
   
     .menuContainer {
+      position: fixed;
       top: 2rem;
       right: 20px;
       height: 7rem;
@@ -301,21 +338,4 @@
       grid-template-rows: 1fr 1fr;
       grid-template-columns: 1fr;
     }
-
-
-
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-

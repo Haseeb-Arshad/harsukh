@@ -202,10 +202,10 @@ const Floor = ({ imageName, imageLink }) => {
         constrainDuringPan: true,
         minZoomImageRatio: 1,
 
-        minZoomImageRatio: zoomCoord,
+        // minZoomImageRatio: zoomCoord,
         visibilityRatio: zoomCoord,
-        minZoomLevel: zoomCoord,
-        maxZoomLevel: 10,
+        minZoomLevel: 0.7,
+        maxZoomLevel: 7,
         wrapHorizontal: false,
         defaultZoomLevel: zoomCoord,
         zoomPerScroll: 1.2,
