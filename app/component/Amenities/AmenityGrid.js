@@ -24,17 +24,18 @@ const areas = [
     { src: '/images/gallery/Restaurant/Restaurant-6.webp', caption: 'Experience the culinary luxury with our eateries floor' }
   ]},
   { name: 'Lobby', image: '/images/Amenity/Lobby.png', details: [
-    { src: '/images/gallery/Lobby/Lobby-1.webp', caption: 'Welcoming & Luxurious. Our lobbies & corridors combing luxury & warmth' },
-    { src: '/images/gallery/Lobby/Lobby-2.webp', caption: 'Welcoming & Luxurious. Our lobbies & corridors combing luxury & warmth' },
-    { src: '/images/gallery/Lobby/Lobby-3.webp', caption: 'Welcoming & Luxurious. Our lobbies & corridors combing luxury & warmth' },
-    { src: '/images/gallery/Lobby/Lobby-4.webp', caption: 'Welcoming & Luxurious. Our lobbies & corridors combing luxury & warmth' },
-    { src: '/images/gallery/Lobby/Lobby-5.webp', caption: 'Welcoming & Luxurious. Our lobbies & corridors combing luxury & warmth' },
-    { src: '/images/gallery/Lobby/Lobby-6.webp', caption: 'Welcoming & Luxurious. Our lobbies & corridors combing luxury & warmth' },
-    { src: '/images/gallery/Lobby/Lobby-7.webp', caption: 'Welcoming & Luxurious. Our lobbies & corridors combing luxury & warmth' }
+    { src: '/images/gallery/Lobby/Corridor.webp', caption: 'Welcoming & Luxurious. Our lobbies & corridors combing luxury & warmth' },
+    { src: '/images/gallery/Lobby/lobby-1.webp', caption: 'Welcoming & Luxurious. Our lobbies & corridors combing luxury & warmth' },
+    { src: '/images/gallery/Lobby/lobby-2.webp', caption: 'Welcoming & Luxurious. Our lobbies & corridors combing luxury & warmth' },
+    { src: '/images/gallery/Lobby/lobby-3.webp', caption: 'Welcoming & Luxurious. Our lobbies & corridors combing luxury & warmth' },
+    { src: '/images/gallery/Lobby/lobby-4.webp', caption: 'Welcoming & Luxurious. Our lobbies & corridors combing luxury & warmth' },
+    { src: '/images/gallery/Lobby/lobby-5.webp', caption: 'Welcoming & Luxurious. Our lobbies & corridors combing luxury & warmth' },
+    { src: '/images/gallery/Lobby/lobby-6.webp', caption: 'Welcoming & Luxurious. Our lobbies & corridors combing luxury & warmth' },
+    { src: '/images/gallery/Lobby/lobby-7.webp', caption: 'Welcoming & Luxurious. Our lobbies & corridors combing luxury & warmth' }
   ]},
   { name: 'Gym', image: '/images/Amenity/Gym.png', details: [
-    { src: '/images/gallery/Gym/Gym-1.webp', caption: 'Experience premier fitness with stunning mountain backdrops' },
-    { src: '/images/gallery/Gym/Gym-2.webp', caption: 'Experience premier fitness with stunning mountain backdrops' },
+    { src: '/images/gallery/Gym/gym-1.webp', caption: 'Experience premier fitness with stunning mountain backdrops' },
+    { src: '/images/gallery/Gym/gym-2.webp', caption: 'Experience premier fitness with stunning mountain backdrops' },
   ]},
 ];
 

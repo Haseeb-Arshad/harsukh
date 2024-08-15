@@ -796,7 +796,9 @@ export default function BackgroundImage() {
           )}
             <img
               ref={imageRef}
-              src={backView ? "/Webpage/BackView.webp" : "/Webpage/image-low.webp"}
+              // src={backView ? "/Webpage/BackView.webp" : "/Webpage/image-low.webp"}
+              src={backView ? "/Webpage/hills/frontView.png" : "/Webpage/hills/frontView.webp"}
+
               alt="Background"
               className={`${styles.backgroundImage} ${loading ? styles.loading : ''}`}
             />
@@ -811,6 +813,7 @@ export default function BackgroundImage() {
                 xmlnsXlink="http://www.w3.org/1999/xlink"
                 x="0px"
                 y="0px"
+                viewBox="0 0 1920 1080"
                 xmlSpace="preserve"
                 onMouseEnter={() =>setSvgHover(true)}
                 onMouseLeave={() =>setSvgHover(false)}
