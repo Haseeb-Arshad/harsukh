@@ -198,7 +198,7 @@ const Floor = ({ imageName, imageLink }) => {
         showNavigationControl: false,
         maxZoomPixelRatio: 10,
         smoothTileEdgesMinZoom: 1,
-        blendTime: 0.1,
+        blendTime: 0.1, 
         constrainDuringPan: true,
         minZoomImageRatio: 1,
 

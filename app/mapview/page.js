@@ -177,6 +177,7 @@ const MapView = () => {
           />
           <use href="/svg/MURREE/murree.svg#murree" />
           <use href="/svg/NATHIA/nathia.svg#nathia" />
+          <use href="/svg/NATHIA/nathia.svg#nathia" />
 
           {svgVisibility.landmarks && (
             <>
@@ -185,13 +186,16 @@ const MapView = () => {
               <use href="/svg/chandatophill/chandaTopHill.svg#chandaTopHill" data-name="Chanda Top Hill" data-distance="900 m" data-driving-time="3 min" data-walking-time="12 min" />
               <use href="/svg/forestHouse/forestHouse.svg#forestHouse" data-name="Alnoor Waterfall" data-distance="230 m" data-driving-time="4 min" data-walking-time="8 min" />
               <use href="/svg/tunnel/tunnel.svg#tunnel" data-name="Ayubia Moto Tunnel" data-distance="2.9 km" data-driving-time="7 min" data-walking-time="45 min" />
-              <use href="/svg/harsukhlogo/harsukhLogo.svg#harsukhLogo" />
+              <use href="/svg/harsukhlogo/logo.svg#harsukhLogo" />
               <use href="/svg/pinLocation/pinLocation.svg#pinLocation" />
             </>
           )}
           {svgVisibility.roads && (
             <use href="/svg/roadLabel/road.svg#road" />
           )}
+          {svgVisibility.radius && (
+          <use href="/svg/radius/radius.svg#radius" />
+        )}
         </svg>
       </div>
 

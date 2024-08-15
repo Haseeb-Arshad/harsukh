@@ -32,6 +32,7 @@ const Layout = ({ children }) => {
   const [apartmentNum, setApartmentNum] = useState(0);
   const [floor, setFloor] = useState("");
   const [isGalleryOpen, setIsGalleryOpen] = useState(false);
+  const { isElevationClicked } = useSelector((state) => state.elevation);
 
   const favoriteApartments = useSelector(
     (state) => state.favoriteApartments.favoriteApartments
@@ -133,10 +134,13 @@ const Layout = ({ children }) => {
     const match = apartmentParam.match(/\d+/); // Extracts the digits from the string
     const apartmentNumber = match ? parseInt(match[0]) : null; // Gets the first match or null if no match
     const floorName = floorNameMapping[params.floor];
-
+    console.log("Apartment Number: ", apartmentNumber)
+    console.log("Floor name: ", floorName)
     if (floorName && apartmentNumber) {
       const apartmentInfo = apartmentData[floorName].find(apt => apt.Apartmentno === apartmentNumber);
       if (apartmentInfo) {
+
+        console.log("TYPEEES :", apartmentInfo.Type)
         setApartmentType(apartmentInfo.Type);
       }
     }
@@ -240,7 +244,6 @@ const Layout = ({ children }) => {
   }, [params, translations]);
 
 
-    const { isElevationClicked } = useSelector((state) => state.elevation);
 
   const handleBackClick = () => {
     // Extract the floor from the current URL

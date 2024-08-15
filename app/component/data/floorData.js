@@ -55,7 +55,7 @@ const apartmentData = {
     { Apartmentno: 47, Type: "Two Bed", Bedrooms: 2, Area: "1033 sqft" },
     { Apartmentno: 48, Type: "Three Bed", Bedrooms: 3, Area: "1383 sqft" },
     { Apartmentno: 49, Type: "Three Bed", Bedrooms: 3, Area: "1385 sqft" },
-    { Apartmentno: 40, Type: "Two Bed", Bedrooms: 2, Area: "833 sqft" },
+    { Apartmentno: 50, Type: "Two Bed", Bedrooms: 2, Area: "833 sqft" },
     { Apartmentno: 51, Type: "One Bed", Bedrooms: 1, Area: "485 sqft" },
     { Apartmentno: 52, Type: "One Bed", Bedrooms: 1, Area: "465 sqft" },
     { Apartmentno: 53, Type: "One Bed", Bedrooms: 1, Area: "455 sqft" },
