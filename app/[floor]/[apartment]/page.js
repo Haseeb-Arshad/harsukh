@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useRef, useState } from 'react';
-import { useRouter, usePathname } from 'next/navigation';
+import { useParams, useRouter, usePathname } from 'next/navigation';
 import dynamic from 'next/dynamic';
 import FloorMenu from '@/app/component/floorMenu';
 import Image from "next/image";
@@ -14,6 +14,7 @@ import Apartment from '@/app/component/apartment';
 import ElevStyles from "@/styles/elevation.module.css";
 import { useSelector, useDispatch } from 'react-redux';
 import { modifyLanguage } from '@/state/language/languageState';
+import apartmentData from "@/app/component/data/floorData";
 
 
 import en from '@/app/locales/en.json';
@@ -28,6 +29,8 @@ const Page = () => {
   const router = useRouter();
   const dispatch = useDispatch();
 
+  const params = useParams();  
+  
   const pathname = usePathname();
   const floor_text = pathname.split('/')[1];
   const floor = floor_text.toLowerCase();
@@ -35,14 +38,49 @@ const Page = () => {
   const [overlay, setOverlay] = useState(true);
   const [fullScreen, setFullScreen] = useState(false);
 
+  // const apartmentInfo = apartmentData[floorName].find(apt => apt.Apartmentno === apartmentNumber);
+  const [apartmentNum, setApartmentNum] = useState(0);
+
+  const [apartmentType, setApartmentType] = useState(null)
+
+  useEffect(() => {
+    let foundApartment = null;
+    let foundFloor = "";
+
+    const apartmentParam = params.apartment; // e.g., "Apartment1"
+    const match = apartmentParam.match(/\d+/); // Extracts the digits from the string
+    const apartmentNumber = match ? match[0] : null; // Gets the first match or null if no match
+    console.log("APARTTTEEE: ", apartmentNumber, typeof apartmentNumber)
+    setApartmentNum(apartmentNumber);
+    // Search for the apartment in all floors
+    for (const floorName in apartmentData) {
+      const apartment = apartmentData[floorName].find(
+        (apt) => apt.Apartmentno == apartmentNumber
+        // (apt) => console.log(apt.Apartmentno== apartmentNumber)
+      );
+
+      // console.log(apartment, "CAKRESSSS")
+
+      if (apartment) {
+
+        setApartmentType(apartment.Type)
+        // foundApartment = apartment;
+        // foundFloor = floorName;
+        // break;
+      }
+    }
+  
+  }, [params.apartment]);
+
+  
   const floorData = {
+    'Penthouse': { imageLink: "/Webpage/apartments/penthouse.webp", imageName: "penthouse" },
+    'One Bed': { imageLink: "/Webpage/apartments/oneBed.webp", imageName: "oneBed" },
+    'Two Bed': { imageLink: "/Webpage/apartments/twoBed.webp", imageName: "twoBed" },
+    'Three Bed': { imageLink: "/Webpage/apartments/threeBed.webp", imageName: "threeBed" },
+    'Studio': { imageLink: "/Webpage/apartments/studio.webp", imageName: "studio" },
+    // 'P': { imageLink: "/Webpage/apartments/penthouse.webp", imageName: "penthouse" },
     basement1: { imageLink: "/Webpage/apartments/penthouse.webp", imageName: "penthouse" },
-    // basement1: { imageLink: "/Webpage/apartments/penthouse.webp", imageName: "penthouse" },
-    // basement1: { imageLink: "/Webpage/apartments/penthouse.webp", imageName: "penthouse" },
-    // basement1: { imageLink: "/Webpage/apartments/penthouse.webp", imageName: "penthouse" },
-    // basement1: { imageLink: "/Webpage/apartments/penthouse.webp", imageName: "penthouse" },
-    // basement3: { imageLink: "/Webpage/apartments/penthouse.webp", imageName: "penthouse" },
-    // basement4: { imageLink: "/Webpage/apartments/penthouse.webp", imageName: "penthouse" },
     // basement5: { imageLink: "/Webpage/apartments/penthouse.webp", imageName: "penthouse" },
     // basement: { imageLink: "/Webpage/apartments/penthouse.webp", imageName: "penthouse" },
   
@@ -70,7 +108,7 @@ const Page = () => {
     }
   }
   
-  const currentFloor = floorData[floor] || floorData.basement1; 
+  const currentFloor = floorData[apartmentType] || floorData.basement1; 
 
   useEffect(() => {
     console.log("FLOOR: ",  floorData, floor )

@@ -62,7 +62,7 @@ const Layout = ({ children }) => {
  
 
     if (floorName && apartmentNumber) {
-      const apartmentInfo = apartmentData[floorName].find(apt => apt.Apartmentno === apartmentNumber);
+      const apartmentInfo = apartmentData[floorName].find(apt => apt.Apartmentno == apartmentNumber);
       if (apartmentInfo) {
         setApartmentType(apartmentInfo.Type);
       }
@@ -80,8 +80,9 @@ const Layout = ({ children }) => {
     // Search for the apartment in all floors
     for (const floorName in apartmentData) {
       const apartment = apartmentData[floorName].find(
-        (apt) => apt.Apartmentno.toString() === apartmentNumber
+        (apt) => apt.Apartmentno.toString() == apartmentNumber.toString()
       );
+
       if (apartment) {
         foundApartment = apartment;
         foundFloor = floorName;
@@ -127,20 +128,27 @@ const Layout = ({ children }) => {
   const [showPopup, setShowPopup] = useState(false);
   const [popupMessage, setPopupMessage] = useState("");
   const [isPopupVisible, setIsPopupVisible] = useState(false);
-
+  const [apartmentNo, setApartmentNo] = useState(false);
 
   useEffect(() => {
     const apartmentParam = params.apartment; // e.g., "Apartment1"
     const match = apartmentParam.match(/\d+/); // Extracts the digits from the string
     const apartmentNumber = match ? parseInt(match[0]) : null; // Gets the first match or null if no match
     const floorName = floorNameMapping[params.floor];
-    console.log("Apartment Number: ", apartmentNumber)
-    console.log("Floor name: ", floorName)
+    // console.log("Apartment Number: ", apartmentNumber)
+    // console.log("Floor name: ", floorName)
     if (floorName && apartmentNumber) {
       const apartmentInfo = apartmentData[floorName].find(apt => apt.Apartmentno === apartmentNumber);
       if (apartmentInfo) {
 
-        console.log("TYPEEES :", apartmentInfo.Type)
+        // console.log("Compare: ", favoriteApartments.some(
+        //   (apt) => apt.Apartmentno == apartmentNumber
+        // ),  )
+        
+        // console.log("FAV: ", favoriteApartments)
+        // console.log("TYPEEES :", apartmentInfo.Type)
+        // console.log("NUMSSS :", apartmentNumber)
+        setApartmentNo(apartmentNumber);
         setApartmentType(apartmentInfo.Type);
       }
     }
@@ -163,14 +171,24 @@ const Layout = ({ children }) => {
   const handleIconClick = () => {
     if (apartmentInfo) {
       const isFavorite = favoriteApartments.some(
-        (apt) => apt.Apartmentno === apartmentInfo.Apartmentno
+        (apt) => apt.Apartmentno == apartmentNo.toString()
       );
+
       if (isFavorite) {
-        dispatch(removeFavoriteApartment(apartmentInfo.Apartmentno));
-        setPopupMessage(translations.favAddPopup );
+        dispatch(removeFavoriteApartment(apartmentNo.toString()));
+        setPopupMessage(translations.favDelPopup );
       } else {
-        dispatch(addFavoriteApartment({ ...apartmentInfo, floor }));
-        setPopupMessage(translations.favDelPopup);
+
+        const apartmentData =
+        {
+          Apartmentno: apartmentInfo.Apartmentno.toString() ,
+          floor: floor ,
+          Type: apartmentInfo.Type,
+          Bedrooms: apartmentInfo.Bedrooms,
+          Area: apartmentInfo.Area,
+        }
+        dispatch(addFavoriteApartment(apartmentData));
+        setPopupMessage(translations.favAddPopup);
       }
       setShowPopup(true);
       setIsPopupVisible(true);
@@ -387,11 +405,13 @@ const Layout = ({ children }) => {
               className={styles.apartmentInterestTitleIcon}
               onClick={handleIconClick}
             >
+
+
+              
               <Image
-                // src="/images/icons/favIconFilled.svg"
                 src={
                   favoriteApartments.some(
-                    (apt) => apt.Apartmentno === apartmentInfo?.Apartmentno
+                    (apt) => apt.Apartmentno == apartmentNo
                   )
                     ? "/images/icons/favIconFilled.svg"
                     : "/images/icons/favIcon.svg"

@@ -35,21 +35,14 @@ const Apartment = ({ imageName, imageLink }) => {
   const [zoomCoord, setZoomCoord] = useState(0.7);
 
   const dispatch = useDispatch();
-
-
   const amenityRef = useRef(null);
 
-  // const [selectedArea, setSelectedArea] = useState(null);
-  // const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isOverlayActive, setIsOverlayActive] = useState(false);
-  // const [isLoading, setIsLoading] = useState(true);
   const [direction, setDirection] = useState(null);
   const imageBoxRef = useRef(null);
   const autoPlayRef = useRef(null);
   const imageLoadingRef = useRef(false);
   const amenityButtonRef = useRef(null); 
-
-
 
   const languageState = useSelector((state) => {
     const languageState = state.language.lang.find((site) => site.id === "1");
@@ -60,13 +53,9 @@ const Apartment = ({ imageName, imageLink }) => {
   const [translations, setTranslations] = useState(
     languageState === "ur" ? ur : en
   );
-
-
   
   const openGallery = () => {
     dispatch(setGalleryPressed(true));
-
-    // setIsGalleryOpen(true);
   };
 
   const closeGallery = () => {
@@ -79,8 +68,6 @@ const Apartment = ({ imageName, imageLink }) => {
     window.addEventListener('resize', checkMobile);
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
-
-
 
   const floorNameMapping = {
     'third-floor': "3rd Floor",

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg id="roadLabel" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 5400.76 2900.8">
+<svg id="road" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 5400.76 2900.8">
   <defs>
     <style>
       .cls-1 {
@@ -14,7 +14,7 @@
   </defs>
 <!-- <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080"><defs><style>.cls-1{font-size:12px;fill:#096069;font-family:MyriadPro-Regular, Myriad Pro;}</style></defs><text class="cls-1" transform="translate(1002.72 462.27) rotate(-84.59)">Ayubia Rd</text><text class="cls-1" transform="translate(1123.63 207.29) rotate(-84.59)">Ayubia Rd</text><text class="cls-1" transform="translate(820.65 851.45) rotate(-69.02)">Ayubia Rd</text><text class="cls-1" transform="translate(605.17 540) rotate(-16.08)">Abbottabad Rd</text><text class="cls-1" transform="matrix(0.86, -0.52, 0.52, 0.86, 560.07, 326.37)">Abbottabad Rd</text> -->
 
-<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080"><defs>
+<svg id="road" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080"><defs>
 
 <style>.cls-1{font-size:12px;fill:#096069;font-family:MyriadPro-Regular, Myriad Pro;}</style></defs>
 <text class="cls-1" transform="translate(1002.72 462.27) rotate(-84.59)">Ayubia Rd</text>

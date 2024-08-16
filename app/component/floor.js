@@ -129,7 +129,7 @@ const Floor = ({ imageName, imageLink }) => {
 
       if (isFavorite) {
         dispatch(removeFavoriteApartment(apartmentId));
-        setPopupMessage(translations["favAddPopup"]);
+        setPopupMessage(translations["favDelPopup"]);
       } else {
         const apartmentToAdd = {
           Apartmentno: apartmentId,
@@ -138,8 +138,9 @@ const Floor = ({ imageName, imageLink }) => {
           Bedrooms: activePolygon.Bedrooms,
           Area: activePolygon.Area,
         };
+        console.log(apartmentToAdd)
         dispatch(addFavoriteApartment(apartmentToAdd));
-        setPopupMessage(translations["favDelPopup"]);
+        setPopupMessage(translations["favAddPopup"]);
       }
 
       setShowPopup(true);

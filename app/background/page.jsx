@@ -22,6 +22,7 @@ import ElevationBox from "../component/Bars/elevationBox";
 import Loader from "../[floor]/Loading";
 import ContactUsPopup from "../component/contactus/page";
 import { toggleFullScreen } from '@/state/fullScreen/fullScreen';
+import SnowButton from "../component/Icons/snowBtn";
 
 const floorData = {
   "Third Floor": {
@@ -134,6 +135,7 @@ export default function BackgroundImage() {
   const amenityGridRef = useRef(null);
   const [amenityClicked, setAmenityClicked] = useState(false);
   const [isContactusClicked, setContactUs]= useState(false);
+  const [snowMode, setSnowMode] = useState(false);
   const params = useParams();
 
   const languageState = useSelector((state) => {
@@ -182,6 +184,11 @@ export default function BackgroundImage() {
   const handleAmenitiesCheck = useCallback(() => {
     setAmenityClicked(false);
   }, []);
+
+  const handleSnowMode  = useCallback((event) => {
+    setSnowMode((prev) => !prev);
+  }, []);
+
 
 
   const handleOutsideClick = useCallback((event) => {
@@ -325,7 +332,7 @@ export default function BackgroundImage() {
     return () => {
       window.removeEventListener("resize", adjustImageAndSVG);
     };
-  }, [isMobile, overlay]);
+  }, [isMobile, overlay, params]);
 
   const handleSVGElementClick = useCallback((event) => { // Use useCallback to memoize the function
     const element = event.target;
@@ -346,7 +353,7 @@ export default function BackgroundImage() {
     if (selectedAmenities.length == 0) {
       setFilterSelection(false);
     } else setFilterSelection(true);
-  }, [filterbox, selectedAmenities.length, filterFloorMenu]);
+  }, [filterbox, selectedAmenities.length, filterFloorMenu, params]);
 
 
   const handleCall = () => {
@@ -370,7 +377,7 @@ export default function BackgroundImage() {
         });
       };
     }
-  }, [handleSVGElementClick, overlay, filterbox, svgHover, params, filterBoxRef, isFilterBoxVisible ]);
+  }, [handleSVGElementClick, overlay, filterbox, svgHover, params, filterBoxRef, isFilterBoxVisible, backView ]);
 
   // useEffect(() => {
   //   const svg = svgRef.current;
@@ -444,7 +451,6 @@ export default function BackgroundImage() {
       setFilterFloorMenu(false);
 
     }
-
 
   }, [filterbox]);
 
@@ -692,7 +698,7 @@ export default function BackgroundImage() {
         });
       };
     }
-  }, [overlay, filterbox, selectedAmenities.length, filterFloorMenu, params, filterBoxRef]);
+  }, [overlay, filterbox, selectedAmenities.length, filterFloorMenu, params, filterBoxRef, svgHover, backView, snowMode]);
   
 
   useEffect(() => {
@@ -719,7 +725,7 @@ export default function BackgroundImage() {
         element.style.display = shouldShow ? "block" : "none";
       });
     }
-  }, [selectedAmenities, filterbox, filterFloorMenu, backView]);
+  }, [selectedAmenities, filterbox, filterFloorMenu, backView, params, svgHover, snowMode]);
 
 
   const [isFilterBarVisible, setIsFilterBarVisible] = useState(false);
@@ -735,8 +741,6 @@ export default function BackgroundImage() {
     { id: "2", label: translations["mapview"], route: "/mapview" },
     { id: "1", label: translations["elevation"], route: "/" },
   ]);
-
-  useEffect(() => {}, [backView]);
 
   const toggleLanguage = () => {
     setLanguage(!language);
@@ -762,7 +766,7 @@ export default function BackgroundImage() {
   const handleBackView = () => {
     setLoading(true);
     setBackView((prev) => !prev);
-    setOverlay((prev) => !prev);
+    // setOverlay((prev) => !prev);
   };
 
   useEffect(() => {
@@ -777,7 +781,7 @@ export default function BackgroundImage() {
       img.addEventListener("load", handleLoad);
       return () => img.removeEventListener("load", handleLoad);
     }
-  }, [backView]);
+  }, [backView, snowMode]);
 
   return (
     <>
@@ -797,7 +801,7 @@ export default function BackgroundImage() {
             <img
               ref={imageRef}
               // src={backView ? "/Webpage/BackView.webp" : "/Webpage/image-low.webp"}
-              src={backView ? "/Webpage/hills/frontView.png" : "/Webpage/hills/frontView.webp"}
+              src={!backView ? ( snowMode ? "/Webpage/image-low.webp" : "/Webpage/hills/frontViewR.webp") : "/Webpage/hills/backView.webp"}
 
               alt="Background"
               className={`${styles.backgroundImage} ${loading ? styles.loading : ''}`}
@@ -805,7 +809,7 @@ export default function BackgroundImage() {
 
           {overlay &&
             ((filterbox && selectedAmenities.length != 0) || (filterFloorMenu && selectedAmenities.length != 0) ? (
-              <svg
+             ( !backView && <svg
                 ref={svgRef}
                 version="1.1"
                 id={styles.masker}
@@ -813,7 +817,10 @@ export default function BackgroundImage() {
                 xmlnsXlink="http://www.w3.org/1999/xlink"
                 x="0px"
                 y="0px"
+                // viewBox="0 0 5494.76 3090.8"
                 viewBox="0 0 1920 1080"
+                // viewBox="0 0 5494.76 3090.8"
+
                 xmlSpace="preserve"
                 onMouseEnter={() =>setSvgHover(true)}
                 onMouseLeave={() =>setSvgHover(false)}
@@ -822,6 +829,7 @@ export default function BackgroundImage() {
                 <polygon
                   data-image="Third Floor"
                   data-tip="third-floor"
+
                   ApartmentNum="10"
                   bedroomCount="2"
                   apartmentType="Penthouse"
@@ -1789,11 +1797,211 @@ export default function BackgroundImage() {
                   d="M429.28,635.11v51.06l193.38.15h75.21l123.21,1.44c10.93.13,21.93,1.19,32.86,1.32,34.83.41,69.58-.11,104.41.3H1291l221.43,1.84.38-46.17-176.26-2.44-130.85-.92-98.45-.31-254.06-.92L821,637.36l-87.08-.56-54.72-1.23h-89Z"
                 />
               </svg>
-            ) : (
+            )
+
+            ) : ( 
+
+              backView ?
+              (
+
               <svg
                 ref={svgRef}
                 version="1.1"
                 id={styles.masker}
+                viewBox="0 0 1920 1080"
+                xmlns="http://www.w3.org/2000/svg"
+                xmlnsXlink="http://www.w3.org/1999/xlink"
+                x="0px"
+                y="0px"
+                xmlSpace="preserve"
+              >
+            
+            {/* <polygon class="cls-1" points="1132.38 418.42 1132.38 419.64 1132.36 418.42 1132.38 418.42 737.04 386.21 736.15 452.59 736.15 500.05 630.52 483.24 364.53 482.82 461.85 423.36 652 306.98 737.04 386.21 1132.38 419.64 1132.38 478.96 770.24 480.79 768.71 418.42 771.16 418.45 777.5 418.45 768.71 418.42 771.24 319.36 797.83 230.62 1110.83 226.73 1130.55 319.02 1132.36 418.42 1132.38 419.64 1639.13 469.32 1639.13 487.21 1173.66 489.21 1173.5 458.17 1172.81 379.98 1269.04 266.17 1388.51 338.85 1407.25 326.66 1533.2 404.66 1639.13 469.32"/> */}
+           
+            {/* <polygon class="cls-1" points=""/> */}
+                <polygon onMouseEnter={() => setSelectedPath(true)}
+                  onMouseLeave={() => setSelectedPath(false)}
+                  data-image="Third Floor"
+                  data-tip="third-floor"
+                  className={!selectedPath ? styles.st0 : styles.st1Hovers} points="1132.38 418.42 1132.38 419.64 1132.36 418.42 1132.38 418.42 737.04 386.21 736.15 452.59 736.15 500.05 630.52 483.24 364.53 482.82 461.85 423.36 652 306.98 737.04 386.21"/>
+                <polygon onMouseEnter={() => setSelectedPath(true)}
+                  onMouseLeave={() => setSelectedPath(false)}
+                  data-image="Third Floor"
+                  data-tip="third-floor"
+                  className={!selectedPath ? styles.st0 : styles.st1Hovers} points="1132.38 419.64 1132.38 478.96 770.24 480.79 768.71 418.42 771.16 418.45 777.5 418.45 768.71 418.42 771.24 319.36 797.83 230.62 1110.83 226.73 1130.55 319.02 1132.36 418.42 1132.38 419.64 1639.13 469.32 1639.13 487.21 1173.66 489.21 1173.5 458.17 1172.81 379.98 1269.04 266.17 1388.51 338.85 1407.25 326.66 1533.2 404.66 1639.13 469.32"/>
+            {/* <polygon class="cls-1" points=""/> */}
+
+                <polygon className={styles.st0}
+                  data-image="Second Floor"
+                  data-tip="second-floor" points="248.2 558.75 665.53 558.75 733.25 560.59 733.25 509.68 629.3 495.46 431.64 493.63 346.8 493.63 248.37 554.48 248.2 558.75"/>
+                <polygon className={styles.st0}
+                  data-image="Second Floor"
+                  data-tip="second-floor" points="768.71 489.21 768.71 553.87 1132.38 553.87 1132.38 491.5 768.71 489.21 1175.95 508.31 1175.95 557.83 1640.27 551.89 1639.13 494.56 1175.95 497.3 1175.95 508.31"/>
+
+
+                <polygon className={styles.st0}
+                  data-image="First Floor"
+                  data-tip="first-floor" points="246.94 626.01 662.62 626.62 733.25 622.34 733.25 570.37 662.93 569.15 247.63 569.64 246.94 626.01 768.71 569.15 770.55 569.14 1132.38 567.01 1132.38 626.62 768.71 626.62 768.71 569.15"/>
+                <polygon className={styles.st0}
+                  data-image="First Floor"
+                  data-tip="first-floor" points="1175.95 570.67 1175.95 625.4 1255.13 626.62 1430.62 629.38 1641.58 629.38 1640.51 564.87 1292.43 564.87 1175.95 570.67"/>
+
+
+                <polygon className={styles.st0}
+                  data-image="Ground Floor"
+                  data-tip="ground-floor" points="245.49 695.11 447.58 698.78 629.49 700.46 732.83 681.2 732.83 636.41 677.8 636.41 630.71 639.47 246.71 637.94 245.49 695.11"/>
+                <path className={styles.st0}
+                  data-image="Ground Floor"
+                  data-tip="ground-floor" d="M1643,706.88l-388.28,1.83-81.17-5,1.83-66.5,79.34,3.21h387.51Z"/>
+                <rect className={styles.st0}
+                  data-image="Ground Floor"
+                  data-tip="ground-floor" x="768.71" y="638.76" width="363.67" height="66.95"/>
+
+                <polygon className={styles.st0}
+                  data-image="First Floor"
+                  data-tip="first-floor" points="245.91 700.46 288.56 713.76 427.75 731.87 430.5 731.87 430.5 708.94 245.91 700.46 1644.03 717.12 1644.03 785.45 1136.2 785.45 1131.16 777.81 1090.65 777.81 886.27 772 863.34 785.45 563.87 749.53 550.73 747.92 550.73 713.76 756.79 713.76 811.21 717.12 1130.09 717.12 1138.34 722.12 1231.59 722.12 1644.03 717.12"/>
+
+                <polygon className={styles.st0}
+                  data-image="Valley Floor 2"
+                  data-tip="valley-floor-2" points="1031.95 789.88 1137.43 797.22 1644.03 799.06 1644.03 867.85 1031.95 803.64 1031.95 789.88"/>
+
+            </svg>
+              
+            ):
+
+              (
+
+        !snowMode?
+           ( <svg
+                ref={svgRef}
+                version="1.1"
+                id={styles.masker}
+                viewBox="0 0 1920 1080"
+ 
+                xmlns="http://www.w3.org/2000/svg"
+                xmlnsXlink="http://www.w3.org/1999/xlink"
+                x="0px"
+                y="0px"
+                xmlSpace="preserve"
+              >
+                <polygon
+                  className={styles.st0}
+                  data-image="Valley Floor 6"
+                  data-tip="valley-floor-6"
+                  points="619.67 303.31 693.04 256.08 695.34 382.19 619.67 382.19 619.67 303.31"
+                />
+
+                <polyline
+                  data-image="Valley Floor 6"
+                  data-tip="valley-floor-6"
+                  className={styles.st0}
+                  points="428.82 874.84 428.82 924.18 687.17 922.66 944.59 917.15 1182.1 917.15 1182.1 867.93 824.98 871.37 680.44 873.59 625.87 873.43 428.82 874.84"
+                />
+
+                <polygon
+                  data-image="Valley Floor 5"
+                  data-tip="valley-floor-5"
+                  className={styles.st0}
+                  points="428.82 814.12 428.82 866.55 596.18 865.48 699.52 863.34 750.12 862.73 830.77 860.59 946.99 859.98 1182.15 860.9 1182.1 810.83 853.77 812.29 733.87 813.51 621.94 814.12 428.82 814.12"
+                />
+                <polygon
+                  data-image="Valley Floor 4"
+                  data-tip="valley-floor-4"
+                  className={styles.st0}
+                  points="1362.91 754.5 1362.91 803.11 822.18 804.64 428.82 804.64 428.82 754.5 1362.91 754.5"
+                />
+                <path
+                  className={styles.st0}
+                  data-image="Valley Floor 3"
+                  data-tip="valley-floor-3"
+                  d="M1512.8,698v44.71l-78.35-.69-370.09,4.51H872.44l-171.52-1.22-104.25,1.22-167.39.16V695.19H701.54l119.75.48,33,2.28,253.23.3h97.53Z"
+                />
+                <path
+                  className={styles.st0}
+                  data-image="Valley Floor 2"
+                  data-tip="valley-floor-2"
+                  d="M429.28,635.11v51.06l193.38.15h75.21l123.21,1.44c10.93.13,21.93,1.19,32.86,1.32,34.83.41,69.58-.11,104.41.3H1291l221.43,1.84.38-46.17-176.26-2.44-130.85-.92-98.45-.31-254.06-.92L821,637.36l-87.08-.56-54.72-1.23h-89Z"
+                />
+                {/* <path
+                  className={styles.st0}
+                  data-image="Valley Floor 1"
+                  data-tip="valley-floor-1"
+                  d="M429,575.19q.16,25.3.31,50.6l182.37-.31h87.13l122,2.83,34.7,3h217.84l35.46,2.45h246.42l157.61,1.83V589.71l-150.88.92-17.74-5.2-139.1.92L1169,584.82l-141.86-.3-100.28-.62-71.39-.27-34.09-6.47-88.66.32L697,575.34l-43.72,1.53H624.18l-30-1.53Z"
+                /> */}
+
+                {/* <path
+                  className={styles.st0}
+                  data-image="Ground Floor"
+                  data-tip="ground-floor"
+                  d="M820.92,522.83v44.26L855,574.66l244.28-1.15V525.59l-243.62,1Z M1512.8,534.93q-.08,23-.16,46l-150-1.53-16-3.46H1345c-53.73-.68-148-1.05-201.7-1.73-.31-15.18.31-30.65,0-45.83,54.11,0,147.82.08,201.93.11l18.58,6.65Z M783.06,519.38v50.14l-21.14-.5-63.14-1.46H611.65l-182.37.31q-.15-25.3-.31-50.6l165.25.15,30,1.53h29.05L697,517.42Z"
+                /> */}
+
+                <path
+                  className={styles.st0}
+                  data-image="First Floor"
+                  data-tip="first-floor"
+                  d="M820.92,466.66v45.55L855.47,516l243.82-.76v-47l-244.43.38Z M1512.87,526.27h-105l-43.79-2.52-16.82-3.44-4.87.07h0l-24.14,1.31-174.88-1.61V472.85L1343.65,474l21.55,7.57,147.75-.15Z M783.06,461v50.14l-21.14-.49-63.14-1.47H611.65l-182.37.31q-.15-25.31-.31-50.6l165.25.15,30,1.53Z"
+                />
+{/* 
+                <path
+                  className={styles.st0}
+                  data-image="Second Floor"
+                  data-tip="second-floor"
+                  d="M820.92,411.17v45.4L857,458.25l242.29,2v-49.1L855.47,413Z M1143.32,416.82h205.14l16.51,3.52,72,0,75.32,48.27v4.74l-82.24.61h-65.43l-17.12-8.4-204.31.38Z M783.06,403.58v47.89l-21.14-.5-62,.78H611.65l-182.37.31q-.15-25.31-.31-50.6l165.25.15,30,1.53Z"
+                /> */}
+
+                {/* <path
+                  onMouseEnter={() => setSelectedPath(true)}
+                  onMouseLeave={() => setSelectedPath(false)}
+                  data-image="Third Floor"
+                  data-tip="third-floor"
+                  className={!selectedPath ? styles.st0 : styles.st1Hovers}
+                  d="M1420.24,409.94H1206.3L1143,410q.16-20.67.31-41.35l46.47-106.09,176.1,112.81L1391,391.9Z M783.06,366c0,9.36,0,20,0,29.35-13.29,0-29.29-.52-42.58-.54H720.32c-44,.53-85.62-1.37-129.65-.84l-161.43,1.38.19-13.42L607.37,263.8l13.76,15.29L709.79,221h1.45Z"
+                />
+                <polygon
+                  onMouseEnter={() => setSelectedPath(true)}
+                  onMouseLeave={() => setSelectedPath(false)}
+                  data-image="Third Floor"
+                  data-tip="third-floor"
+                  className={!selectedPath ? styles.st0 : styles.st1Hovers}
+                  points="820.92 401.99 1099.29 401.99 1099.29 331.98 1086.15 272.98 836.36 272.98 820.92 332.29 820.92 401.99"
+                /> */}
+
+                <polygon data-image="Third Floor"
+                  data-tip="third-floor"
+                  className={!selectedPath ? styles.st0 : styles.st1Hovers} points="820.92 401.99 1099.29 401.99 1097.15 338.02 1084.16 264.06 838.68 264.06 823.37 337.56 820.92 401.99 435.62 391.22 613.33 281.15 625.02 291.47 716.06 235.75 784.62 336.19 783.06 396.72 623.42 393.74 435.62 391.22 1416.64 409.79 1360.62 409.79 1138.89 407.5 1138.89 341.69 1186.81 271.75 1360.62 376.54 1416.64 409.79"/>
+
+                <path  className={styles.st0}
+                  data-image="Second Floor"
+                  data-tip="second-floor" d="M820.92,411.17v45.4L857,458.25l242.29,2v-49.1L855.47,413Z M1143.32,416.82h205.14l16.51,3.52,72,0c25.1,16.09,43.87,27.67,69,43.76v9.25l-75.89.61h-65.43l-17.12-8.4-204.31.38Z M783.06,404.58v47.89l-21.14-.5-62,.78H611.65l-175.87.31q-.15-25.31-.31-50.6l158.75.15,30,1.53"/>
+                <polygon  className={styles.st0}
+                  data-image="Second Floor"
+                  data-tip="second-floor" points="783.06 451.72 783.06 458.99 761.92 459.07 761.92 451.23 783.06 451.72"/>
+
+              {/* <path class="cls-1" d="M820.92,466.66v45.55L855.47,516l243.82-.76v-47l-244.43.38Z" transform="translate(-435.31 -451.23)"/><path class="cls-1" d="M1507.06,526.27h-99.21l-43.79-2.52-16.82-3.44-4.87.07h0l-24.14,1.31-174.88-1.61V472.85L1343.65,474l21.55,7.57,141.94-.15Z" transform="translate(-435.31 -451.23)"/><polygon class="cls-2" points="347.75 57.9 347.75 66.15 326.61 66.22 326.61 57.41 347.75 57.9"/><polygon class="cls-2" points="347.75 0.49 347.75 7.76 326.61 7.84 326.61 0 347.75 0.49"/><line class="cls-1" x1="261.64" y1="7.8" x2="297.41" y2="9.94"/><path class="cls-1" d="M783.06,464v50.14l-21.14-.49-63.14-1.47H611.65c-60.79.1-115.24-.67-176-.57q-.15-25.31-.31-50.6c55.09.05,103.83,1,158.91,1l30,1.53" transform="translate(-435.31 -451.23)"/> */}
+
+                <path className={styles.st0}
+                  data-image="Valley Floor 1"
+                  data-tip="valley-floor-1" d="M432.18,579.19c.1,16.87-.1,33.4,0,50.27,60.79-.1,118.68.13,179.47,0h87.13l122,2.83,34.7,3h217.84l35.46,2.45h246.42l153.1,1.83V593.71l-146.37.92-17.74-5.2-139.1.92L1169,588.82l-141.86-.3-100.28-.62-71.39-.27-34.09-6.47-88.66.32L697,579.34l-43.72,1.53H624.18l-30-1.53Z"/>
+
+                <path className={styles.st0}
+                  data-image="Ground Floor"
+                  data-tip="ground-floor" d="M820.92,522.83v44.26L855,574.66l244.28-1.15V525.59l-243.62,1Z M1507.22,534.93q-.08,23-.16,46c-50-.51-94.39-1-144.38-1.53l-16-3.46H1345c-53.73-.68-148-1.05-201.7-1.73-.31-15.18.31-30.65,0-45.83,54.11,0,147.82.08,201.93.11l18.58,6.65Z M783.06,521.38v50.14l-21.14-.5-63.14-1.46H611.65c-60.79.1-118.71-1.21-179.49-1.1-.11-16.87.11-32.21,0-49.07,55.09.05,107,0,162.06,0l30,1.53h29.05L697,519.42"/>
+                <polygon className={styles.st0}
+                  data-image="Ground Floor"
+                  data-tip="ground-floor" points="783.06 509.13 783.06 517.38 761.92 517.45 761.92 508.64 783.06 509.13"/>
+
+              </svg>)
+
+                  :
+                  (
+                    
+
+              <svg
+                ref={svgRef}
+                version="1.1"
+                id={styles.masker}
+                viewBox="0 0 1920 1080"
                 xmlns="http://www.w3.org/2000/svg"
                 xmlnsXlink="http://www.w3.org/1999/xlink"
                 x="0px"
@@ -1882,8 +2090,86 @@ export default function BackgroundImage() {
                   className={!selectedPath ? styles.st0 : styles.st1Hovers}
                   points="820.92 401.99 1099.29 401.99 1099.29 331.98 1086.15 272.98 836.36 272.98 820.92 332.29 820.92 401.99"
                 />
+
+                {/* <polygon data-image="Third Floor"
+                  data-tip="third-floor"
+                  className={!selectedPath ? styles.st0 : styles.st1Hovers} points="820.92 401.99 1099.29 401.99 1097.15 338.02 1084.16 264.06 838.68 264.06 823.37 337.56 820.92 401.99 435.62 391.22 613.33 281.15 625.02 291.47 716.06 235.75 784.62 336.19 783.06 396.72 623.42 393.74 435.62 391.22 1416.64 409.79 1360.62 409.79 1138.89 407.5 1138.89 341.69 1186.81 271.75 1360.62 376.54 1416.64 409.79"/>
+
+                <path  className={styles.st0}
+                  data-image="Second Floor"
+                  data-tip="second-floor" d="M820.92,411.17v45.4L857,458.25l242.29,2v-49.1L855.47,413Z M1143.32,416.82h205.14l16.51,3.52,72,0c25.1,16.09,43.87,27.67,69,43.76v9.25l-75.89.61h-65.43l-17.12-8.4-204.31.38Z M783.06,404.58v47.89l-21.14-.5-62,.78H611.65l-175.87.31q-.15-25.31-.31-50.6l158.75.15,30,1.53"/>
+                <polygon  className={styles.st0}
+                  data-image="Second Floor"
+                  data-tip="second-floor" points="783.06 451.72 783.06 458.99 761.92 459.07 761.92 451.23 783.06 451.72"/> */}
+
+              {/* <path class="cls-1" d="M820.92,466.66v45.55L855.47,516l243.82-.76v-47l-244.43.38Z" transform="translate(-435.31 -451.23)"/><path class="cls-1" d="M1507.06,526.27h-99.21l-43.79-2.52-16.82-3.44-4.87.07h0l-24.14,1.31-174.88-1.61V472.85L1343.65,474l21.55,7.57,141.94-.15Z" transform="translate(-435.31 -451.23)"/><polygon class="cls-2" points="347.75 57.9 347.75 66.15 326.61 66.22 326.61 57.41 347.75 57.9"/><polygon class="cls-2" points="347.75 0.49 347.75 7.76 326.61 7.84 326.61 0 347.75 0.49"/><line class="cls-1" x1="261.64" y1="7.8" x2="297.41" y2="9.94"/><path class="cls-1" d="M783.06,464v50.14l-21.14-.49-63.14-1.47H611.65c-60.79.1-115.24-.67-176-.57q-.15-25.31-.31-50.6c55.09.05,103.83,1,158.91,1l30,1.53" transform="translate(-435.31 -451.23)"/> */}
+
+                {/* <path className={styles.st0}
+                  data-image="Valley Floor 1"
+                  data-tip="valley-floor-1" d="M432.18,579.19c.1,16.87-.1,33.4,0,50.27,60.79-.1,118.68.13,179.47,0h87.13l122,2.83,34.7,3h217.84l35.46,2.45h246.42l153.1,1.83V593.71l-146.37.92-17.74-5.2-139.1.92L1169,588.82l-141.86-.3-100.28-.62-71.39-.27-34.09-6.47-88.66.32L697,579.34l-43.72,1.53H624.18l-30-1.53Z"/>
+
+                <path className={styles.st0}
+                  data-image="Ground Floor"
+                  data-tip="ground-floor" d="M820.92,522.83v44.26L855,574.66l244.28-1.15V525.59l-243.62,1Z M1507.22,534.93q-.08,23-.16,46c-50-.51-94.39-1-144.38-1.53l-16-3.46H1345c-53.73-.68-148-1.05-201.7-1.73-.31-15.18.31-30.65,0-45.83,54.11,0,147.82.08,201.93.11l18.58,6.65Z M783.06,521.38v50.14l-21.14-.5-63.14-1.46H611.65c-60.79.1-118.71-1.21-179.49-1.1-.11-16.87.11-32.21,0-49.07,55.09.05,107,0,162.06,0l30,1.53h29.05L697,519.42"/>
+                <polygon className={styles.st0}
+                  data-image="Ground Floor"
+                  data-tip="ground-floor" points="783.06 509.13 783.06 517.38 761.92 517.45 761.92 508.64 783.06 509.13"/> */}
+
               </svg>
+
+
+                  )
+                
+              )
             ))}
+
+
+        {tooltipContent && backView && (
+           <div
+           className={`${styles.tooltip} ${!tooltipVisible ? styles.fadeOut : ''}`}
+           style={{
+             left: `${tooltipPosition.x}px`,
+             top: `${tooltipPosition.y}px`,
+           }}
+         >
+              <div className={styles.tooltipContent}>
+                <div className={styles.tooltipLetter}>
+                  <Image
+                    src="/svg/buildingw.svg"
+                    quality={100}
+                    alt="tooltip"
+                    height={60}
+                    width={60}
+                  />
+                </div>
+                <div className={styles.tooltipInfo}>
+                  <div className={styles.tooltipFloor}>
+                    {tooltipContent.floorName}
+                  </div>
+                  {tooltipContent.floorName === "Valley Floor 2" ? (
+                      <span className={styles.tooltipUnits}>{translations["parkinglot"]}</span>
+                    ) : (filterbox && selectedAmenities.length !== 0) || (filterFloorMenu && selectedAmenities.length !== 0) ? (
+                      <>
+                        <div className={styles.tooltipFloor}>
+                          {translations["apartment"]}: <span className={styles.tooltipUnits}> {tooltipContent.apartmentNum} </span>
+                        </div>
+                        <div className={styles.tooltipFloor}>
+                          {tooltipContent.apartmentType === "Penthouse" || tooltipContent.apartmentType === "Studio" 
+                            ? tooltipContent.apartmentType
+                            : `${tooltipContent.bedroomCount} ${tooltipContent.apartmentType}`}
+                        </div>
+                      </>
+                    ) : (
+                      <div className={styles.tooltipUnits}>
+                        {tooltipContent.totalUnits} Units
+                      </div>
+                    )}
+                </div>
+              </div>
+            </div>
+          )}
+
+
 
           {tooltipContent && !backView && (
            <div
@@ -1969,6 +2255,8 @@ export default function BackgroundImage() {
               <div className={styles.backViewButtonTitle}>{translations["rotate"]}</div>
             </div>
 
+            {/* <div className={styles.filterElevationContainer}> */}
+
             <div className={styles.filterElevationContainer}>
               <div className={ElevStyles.elevationButtonBox} ref={elevationRef}>
                 <div
@@ -2051,8 +2339,6 @@ export default function BackgroundImage() {
               </div>
             </div>
 
-          
-
             <div className={styles.bottomLogoContainer}>
               <div className={styles.bottomLogoContainerTitle}>
                   {translations["projectby"]}
@@ -2126,6 +2412,14 @@ export default function BackgroundImage() {
                   inActive={amenityClicked}
                 />
               </div>
+
+              <div className={styles.snowContainer}>
+                <SnowButton
+                  inActive={snowMode}
+                  handleMenu={handleSnowMode}
+
+                />
+            </div>
 
               <div className={styles.menuContainerInside} ref={favContainerRef}>
                 <FavButton
