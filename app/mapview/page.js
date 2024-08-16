@@ -168,16 +168,21 @@ const MapView = () => {
         onMouseMove={handleSVGElementHover}
         onMouseLeave={() => setHoverInfo(null)}
       >
-          <use href="/svg/buildingwb.svg#buidling" />
-          <use href="/svg/AYUBIA/AyubiaPlace.svg#ayubia" />
+          {/* <use href="/svg/buildingwb.svg#buidling" /> */}
+          <use href="/svg/AYUBIA/AyubiaPlace.svg#ayubia" style={{cursor: "pointer"}}/>
+
+          {/* <use href="/svg/roadLabel/road.svg#road" /> */}
+          {/* <use href="/svg/roadLabel/roadLabel.svg#road" /> */}
+
+
           <use 
-            href="/svg/harsukhBuilding/harsukhBuilding.svg#harsukh" 
+            href="/svg/harsukhBuilding/building1.svg#harsukh" 
             onClick={handleHarsukhClick}
             className={styles.harsukhBuilding}
           />
           <use href="/svg/MURREE/murree.svg#murree" />
           <use href="/svg/NATHIA/nathia.svg#nathia" />
-          <use href="/svg/NATHIA/nathia.svg#nathia" />
+          {/* <use href="/svg/NATHIA/nathia.svg#nathia" /> */}
 
           {svgVisibility.landmarks && (
             <>
@@ -191,10 +196,10 @@ const MapView = () => {
             </>
           )}
           {svgVisibility.roads && (
-            <use href="/svg/roadLabel/road.svg#road" />
+            <use href="/svg/roadLabel/road1.svg#road" />
           )}
           {svgVisibility.radius && (
-          <use href="/svg/radius/radius.svg#radius" />
+          <use href="/svg/radius/radius1.svg#radius" />
         )}
         </svg>
       </div>

@@ -7,11 +7,13 @@ import { removeFavoriteApartment } from "@/state/apartment/favApartment";
 
 import en from '@/app/locales/en.json';
 import ur from '@/app/locales/ur.json';
+import { useRouter, useState } from "next/navigation";
 
 
 const ApartmentCard = ({ apartment }) => {
   const dispatch = useDispatch();
 
+  const router = useRouter();
 
   const languageState = useSelector((state) => {
     const languageState = state.language.lang.find((site) => site.id === '1');
@@ -20,14 +22,45 @@ const ApartmentCard = ({ apartment }) => {
 
   const translations = useMemo(() => languageState === 'ur' ? ur : en, [languageState]);
 
+  const floorNameMapping = {
+    "3rd Floor": 'third-floor',
+    "2nd Floor": 'second-floor',
+    "1st Floor":'first-floor',
+    "Ground Floor": 'ground-floor',
+    "Basement 1": 'valley-floor-1',
+    "Basement 3": 'valley-floor-3',
+    "Basement 4": 'valley-floor-4',
+    "Basement 5": 'valley-floor-5',
+    "Basement 6": 'valley-floor-6'
+  };
 
-  console.log("apartment", apartment);
-  const handleDelete = () => {
+  // const [floormap, setFloorMap] = useState("");
+
+
+  // useEffect(() => {
+  //   // const apartmentParam = params.apartment; // e.g., "Apartment1"
+  //   // const match = apartmentParam.match(/\d+/); // Extracts the digits from the string
+  //   // const apartmentNumber = match ? parseInt(match[0]) : null; // Gets the first match or null if no match
+  console.log("FLOORSSSS: ", apartment.floor)
+
+  const floorName = floorNameMapping[apartment.floor];
+    console.log("FLOOR NAMEEE: ", floorName)
+    // setFloorMap(floorName)
+    // if (floorName && apartmentNumber) {
+  //   //   const apartmentInfo = apartmentData[floorName].find(apt => apt.Apartmentno === apartmentNumber);
+  //   //   if (apartmentInfo) {
+  //   //     setApartmentType(apartmentInfo.Type);
+  //   //   }
+  //   // }
+  // }, []);
+
+  const handleDelete = (e) => {
+    e.stopPropagation();
     dispatch(removeFavoriteApartment(apartment.Apartmentno));
   };
 
   return (
-    <div className={styles.card}>
+    <div className={styles.card} onClick={()=>router.push(`/${floorName}/Apartment${apartment.Apartmentno}`)}>
       <div className={styles.cardHeader}>
         <h3>{translations["apartmentNo"]} {apartment.Apartmentno}</h3>
         <div className={styles.deleteButton} onClick={handleDelete}>
@@ -45,7 +78,7 @@ const ApartmentCard = ({ apartment }) => {
           <span>{translations["Floor"]}</span>
           <span>
           {/* {translations[apartment.Floor]} */}
-            {apartment.Floor}
+            {apartment.floor}
           </span>
         </div>
         <div className={styles.row}>

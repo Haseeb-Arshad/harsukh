@@ -58,14 +58,12 @@ const Layout = ({children}) =>
   const [translations, setTranslations] = useState(languageState === 'ur' ? ur : en);
 
   function handleElevationClicked ()  {
-    console.log("CLICKED ELEVATION")
     setElevationClicked(!isElevationClicked);
   };
 
 
   const handleMenu = () => {
     setMenuBox((prev) => !prev); // Toggle the menuBox state
-    console.log("menu clicked");
   };
   
   const handleOverlay = () => {
@@ -74,7 +72,6 @@ const Layout = ({children}) =>
 
   const handleCall = () => {
     setIsContacted(!isContacted);
-    console.log("CALLED");
   }
   
   
@@ -134,21 +131,8 @@ const Layout = ({children}) =>
     };
   }, [dispatch, isFullScreen]);
 
-  const handleBackgroundMode = () => {
-    console.log("Background Mode clicked");
-  }
-
   const handleContact = () => {
     setContactUs(!isContactusClicked)
-  }
-
-  
-  const handleFavorties = () => {
-    console.log("Favorties clicked");
-  }
-
-  const handleAmenities = () => {
-    console.log("Amenities clicked");
   }
 
   const toggleLanguage = () => {
@@ -258,6 +242,11 @@ const Layout = ({children}) =>
   const [delayPassed, setDelayPassed] = useState(false); // New state for delay
 
   useEffect(() => {
+    console.log(elevationArray)
+  }, [translations]);
+
+
+  useEffect(() => {
     // Simulate initial loading
     const timer = setTimeout(() => {
       setIsLoading(false);
@@ -276,18 +265,6 @@ const Layout = ({children}) =>
 
   return (     
     <div style={{ position: 'relative', background: 'rgba(0, 29, 32, 1)' , height: '100vh', width: '100%'}}>
-      {/* <Suspense fallback={
-        <div className={styles.loadingOverlay}>
-          <Loading />
-        </div>
-      }>
-
-      
-        <div className={`${styles.transitionContainer} ${isTransitioning ? styles.fadeOut : styles.fadeIn}`}>
-          {children}
-        </div>
-      </Suspense>      */}
-
 
       <Suspense fallback={
         <div className={styles.loadingOverlay}>
@@ -296,10 +273,6 @@ const Layout = ({children}) =>
       }>
         {children}
       </Suspense>
-
-
-
-      {/* <FloorMenu /> */}
 
       <div className={styles.Harsukhlogo} onClick={()=>router.push("/") }>
       { isMobile?<Image src="/Webpage/floors/HarsukhLogo.webp" quality={100} alt="Harsukh Logo" height={85} width={150} />
@@ -325,7 +298,7 @@ const Layout = ({children}) =>
 
 
       { !isMobile? <div className={styles.menuContainer}>
-        <div className={`${styles.longvideoTab}`} onClick={handleAmenities}>
+        <div className={`${styles.longvideoTab}`} >
         
             <div className={`${styles.videosubTab}  ${svgVisibility.landmarks ? styles.active : ''} `}  onClick={() =>{ console.log("LandMarks"); toggleSVGVisibility('landmarks')}}>
                 
@@ -387,9 +360,9 @@ const Layout = ({children}) =>
           <MenubarButton inActive={menuBox} handleMenu={handleMenu}/>
         </div>
 
-        <div className={`${styles.longvideoTab}`} onClick={handleAmenities}>
+        <div className={`${styles.longvideoTab}`}>
         
-            <div className={`${styles.videosubTab}  ${svgVisibility.landmarks ? styles.active : ''} `}  onClick={() =>{ console.log("LandMarks"); toggleSVGVisibility('landmarks')}}>
+            <div className={`${styles.videosubTab}  ${svgVisibility.landmarks ? styles.active : ''} `}  onClick={() =>{ toggleSVGVisibility('landmarks')}}>
                 <div className={styles.videosubTabIcon}>
                     <Image src="/images/icons/landmarkIcon.svg" quality={100} alt="Menu" height={16} width={16} />
                 </div>
@@ -398,7 +371,7 @@ const Layout = ({children}) =>
                 </div>
                 
             </div>
-            <div className={`${styles.videosubTab}  ${svgVisibility.roads? styles.active : ''} `}  onClick={() =>{ console.log("LandMarks"); toggleSVGVisibility('roads')}}>
+            <div className={`${styles.videosubTab}  ${svgVisibility.roads? styles.active : ''} `}  onClick={() =>{  toggleSVGVisibility('roads')}}>
                 <div className={styles.videosubTabIcon}  >
                     <Image src="/images/icons/roadIcon.svg" color='#006d77' quality={100} alt="Menu" height={16} width={16} />
                 </div>
@@ -407,26 +380,17 @@ const Layout = ({children}) =>
                 </div>
                 
             </div>
-            {/* <div className={styles.videosubTab}>
-                
-                <div className={styles.videosubTabTitle}>
-                    Retail
-                </div>
-                <div className={styles.videosubTabIcon}>
-                    <Image src="/images/icons/landmarkIcon.svg" quality={100} alt="Menu" height={16} width={16} />
-                </div>
-            </div> */}
-            <div className={`${styles.videosubTab}  ${svgVisibility.radius? styles.active : ''} `} onClick={() =>{ console.log("LandMarks"); toggleSVGVisibility('radius')}}>
-                
-                <div className={styles.videosubTabIcon}>
-                    <Image src="/images/icons/radiusIcon.svg" quality={100} alt="Menu" height={20} width={20} />
-                </div>
-                <div className={styles.videosubTabTitle}>
-                  {translations['radius'] }
-                </div>
+
+            <div className={`${styles.videosubTab}  ${svgVisibility.radius? styles.active : ''} `} onClick={() =>{ toggleSVGVisibility('radius')}}>
+              <div className={styles.videosubTabIcon}>
+                  <Image src="/images/icons/radiusIcon.svg" quality={100} alt="Menu" height={20} width={20} />
+              </div>
+              <div className={styles.videosubTabTitle}>
+                {translations['radius'] }
+              </div>
             </div>
+          </div>
         </div>
-      </div>
       
       }
           <MapMenuBox 
@@ -470,9 +434,6 @@ const Layout = ({children}) =>
               </div>
             </div>
 
-
-           
-    
       {!isMobile && <div className={styles.elevationContainer}>
         <div className={ElevStyles.elevationButtonBox} ref={elevationRef}                
          onClick={elevationDropdown}
@@ -488,9 +449,9 @@ const Layout = ({children}) =>
               >
                 <div className={ElevStyles.elevationMapBtnTitle}>
                   { !isElevationOpen?
-                      translations['mapview'] || 'Map View'
+                    translations['mapview'] || 'Map View'
                     : 
-                     translations['location'] || "Location"
+                    translations['location'] || "Location"
                   }
                 </div>
                 <div className={ElevStyles.elevationBtnDownArrow}>
@@ -506,9 +467,9 @@ const Layout = ({children}) =>
                 <div
                   key={item.id}
                   onClick={() => handleElevationItemClick(item.route)}
-                  className={`${ElevStyles.dropDownfloorButton} ${item.label === 'Map View' ? ElevStyles.active : ''}`}
+                  className={`${ElevStyles.dropDownfloorButton} ${item.label === translations['mapview'] ? ElevStyles.active : ''}`}
                 >
-                  {translations[item.label.toLowerCase()] || item.label}
+                  { item.label}
                 </div>
               ))}
             </div>
@@ -529,16 +490,13 @@ const Layout = ({children}) =>
     
       { isElevationClicked &&
         (
-        // <div className={styles.elevationsContainer}>
           <ElevationBox
               isVisible={isElevationClicked}
               onClose={handleElevationClicked}
               elevationArray={elevationArray}
           />      
-        // </div>         
         )
-        }
-
+      }
 
     </div>   
   )

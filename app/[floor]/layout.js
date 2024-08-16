@@ -313,9 +313,6 @@ const Layout = ({ children }) => {
     setElevationClicked(!isElevationClicked);
   };
 
-
-
-
   const handleClickOutside = useCallback((event) => {
     if (
       (menuContainerRef.current && !menuContainerRef.current.contains(event.target)) &&
@@ -338,9 +335,6 @@ const Layout = ({ children }) => {
     };
   }, [handleClickOutside]);
 
-
-
-  
   const handleFloorMenuClicked = () => {
     dispatch(toggleFloorMenu());
     closeMenu();
@@ -359,11 +353,11 @@ const Layout = ({ children }) => {
     { id: 'second-floor', label: translations.secondfloor || 'Second Floor' },
     { id: 'first-floor', label: translations.firstfloor || 'First Floor' },
     { id: 'ground-floor', label: translations.groundfloor || 'Ground Floor' },
-    { id: 'valley-floor-1', label: translations.basement1 || 'Vallery Floor 1' },
-    { id: 'valley-floor-3', label: translations.basement3 || 'Vallery Floor 3' },
-    { id: 'valley-floor-4', label: translations.basement4 || 'Vallery Floor 4' },
-    { id: 'valley-floor-5', label: translations.basement5 || 'Vallery Floor 5' },
-    { id: 'valley-floor-6', label: translations.basement6 || 'Vallery Floor 6' },
+    { id: 'valley-floor-1', label: translations.basement1 || 'Valley Floor 1' },
+    { id: 'valley-floor-3', label: translations.basement3 || 'Valley Floor 3' },
+    { id: 'valley-floor-4', label: translations.basement4 || 'Valley Floor 4' },
+    { id: 'valley-floor-5', label: translations.basement5 || 'Valley Floor 5' },
+    { id: 'valley-floor-6', label: translations.basement6 || 'Valley Floor 6' },
   ];
 
   useEffect(() => {
@@ -388,6 +382,33 @@ const Layout = ({ children }) => {
           width: "100%",
         }}
       >
+
+
+        <div style={{
+          // position: "relative",
+          // background: "#FCF7EB",
+          position: "absolute",
+
+          height: "100vh",
+          width: "100%",
+          display:'flex',
+          justifyContent: "center",
+          alignItems: "center"
+        }}>
+
+          <div  style={{
+          background: "#FCF7EB",
+          height: "30vh",
+          width: "25vw",
+          borderRadius: "50%",
+          opacity: '0.5',
+          filter: 'blur(150px)',
+        }}>
+
+          </div>
+
+        </div>
+
         {/* <Suspense fallback={
         <div className={styles.loadingOverlay}>
           <Loading />

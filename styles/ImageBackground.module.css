@@ -149,6 +149,23 @@ svg */
   grid-template-columns: 0.8fr 0.4fr 0.4fr;
 }
 
+
+.snowContainer
+{
+  position: fixed;
+  z-index: 10;
+  user-select: none;
+  top: 119px;
+  right: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* height: 40px;
+  width: 40px; */
+  border-radius: 50%;
+  /* background-color: #fcf7eb; */
+}
+
 .blur {
   filter: blur(2px);
   background-color: #000;
