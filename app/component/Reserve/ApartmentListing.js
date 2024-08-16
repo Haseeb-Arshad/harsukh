@@ -44,7 +44,6 @@ const ApartmentCard = ({ apartment }) => {
   console.log("FLOORSSSS: ", apartment.floor)
 
   const floorName = floorNameMapping[apartment.floor];
-    console.log("FLOOR NAMEEE: ", floorName)
     // setFloorMap(floorName)
     // if (floorName && apartmentNumber) {
   //   //   const apartmentInfo = apartmentData[floorName].find(apt => apt.Apartmentno === apartmentNumber);

@@ -126,9 +126,10 @@ svg */
 .topLogoContainer,
 .buttonsContainer,
 .filterContainer,
+.snowContainer,
 .menuContainer {
   position: fixed;
-  z-index: 10;
+  z-index: 100000000;
   user-select: none;
 }
 
@@ -143,17 +144,18 @@ svg */
   height: 3.7rem;
   width: 16rem;
   /* border: 3px solid red; */
+  z-index: 100000000;
   display: grid;
   align-items: center;
   justify-content: center;
   grid-template-columns: 0.8fr 0.4fr 0.4fr;
 }
 
-
 .snowContainer
+
 {
-  position: fixed;
-  z-index: 10;
+  /* position: fixed; */
+  z-index: 0;
   user-select: none;
   top: 119px;
   right: 3rem;
