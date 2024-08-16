@@ -809,7 +809,11 @@ export default function BackgroundImage() {
 
           {overlay &&
             ((filterbox && selectedAmenities.length != 0) || (filterFloorMenu && selectedAmenities.length != 0) ? (
-             ( !backView && <svg
+             ( !backView && 
+             
+             
+             (!snowMode?( 
+             <svg
                 ref={svgRef}
                 version="1.1"
                 id={styles.masker}
@@ -1796,7 +1800,37 @@ export default function BackgroundImage() {
                   data-tip="valley-floor-2"
                   d="M429.28,635.11v51.06l193.38.15h75.21l123.21,1.44c10.93.13,21.93,1.19,32.86,1.32,34.83.41,69.58-.11,104.41.3H1291l221.43,1.84.38-46.17-176.26-2.44-130.85-.92-98.45-.31-254.06-.92L821,637.36l-87.08-.56-54.72-1.23h-89Z"
                 />
+
+                
               </svg>
+              ):
+
+
+                (
+                  <svg
+                    ref={svgRef}
+                    version="1.1"
+                    id={styles.masker}
+                    viewBox="0 0 1920 1080"
+                    xmlns="http://www.w3.org/2000/svg"
+                    xmlnsXlink="http://www.w3.org/1999/xlink"
+                    x="0px"
+                    y="0px"
+                    xmlSpace="preserve"
+                  >
+                    {/* <polygon
+                      className={styles.st0}
+                      data-image="Valley Floor 6"
+                      data-tip="valley-floor-6"
+                      points="619.67 303.31 693.04 256.08 695.34 382.19 619.67 382.19 619.67 303.31"
+                    /> */}
+                
+                <rect class="cls-1" x="266.55" y="568.38" width="164.94" height="62.83"/><rect class="cls-1" x="570.14" y="568.38" width="58.7" height="62.83"/><rect class="cls-1" x="812.28" y="568.38" width="142.62" height="64.66"/><rect class="cls-1" x="954.9" y="568.38" width="136.2" height="64.66"/><rect class="cls-1" x="1292.43" y="568.38" width="97.22" height="64.66"/><rect class="cls-1" x="1429.4" y="568.38" width="92.45" height="64.66"/><rect class="cls-1" x="1521.85" y="568.38" width="91.15" height="64.66"/>
+
+                  </svg>
+                )
+
+              )
             )
 
             ) : ( 
@@ -1866,6 +1900,8 @@ export default function BackgroundImage() {
                   data-tip="valley-floor-2" points="1031.95 789.88 1137.43 797.22 1644.03 799.06 1644.03 867.85 1031.95 803.64 1031.95 789.88"/>
 
             </svg>
+
+
               
             ):
 
@@ -2319,6 +2355,7 @@ export default function BackgroundImage() {
                 </div>
               </div>
 
+
               <div
                 className={`${styles.filterContainer}`}
                 onClick={handleFilter}
@@ -2401,6 +2438,8 @@ export default function BackgroundImage() {
               </div>
             </div>
 
+           
+
             <div className={styles.menuContainer}>
               <div ref={amenityButtonRef}>
                 <AmenityBtn
@@ -2412,14 +2451,6 @@ export default function BackgroundImage() {
                   inActive={amenityClicked}
                 />
               </div>
-
-              <div className={styles.snowContainer}>
-                <SnowButton
-                  inActive={snowMode}
-                  handleMenu={handleSnowMode}
-
-                />
-            </div>
 
               <div className={styles.menuContainerInside} ref={favContainerRef}>
                 <FavButton
@@ -2435,7 +2466,20 @@ export default function BackgroundImage() {
               >
                 <MenubarButton inActive={menuBox} handleMenu={handleMenu} />
               </div>
+
+              <div className={styles.snowContainer}>
+                <SnowButton
+                  inActive={snowMode}
+                  handleMenu={handleSnowMode}
+
+                />
+              </div>
             </div>
+
+
+           
+
+            <div stylesheet={{zIndex:'100000'}} >
             <MenuBox
               ref={menuBoxRef}
               refAmen ={amenityButtonRef}
@@ -2449,9 +2493,14 @@ export default function BackgroundImage() {
               toggleFullScreen={handleToggleFullScreen}
 
             />
+             
+
+            </div>
+            
+            
 
             { amenityClicked && (
-              <div  >
+              <div >
                 <AmenityGrid Amenref={amenityGridRef} onClose={handleAmenitiesCheck} isMobile={isMobile} />
               </div>
             )}
@@ -2493,6 +2542,7 @@ export default function BackgroundImage() {
             />
           </div>
 
+         
 
           <div className={styles.bottomLogoContainer}>
             <div className={styles.bottomLogoContainerTitle}>{translations["projectby"]}</div>
@@ -2514,7 +2564,7 @@ export default function BackgroundImage() {
           {amenityClicked && (
               <div>
                 <AmenityGrid Amenref={amenityGridRef} onClose={handleAmenitiesCheck} isMobile={isMobile} />
-                </div>
+              </div>
             )}
 
 
@@ -2542,6 +2592,14 @@ export default function BackgroundImage() {
             handleElevation={handleElevationClicked}
 
           />
+
+          <div className={styles.snowContainer}>
+            <SnowButton
+              inActive={snowMode}
+              handleMenu={handleSnowMode}
+
+            />
+          </div>
 
             {isFilterBoxVisible && (
                 <FilterBox
