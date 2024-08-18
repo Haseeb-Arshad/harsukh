@@ -1137,15 +1137,15 @@ background-color: none;
 .buttonss {
   color: #006d77;
   position: absolute;
-  height: 44px;
-  width: 44px;
+  height: 45px;
+  width: 45px;
   border: none;
   margin-top: 2rem;
   border-radius: 22px;
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  padding-left: 14px;
+  padding-left: 15px;
   cursor: pointer;
   overflow: hidden;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -1154,6 +1154,8 @@ background-color: none;
 
 .mapButton {
   bottom: 110px;
+  padding-left: 14px;
+
   right: 48px;
   background: linear-gradient(135deg, #fcf7eb, #f0f0f0);
   border: 1px solid #dcdcdc;
@@ -1207,6 +1209,32 @@ background-color: none;
     font-size: 12px;
   }
 
+  .callButton {
+    bottom: 48px;
+    right: 28px;
+    background-color: #fcf7eb;
+  }
+
+  .mapButton {
+    bottom: 110px;
+    right: 28px;
+    background: linear-gradient(135deg, #fcf7eb, #f0f0f0);
+    border: 1px solid #dcdcdc;
+  }
+
+  .snowContainer
+  {
+    z-index: 0;
+    user-select: none;
+    top: 119px;
+    right: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* height: 40px;
+    width: 40px; */
+    border-radius: 50%;
+  }
 
   .topLogoContainer {
     top: 2.5rem;

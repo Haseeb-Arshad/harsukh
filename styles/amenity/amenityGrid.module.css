@@ -10,6 +10,13 @@
   font-weight: normal;
 }
 
+.containerOutside
+{
+  position: absolute;
+  width: 100%;
+  height: 100vh;
+}
+
 .container {
   position: absolute; 
   top: 113px;     

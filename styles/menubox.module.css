@@ -10,6 +10,8 @@
   font-family: 'Gill Sans Light';
     position: absolute;
     top: 7rem;
+    z-index: 100000;
+
     right: 3rem;
     padding: 0.5rem 0.6rem;
     min-width: 13.5rem;

@@ -192,7 +192,7 @@ const MapView = () => {
               <use href="/svg/forestHouse/forestHouse.svg#forestHouse" data-name="Alnoor Waterfall" data-distance="230 m" data-driving-time="4 min" data-walking-time="8 min" />
               <use href="/svg/tunnel/tunnel.svg#tunnel" data-name="Ayubia Moto Tunnel" data-distance="2.9 km" data-driving-time="7 min" data-walking-time="45 min" />
               <use href="/svg/harsukhlogo/logo.svg#harsukhLogo" />
-              <use href="/svg/pinLocation/pinLocation.svg#pinLocation" />
+              {/* <use href="/svg/pinLocation/pinLocation.svg#pinLocation" /> */}
             </>
           )}
           {svgVisibility.roads && (

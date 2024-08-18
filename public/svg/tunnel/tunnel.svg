@@ -14,8 +14,10 @@
         fill: #fff;
         filter: url(#drop-shadow-1);
         font-family: 'Gill Sans Light';
-        font-size: 35px;
+        font-size: 70px;
         font-weight: 500;
+        cursor: pointer;
+
       }
 
       .cls-2 {
