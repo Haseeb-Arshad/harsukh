@@ -2,12 +2,20 @@
 <svg id="ayubiabazar" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 5494.76 3090.8">
   <defs>
     <style>
+
+    @font-face {
+        font-family: 'Gill Sans Light';
+        src: url('/fonts/GillSansMTPro-Light.otf');
+        font-weight: normal;
+      }
+
       .cls-1 {
         fill: #fff;
         filter: url(#drop-shadow-1);
-        font-family: GillSansMTPro-Medium, 'Gill Sans MT Pro';
-        font-size: 75px;
+        font-family: 'Gill Sans Light';
+        font-size: 70px;
         font-weight: 500;
+        cursor: pointer;
       }
 
       .cls-2 {

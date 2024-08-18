@@ -32,13 +32,13 @@ const ContactUsPopup = ({ onClose }) => {
                     </div>
                 </div>
                
-                 {/* <Image 
-                        src="/images/ContactUs/ContactUsBack.webp" 
+                 <Image 
+                        src="/images/ContactUs/contact.png"
                         alt="Building" 
                         layout="fill"
                         objectFit="cover"
-                        style={{borderRadius:'0.3rem'}}
-                    /> */}
+                        style={{borderRadius:'0.3rem', marginTop:'5px'}}
+                    />
                 {/* <div className={styles.imageContainer}>
                     <Image 
                         src="/images/building.jpg" 

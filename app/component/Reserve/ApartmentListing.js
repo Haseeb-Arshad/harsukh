@@ -12,7 +12,6 @@ import { useRouter, useState } from "next/navigation";
 
 const ApartmentCard = ({ apartment }) => {
   const dispatch = useDispatch();
-
   const router = useRouter();
 
   const languageState = useSelector((state) => {
@@ -25,7 +24,7 @@ const ApartmentCard = ({ apartment }) => {
   const floorNameMapping = {
     "3rd Floor": 'third-floor',
     "2nd Floor": 'second-floor',
-    "1st Floor":'first-floor',
+    "1st Floor": 'first-floor',
     "Ground Floor": 'ground-floor',
     "Basement 1": 'valley-floor-1',
     "Basement 3": 'valley-floor-3',
@@ -34,24 +33,29 @@ const ApartmentCard = ({ apartment }) => {
     "Basement 6": 'valley-floor-6'
   };
 
-  // const [floormap, setFloorMap] = useState("");
+  const getFloorName = (floor) => {
+    // First, try to get the exact match
+    if (floorNameMapping[floor]) {
+      return floorNameMapping[floor];
+    }
 
+    // If no exact match, try to find a partial match
+    const lowerFloor = floor.toLowerCase();
+    for (const [key, value] of Object.entries(floorNameMapping)) {
+      if (lowerFloor.includes(key.toLowerCase())) {
+        return value;
+      }
+    }
 
-  // useEffect(() => {
-  //   // const apartmentParam = params.apartment; // e.g., "Apartment1"
-  //   // const match = apartmentParam.match(/\d+/); // Extracts the digits from the string
-  //   // const apartmentNumber = match ? parseInt(match[0]) : null; // Gets the first match or null if no match
-  console.log("FLOORSSSS: ", apartment.floor)
+    // If still no match, return a default value based on the input
+    console.warn(`No exact or partial match found for floor: ${floor}. Using sanitized input.`);
+    return floor.toLowerCase().replace(/\s+/g, '-');
+  };
 
-  const floorName = floorNameMapping[apartment.floor];
-    // setFloorMap(floorName)
-    // if (floorName && apartmentNumber) {
-  //   //   const apartmentInfo = apartmentData[floorName].find(apt => apt.Apartmentno === apartmentNumber);
-  //   //   if (apartmentInfo) {
-  //   //     setApartmentType(apartmentInfo.Type);
-  //   //   }
-  //   // }
-  // }, []);
+  const handleCardClick = () => {
+    const floorName = getFloorName(apartment.floor);
+    router.push(`/${floorName}/Apartment${apartment.Apartmentno}`);
+  };
 
   const handleDelete = (e) => {
     e.stopPropagation();
@@ -59,7 +63,7 @@ const ApartmentCard = ({ apartment }) => {
   };
 
   return (
-    <div className={styles.card} onClick={()=>router.push(`/${floorName}/Apartment${apartment.Apartmentno}`)}>
+    <div className={styles.card} onClick={handleCardClick}>
       <div className={styles.cardHeader}>
         <h3>{translations["apartmentNo"]} {apartment.Apartmentno}</h3>
         <div className={styles.deleteButton} onClick={handleDelete}>

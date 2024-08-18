@@ -78,8 +78,11 @@ const FloorMenuBox = forwardRef(({
           </div>
           <div className={styles.menuBox} onClick={handleMenuItemClick(toggleFullScreen)}>
           <div className={styles.menuBoxIcon}>
-              <Image src="/images/icons/fullScreen.svg" quality={100} alt="Full Screen" height={19} width={19} />
-            </div>
+              {!fullScreen?
+                <Image src="/images/icons/fullScreen.svg" quality={100} alt="Full Screen" height={19} width={19} />
+                  :
+                <Image src="/images/icons/exitFullScreen.svg" quality={100} alt="Full Screen" height={19} width={19} />
+              }            </div>
             <div className={styles.menuBoxTitle}>
               {fullScreen ? translations.exitFullScreen : translations.fullScreen}
             </div>
