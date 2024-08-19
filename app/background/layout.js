@@ -18,25 +18,20 @@ export default function Layout({ children }) {
   const [translations, setTranslations] = useState(en);
 
   useEffect(() => {
-    console.log(language === 'en' ? ur : en)
     setTranslations(language === 'en' ? ur : en);
   }, [language]);
 
 
   const toggleLanguage = () => {
-    console.log(language)
-    console.log("TRANSLATIONS", translations)
     setLanguage(prevLang => prevLang === 'en' ? 'ur' : 'en');
   }
 
   const handleMenu = () => {
     setMenuBox(!menuBox);
-    console.log("menu clicked");
   }
 
   const handleFilter = () => {
     setFilterBox(!filterbox);
-    console.log("Filter clicked");
   }
 
   const toggleFullScreen = () => {
@@ -53,8 +48,6 @@ export default function Layout({ children }) {
 
   const handleOverlay = () => {
     setOverlay(!overlay);
-    console.log(overlay);
-    console.log("overlay clicked");
   }
 
   const handleTabClick = (tabName) => {

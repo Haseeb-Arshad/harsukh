@@ -315,14 +315,11 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  /* background: black; */
+  z-index: 10000000000;
   /* animation: fadeIn 0.3s ease-in-out; */
 }
   
-
-.menuContainerOutside
-{
-
-}
   
     .menuContainer {
       position: fixed;

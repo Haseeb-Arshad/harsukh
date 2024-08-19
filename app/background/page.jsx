@@ -137,7 +137,12 @@ export default function BackgroundImage() {
   const [isContactusClicked, setContactUs]= useState(false);
   const [snowMode, setSnowMode] = useState(false);
   const params = useParams();
+  const [tooltipContent, setTooltipContent] = useState(null);
+  const [tooltipPosition, setTooltipPosition] = useState({ x: 0, y: 0 });
 
+  const [tooltipVisible, setTooltipVisible] = useState(false);
+  const [tooltipLeave, setToolTipLeave]  = useState(false);
+  const hideTimeout = useRef(null);
   const [svgReloadTrigger, setSvgReloadTrigger] = useState(0);
 
 
@@ -383,21 +388,6 @@ export default function BackgroundImage() {
     }
   }, [handleSVGElementClick, overlay, filterbox, svgHover, params, filterBoxRef, isFilterBoxVisible, backView, snowMode ]);
 
-  // useEffect(() => {
-  //   const svg = svgRef.current;
-  //   if (svg) {
-  //     const elements = svg.querySelectorAll("polygon, polyline, path, rect");
-  //     elements.forEach((element) => {
-  //       element.addEventListener("click", handleSVGElementClick);
-  //     });
-
-  //     return () => {
-  //       elements.forEach((element) => {
-  //         element.removeEventListener("click", handleSVGElementClick); // Clean up
-  //       });
-  //     };
-  //   }
-  // }, [overlay, filterbox, svgHover]);
 
   const menuContainerRef = useRef(null);
   const menuBoxRef = useRef(null);
@@ -427,7 +417,6 @@ export default function BackgroundImage() {
   
   const handleAmenitiesClickOutside = useCallback((event) => {
 
-
     if (
       amenityButtonRef.current &&
       !amenityButtonRef.current.contains(event.target) &&
@@ -445,7 +434,6 @@ export default function BackgroundImage() {
     };
   }, [handleAmenitiesClickOutside]);
   
-
   useEffect(() => {
     if(!filterbox)
     {
@@ -453,22 +441,8 @@ export default function BackgroundImage() {
       setFilterFloorMenu(true);
       else
       setFilterFloorMenu(false);
-
     }
-
   }, [filterbox]);
-
-  // const handleAmenities = () => {
-  //   setAmenityClicked((prev) => !prev);
-  //   // setAmenityClicked(false);
-  // };
-
-
-
-  
-  // const handleAmenitiesCheck = () => {
-  //   setAmenityClicked(false);
-  // };
 
   const [loading, setLoading] = useState(false); // Add loading state
 
@@ -483,13 +457,7 @@ export default function BackgroundImage() {
   //   img.src = nextImage; // Preload the image
   // };
 
-
   const isFullScreen = useSelector((state) => state.fullscreen.isFullScreen);
-
-  // const handleToggleFullScreen = () => {
-  //   dispatch(toggleFullScreen());
-  // };
-  
  
   const handleToggleFullScreen = () => {
     if (!document.fullscreenElement) {
@@ -584,21 +552,8 @@ export default function BackgroundImage() {
     };
   }, []);
 
-  const [tooltipContent, setTooltipContent] = useState(null);
-  const [tooltipPosition, setTooltipPosition] = useState({ x: 0, y: 0 });
-  // const [previousTarget, setPreviousTarget] = useState(null);
-  // const tooltipTimeout = useRef(null); // Add a ref for the timeout
+ 
 
-  const [tooltipVisible, setTooltipVisible] = useState(false);
-  const [tooltipLeave, setToolTipLeave]  = useState(false);
-  const hideTimeout = useRef(null);
-
-  // const clearHideTimeout = () => {
-  //   if (hideTimeout) {
-  //     clearTimeout(hideTimeout);
-  //     setHideTimeout(null);
-  //   }
-  // };
 
   const handlePolygonHover = (event) => {
     setToolTipLeave(true);
@@ -681,7 +636,6 @@ export default function BackgroundImage() {
     const svg = svgRef.current;
     if (svg) {
       const elements = svg.querySelectorAll("polygon, polyline, path, rect");
-      console.log("TTTT")
       const hoverHandler =
         (filterbox && selectedAmenities.length !== 0) ||
         (filterFloorMenu && selectedAmenities.length !== 0)
@@ -1899,7 +1853,7 @@ export default function BackgroundImage() {
                                   data-tip="second-floor"
                                   ApartmentNum="28"
                                   bedroomCount="2"
-                                  apartmentType="Bedroom"
+                                  apartmentType="Penthouse"
                                   className={styles.st2} points="452.18 410.7 452.18 459.54 534.26 459.54 534.26 407.94 452.18 407.94 452.18 410.7"/>
                 <rect data-image="Second Floor"
                                   data-tip="second-floor"
@@ -1947,7 +1901,7 @@ export default function BackgroundImage() {
                                   data-tip="second-floor"
                                   ApartmentNum="20"
                                   bedroomCount="1"
-                                  apartmentType="Bedroom"
+                                  apartmentType="Penthouse"
                                   className={styles.st2} points="1476.1 467.72 1408.61 468.18 1408.61 425.99 1476.1 467.72"/>
 
 
@@ -2771,12 +2725,6 @@ export default function BackgroundImage() {
                   bedroomCount="1"
                   apartmentType="Bedroom"
                   className={styles.st2} x="1521.2" y="711.01" width="91.8" height="74.75"/>
-
-
-
-{/* <polygon class="cls-1" points="248.2 558.75 665.53 558.75 733.25 560.59 733.25 509.68 629.3 495.46 431.64 493.63 346.8 493.63 248.37 554.48 248.2 558.75"/>
-<polygon class="cls-1" points="768.71 489.21 768.71 553.87 1132.38 553.87 1132.38 491.5 768.71 489.21"/>
-<polygon class="cls-1" points="1175.95 508.31 1175.95 557.83 1640.27 551.89 1639.13 494.56 1175.95 497.3 1175.95 508.31"/> */}
 
               </svg>
 
