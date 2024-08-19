@@ -210,8 +210,8 @@ const FloorMenu = () => {
   return (
     <>
     
-      <div className={styles.Harsukhlogo} onClick={()=>router.push("/")} >
-      <Image style={{cursor:'pointer', }}  src="/Webpage/floors/HarsukhLogo.webp" quality={100} alt="Harsukh Logo" height={harsukhHeight} width={harsukhWidth} />
+      <div className={styles.Harsukhlogo} style={{cursor:'pointer', }}  onClick={()=>router.push("/")} >
+      <Image  src="/Webpage/floors/HarsukhLogo.webp" quality={100} alt="Harsukh Logo" height={harsukhHeight} width={harsukhWidth} />
       </div>
       
         {

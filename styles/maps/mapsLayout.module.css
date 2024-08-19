@@ -238,7 +238,6 @@
     overflow: hidden;
     transition: all 0.3s ease;
     cursor: pointer;
-    pointer-events: none; /* This prevents any interaction */
     user-select: none;
   }
   

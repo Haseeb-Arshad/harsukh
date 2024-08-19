@@ -138,6 +138,9 @@ export default function BackgroundImage() {
   const [snowMode, setSnowMode] = useState(false);
   const params = useParams();
 
+  const [svgReloadTrigger, setSvgReloadTrigger] = useState(0);
+
+
   const languageState = useSelector((state) => {
     const languageState = state.language.lang.find((site) => site.id === "1");
     return languageState ? languageState.language : "en";
@@ -169,8 +172,8 @@ export default function BackgroundImage() {
   const filterButtonRef = useRef(null);
 
   const handleFilter = useCallback((event) => {
-    // event.stopPropagation();
     setIsFilterBoxVisible((prev) => !prev);
+    setSvgReloadTrigger(prev => prev + 1);
   }, []);
 
   const handleAmenities = useCallback((event) => {
@@ -699,19 +702,18 @@ export default function BackgroundImage() {
         });
       };
     }
-  }, [overlay, filterbox, selectedAmenities.length, filterFloorMenu, params, filterBoxRef, svgHover, backView, snowMode]);
-  
+  }, [overlay, filterbox, selectedAmenities.length, filterFloorMenu, params, filterBoxRef, svgHover, backView, snowMode, svgReloadTrigger]);
 
   useEffect(() => {
     if (svgRef.current) {
       const svgElements = svgRef.current.querySelectorAll(
         "polygon, polyline, path, rect"
       );
-
+  
       svgElements.forEach((element) => {
         const bedroomCount = element.getAttribute("bedroomCount");
         const apartmentType = element.getAttribute("apartmentType");
-
+  
         const shouldShow =
           selectedAmenities.length === 0 ||
           selectedAmenities.some((amenity) => {
@@ -722,11 +724,11 @@ export default function BackgroundImage() {
             if (amenity === "Pent Houses") return apartmentType === "Penthouse";
             return false;
           });
-
+  
         element.style.display = shouldShow ? "block" : "none";
       });
     }
-  }, [selectedAmenities, filterbox, filterFloorMenu, backView, params, svgHover, snowMode]);
+  }, [selectedAmenities, filterbox, filterFloorMenu, backView, params, svgHover, snowMode, svgReloadTrigger]);
 
 
   const [isFilterBarVisible, setIsFilterBarVisible] = useState(false);
@@ -799,9 +801,9 @@ export default function BackgroundImage() {
 
   useEffect(() => {
 
-    console.log("CHECK: ", (filterbox && selectedAmenities.length != 0) || (filterFloorMenu && selectedAmenities.length != 0) )
-    console.log("CHECK 2: ", !backView )
-    console.log("CHECK 3: ", snowMode )
+    console.log( (filterbox && selectedAmenities.length != 0) || (filterFloorMenu && selectedAmenities.length != 0) )
+    console.log( !backView )
+    console.log( snowMode )
 
 
   }, [snowMode, filterbox]);
@@ -834,7 +836,7 @@ export default function BackgroundImage() {
             ((filterbox && selectedAmenities.length != 0) || (filterFloorMenu && selectedAmenities.length != 0) ? 
           
             (
-             ( !backView && 
+             ( !backView ?
              
              
              (snowMode?
@@ -915,7 +917,7 @@ export default function BackgroundImage() {
                   data-tip="second-floor"
                   ApartmentNum="28"
                   bedroomCount="2"
-                  apartmentType="Bedroom"
+                  apartmentType="Penthouse"
                   className={styles.st2}
                   points="446.78 407.41 446.78 456.25 528.87 456.25 528.87 404.66 446.78 404.66 446.78 407.41"
                 />
@@ -999,7 +1001,7 @@ export default function BackgroundImage() {
                   data-tip="second-floor"
                   ApartmentNum="20"
                   bedroomCount="1"
-                  apartmentType="Bedroom"
+                  apartmentType="Penthouse"
                   className={styles.st2}
                   points="1487.49 473.76 1408.61 473.76 1408.61 424.23 1487.49 473.76"
                 />
@@ -1095,9 +1097,9 @@ export default function BackgroundImage() {
                   bedroomCount="1"
                   apartmentType="Bedroom"
                   className={styles.st2}
-                  x="1421.76"
+                  x="1363.97"
                   y="481.1"
-                  width="74.9"
+                  width="57.78"
                   height="40.66"
                 />
                 <rect
@@ -1107,11 +1109,12 @@ export default function BackgroundImage() {
                   bedroomCount="1"
                   apartmentType="Bedroom"
                   className={styles.st2}
-                  x="1363.97"
+                  x="1421.76"
                   y="481.1"
-                  width="57.78"
+                  width="74.9"
                   height="40.66"
                 />
+                
 
                 <rect
                   data-image="Ground Floor"
@@ -1449,7 +1452,7 @@ export default function BackgroundImage() {
                   data-image="Valley Floor 3"
                   data-tip="valley-floor-3"
                   ApartmentNum="97"
-                  bedroomCount="1"
+                  bedroomCount="0"
                   apartmentType="Studio"
                   className={styles.st2}
                   x="1205.64"
@@ -1728,7 +1731,7 @@ export default function BackgroundImage() {
                   data-image="Valley Floor 6"
                   data-tip="valley-floor-6"
                   ApartmentNum="138"
-                  bedroomCount="1"
+                  bedroomCount="0"
                   apartmentType="Studio"
                   className={styles.st2}
                   x="446.78"
@@ -2218,7 +2221,7 @@ export default function BackgroundImage() {
                 <rect data-image="Valley Floor 3"
                                   data-tip="valley-floor-3"
                                   ApartmentNum="97"
-                                  bedroomCount="1"
+                                  bedroomCount="0"
                                   apartmentType="Studio"
                                   className={styles.st2} x="1203.69" y="694.96" width="73.95" height="50.9"/>
                 <rect data-image="Valley Floor 3"
@@ -2411,7 +2414,7 @@ export default function BackgroundImage() {
               <rect data-image="Valley Floor 6"
                   data-tip="valley-floor-6"
                   ApartmentNum="138"
-                  bedroomCount="1"
+                  bedroomCount="0"
                   apartmentType="Studio"
                   className={styles.st2} x="448.78" y="878.81" width="82.09" height="50.9"/>
               <rect data-image="Valley Floor 6"
@@ -2458,7 +2461,7 @@ export default function BackgroundImage() {
                   className={styles.st2} x="1107.16" y="873.81" width="76.43" height="50.9"/>
 
 
-        <path
+              <path
                   className={styles.st0}
                   data-image="Valley Floor 2"
                   data-tip="valley-floor-2"
@@ -2469,7 +2472,316 @@ export default function BackgroundImage() {
                   </svg>
                 )
 
+              ):
+              (
+
+                <svg
+                ref={svgRef}
+                version="1.1"
+                id={styles.masker}
+                xmlns="http://www.w3.org/2000/svg"
+                xmlnsXlink="http://www.w3.org/1999/xlink"
+                x="0px"
+                y="0px"
+                // viewBox="0 0 5494.76 3090.8"
+                viewBox="0 0 1920 1080"
+                // viewBox="0 0 5494.76 3090.8"
+
+                xmlSpace="preserve"
+                onMouseEnter={() =>setSvgHover(true)}
+                onMouseLeave={() =>setSvgHover(false)}
+
+              >
+                {/* <polygon
+                  data-image="Third Floor"
+                  data-tip="third-floor"
+                  ApartmentNum="10"
+                  bedroomCount="2"
+                  apartmentType="Penthouse"
+                  className={styles.st2}
+                  points="446.78 393.2 591.57 298.53 589.86 396.41 446.78 396.41 446.78 393.2"
+                /> */}
+
+
+
+            {/* <polygon data-image="Third Floor"
+                  data-tip="third-floor"
+                  ApartmentNum="10"
+                  bedroomCount="2"
+                  apartmentType="Penthouse"
+                  className={styles.st2} points="1132.38 418.42 1132.38 419.64 1132.36 418.42 1132.38 418.42"/> */}
+            {/* <polygon data-image="Third Floor"
+                  data-tip="third-floor"
+                  ApartmentNum="9"
+                  bedroomCount="2"
+                  apartmentType="Penthouse"
+                  className={styles.st2} points="737.04 386.21 736.15 452.59 736.15 500.05 630.52 483.24 364.53 482.82 461.85 423.36 652 306.98 737.04 386.21"/>
+            <polygon data-image="Third Floor"
+                  data-tip="third-floor"
+                  ApartmentNum="8"
+                  bedroomCount="3"
+                  apartmentType="Penthouse"
+                  className={styles.st2} points="1132.38 419.64 1132.38 478.96 770.24 480.79 768.71 418.42 771.16 418.45 777.5 418.45 768.71 418.42 771.24 319.36 797.83 230.62 1110.83 226.73 1130.55 319.02 1132.36 418.42 1132.38 419.64"/>
+            <polygon   data-image="Third Floor"
+                  data-tip="third-floor"
+                  ApartmentNum="7"
+                  bedroomCount="3"
+                  apartmentType="Penthouse"
+                  className={styles.st2} points="1639.13 469.32 1639.13 487.21 1173.66 489.21 1173.5 458.17 1172.81 379.98 1269.04 266.17 1388.51 338.85 1407.25 326.66 1533.2 404.66 1639.13 469.32"/> */}
+
+
+
+<polygon  data-image="Third Floor"
+                  data-tip="third-floor"
+                  ApartmentNum="5"
+                  bedroomCount="3"
+                  apartmentType="Penthouse"
+                  className={styles.st2} points="450.45 458.32 450.45 484.46 628.84 484.46 628.84 349.17 450.45 458.32"/>
+<rect  data-image="Third Floor"
+                  data-tip="third-floor"
+                  ApartmentNum="4"
+                  bedroomCount="3"
+                  apartmentType="Penthouse"
+                  className={styles.st2} x="812.28" y="353.76" width="142.62" height="130.7"/>
+<rect   data-image="Third Floor"
+                  data-tip="third-floor"
+                  ApartmentNum="3"
+                  bedroomCount="3"
+                  apartmentType="Penthouse"
+                  className={styles.st2} x="954.9" y="353.76" width="136.2" height="130.7"/>
+<polygon  data-image="Third Floor"
+                  data-tip="third-floor"
+                  ApartmentNum="2"
+                  bedroomCount="2"
+                  apartmentType="Penthouse"
+                  className={styles.st2} points="1292.43 484.46 1391.49 484.46 1391.49 368.89 1292.43 312.48 1292.43 484.46"/>
+<polygon data-image="Third Floor"
+                  data-tip="third-floor"
+                  ApartmentNum="1"
+                  bedroomCount="2"
+                  apartmentType="Penthouse"
+                  className={styles.st2} points="1430.7 484.46 1612.99 484.46 1430.7 373.02 1430.7 484.46"/>
+
+
+
+              <polygon data-image="Second Floor"
+                  data-tip="second-floor"
+                  ApartmentNum="11"
+                  bedroomCount="2"
+                  apartmentType="Penthouse"
+                  className={styles.st2} points="285.35 557.53 383.19 557.53 383.19 498.83 285.35 557.53"/>
+                  <polygon data-image="Second Floor"
+                  data-tip="second-floor"
+                  ApartmentNum="12"
+                  bedroomCount="2"
+                  apartmentType="Bedroom"
+                  className={styles.st2} points="429.96 470.09 383.19 498.83 383.19 557.53 431.49 557.53 429.96 470.09"/>
+                  <rect data-image="Second Floor"
+                  data-tip="second-floor"
+                  ApartmentNum="13"
+                  bedroomCount="2"
+                  apartmentType="Bedroom"
+                  className={styles.st2} x="450.45" y="494.85" width="92.03" height="61.15"/>
+                  <rect data-image="Second Floor"
+                  data-tip="second-floor"
+                  ApartmentNum="14"
+                  bedroomCount="3"
+                  apartmentType="Bedroom"
+                  className={styles.st2} x="542.47" y="494.85" width="86.37" height="61.15"/>
+                  <rect data-image="Second Floor"
+                  data-tip="second-floor"
+                  ApartmentNum="15"
+                  bedroomCount="3"
+                  apartmentType="Bedroom"
+                  className={styles.st2} x="812.28" y="494.85" width="142.62" height="61.15"/>
+                  <rect data-image="Second Floor"
+                  data-tip="second-floor"
+                  ApartmentNum="16"
+                  bedroomCount="1"
+                  apartmentType="Bedroom"
+                  className={styles.st2} x="954.9" y="494.85" width="136.2" height="61.15"/>
+                  <rect data-image="Second Floor"
+                  data-tip="second-floor"
+                  ApartmentNum="17"
+                  bedroomCount="1"
+                  apartmentType="Bedroom"
+                  className={styles.st2} x="1293.66" y="494.85" width="96" height="61.15"/>
+                  <rect data-image="Second Floor"
+                  data-tip="second-floor"
+                  ApartmentNum="18"
+                  bedroomCount="1"
+                  apartmentType="Bedroom"
+                  className={styles.st2} x="1429.4" y="494.85" width="85.3" height="61.15"/>
+                  
+                  <rect data-image="Second Floor"
+                  data-tip="second-floor"
+                  ApartmentNum="19"
+                  bedroomCount="1"
+                  apartmentType="Penthouse"
+                  className={styles.st2} x="1514.7" y="494.85" width="98.29" height="61.15"/>
+
+
+
+                <rect data-image="First Floor"
+                  data-tip="first-floor"
+                  ApartmentNum="29"
+                  bedroomCount="2"
+                  apartmentType="Bedroom"
+                  className={styles.st2} x="266.55" y="568.38" width="164.94" height="62.83"/>
+<rect data-image="First Floor"
+                  data-tip="first-floor"
+                  ApartmentNum="30"
+                  bedroomCount="2"
+                  apartmentType="Bedroom"
+                  className={styles.st2} x="570.14" y="568.38" width="58.7" height="62.83"/>
+<rect data-image="First Floor"
+                  data-tip="first-floor"
+                  ApartmentNum="31"
+                  bedroomCount="2"
+                  apartmentType="Bedroom"
+                  className={styles.st2} x="812.28" y="568.38" width="142.62" height="64.66"/>
+<rect  data-image="First Floor"
+                  data-tip="first-floor"
+                  ApartmentNum="32"
+                  bedroomCount="3"
+                  apartmentType="Bedroom"
+                  className={styles.st2} x="954.9" y="568.38" width="136.2" height="64.66"/>
+<rect data-image="First Floor"
+                  data-tip="first-floor"
+                  ApartmentNum="33"
+                  bedroomCount="3"
+                  apartmentType="Bedroom"
+                  className={styles.st2} x="1292.43" y="568.38" width="97.22" height="64.66"/>
+<rect data-image="First Floor"
+                  data-tip="first-floor"
+                  ApartmentNum="34"
+                  bedroomCount="1"
+                  apartmentType="Bedroom"
+                  className={styles.st2} x="1429.4" y="568.38" width="92.45" height="64.66"/>
+<rect data-image="First Floor"
+                  data-tip="first-floor"
+                  ApartmentNum="35"
+                  bedroomCount="1"
+                  apartmentType="Bedroom"
+                  className={styles.st2} x="1521.85" y="568.38" width="91.15" height="64.66"/>
+
+
+<rect data-image="Ground Floor"
+                  data-tip="ground-floor"
+                  ApartmentNum="45"
+                  bedroomCount="2"
+                  apartmentType="Bedroom"
+                  className={styles.st2} x="266.55" y="638.09" width="164.94" height="66.04"/>
+<rect data-image="Ground Floor"
+                  data-tip="ground-floor"
+                  ApartmentNum="46"
+                  bedroomCount="2"
+                  apartmentType="Bedroom"
+                  className={styles.st2} x="812.28" y="640.38" width="147.72" height="63.75"/>
+<rect data-image="Ground Floor"
+                  data-tip="ground-floor"
+                  ApartmentNum="47"
+                  bedroomCount="2"
+                  apartmentType="Bedroom"
+                  className={styles.st2} x="960" y="640.38" width="131.11" height="63.75"/>
+<rect data-image="Ground Floor"
+                  data-tip="ground-floor"
+                  ApartmentNum="48"
+                  bedroomCount="3"
+                  apartmentType="Bedroom"
+                  className={styles.st2} x="1292.43" y="640.38" width="97.22" height="63.75"/>
+<rect  data-image="Ground Floor"
+                  data-tip="ground-floor"
+                  ApartmentNum="49"
+                  bedroomCount="3"
+                  apartmentType="Bedroom"
+                  className={styles.st2} x="1429.4" y="640.38" width="92.45" height="63.75"/>
+<rect data-image="Ground Floor"
+                  data-tip="ground-floor"
+                  ApartmentNum="50"
+                  bedroomCount="2"
+                  apartmentType="Bedroom"
+                  className={styles.st2}  x="1521.85" y="640.38" width="91.15" height="63.75"/>
+
+
+
+
+
+<polygon data-image="Valley Floor 1"
+                  data-tip="valley-floor-1"
+                  ApartmentNum="60"
+                  bedroomCount="2"
+                  apartmentType="Bedroom"
+                  className={styles.st2} points="431.49 711.01 361.02 711.01 361.02 724.4 431.49 734.39 431.49 711.01"/>
+
+<polygon data-image="Valley Floor 1"
+                  data-tip="valley-floor-1"
+                  ApartmentNum="61"
+                  bedroomCount="2"
+                  apartmentType="Bedroom"
+                  className={styles.st2} points="664.15 711.01 758.62 711.01 756.79 774.29 664.15 761.45 664.15 711.01"/>
+<polygon data-image="Valley Floor 1"
+                  data-tip="valley-floor-1"
+                  ApartmentNum="62"
+                  bedroomCount="2"
+                  apartmentType="Bedroom"
+                  className={styles.st2}  points="266.55 711.01 361.02 724.4 361.02 711.01 266.55 711.01"/>
+
+<polygon  data-image="Valley Floor 1"
+                  data-tip="valley-floor-1"
+                  ApartmentNum="63"
+                  bedroomCount="2"
+                  apartmentType="Bedroom"
+                  className={styles.st2} points="628.84 711.01 628.84 757.33 551.8 749.99 551.8 712.38 628.84 711.01"/>
+
+
+<rect data-image="Valley Floor 1"
+                  data-tip="valley-floor-1"
+                  ApartmentNum="64"
+                  bedroomCount="2"
+                  apartmentType="Bedroom"
+                  className={styles.st2} x="812.28" y="711.01" width="121.07" height="74.75"/>
+<rect data-image="Valley Floor 1"
+                  data-tip="valley-floor-1"
+                  ApartmentNum="65"
+                  bedroomCount="2"
+                  apartmentType="Bedroom"
+                  className={styles.st2} x="970.04" y="711.01" width="121.07" height="74.75"/>
+<rect data-image="Valley Floor 1"
+                  data-tip="valley-floor-1"
+                  ApartmentNum="66"
+                  bedroomCount="1"
+                  apartmentType="Bedroom"
+                  className={styles.st2} x="1128.71" y="711.01" width="119.69" height="74.75"/>
+<rect  data-image="Valley Floor 1"
+                  data-tip="valley-floor-1"
+                  ApartmentNum="67"
+                  bedroomCount="1"
+                  apartmentType="Bedroom"
+                  className={styles.st2} x="1292.43" y="711.01" width="97.22" height="74.75"/>
+<rect data-image="Valley Floor 1"
+                  data-tip="valley-floor-1"
+                  ApartmentNum="68"
+                  bedroomCount="1"
+                  apartmentType="Bedroom"
+                  className={styles.st2} x="1429.4" y="711.01" width="91.8" height="74.75"/>
+<rect data-image="Valley Floor 1"
+                  data-tip="valley-floor-1"
+                  ApartmentNum="69"
+                  bedroomCount="1"
+                  apartmentType="Bedroom"
+                  className={styles.st2} x="1521.2" y="711.01" width="91.8" height="74.75"/>
+
+
+
+{/* <polygon class="cls-1" points="248.2 558.75 665.53 558.75 733.25 560.59 733.25 509.68 629.3 495.46 431.64 493.63 346.8 493.63 248.37 554.48 248.2 558.75"/>
+<polygon class="cls-1" points="768.71 489.21 768.71 553.87 1132.38 553.87 1132.38 491.5 768.71 489.21"/>
+<polygon class="cls-1" points="1175.95 508.31 1175.95 557.83 1640.27 551.89 1639.13 494.56 1175.95 497.3 1175.95 508.31"/> */}
+
+              </svg>
+
               )
+
             )
 
             ) : (
