@@ -73,10 +73,6 @@ svg */
   pointer-events: none;
 }
 
-#masker {
-  position: absolute;
-  pointer-events: none;
-}
 
 .st0 {
   opacity: 0;

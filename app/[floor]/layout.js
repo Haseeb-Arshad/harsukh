@@ -583,7 +583,7 @@ const Layout = ({ children }) => {
         {amenityClicked && (
           <div className={styles.reserveContainerBox}>
             <div ref={amenityGridRef}>
-              <AmenityGrid isMobile={isMobile} onClose={handleAmenitiesCheck} />
+              <AmenityGrid  Amenref={amenityGridRef} isMobile={isMobile} onClose={handleAmenitiesCheck} />
             </div>
           </div>
           
@@ -617,7 +617,9 @@ const Layout = ({ children }) => {
           handleElevation={handleElevationClicked}
           handleFloorMenu={handleFloorMenuClicked}
           onCLose={closeMenu}
-        />
+        /> 
+
+        
         {/* </div> */}
 
       
