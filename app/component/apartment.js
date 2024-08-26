@@ -278,7 +278,6 @@ const Apartment = ({ imageName, imageLink }) => {
   useEffect(() => {
     let viewer;
 
-    
     if (viewerRef.current) {
       viewer = OpenSeadragon({
         element: viewerRef.current,
@@ -294,10 +293,9 @@ const Apartment = ({ imageName, imageLink }) => {
         smoothTileEdgesMinZoom: 1,
         blendTime: 0.1,
         constrainDuringPan: true,
-        minZoomImageRatio:zoomCoord,
-        minZoomImageRatio: 1,
+        minZoomImageRatio: 1, // Removed duplicate line
         visibilityRatio: zoomCoord,
-        defaultZoomLevel:zoomCoord, 
+        defaultZoomLevel: zoomCoord, 
         minZoomLevel: 0.7, 
         maxZoomLevel: 7,  
         wrapHorizontal: false,
@@ -311,7 +309,8 @@ const Apartment = ({ imageName, imageLink }) => {
         },
         loadTilesWithAjax: true,
         ajaxHeaders: {
-          'Cache-Control': 'max-age=3600',
+          'Cache-Control': 'no-cache', // Changed to no-cache for iOS compatibility
+          "Accept": "image/webp,image/apng,image/*,*/*;q=0.8", // Added Accept header
         },
       });
 

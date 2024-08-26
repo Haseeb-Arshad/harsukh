@@ -16,8 +16,7 @@ import BackgroundMode from '@/app/component/Icons/BackgroundMode';
 import MenuBox from '@/app/component/Bars/menuBox';
 import { toggleFullScreen } from '@/state/fullScreen/fullScreen';
 
-
-import { toggleVisibility } from '@/state/mapView/mapViewState'; // Adjust the import path as needed
+import { toggleVisibility } from '@/state/mapView/mapViewState'; 
 
 // Import translations
 import en from '../locales/en.json';
@@ -73,7 +72,6 @@ const Layout = ({children}) =>
   const handleCall = () => {
     setIsContacted(!isContacted);
   }
-  
   
   const isFullScreen = useSelector((state) => state.fullscreen.isFullScreen);
  
@@ -166,6 +164,20 @@ const Layout = ({children}) =>
     {id:'1', label: translations['elevation'] , route:'/'},
 
   ]);
+
+
+  useEffect(() => {
+    setTranslations(language ? ur : en);
+    dispatch(modifyLanguage({ language: language ? 'ur' : 'en' }));
+    
+    // Update elevationArray when translations change
+    setElevationArray([
+      {id:'2', label: language ? ur['mapview'] : en['mapview'], route:'/mapview'},
+      {id:'1', label: language ? ur['elevation'] : en['elevation'], route:'/'},
+    ]);
+  }, [language, dispatch]);
+
+
 
   const [isMobile, setIsMobile] = useState(false);
 
@@ -324,15 +336,7 @@ const Layout = ({children}) =>
                      {translations['roads'] }
                 </div>
             </div>
-            {/* <div className={styles.videosubTab}>
-                
-                <div className={styles.videosubTabTitle}>
-                    Retail
-                </div>
-                <div className={styles.videosubTabIcon}>
-                    <Image src="/images/icons/landmarkIcon.svg" quality={100} alt="Menu" height={16} width={16} />
-                </div>
-            </div> */}
+  
             <div className={`${styles.videosubTab}  ${svgVisibility.radius? styles.active : ''} `} onClick={() =>{ console.log("LandMarks"); toggleSVGVisibility('radius')}}>
                 <div className={styles.videosubTabIcon}>
                     <Image src="/images/icons/radiusIcon.svg" quality={100} alt="Menu" height={20} width={20} />
@@ -348,7 +352,7 @@ const Layout = ({children}) =>
 
      
         <div className={styles.menuContainerInside}                 
-        ref={menuContainerRef}
+          ref={menuContainerRef}
         >
           <MenubarButton inActive={menuBox} handleMenu={handleMenu}/>
         </div>
@@ -358,7 +362,8 @@ const Layout = ({children}) =>
        <div className={styles.menuContainer}>
         
         <div className={styles.menuContainerInside} 
-        ref={menuContainerRef}>
+          ref={menuContainerRef}
+        >
           <MenubarButton inActive={menuBox} handleMenu={handleMenu}/>
         </div>
 
@@ -395,46 +400,47 @@ const Layout = ({children}) =>
         </div>
       
       }
-          <MapMenuBox 
-            ref={menuBoxRef} 
-            handleContact={handleContact}
-            setMenuBox ={setMenuBox}
-            handleElevation = {handleElevationClicked}
-            isActive={menuBox} 
-            handleOverlay={handleOverlay} 
-            translations={translations} 
-            toggleLanguage={toggleLanguage} 
-            overlay={overlay} 
-            fullScreen={isFullScreen} 
-            toggleFullScreen={handleToggleFullScreen}
-          />
+
+      <MapMenuBox 
+        ref={menuBoxRef} 
+        handleContact={handleContact}
+        setMenuBox ={setMenuBox}
+        handleElevation = {handleElevationClicked}
+        isActive={menuBox} 
+        handleOverlay={handleOverlay} 
+        translations={translations} 
+        toggleLanguage={toggleLanguage} 
+        overlay={overlay} 
+        fullScreen={isFullScreen} 
+        toggleFullScreen={handleToggleFullScreen}
+      />
       
-            <div className={styles.container}>
-              <div
-                className={`${styles.buttonss} ${styles.mapButton} ${isMapHovered ? styles.expanded : ''}`}
-                onMouseEnter={() => setIsMapHovered(true)}
-                onMouseLeave={() => setIsMapHovered(false)}
-                onClick={handleGetDirections}
-              >
-                <Image 
-                  src="/images/icons/mapsViewIcon.svg" 
-                  quality={100} 
-                  alt="Maps View Icon" 
-                  height={17} 
-                  width={17} 
-                />
-                <span className={styles.buttonText}>{translations['direction'] }</span>
-              </div>
-              <div
-                className={`${styles.buttonss} ${styles.callButton} ${isCallHovered ? styles.expanded : ''}`}
-                onMouseEnter={() => setIsCallHovered(true)}
-                onMouseLeave={() => setIsCallHovered(false)}
-                onClick={handleCall}
-              >
-                <Image src="/images/icons/callIcon.svg" quality={100} alt="Maps View Icon" height={19} width={19} />
-                <span className={styles.buttonText}>{translations['reqRegister'] }</span>
-              </div>
-            </div>
+      <div className={styles.container}>
+        <div
+          className={`${styles.buttonss} ${styles.mapButton} ${isMapHovered ? styles.expanded : ''}`}
+          onMouseEnter={() => setIsMapHovered(true)}
+          onMouseLeave={() => setIsMapHovered(false)}
+          onClick={handleGetDirections}
+        >
+          <Image 
+            src="/images/icons/mapsViewIcon.svg" 
+            quality={100} 
+            alt="Maps View Icon" 
+            height={17} 
+            width={17} 
+          />
+          <span className={styles.buttonText}>{translations['direction'] }</span>
+        </div>
+        <div
+          className={`${styles.buttonss} ${styles.callButton} ${isCallHovered ? styles.expanded : ''}`}
+          onMouseEnter={() => setIsCallHovered(true)}
+          onMouseLeave={() => setIsCallHovered(false)}
+          onClick={handleCall}
+        > 
+          <Image src="/images/icons/callIcon.svg" quality={100} alt="Maps View Icon" height={19} width={19} />
+          <span className={styles.buttonText}>{translations['reqRegister'] }</span>
+        </div>
+      </div>
 
       {!isMobile && <div className={styles.elevationContainer}>
         <div className={ElevStyles.elevationButtonBox} ref={elevationRef}                

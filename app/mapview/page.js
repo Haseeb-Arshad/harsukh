@@ -1,7 +1,7 @@
 'use client'
 import React, { useRef, useEffect, useState, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { toggleVisibility } from '@/state/mapView/mapViewState'; // Adjust the import path as needed
+import { toggleVisibility } from '@/state/mapView/mapViewState';
 import styles from '@/styles/maps/mapview.module.css';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
@@ -17,6 +17,7 @@ const MapView = () => {
   const [isMobile, setIsMobile] = useState(false);
   const [hoverInfo, setHoverInfo] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [videoLoaded, setVideoLoaded] = useState(false);
 
   const router = useRouter();
 
@@ -25,7 +26,7 @@ const MapView = () => {
     const container = containerRef.current;
     const svg = svgRef.current;
     
-    if (video && container && svg) {
+    if (video && container && svg && videoLoaded) {
       const aspectRatio = video.videoWidth / video.videoHeight;
       const containerWidth = container.clientWidth;
       const containerHeight = container.clientHeight;
@@ -66,14 +67,15 @@ const MapView = () => {
       
       setIsLoading(false);
     }
-  }, [isMobile]);
+  }, [isMobile, videoLoaded]);
 
   useEffect(() => {
     const video = videoRef.current;
     if (video) {
       const handleLoad = () => {
+        setVideoLoaded(true);
         adjustVideoAndSVG();
-        video.play();
+        video.play().catch(error => console.error('Error playing video:', error));
       };
 
       if (video.readyState >= 2) {
@@ -83,15 +85,20 @@ const MapView = () => {
       }
     }
 
-    window.addEventListener("resize", adjustVideoAndSVG);
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+      adjustVideoAndSVG();
+    };
+
+    window.addEventListener("resize", handleResize);
     
     return () => {
-      window.removeEventListener("resize", adjustVideoAndSVG);
+      window.removeEventListener("resize", handleResize);
       if (video) {
         video.onloadeddata = null;
       }
     };
-  }, [isMobile, adjustVideoAndSVG]);
+  }, [adjustVideoAndSVG]);
 
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth <= 768);
@@ -101,11 +108,11 @@ const MapView = () => {
   }, []);
 
   useEffect(() => {
-    if (videoRef.current) {
+    if (videoRef.current && videoLoaded) {
       videoRef.current.playbackRate = 1;
-      videoRef.current.play();
+      videoRef.current.play().catch(error => console.error('Error playing video:', error));
     }
-  }, []);
+  }, [videoLoaded]);
 
   const handleSVGElementHover = (event) => {
     const hoveredElement = event.target.closest('[data-name]');
@@ -116,8 +123,8 @@ const MapView = () => {
       const walkingTime = hoveredElement.getAttribute('data-walking-time');
       
       const containerRect = containerRef.current.getBoundingClientRect();
-      const scrollLeft = containerRef.current.scrollLeft; // Get current horizontal scroll position
-      const x = event.clientX - containerRect.left + scrollLeft; // Adjust x position based on scroll
+      const scrollLeft = containerRef.current.scrollLeft;
+      const x = event.clientX - containerRect.left + scrollLeft;
       const y = event.clientY - containerRect.top;
   
       setHoverInfo({
@@ -134,47 +141,37 @@ const MapView = () => {
   };
 
   const handleHarsukhClick = () => {
-    router.push('/'); // Replace with the actual route you want to navigate to
+    router.push('/');
   };
-
-
-  
 
   return (
     <div ref={containerRef} className={`${styles.container} ${isMobile ? styles.scrollable : ''}`}>
-    {isLoading && (
-      <div className={styles.loadingOverlay}>
-        {/* <div className={styles.loadingSpinner}></div> */}
-        <Loader />
-      </div>
-    )}
-    <div className={styles.videoWrapper} style={{ opacity: isLoading ? 0 : 1 }}>
-      <video
-        ref={videoRef}
-        className={styles.video}
-        autoPlay
-        loop
-        muted
-        playsInline
-        preload="auto"
-      >
-        <source src="/video/mapVideo.mp4" type="video/mp4" />
-        Your browser does not support the video tag.
-      </video>
-      <svg
-        ref={svgRef}
-        className={styles.svgOverlay}
-        preserveAspectRatio="xMidYMid slice"
-        onMouseMove={handleSVGElementHover}
-        onMouseLeave={() => setHoverInfo(null)}
-      >
-          {/* <use href="/svg/buildingwb.svg#buidling" /> */}
+      {isLoading && (
+        <div className={styles.loadingOverlay}>
+          <Loader />
+        </div>
+      )}
+      <div className={styles.videoWrapper} style={{ opacity: isLoading ? 0 : 1 }}>
+        <video
+          ref={videoRef}
+          className={styles.video}
+          autoPlay
+          loop
+          muted
+          playsInline
+          preload="auto"
+        >
+          <source src="/video/mapVideo.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+        <svg
+          ref={svgRef}
+          className={styles.svgOverlay}
+          preserveAspectRatio="xMidYMid slice"
+          onMouseMove={handleSVGElementHover}
+          onMouseLeave={() => setHoverInfo(null)}
+        >
           <use href="/svg/AYUBIA/AyubiaPlace.svg#ayubia" style={{cursor: "pointer"}}/>
-
-          {/* <use href="/svg/roadLabel/road.svg#road" /> */}
-          {/* <use href="/svg/roadLabel/roadLabel.svg#road" /> */}
-
-
           <use 
             href="/svg/harsukhBuilding/building1.svg#harsukh" 
             onClick={handleHarsukhClick}
@@ -182,7 +179,6 @@ const MapView = () => {
           />
           <use href="/svg/MURREE/murree.svg#murree" />
           <use href="/svg/NATHIA/nathia.svg#nathia" />
-          {/* <use href="/svg/NATHIA/nathia.svg#nathia" /> */}
 
           {svgVisibility.landmarks && (
             <>
@@ -192,15 +188,14 @@ const MapView = () => {
               <use href="/svg/forestHouse/forestHouse.svg#forestHouse" data-name="Alnoor Waterfall" data-distance="230 m" data-driving-time="4 min" data-walking-time="8 min" />
               <use href="/svg/tunnel/tunnel.svg#tunnel" data-name="Ayubia Moto Tunnel" data-distance="2.9 km" data-driving-time="7 min" data-walking-time="45 min" />
               <use href="/svg/harsukhlogo/logo.svg#harsukhLogo" />
-              {/* <use href="/svg/pinLocation/pinLocation.svg#pinLocation" /> */}
             </>
           )}
           {svgVisibility.roads && (
             <use href="/svg/roadLabel/road1.svg#road" />
           )}
           {svgVisibility.radius && (
-          <use href="/svg/radius/radius1.svg#radius" />
-        )}
+            <use href="/svg/radius/radius1.svg#radius" />
+          )}
         </svg>
       </div>
 

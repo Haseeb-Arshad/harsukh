@@ -699,6 +699,19 @@ export default function BackgroundImage() {
     { id: "1", label: translations["elevation"], route: "/" },
   ]);
 
+
+  useEffect(() => {
+    setTranslations(language ? ur : en);
+    dispatch(modifyLanguage({ language: language ? 'ur' : 'en' }));
+    
+    // Update elevationArray when translations change
+    setElevationArray([
+      {id:'2', label: language ? ur['mapview'] : en['mapview'], route:'/mapview'},
+      {id:'1', label: language ? ur['elevation'] : en['elevation'], route:'/'},
+    ]);
+  }, [language, dispatch]);
+
+
   const toggleLanguage = () => {
     setLanguage(!language);
   };
@@ -3273,15 +3286,13 @@ export default function BackgroundImage() {
                   // onMouseEnter={() => setIsElevationOpen(true)}
                 >
                   {elevationArray.map((item) => (
-                    <div
-                      key={item.id}
-                      onClick={() => handleElevationItemClick(item.route)}
-                      className={`${ElevStyles.dropDownfloorButton} ${
-                        item.label === "Elevation" ? ElevStyles.active : ""
-                      }`}
-                    >
-                      {translations[item.label.toLowerCase()] || item.label}
-                    </div>
+                  <div
+                  key={item.id}
+                  onClick={() => handleElevationItemClick(item.route)}
+                  className={`${ElevStyles.dropDownfloorButton} ${item.label === translations['elevation'] ? ElevStyles.active : ''}`}
+                >
+                  { item.label}
+                </div>
                   ))}
                 </div>
               </div>
@@ -3474,6 +3485,8 @@ export default function BackgroundImage() {
             />
           </div>
 
+          
+        
          
 
           <div className={styles.bottomLogoContainer}>
@@ -3609,6 +3622,14 @@ export default function BackgroundImage() {
             </div>
           </div>
         </>
+
+        
+      )}
+
+{isContactusClicked && (
+          <div className={styles.ContactedContainer}>
+              <ContactUsPopup onClose={handleContact} />
+          </div>
       )}
     </>
   );
