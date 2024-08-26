@@ -61,10 +61,7 @@ const Layout = ({ children }) => {
   const menuContainerRef = useRef(null);
   const menuBoxRef = useRef(null);
 
-  const handleContact = () => {
-    setContactUs(!isContactusClicked)
-  }
-
+ 
 
   const handleMenuClickOutside = useCallback((event) => {
     if (
@@ -81,6 +78,11 @@ const Layout = ({ children }) => {
   const closeMenu = () => {
     setMenuBox(false);
   };
+
+  const handleContact = () => {
+    closeMenu()
+    setContactUs(!isContactusClicked)
+  }
 
   useEffect(() => {
     document.addEventListener("mousedown", handleMenuClickOutside);
