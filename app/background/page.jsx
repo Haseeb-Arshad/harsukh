@@ -124,6 +124,7 @@ export default function BackgroundImage() {
   const [isFilterBoxVisible, setIsFilterBoxVisible] = useState(false);
   const [isMapHovered, setIsMapHovered] = useState(false);
   const [isCallHovered, setIsCallHovered] = useState(false);
+  const [isFormHovered, setIsFormHovered] = useState(false);
   const favContainerRef = useRef(null);
   const apartmentListingRef = useRef(null);
   const ismediumScreen = useMediaQuery({ query: "(max-width: 1024px)" });
@@ -581,8 +582,8 @@ export default function BackgroundImage() {
       });
   
       setTooltipPosition({
-        x: event.clientX - 100, // Adjust this value to position tooltip to the left of the cursor
-        y: event.clientY - 30, // Adjust this value to position tooltip above the cursor
+        x: event.clientX - 220, // Adjust this value to position tooltip to the left of the cursor
+        y: event.clientY - 25, // Adjust this value to position tooltip above the cursor
       });
   
       clearTimeout(hideTimeout.current);
@@ -1419,8 +1420,8 @@ export default function BackgroundImage() {
                   data-image="Valley Floor 3"
                   data-tip="valley-floor-3"
                   ApartmentNum="97"
-                  bedroomCount="0"
-                  apartmentType="Studio"
+                  bedroomCount="1"
+                  apartmentType="Bedroom"
                   className={styles.st2}
                   x="1205.64"
                   y="694.96"
@@ -1576,8 +1577,8 @@ export default function BackgroundImage() {
                   data-image="Valley Floor 4"
                   data-tip="valley-floor-4"
                   ApartmentNum="115"
-                  bedroomCount="1"
-                  apartmentType="Bedroom"
+                  bedroomCount="0"
+                  apartmentType="Studio"
                   className={styles.st2}
                   x="1252.69"
                   y="755.03"
@@ -2188,8 +2189,8 @@ export default function BackgroundImage() {
                 <rect data-image="Valley Floor 3"
                                   data-tip="valley-floor-3"
                                   ApartmentNum="97"
-                                  bedroomCount="0"
-                                  apartmentType="Studio"
+                                  bedroomCount="1"
+                                  apartmentType="Bedroom"
                                   className={styles.st2} x="1203.69" y="694.96" width="73.95" height="50.9"/>
                 <rect data-image="Valley Floor 3"
                                   data-tip="valley-floor-3"
@@ -2269,8 +2270,8 @@ export default function BackgroundImage() {
                 <rect data-image="Valley Floor 4"
                                   data-tip="valley-floor-4"
                                   ApartmentNum="115"
-                                  bedroomCount="1"
-                                  apartmentType="Bedroom"
+                                  bedroomCount="0"
+                                  apartmentType="Studio"
                                   className={styles.st2} x="1250.69" y="755.03" width="47.04" height="51.36"/>
                 <rect data-image="Valley Floor 4"
                                   data-tip="valley-floor-4"
@@ -3221,7 +3222,8 @@ export default function BackgroundImage() {
                 style={{cursor: "pointer"}}
               />
             </div>
-
+           
+          <div className={styles.backviewOutside}>
             <div className={styles.backViewButton} onClick={handleBackView}>
               <div className={styles.backViewButtonLeft}>
                 <Image
@@ -3234,6 +3236,7 @@ export default function BackgroundImage() {
               </div>
               <div className={styles.backViewButtonTitle}>{translations["rotate"]}</div>
             </div>
+          </div>
 
             {/* <div className={styles.filterElevationContainer}> */}
 
@@ -3355,28 +3358,46 @@ export default function BackgroundImage() {
                   src="/images/icons/mapsViewIcon.svg"
                   quality={100}
                   alt="Maps View Icon"
-                  height={17}
-                  width={17}
+                  height={15}
+                  width={15}
                 />
-                <span className={styles.buttonText}>{translations["direction"]}</span>
+                <div className={styles.buttonText}>{translations["direction"]}</div>
               </div>
 
+          <div
+              className={`${styles.buttonss} ${styles.callButton} ${
+                isCallHovered ? styles.expanded : ""
+              }`}
+              onMouseEnter={() => setIsCallHovered(true)}
+              onMouseLeave={() => setIsCallHovered(false)}
+              onClick={() => window.location.href = 'tel:051-111-520-520'}
+           >
+              <Image
+                src="/images/icons/callIcon.svg"
+                quality={100}
+                alt="Maps View Icon"
+                height={19}
+                width={19}
+              />
+              <div className={styles.buttonText}>{translations["callus"]}</div>
+            </div>
+
               <div
-                className={`${styles.buttonss} ${styles.callButton} ${
-                  isCallHovered ? styles.expanded : ""
+                className={`${styles.buttonss} ${styles.formButton} ${
+                  isFormHovered ? styles.expanded : ""
                 }`}
-                onMouseEnter={() => setIsCallHovered(true)}
-                onMouseLeave={() => setIsCallHovered(false)}
+                onMouseEnter={() => setIsFormHovered(true)}
+                onMouseLeave={() => setIsFormHovered(false)}
                 onClick={handleCall}
               >
                 <Image
-                  src="/images/icons/callIcon.svg"
+                  src="/images/icons/formIcon.svg"
                   quality={100}
                   alt="Maps View Icon"
-                  height={19}
-                  width={19}
+                  height={18}
+                  width={18}
                 />
-                <span className={styles.buttonText}>{translations["reqRegister"]}</span>
+                <div className={styles.buttonText}>{translations["reqRegister"]}</div>
               </div>
             </div>
 
@@ -3432,14 +3453,15 @@ export default function BackgroundImage() {
              
 
             </div>
-            <div className={styles.snowContainer}>
+            { !backView &&
+              <div className={styles.snowContainer}>
                 <SnowButton
                   inActive={snowMode}
                   handleMenu={handleSnowMode}
 
                 />
               </div>
-            
+            }
             
 
             { amenityClicked && (
@@ -3540,13 +3562,15 @@ export default function BackgroundImage() {
 
           />
           </div>
+
+          { !backView &&
           <div className={styles.snowContainer}>
             <SnowButton
               inActive={snowMode}
               handleMenu={handleSnowMode}
 
             />
-          </div>
+          </div>}
 
             {isFilterBoxVisible && (
                 <FilterBox
@@ -3567,25 +3591,26 @@ export default function BackgroundImage() {
               )
             }
 
-
-
-          <div className={styles.backViewButton} onClick={handleBackView}>
-            <div className={styles.backViewButtonLeft}>
-              <Image
-                src="/images/icons/amenitiesIcon.svg"
-                quality={100}
-                alt="Menu"
-                height={20}
-                width={20}
-              />
+          <div className={styles.backviewOutside}>
+            <div className={styles.backViewButton} onClick={handleBackView}>
+              <div className={styles.backViewButtonLeft}>
+                <Image
+                  src="/images/icons/amenitiesIcon.svg"
+                  quality={100}
+                  alt="Menu"
+                  height={20}
+                  width={20}
+                />
+              </div>
+              <div className={styles.backViewButtonTitle}>{translations["rotate"]}</div>
             </div>
-            <div className={styles.backViewButtonTitle}>{translations["rotate"]}</div>
           </div>
+          
 
         
 
           <div className={styles.container}>
-            <div
+            {/* <div
               className={`${styles.buttonss} ${styles.mapButton} ${
                 isMapHovered ? styles.expanded : ""
               }`}
@@ -3600,8 +3625,8 @@ export default function BackgroundImage() {
                 height={17}
                 width={17}
               />
-              <span className={styles.buttonText}>{translations["direction"]}</span>
-            </div>
+              <div className={styles.buttonText}>{translations["direction"]}</div>
+            </div> */}
 
             <div
               className={`${styles.buttonss} ${styles.callButton} ${
@@ -3609,27 +3634,64 @@ export default function BackgroundImage() {
               }`}
               onMouseEnter={() => setIsCallHovered(true)}
               onMouseLeave={() => setIsCallHovered(false)}
-              onClick={handleCall}
-            >
+              onClick={() => window.location.href = 'tel:051-111-520-520 '}            >
               <Image
                 src="/images/icons/callIcon.svg"
                 quality={100}
                 alt="Maps View Icon"
-                height={19}
-                width={19}
+                height={15}
+                width={15}
               />
-              <span className={styles.buttonText}>{translations["reqRegister"]}</span>
+              <div className={styles.buttonText}>{translations["callus"]}</div>
             </div>
+
+
+            <div
+              className={`${styles.buttonss} ${styles.formButton} ${
+                isFormHovered ? styles.expanded : ""
+              }`}
+              onMouseEnter={() => setIsFormHovered(true)}
+              onMouseLeave={() => setIsFormHovered(false)}
+              onClick={handleCall}
+            >
+              <Image
+                src="/images/icons/formIcon.svg"
+                quality={100}
+                alt="Maps View Icon"
+                height={15}
+                width={15}
+              />
+              <div className={styles.buttonText}>{translations["reqRegister"]}</div>
+            </div>
+
+          <div
+              className={`${styles.buttonss} ${styles.mapButton} ${
+                isMapHovered ? styles.expanded : ""
+              }`}
+              onMouseEnter={() => setIsMapHovered(true)}
+              onMouseLeave={() => setIsMapHovered(false)}
+              onClick={handleGetDirections}
+            >
+              <Image
+                src="/images/icons/mapsViewIcon.svg"
+                quality={100}
+                alt="Maps View Icon"
+                height={17}
+                width={17}
+              />
+              <div className={styles.buttonText}>{translations["direction"]}</div>
+            </div>
+
           </div>
         </>
 
         
       )}
 
-{isContactusClicked && (
-          <div className={styles.ContactedContainer}>
-              <ContactUsPopup onClose={handleContact} />
-          </div>
+      {isContactusClicked && (
+        <div className={styles.ContactedContainer}>
+            <ContactUsPopup onClose={handleContact} />
+        </div>
       )}
     </>
   );
