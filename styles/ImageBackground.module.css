@@ -1091,9 +1091,6 @@ background-color: none;
   font-size: 0.7rem;
 }
 
-
-
-
 .mapsViewContainer {
   position: absolute;
   bottom: 7rem;
@@ -1133,31 +1130,41 @@ background-color: none;
 .buttonss {
   color: #006d77;
   position: absolute;
-  height: 45px;
-  width: 45px;
+  height: 40px;
+  width: 40px;
   border: none;
   margin-top: 2rem;
   border-radius: 22px;
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  padding-left: 15px;
+  padding-left: 14px;
   cursor: pointer;
   overflow: hidden;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
-.mapButton {
-  bottom: 110px;
-  padding-left: 14px;
-
+.mapButton 
+{
+  bottom: 158px;
+  padding-left: 12px;
   right: 48px;
   background: linear-gradient(135deg, #fcf7eb, #f0f0f0);
   border: 1px solid #dcdcdc;
 }
 
+.formButton {
+  bottom: 103px;
+  padding-left: 10px;
+  right: 48px;
+  background: linear-gradient(135deg, #fcf7eb, #f0f0f0);
+  border: 1px solid #dcdcdc;
+
+}
+
 .callButton {
+  /* padding-right: ; */
   bottom: 48px;
   right: 48px;
   background-color: #fcf7eb;
@@ -1172,7 +1179,12 @@ background-color: none;
 }
 
 .buttonText {
-  margin-left: 8px;
+   border: 1px solid red;
+   height: 4vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 10px;
   font-size: 0.8rem;
   font-weight: 500;
   color: #006d77;
@@ -1211,8 +1223,17 @@ background-color: none;
     background-color: #fcf7eb;
   }
 
+  .formButton {
+    bottom: 103px;
+    padding-left: 12px;
+    right: 28px;
+    background: linear-gradient(135deg, #fcf7eb, #f0f0f0);
+    border: 1px solid #dcdcdc;
+  
+  }  
+
   .mapButton {
-    bottom: 110px;
+    bottom: 158px;
     right: 28px;
     background: linear-gradient(135deg, #fcf7eb, #f0f0f0);
     border: 1px solid #dcdcdc;
@@ -1280,6 +1301,7 @@ background-color: none;
     align-items: center;
     flex-direction: row-reverse;
   }
+  
 
   .backViewButton {
     user-select: none;
