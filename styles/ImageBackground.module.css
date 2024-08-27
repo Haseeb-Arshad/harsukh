@@ -523,8 +523,8 @@ svg */
 .menuButton {
   background-color: #fcf7eb;
   color: #006d77;
-  width: 2.8rem;
-  height: 2.8rem;
+  width: 40px;
+  height: 40px;
   border: none;
   border-radius: 50%;
   font-size: 0.9rem;
@@ -1179,8 +1179,7 @@ background-color: none;
 }
 
 .buttonText {
-   border: 1px solid red;
-   height: 4vh;
+  height: 4vh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1286,7 +1285,7 @@ background-color: none;
 
   .menuContainer {
     top: 3rem;
-    right: -12px;
+    right: -15px;
     height: 3.7rem;
     width: 5.5rem;
     /* border: 3px solid red; */

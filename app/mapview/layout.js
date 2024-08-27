@@ -47,6 +47,7 @@ const Layout = ({children}) =>
   const [isElevationClicked, setElevationClicked] = useState(false);
   const [hoverInfo, setHoverInfo] = useState(null);
   const [isContactusClicked, setContactUs]= useState(false);
+  const [isFormHovered, setIsFormHovered] = useState(false);
 
   const languageState = useSelector((state) => {
     const languageState = state.language.lang.find((site) => site.id === '1');
@@ -72,7 +73,7 @@ const Layout = ({children}) =>
   const handleCall = () => {
     setIsContacted(!isContacted);
   }
-  
+     
   const isFullScreen = useSelector((state) => state.fullscreen.isFullScreen);
  
   const handleToggleFullScreen = () => {
@@ -305,8 +306,8 @@ const Layout = ({children}) =>
         </div>
         <div style={{left: '2.5rem', bottom:'8rem', position: 'relative', zIndex: 1}}onClick={() => window.open("https://almaymaar.com/", '_blank')}>
         <Image style={{cursor:'pointer'}} src="/Webpage/floors/MainLogo.png"  quality={100} alt="Almaymar" 
-        height={isMobile? 22:28} 
-        width={isMobile? 140: 210} />
+        height={isMobile? 22:24} 
+        width={isMobile? 140: 190} />
         </div>
       </div>
 
@@ -415,30 +416,60 @@ const Layout = ({children}) =>
         toggleFullScreen={handleToggleFullScreen}
       />
       
+
       <div className={styles.container}>
         <div
-          className={`${styles.buttonss} ${styles.mapButton} ${isMapHovered ? styles.expanded : ''}`}
+          className={`${styles.buttonss} ${styles.mapButton} ${
+            isMapHovered ? styles.expanded : ""
+          }`}
           onMouseEnter={() => setIsMapHovered(true)}
           onMouseLeave={() => setIsMapHovered(false)}
           onClick={handleGetDirections}
         >
-          <Image 
-            src="/images/icons/mapsViewIcon.svg" 
-            quality={100} 
-            alt="Maps View Icon" 
-            height={17} 
-            width={17} 
+          <Image
+            src="/images/icons/mapsViewIcon.svg"
+            quality={100}
+            alt="Maps View Icon"
+            height={15}
+            width={15}
           />
-          <span className={styles.buttonText}>{translations['direction'] }</span>
+          <div className={styles.buttonText}>{translations["direction"]}</div>
         </div>
+
+    <div
+        className={`${styles.buttonss} ${styles.callButton} ${
+          isCallHovered ? styles.expanded : ""
+        }`}
+        onMouseEnter={() => setIsCallHovered(true)}
+        onMouseLeave={() => setIsCallHovered(false)}
+        onClick={() => window.location.href = 'tel:051-111-520-520'}
+      >
+        <Image
+          src="/images/icons/callIcon.svg"
+          quality={100}
+          alt="Maps View Icon"
+          height={19}
+          width={19}
+        />
+        <div className={styles.buttonText}>{translations["callus"]}</div>
+      </div>
+
         <div
-          className={`${styles.buttonss} ${styles.callButton} ${isCallHovered ? styles.expanded : ''}`}
-          onMouseEnter={() => setIsCallHovered(true)}
-          onMouseLeave={() => setIsCallHovered(false)}
+          className={`${styles.buttonss} ${styles.formButton} ${
+            isFormHovered ? styles.expanded : ""
+          }`}
+          onMouseEnter={() => setIsFormHovered(true)}
+          onMouseLeave={() => setIsFormHovered(false)}
           onClick={handleCall}
-        > 
-          <Image src="/images/icons/callIcon.svg" quality={100} alt="Maps View Icon" height={19} width={19} />
-          <span className={styles.buttonText}>{translations['reqRegister'] }</span>
+        >
+          <Image
+            src="/images/icons/formIcon.svg"
+            quality={100}
+            alt="Maps View Icon"
+            height={18}
+            width={18}
+          />
+          <div className={styles.buttonText}>{translations["reqRegister"]}</div>
         </div>
       </div>
 
@@ -484,11 +515,11 @@ const Layout = ({children}) =>
           </div>
       </div>}
 
-       { isContacted &&
-            <div className={styles.ContactedContainer}>
-                <ContactBox onClose={handleContactClose}/>
-            </div>
-            }
+      { isContacted &&
+      <div className={styles.ContactedContainer}>
+          <ContactBox onClose={handleContactClose}/>
+      </div>
+      }
 
       {isContactusClicked && (
           <div className={styles.ContactedContainer}>

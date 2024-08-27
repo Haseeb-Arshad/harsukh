@@ -819,10 +819,7 @@ export default function BackgroundImage() {
                 xmlnsXlink="http://www.w3.org/1999/xlink"
                 x="0px"
                 y="0px"
-                // viewBox="0 0 5494.76 3090.8"
                 viewBox="0 0 1920 1080"
-                // viewBox="0 0 5494.76 3090.8"
-
                 xmlSpace="preserve"
                 onMouseEnter={() =>setSvgHover(true)}
                 onMouseLeave={() =>setSvgHover(false)}
@@ -2763,9 +2760,6 @@ export default function BackgroundImage() {
                 xmlSpace="preserve"
               >
             
-            {/* <polygon class="cls-1" points="1132.38 418.42 1132.38 419.64 1132.36 418.42 1132.38 418.42 737.04 386.21 736.15 452.59 736.15 500.05 630.52 483.24 364.53 482.82 461.85 423.36 652 306.98 737.04 386.21 1132.38 419.64 1132.38 478.96 770.24 480.79 768.71 418.42 771.16 418.45 777.5 418.45 768.71 418.42 771.24 319.36 797.83 230.62 1110.83 226.73 1130.55 319.02 1132.36 418.42 1132.38 419.64 1639.13 469.32 1639.13 487.21 1173.66 489.21 1173.5 458.17 1172.81 379.98 1269.04 266.17 1388.51 338.85 1407.25 326.66 1533.2 404.66 1639.13 469.32"/> */}
-           
-
 
             <g
                 onMouseEnter={() => handleBackMouseEnter('third-floor')}
@@ -2791,8 +2785,6 @@ export default function BackgroundImage() {
                 data-image="Second Floor"
                 data-tip="second-floor"
               >
-
-
                 <polygon  className={hoveredGroup === 'second-floor' ? styles.st1Hovers : styles.st0}
                   data-image="Second Floor"
                   data-tip="second-floor" points="248.2 558.75 665.53 558.75 733.25 560.59 733.25 509.68 629.3 495.46 431.64 493.63 346.8 493.63 248.37 554.48 248.2 558.75"/>
@@ -3150,8 +3142,6 @@ export default function BackgroundImage() {
             </div>
           )}
 
-
-
           {tooltipContent && !backView && (
            <div
            className={`${styles.tooltip} ${!tooltipVisible ? styles.fadeOut : ''}`}
@@ -3339,8 +3329,8 @@ export default function BackgroundImage() {
                   src="/Webpage/floors/MainLogo.png"
                   quality={100}
                   alt="Almaymar"
-                  height={28}
-                  width={210}
+                  height={24}
+                  width={190}
                 />
               </div>
             </div>
@@ -3496,6 +3486,13 @@ export default function BackgroundImage() {
 
       {isMobile && (
         <>
+
+          {isContactusClicked && (
+            <div className={styles.ContactedContainer}>
+                <ContactUsPopup onClose={handleContact} />
+            </div>
+          )}
+
           <div className={styles.topLogoContainer}>
             <Image
               style={{cursor: 'pointer'}}
@@ -3505,11 +3502,7 @@ export default function BackgroundImage() {
               height={85}
               width={150}
             />
-          </div>
-
-          
-        
-         
+          </div>         
 
           <div className={styles.bottomLogoContainer}>
             <div className={styles.bottomLogoContainerTitle}>{translations["projectby"]}</div>
@@ -3522,6 +3515,7 @@ export default function BackgroundImage() {
                 quality={100}
                 alt="Almaymar"
                 height={22}
+                
                 width={140}
               />
             </div>
@@ -3610,23 +3604,6 @@ export default function BackgroundImage() {
         
 
           <div className={styles.container}>
-            {/* <div
-              className={`${styles.buttonss} ${styles.mapButton} ${
-                isMapHovered ? styles.expanded : ""
-              }`}
-              onMouseEnter={() => setIsMapHovered(true)}
-              onMouseLeave={() => setIsMapHovered(false)}
-              onClick={handleGetDirections}
-            >
-              <Image
-                src="/images/icons/mapsViewIcon.svg"
-                quality={100}
-                alt="Maps View Icon"
-                height={17}
-                width={17}
-              />
-              <div className={styles.buttonText}>{translations["direction"]}</div>
-            </div> */}
 
             <div
               className={`${styles.buttonss} ${styles.callButton} ${
@@ -3683,16 +3660,16 @@ export default function BackgroundImage() {
             </div>
 
           </div>
+
+         
         </>
+
+        
 
         
       )}
 
-      {isContactusClicked && (
-        <div className={styles.ContactedContainer}>
-            <ContactUsPopup onClose={handleContact} />
-        </div>
-      )}
+    
     </>
   );
 }

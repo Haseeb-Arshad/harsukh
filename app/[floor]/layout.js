@@ -35,6 +35,8 @@ const Layout = ({ children }) => {
 
   const [menuBox, setMenuBox] = useState(false);
   const [overlay, setOverlay] = useState(true);
+  const [isFormHovered, setIsFormHovered] = useState(false);
+
   const [fullScreen, setFullScreen] = useState(false);
   // const [language, setLanguage] = useState(false);
   // const [translations, setTranslations] = useState(en);
@@ -521,30 +523,51 @@ const Layout = ({ children }) => {
               src="/images/icons/mapsViewIcon.svg"
               quality={100}
               alt="Maps View Icon"
-              height={17}
-              width={17}
+              height={15}
+              width={15}
             />
-            <span className={styles.buttonText}>{translations["direction"]}</span>
+            <div className={styles.buttonText}>{translations["direction"]}</div>
           </div>
 
+      <div
+          className={`${styles.buttonss} ${styles.callButton} ${
+            isCallHovered ? styles.expanded : ""
+          }`}
+          onMouseEnter={() => setIsCallHovered(true)}
+          onMouseLeave={() => setIsCallHovered(false)}
+          onClick={() => window.location.href = 'tel:051-111-520-520'}
+        >
+          <Image
+            src="/images/icons/callIcon.svg"
+            quality={100}
+            alt="Maps View Icon"
+            height={19}
+            width={19}
+          />
+          <div className={styles.buttonText}>{translations["callus"]}</div>
+        </div>
+
           <div
-            className={`${styles.buttonss} ${styles.callButton} ${
-              isCallHovered ? styles.expanded : ""
+            className={`${styles.buttonss} ${styles.formButton} ${
+              isFormHovered ? styles.expanded : ""
             }`}
-            onMouseEnter={() => setIsCallHovered(true)}
-            onMouseLeave={() => setIsCallHovered(false)}
+            onMouseEnter={() => setIsFormHovered(true)}
+            onMouseLeave={() => setIsFormHovered(false)}
             onClick={handleCall}
           >
             <Image
-              src="/images/icons/callIcon.svg"
+              src="/images/icons/formIcon.svg"
               quality={100}
               alt="Maps View Icon"
-              height={19}
-              width={19}
+              height={18}
+              width={18}
             />
-            <span className={styles.buttonText}>{translations["reqRegister"]}</span>
+            <div className={styles.buttonText}>{translations["reqRegister"]}</div>
           </div>
         </div>
+
+
+
       </div>
 
       <div className={styles.bottomLogoContainer}>
@@ -563,8 +586,8 @@ const Layout = ({ children }) => {
             src="/Webpage/floors/MainLogo.png"
             quality={100}
             alt="Almaymar"
-            height={isMobile? 22: 28}
-            width={isMobile? 140: 210}
+            height={isMobile? 22:24} 
+            width={isMobile? 140: 190} 
             onClick={() => window.open("https://almaymaar.com/", "_blank")}
           />
         </div>
@@ -588,7 +611,6 @@ const Layout = ({ children }) => {
               <AmenityGrid  Amenref={amenityGridRef} isMobile={isMobile} onClose={handleAmenitiesCheck} />
             </div>
           </div>
-          
         )}
 
       {reservedClicked && (
