@@ -26,7 +26,9 @@ const ContactUsPopup = ({ onClose }) => {
                     <div className={styles.contactTitle}>Contact Us</div>
                     <div className={styles.contactInfo}>
                         <p><strong>Call Now</strong></p>
-                        <p>051-111-520-520</p>
+                        <p>
+                            <a href="tel:051111520520">051-111-520-520</a>
+                        </p>
                         <p><strong>Booking Office</strong></p>
                         <p>24-D, 2nd floor, Rashid Plaza, Main Jinnah Avenue, Blue Area, G-6/3, Islamabad</p>
                     </div>

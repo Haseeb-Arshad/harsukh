@@ -565,9 +565,6 @@ const Layout = ({ children }) => {
             <div className={styles.buttonText}>{translations["reqRegister"]}</div>
           </div>
         </div>
-
-
-
       </div>
 
       <div className={styles.bottomLogoContainer}>

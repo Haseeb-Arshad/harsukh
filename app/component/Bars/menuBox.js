@@ -29,8 +29,19 @@ const MenuBox = forwardRef(({ refAmen, handleOverlay, handleContact, handleEleva
       console.error('Action is not a function:', action);
     }
   }, [isMobile, setMenuBox]);
-  
-  
+
+  // Update the onClick for handleContact
+  const handleMenuItemClickWithContact = useCallback((action) => {
+    if (isMobile) {
+      setMenuBox(false);
+    }
+    if (typeof action === 'function') {
+      action();
+    } else {
+      console.error('Action is not a function:', action);
+    }
+  }, [isMobile, setMenuBox]);
+
   const handleClickOutside = useCallback((event) => {
     if (
       menuContainerRef.current &&
@@ -102,8 +113,17 @@ const MenuBox = forwardRef(({ refAmen, handleOverlay, handleContact, handleEleva
             </div>
           </div>
 
+          <div className={styles.menuBox}  onClick={ ()=>{router.push('/blog')}}  >
+            <div className={styles.menuBoxIcon}>
+              <Image src="/images/icons/blogIcon.svg" quality={100} alt="Contact" height={26} width={26} />
+            </div>
+            <div className={styles.menuBoxTitle}>
+              Blog
+            </div>
+          </div>
+
           <div className={styles.menuBoxContactIcons}>
-          <div className={styles.menuBoxContactIconbox} onClick={() => window.open("https://www.facebook.com/people/Harsukh/61556868763411/?mibextid=ZbWKwL", "_blank")}>
+            <div className={styles.menuBoxContactIconbox} onClick={() => window.open("https://www.facebook.com/people/Harsukh/61556868763411/?mibextid=ZbWKwL", "_blank")}>
               <Image src="/images/icons/facebookIcon.svg" quality={100} alt="Facebook" height={17} width={19} />
             </div>
             <div className={styles.menuBoxContactIconbox} onClick={() => window.open("https://www.instagram.com/theharsukh/?igsh=M3UzM2s4cXVza255", "_blank")} >
@@ -117,6 +137,10 @@ const MenuBox = forwardRef(({ refAmen, handleOverlay, handleContact, handleEleva
               <Image src="/images/icons/youtube.svg" quality={100} alt="YouTube" height={19} width={19} />
             </div>
           </div>
+
+          
+
+
         </div>
         </> ):
 
@@ -177,7 +201,7 @@ const MenuBox = forwardRef(({ refAmen, handleOverlay, handleContact, handleEleva
               {fullScreen ? translations.exitFullScreen : translations.fullScreen}
             </div>
           </div>
-          <div className={styles.menuBox} onClick={ ()=>handleMenuItemClick(handleContact)} >
+          <div className={styles.menuBox} onClick={ ()=>handleMenuItemClickWithContact(handleContact || (() => {}))} >
             <div className={styles.menuBoxIcon}>
               <Image src="/images/icons/contactIcon.svg" quality={100} alt="Contact" height={26} width={26} />
             </div>
