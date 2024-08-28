@@ -22,7 +22,7 @@ const FrontPage = () => {
 
   return (
     <div style={{
-      backgroundImage: 'url("/Webpage/FrontPage.png")', // Replace with your image path
+      backgroundImage: 'url("/Webpage/FrontPage.webp")', // Replace with your image path
       backgroundSize: 'cover',
       backgroundPosition: 'center',
       height: '100vh',
