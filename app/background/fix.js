@@ -12,17 +12,13 @@ import en from "../locales/en.json";
 import ur from "../locales/ur.json";
 import ElevStyles from "@/styles/elevation.module.css";
 
-import MenuBox from "../component/Bars/menuBox";
-// const MenuBox = dynamic(() => import("../component/Bars/menuBox"), { ssr: false });
-
-
 // Dynamically import heavy components
 const FavButton = dynamic(() => import("@/app/component/Icons/favButton"), { ssr: false });
 const MenubarButton = dynamic(() => import("@/app/component/Icons/menuBarBtn"), { ssr: false });
 const AmenityGrid = dynamic(() => import("../component/Amenities/AmenityGrid"), { ssr: false });
 const ContactBox = dynamic(() => import("../component/Bars/contactBox"), { ssr: false });
 const FilterBox = dynamic(() => import("../component/Bars/filterBox"), { ssr: false });
-// const MenuBox = dynamic(() => import("../component/Bars/menuBox"), { ssr: false });
+const MenuBox = dynamic(() => import("../component/Bars/menuBox"), { ssr: false });
 const AmenityBtn = dynamic(() => import("../component/Icons/AmenityBtn"), { ssr: false });
 const ApartmentListing = dynamic(() => import("../component/Reserve/ApartmentListing"), { ssr: false });
 const ElevationBox = dynamic(() => import("../component/Bars/elevationBox"), { ssr: false });
@@ -384,29 +380,10 @@ export default function BackgroundImage() {
       };
     }
   }, [handleSVGElementClick, overlay, filterbox, svgHover, params, filterBoxRef, isFilterBoxVisible, backView, snowMode ]);
-  const [imageUrl, setImageUrl] = useState('');
 
-  const [loading, setLoading] = useState(true);
-
-  const handleImageLoad = useCallback(() => {
+  const handleImageLoadingComplete = useCallback(() => {
     setLoading(false);
   }, []);
-
-  useEffect(() => {
-    const newImageUrl = !backView
-      ? (snowMode ? "/images/background/frontViewWinter.webp" : "/images/background/frontViewSummer.webp")
-      : "/images/background/backView.webp";
-  
-    if (newImageUrl !== imageUrl) {
-      setLoading(true);
-      setImageUrl(newImageUrl);
-    } else {
-      // If the image URL hasn't changed, we assume it's already loaded
-      setLoading(false);
-    }
-  }, [backView, snowMode, params, imageUrl]);
-
-  
 
   const getImageSrc = useCallback(() => {
     if (!backView) {
@@ -467,6 +444,20 @@ export default function BackgroundImage() {
       setFilterFloorMenu(false);
     }
   }, [filterbox]);
+
+  const [loading, setLoading] = useState(true); // Ensure loading state is initialized
+
+  useEffect(() => {
+    setLoading(true); // Reset loading state when component mounts
+    const img = imageRef.current;
+    if (img) {
+      const handleLoad = () => {
+        setLoading(false); // Set loading to false when the image is loaded
+      };
+      img.addEventListener("load", handleLoad);
+      return () => img.removeEventListener("load", handleLoad);
+    }
+  }, [backView, snowMode, params, router]); // Ensure this effect runs on backView or snowMode change
 
   const isFullScreen = useSelector((state) => state.fullscreen.isFullScreen);
 
@@ -791,7 +782,7 @@ export default function BackgroundImage() {
     <>
       {loading && (
         <div className={styles.loadingWrapper}>
-          <Loader />
+          <Loader /> {/* Preloader component */}
         </div>
       )}
       <div
@@ -801,14 +792,30 @@ export default function BackgroundImage() {
         }`}
       >
         <div className={styles.imageWrapper}>
-          <img
-            ref={imageRef}
-            src={!backView ? (snowMode ? 
-              "/images/background/frontViewWinter.webp" : "/images/background/frontViewSummer.webp") : "/images/background/backView.webp"}
-            alt="Background"
-            className={`${styles.backgroundImage} ${loading ? styles.loading : ''}`}
-            onLoad={handleImageLoad}
-          />
+         
+        {loading && (
+            <div className={styles.loadingWrapper}>
+              <Loader />
+            </div>
+          )}
+            <img
+              ref={imageRef}
+              // src={backView ? "/Webpage/BackView.webp" : "/Webpage/image-low.webp"}
+              src={!backView ? ( snowMode ? 
+                "/images/background/frontViewWinter.webp" : "/images/background/frontViewSummer.webp") : "/images/background/backView.webp"}
+              alt="Background"
+              className={`${styles.backgroundImage} ${loading ? styles.loading : ''}`}
+            />
+
+        {/* <Image
+          src={getImageSrc()}
+          alt="Background"
+          layout="fill"
+          objectFit="cover"
+          priority
+          onLoadingComplete={handleImageLoadingComplete}
+          className={styles.backgroundImage}
+        /> */}
 
           {overlay &&
             ((filterbox && selectedAmenities.length != 0) || (filterFloorMenu && selectedAmenities.length != 0) ? 

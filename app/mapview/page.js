@@ -144,6 +144,7 @@ const MapView = () => {
     router.push('/');
   };
 
+
   return (
     <div ref={containerRef} className={`${styles.container} ${isMobile ? styles.scrollable : ''}`}>
       {isLoading && (

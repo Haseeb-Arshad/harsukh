@@ -283,6 +283,9 @@ const Layout = ({ children }) => {
   }, []);
   
 
+
+  
+
   
   const updateAmenityClicked = (value) => {
     setAmenityClicked(value);
@@ -376,6 +379,51 @@ const Layout = ({ children }) => {
     ]);
   }, [params, translations]);
 
+
+
+  const handleCallClick = useCallback(() => {
+    // Add "/callus" to the URL without navigating
+    const newUrl = `${window.location.origin}${window.location.pathname}${window.location.pathname.endsWith('/') ? '' : '/'}callus`;
+    window.history.pushState({}, '', newUrl);
+
+    // Attempt to open the phone dialer
+    window.location.href = 'tel:051-111-520-520';
+
+    // Set a timeout to remove "/callus" from the URL
+    setTimeout(() => {
+      if (window.location.pathname.endsWith('/callus')) {
+        const cleanUrl = window.location.href.replace('/callus', '');
+        window.history.replaceState({}, '', cleanUrl);
+      }
+    }, 1000); // Short delay to ensure the call attempt has been made
+  }, []);
+
+  useEffect(() => {
+    const handleVisibilityChange = () => {
+      if (!document.hidden && window.location.pathname.endsWith('/callus')) {
+        const cleanUrl = window.location.href.replace('/callus', '');
+        window.history.replaceState({}, '', cleanUrl);
+      }
+    };
+
+    const handleFocus = () => {
+      if (window.location.pathname.endsWith('/callus')) {
+        const cleanUrl = window.location.href.replace('/callus', '');
+        window.history.replaceState({}, '', cleanUrl);
+      }
+    };
+
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+    window.addEventListener('focus', handleFocus);
+
+    return () => {
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+      window.removeEventListener('focus', handleFocus);
+    };
+  }, []);
+
+
+
   return (
     <>
       <div
@@ -433,8 +481,6 @@ const Layout = ({ children }) => {
         {/* </Suspense> */}
 
         {/* <FloorMenu /> */}
-
-        
 
         
           {/* <div style={{overflow:"none", zIndex: '10000'}}>
@@ -535,7 +581,7 @@ const Layout = ({ children }) => {
           }`}
           onMouseEnter={() => setIsCallHovered(true)}
           onMouseLeave={() => setIsCallHovered(false)}
-          onClick={() => window.location.href = 'tel:051-111-520-520'}
+          onClick={handleCallClick}
         >
           <Image
             src="/images/icons/callIcon.svg"

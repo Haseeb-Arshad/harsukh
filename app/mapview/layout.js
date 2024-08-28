@@ -1,5 +1,5 @@
 'use client';
-import React, { Suspense, useCallback, useState, useEffect, useRef } from 'react';
+import React, { Suspense, useState, useEffect, useRef, useCallback} from 'react';
 import { usePathname } from 'next/navigation';
 import Loading from '@/app/[floor]/Loading';
 import styles2 from "@/styles/Floor/floorMenu.module.css";
@@ -26,6 +26,24 @@ import MapMenuBox from '../component/Bars/mapMenuBox';
 import { motion, AnimatePresence } from 'framer-motion';
 import ElevationBox from '../component/Bars/elevationBox';
 import ContactUsPopup from '../component/contactus/page';
+
+// Move this outside of the component function
+const handleCallClick = () => {
+  // Add "/callus" to the URL without navigating
+  const newUrl = `${window.location.origin}${window.location.pathname}${window.location.pathname.endsWith('/') ? '' : '/'}callus`;
+  window.history.pushState({}, '', newUrl);
+
+  // Attempt to open the phone dialer
+  window.location.href = 'tel:051-111-520-520';
+
+  // Set a timeout to remove "/callus" from the URL
+  setTimeout(() => {
+    if (window.location.pathname.endsWith('/callus')) {
+      const cleanUrl = window.location.href.replace('/callus', '');
+      window.history.replaceState({}, '', cleanUrl);
+    }
+  }, 1000); // Short delay to ensure the call attempt has been made
+};
 
 const Layout = ({children}) => 
 {   
@@ -258,23 +276,46 @@ const Layout = ({children}) =>
     console.log(elevationArray)
   }, [translations]);
 
+  const handleCallClick = useCallback(() => {
+    // Add "/callus" to the URL without navigating
+    const newUrl = `${window.location.origin}${window.location.pathname}${window.location.pathname.endsWith('/') ? '' : '/'}callus`;
+    window.history.pushState({}, '', newUrl);
 
-  useEffect(() => {
-    // Simulate initial loading
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-    }, 100); // Adjust the delay as needed
+    // Attempt to open the phone dialer
+    window.location.href = 'tel:051-111-520-520';
 
-    return () => clearTimeout(timer);
+    // Set a timeout to remove "/callus" from the URL
+    setTimeout(() => {
+      if (window.location.pathname.endsWith('/callus')) {
+        const cleanUrl = window.location.href.replace('/callus', '');
+        window.history.replaceState({}, '', cleanUrl);
+      }
+    }, 1000); // Short delay to ensure the call attempt has been made
   }, []);
 
-  if (isLoading) {
-    return (
-      <div className={styles.loadingOverlay}>
-        <Loading />
-      </div>
-    );
-  }
+  useEffect(() => {
+    const handleVisibilityChange = () => {
+      if (!document.hidden && window.location.pathname.endsWith('/callus')) {
+        const cleanUrl = window.location.href.replace('/callus', '');
+        window.history.replaceState({}, '', cleanUrl);
+      }
+    };
+
+    const handleFocus = () => {
+      if (window.location.pathname.endsWith('/callus')) {
+        const cleanUrl = window.location.href.replace('/callus', '');
+        window.history.replaceState({}, '', cleanUrl);
+      }
+    };
+
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+    window.addEventListener('focus', handleFocus);
+
+    return () => {
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+      window.removeEventListener('focus', handleFocus);
+    };
+  }, []);
 
   return (     
     <div style={{ position: 'relative', background: 'rgba(0, 29, 32, 1)' , height: '100vh', width: '100%'}}>
@@ -442,7 +483,7 @@ const Layout = ({children}) =>
         }`}
         onMouseEnter={() => setIsCallHovered(true)}
         onMouseLeave={() => setIsCallHovered(false)}
-        onClick={() => window.location.href = 'tel:051-111-520-520'}
+        onClick={handleCallClick}
       >
         <Image
           src="/images/icons/callIcon.svg"
@@ -522,9 +563,9 @@ const Layout = ({children}) =>
       }
 
       {isContactusClicked && (
-          <div className={styles.ContactedContainer}>
-              <ContactUsPopup onClose={handleContact} />
-          </div>
+        <div className={styles.ContactedContainer}>
+            <ContactUsPopup onClose={handleContact} />
+        </div>
       )}
     
       { isElevationClicked &&
