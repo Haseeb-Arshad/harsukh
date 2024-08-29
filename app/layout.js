@@ -17,7 +17,8 @@ export default function RootLayout({ children }) {
       <html lang="en">
         <head>
           <title>{metadata.title}</title>
-          <meta name="description" content={metadata.description} />
+          {/* <meta name="description" content={metadata.description} /> */}
+          <meta name="google-site-verification" content="pdF67cKTIKSHMJM0IRkz4p7_4A2CZlKPQD22CDeK4Hs" />
           <Script
             src="https://www.googletagmanager.com/gtag/js?id=AW-16682968635"
             strategy="afterInteractive"
