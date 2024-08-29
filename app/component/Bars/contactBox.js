@@ -121,6 +121,7 @@ const RegisterRequestForm = ({ onClose }) => {
     setTouchedFields({ ...touchedFields, [e.target.name]: true });
   };
 
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (currentStep < totalSteps) {
@@ -133,18 +134,13 @@ const RegisterRequestForm = ({ onClose }) => {
           data: favoriteApartments
         };
 
-        // Get the CSRF token from the meta tag
-        const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
-
         const response = await fetch('https://almaymaar.rems.pk/api/harsukh-form', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
-            'Authorization': 'Bearer GjKnyjcXFImbsMxCMf0McLaQBmlHKMvGk9',
-            // 'X-CSRF-TOKEN': csrfToken || '8bac8a991a484128-ISB',
-            // 'X-Requested-With': 'XMLHttpRequest'
+            'Accept': 'application/json',
+            'Authorization': 'Bearer GjKnyjcXFImbsMxCMf0McLaQBmlHKMvGk9'
           },
-          credentials: 'include', // Include cookies in the request
           body: JSON.stringify(dataForBackend),
         });
 
@@ -163,6 +159,14 @@ const RegisterRequestForm = ({ onClose }) => {
       }
     }
   };
+
+  
+  // Helper function to get cookie value
+  function getCookie(name) {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop().split(';').shift();
+  }
 
   const renderStepButtons = () => {
     return Array.from({ length: totalSteps }, (_, index) => (
