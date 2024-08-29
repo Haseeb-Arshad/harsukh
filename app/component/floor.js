@@ -13,10 +13,8 @@ import { useDispatch, useSelector } from "react-redux";
 import Loading from "../[floor]/Loading";
 import LeftArrow from "./Icons/leftArrow";
 import RightArrow from "./Icons/rightArrow";
-
 import StarAnimate from "@/public/json/StarAnimate.json"
 import Lottie from "react-lottie";
-
 import { setGalleryPressed } from "@/state/gallery/GalleryState";
 import Gallery from "@/app/component/Gallery/Gallery";
 
