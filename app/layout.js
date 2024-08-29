@@ -6,10 +6,19 @@ import GoogleTagManager from "./component/analytics/GoogleTagManager";
 
 const inter = Inter({ subsets: ["latin"] });
 
+// export const metadata = {
+//   title: "Harsukh Residences",
+//   description: "Harsukh Residences - Powered by AlMAYMAAR",
+// };
+
 export const metadata = {
-  title: "Harsukh Residences",
-  description: "Harsukh Residences - Powered by AlMAYMAAR",
-};
+  title: 'HARSUKH',
+  description: 'HARSUKH',
+  verification: {
+    google: 'pdF67cKTIKSHMJM0IRkz4p7_4A2CZlKPQD22CDeK4Hs',
+    
+  }
+}
 
 export default function RootLayout({ children }) {
   return (
@@ -17,8 +26,8 @@ export default function RootLayout({ children }) {
       <html lang="en">
         <head>
           <title>{metadata.title}</title>
-          {/* <meta name="description" content={metadata.description} /> */}
-          <meta name="google-site-verification" content="pdF67cKTIKSHMJM0IRkz4p7_4A2CZlKPQD22CDeK4Hs" />
+          <meta name="description" content={metadata.verification} />
+          {/* <meta name="google-site-verification" content="pdF67cKTIKSHMJM0IRkz4p7_4A2CZlKPQD22CDeK4Hs" /> */}
           <Script
             src="https://www.googletagmanager.com/gtag/js?id=AW-16682968635"
             strategy="afterInteractive"
