@@ -13,21 +13,16 @@ const TopbarMenu = () => {
     // const [menuBox, setMenuBox] = useState(false);
 
     const handleBackgroundMode = () => {
-        console.log("Background Mode clicked");
+        // console.log("Background Mode clicked");
       }
     
       const handleFavorties = () => {
-        console.log("Favorties clicked");
+        // console.log("Favorties clicked");
       }
     
       const handleAmenities = () => {
-        console.log("Amenities clicked");
+        // console.log("Amenities clicked");
       }
-
-    //   const handleMenu = () => {
-    //     setMenuBox(!menuBox);
-    //     console.log("menu clicked");
-    //   }
 
   return (
     <>

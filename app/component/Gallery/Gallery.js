@@ -75,7 +75,6 @@ const Gallery = ({ apartmentType, isOpen, onClose }) => {
   const imageLoadingRef = useRef(false);
 
   useEffect(() => {
-    console.log("Apartment Type: ", apartmentType)
     if (isOpen && apartmentType && areas[apartmentType]) {
       openImageBox(areas[apartmentType]);
     } else {

@@ -1212,9 +1212,16 @@ background-color: none;
     background-color: #006d77;
     color: #fcf7eb;
     border-radius: 50%;
-    padding: 2px 6px;
+    padding: 0;
+    /* padding-top: 5px; */
+    width: 20px;
+    height: 20px;
     font-size: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
+
 
   .callButton {
     bottom: 48px;

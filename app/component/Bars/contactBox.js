@@ -5,8 +5,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import { removeFavoriteApartment } from '@/state/apartment/favApartment';
 import CloseIcon from '../Icons/closeBtn';
 
-
-
 const ApartmentCard = ({ apartment }) => {
   const dispatch = useDispatch();
   const handleDelete = () => {
@@ -49,7 +47,6 @@ const ApartmentCard = ({ apartment }) => {
   );
 };
 
-
 const RegisterRequestForm = ({ onClose }) => {
   const favoriteApartments = useSelector((state) => state.favoriteApartments.favoriteApartments);
   const [currentStep, setCurrentStep] = useState(favoriteApartments.length > 0 ? 1 : 2);
@@ -57,11 +54,20 @@ const RegisterRequestForm = ({ onClose }) => {
   const formRef = useRef(null);
 
   const [formData, setFormData] = useState({
-    fullname: '',
-    phoneNumber: '',
+    name: '',
+    phone: '',
     email: '',
-    comments: '',
+    comment: '',
   });
+
+  const [errors, setErrors] = useState({});
+  const [isFormValid, setIsFormValid] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState(null);
+
+  useEffect(() => {
+    validateForm();
+  }, [formData]);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -76,16 +82,78 @@ const RegisterRequestForm = ({ onClose }) => {
     };
   }, [onClose]);
 
+  const validateForm = () => {
+    const newErrors = {};
+    let isValid = true;
+
+    // Validate name
+    if (formData.name.trim() === '') {
+      newErrors.name = 'Name is required';
+      isValid = false;
+    }
+
+    // Validate phone number
+    const phoneRegex = /^\+?[1-9]\d{1,14}$/;
+    if (!phoneRegex.test(formData.phone)) {
+      newErrors.phone = 'Invalid phone number';
+      isValid = false;
+    }
+
+    // Validate email
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(formData.email)) {
+      newErrors.email = 'Invalid email address';
+      isValid = false;
+    }
+
+    setErrors(newErrors);
+    setIsFormValid(isValid);
+  };
+
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (currentStep < totalSteps) {
       setCurrentStep(currentStep + 1);
     } else {
-      onClose();
+      try {
+        setIsSubmitting(true);
+        const dataForBackend = {
+          ...formData,
+          data: favoriteApartments
+        };
+
+        // Get the CSRF token from the meta tag
+        const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
+
+        const response = await fetch('https://almaymaar.rems.pk/api/harsukh-form/', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer GjKnyjcXFImbsMxCMf0McLaQBmlHKMvGk9',
+            'X-CSRF-TOKEN': csrfToken || '8bac8a991a484128-ISB',
+            'X-Requested-With': 'XMLHttpRequest'
+          },
+          credentials: 'include', // Include cookies in the request
+          body: JSON.stringify(dataForBackend),
+        });
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const result = await response.json();
+        console.log('Form submitted successfully:', result);
+        onClose();
+      } catch (error) {
+        console.error('Error submitting form:', error);
+        setSubmitError('An error occurred while submitting the form. Please try again.');
+      } finally {
+        setIsSubmitting(false);
+      }
     }
   };
 
@@ -102,15 +170,16 @@ const RegisterRequestForm = ({ onClose }) => {
   const renderInputForm = () => (
     <div className={styles.inputGrids}>
       <div className={styles.inputBox}>
-        <div className={styles.inputTitle}>First Name</div>
+        <div className={styles.inputTitle}>Name</div>
         <div className={styles.inputGroup}>
           <input
             type="text"
-            name="fullname"
-            value={formData.fullname}
+            name="name"
+            value={formData.name}
             onChange={handleChange}
             required
           />
+          {errors.name && <div className={styles.errorMessage}>{errors.name}</div>}
         </div>
       </div>
 
@@ -119,11 +188,12 @@ const RegisterRequestForm = ({ onClose }) => {
         <div className={styles.inputGroup}>
           <input
             type="tel"
-            name="phoneNumber"
-            value={formData.phoneNumber}
+            name="phone"
+            value={formData.phone}
             onChange={handleChange}
             required
           />
+          {errors.phone && <div className={styles.errorMessage}>{errors.phone}</div>}
         </div>
       </div>
 
@@ -137,15 +207,16 @@ const RegisterRequestForm = ({ onClose }) => {
             onChange={handleChange}
             required
           />
+          {errors.email && <div className={styles.errorMessage}>{errors.email}</div>}
         </div>
       </div>
 
       <div className={styles.inputBox}>
-        <div className={styles.inputTitle}>Comments</div>
+        <div className={styles.inputTitle}>Comment</div>
         <div className={styles.inputGroup}>
           <textarea
-            name="comments"
-            value={formData.comments}
+            name="comment"
+            value={formData.comment}
             onChange={handleChange}
           />
         </div>
@@ -156,12 +227,8 @@ const RegisterRequestForm = ({ onClose }) => {
   return (
     <div className={styles.overlay}>
       <div className={styles.formContainerBox} ref={formRef}>
-        <div className={styles.closeButtonBox} >
-          {/* <div className={styles.closeButton}>
-            <Image src="/images/icons/closeIcon.svg" width="20" height="20" alt="Close"/>
-          </div> */}
-                  <CloseIcon  closeBtn={onClose} />
-
+        <div className={styles.closeButtonBox}>
+          <CloseIcon closeBtn={onClose} />
         </div>
         <h2 className={styles.formTitle}>Register Request</h2>
      
@@ -175,14 +242,21 @@ const RegisterRequestForm = ({ onClose }) => {
 
         {(favoriteApartments.length === 0 || currentStep === 2) && renderInputForm()}
 
+        {submitError && <div className={styles.errorMessage}>{submitError}</div>}
+
         <div className={styles.formFooter}>
           {totalSteps > 1 && (
             <div className={styles.stepButtons}>
               {renderStepButtons()}
             </div>
           )}
-          <button onClick={handleSubmit} type="submit" className={styles.submitButton}>
-            {currentStep < totalSteps ? 'Next' : 'Submit'}
+         <button 
+            onClick={handleSubmit} 
+            type="submit" 
+            className={`${styles.submitButton} ${(!isFormValid || isSubmitting) && currentStep === totalSteps ? styles.disabled : ''}`}
+            disabled={(!isFormValid || isSubmitting) && currentStep === totalSteps}
+          >
+            {currentStep < totalSteps ? 'Next' : (isSubmitting ? 'Submitting...' : 'Submit')}
           </button>
         </div>
       </div>

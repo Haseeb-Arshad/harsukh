@@ -36,10 +36,6 @@ const Layout = ({ children }) => {
   const [menuBox, setMenuBox] = useState(false);
   const [overlay, setOverlay] = useState(true);
   const [isFormHovered, setIsFormHovered] = useState(false);
-
-  const [fullScreen, setFullScreen] = useState(false);
-  // const [language, setLanguage] = useState(false);
-  // const [translations, setTranslations] = useState(en);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const pathname = usePathname();
   const [reservedClicked, setReservedClicked] = useState(false);
@@ -112,29 +108,9 @@ const Layout = ({ children }) => {
 
     setIsContacted(false);
   };
-
-  // const toggleFullScreen = () => {
-  //   if (!document.fullscreenElement) {
-  //     setFullScreen(!fullScreen);
-  //     document.documentElement.requestFullscreen();
-  //   } else {
-  //     if (document.exitFullscreen) {
-  //       document.exitFullscreen();
-  //       setFullScreen(!fullScreen);
-  //     }
-  //   }
-  //   closeMenu();
-
-  // };
   
-
   const isFullScreen = useSelector((state) => state.fullscreen.isFullScreen);
 
-  // const handleToggleFullScreen = () => {
-  //   dispatch(toggleFullScreen());
-  // };
-  
- 
   const handleToggleFullScreen = () => {
     if (!document.fullscreenElement) {
       document.documentElement.requestFullscreen().then(() => {
@@ -218,9 +194,7 @@ const Layout = ({ children }) => {
   const toggleLanguage = () => {
     setLanguage(!language);
         closeMenu();
-
   };
-
 
   useEffect(() => {
     setTranslations(language ? ur : en);
@@ -236,11 +210,6 @@ const Layout = ({ children }) => {
   const amenityButtonRef = useRef(null);
   const amenityGridRef = useRef(null);
   const [amenityClicked, setAmenityClicked] = useState(false);
-
-  // const handleAmenitiesCheck = () => {
-  //   setAmenityClicked(false);
-  // };
-
   
   const handleAmenitiesCheck = useCallback(() => {
     setAmenityClicked(false);
@@ -281,11 +250,6 @@ const Layout = ({ children }) => {
         closeMenu();
 
   }, []);
-  
-
-
-  
-
   
   const updateAmenityClicked = (value) => {
     setAmenityClicked(value);
@@ -435,12 +399,9 @@ const Layout = ({ children }) => {
         }}
       >
 
-
         <div style={{
-          // position: "relative",
-          // background: "#FCF7EB",
-          position: "absolute",
 
+          position: "absolute",
           height: "100vh",
           width: "100%",
           display:'flex',
@@ -587,8 +548,8 @@ const Layout = ({ children }) => {
             src="/images/icons/callIcon.svg"
             quality={100}
             alt="Maps View Icon"
-            height={19}
-            width={19}
+            height={16}
+            width={16}
           />
           <div className={styles.buttonText}>{translations["callus"]}</div>
         </div>
@@ -685,12 +646,6 @@ const Layout = ({ children }) => {
           handleFloorMenu={handleFloorMenuClicked}
           onCLose={closeMenu}
         /> 
-
-        
-        {/* </div> */}
-
-      
-
     </>
     
   );
