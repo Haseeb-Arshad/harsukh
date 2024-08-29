@@ -65,6 +65,12 @@ const RegisterRequestForm = ({ onClose }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState(null);
 
+  const [touchedFields, setTouchedFields] = useState({
+    name: false,
+    phone: false,
+    email: false,
+  });
+
   useEffect(() => {
     validateForm();
   }, [formData]);
@@ -86,22 +92,19 @@ const RegisterRequestForm = ({ onClose }) => {
     const newErrors = {};
     let isValid = true;
 
-    // Validate name
-    if (formData.name.trim() === '') {
+    if (touchedFields.name && formData.name.trim() === '') {
       newErrors.name = 'Name is required';
       isValid = false;
     }
 
-    // Validate phone number
     const phoneRegex = /^\+?[1-9]\d{1,14}$/;
-    if (!phoneRegex.test(formData.phone)) {
+    if (touchedFields.phone && !phoneRegex.test(formData.phone)) {
       newErrors.phone = 'Invalid phone number';
       isValid = false;
     }
 
-    // Validate email
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(formData.email)) {
+    if (touchedFields.email && !emailRegex.test(formData.email)) {
       newErrors.email = 'Invalid email address';
       isValid = false;
     }
@@ -112,6 +115,10 @@ const RegisterRequestForm = ({ onClose }) => {
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleBlur = (e) => {
+    setTouchedFields({ ...touchedFields, [e.target.name]: true });
   };
 
   const handleSubmit = async (e) => {
@@ -177,9 +184,10 @@ const RegisterRequestForm = ({ onClose }) => {
             name="name"
             value={formData.name}
             onChange={handleChange}
+            onBlur={handleBlur}
             required
           />
-          {errors.name && <div className={styles.errorMessage}>{errors.name}</div>}
+          {touchedFields.name && errors.name && <div className={styles.errorMessage}>{errors.name}</div>}
         </div>
       </div>
 
@@ -191,9 +199,10 @@ const RegisterRequestForm = ({ onClose }) => {
             name="phone"
             value={formData.phone}
             onChange={handleChange}
+            onBlur={handleBlur}
             required
           />
-          {errors.phone && <div className={styles.errorMessage}>{errors.phone}</div>}
+          {touchedFields.phone && errors.phone && <div className={styles.errorMessage}>{errors.phone}</div>}
         </div>
       </div>
 
@@ -205,9 +214,10 @@ const RegisterRequestForm = ({ onClose }) => {
             name="email"
             value={formData.email}
             onChange={handleChange}
+            onBlur={handleBlur}
             required
           />
-          {errors.email && <div className={styles.errorMessage}>{errors.email}</div>}
+          {touchedFields.email && errors.email && <div className={styles.errorMessage}>{errors.email}</div>}
         </div>
       </div>
 
