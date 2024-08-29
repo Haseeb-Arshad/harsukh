@@ -13,6 +13,7 @@ import ur from "../locales/ur.json";
 import ElevStyles from "@/styles/elevation.module.css";
 
 import MenuBox from "../component/Bars/menuBox";
+import FrontViewSvgs from "../component/Background/Svg/Floors/FrontViewSvgs";
 // const MenuBox = dynamic(() => import("../component/Bars/menuBox"), { ssr: false });
 
 
@@ -820,1986 +821,1996 @@ export default function BackgroundImage() {
              (snowMode?
               
               (
+              // <>
 
-             <svg
-                ref={svgRef}
-                version="1.1"
-                id={styles.masker}
-                xmlns="http://www.w3.org/2000/svg"
-                xmlnsXlink="http://www.w3.org/1999/xlink"
-                x="0px"
-                y="0px"
-                viewBox="0 0 1920 1080"
-                xmlSpace="preserve"
-                onMouseEnter={() =>setSvgHover(true)}
-                onMouseLeave={() =>setSvgHover(false)}
+              
+              // </>
 
-              >
-                <polygon
-                  data-image="Third Floor"
-                  data-tip="third-floor"
-                  ApartmentNum="10"
-                  bedroomCount="2"
-                  apartmentType="Penthouse"
-                  className={styles.st2}
-                  points="446.78 393.2 591.57 298.53 589.86 396.41 446.78 396.41 446.78 393.2"
-                />
-                <polygon
-                  data-image="Third Floor"
-                  data-tip="third-floor"
-                  ApartmentNum="9"
-                  bedroomCount="2"
-                  apartmentType="Penthouse"
-                  className={styles.st2}
-                  points="619.67 303.31 693.04 256.08 695.34 382.19 619.67 382.19 619.67 303.31"
-                />
-                <rect
-                  data-image="Third Floor"
-                  data-tip="third-floor"
-                  ApartmentNum="8"
-                  bedroomCount="3"
-                  apartmentType="Penthouse"
-                  className={styles.st2}
-                  x="854.93"
-                  y="361.55"
-                  width="110.52"
-                  height="45.86"
-                />
-                <rect
-                  data-image="Third Floor"
-                  data-tip="third-floor"
-                  ApartmentNum="7"
-                  bedroomCount="3"
-                  apartmentType="Penthouse"
-                  className={styles.st2}
-                  x="965.45"
-                  y="361.55"
-                  width="100.89"
-                  height="45.86"
-                />
-                <polygon
-                  data-image="Third Floor"
-                  data-tip="third-floor"
-                  ApartmentNum="6"
-                  bedroomCount="3"
-                  apartmentType="Penthouse"
-                  className={styles.st2}
-                  points="1207.59 296.89 1207.59 409.25 1347.92 409.25 1347.92 384.48 1207.59 296.89"
-                />
+                <FrontViewSvgs svgRef={svgRef} setSvgHover={setSvgHover}  />
 
-                <polygon
-                  data-image="Second Floor"
-                  data-tip="second-floor"
-                  ApartmentNum="28"
-                  bedroomCount="2"
-                  apartmentType="Penthouse"
-                  className={styles.st2}
-                  points="446.78 407.41 446.78 456.25 528.87 456.25 528.87 404.66 446.78 404.66 446.78 407.41"
-                />
-                <rect
-                  data-image="Second Floor"
-                  data-tip="second-floor"
-                  ApartmentNum="27"
-                  bedroomCount="2"
-                  apartmentType="Bedroom"
-                  className={styles.st2}
-                  x="528.87"
-                  y="404.66"
-                  width="62.7"
-                  height="51.59"
-                />
-                <polygon
-                  data-image="Second Floor"
-                  data-tip="second-floor"
-                  ApartmentNum="26"
-                  bedroomCount="2"
-                  apartmentType="Bedroom"
-                  className={styles.st2}
-                  points="626.78 398.93 626.78 443.87 695.34 443.87 695.34 398.01 626.78 398.93"
-                />
-                <rect
-                  data-image="Second Floor"
-                  data-tip="second-floor"
-                  ApartmentNum="25"
-                  bedroomCount="3"
-                  apartmentType="Bedroom"
-                  className={styles.st2}
-                  x="854.93"
-                  y="411.08"
-                  width="110.52"
-                  height="49.22"
-                />
-                <rect
-                  data-image="Second Floor"
-                  data-tip="second-floor"
-                  ApartmentNum="24"
-                  bedroomCount="3"
-                  apartmentType="Bedroom"
-                  className={styles.st2}
-                  x="965.45"
-                  y="411.08"
-                  width="100.89"
-                  height="49.22"
-                />
-                <polygon
-                  data-image="Second Floor"
-                  data-tip="second-floor"
-                  ApartmentNum="23"
-                  bedroomCount="1"
-                  apartmentType="Bedroom"
-                  className={styles.st2}
-                  points="1207.59 416.59 1285.1 416.59 1285.1 465.5 1206.52 465.5 1207.59 416.59"
-                />
-                <rect
-                  data-image="Second Floor"
-                  data-tip="second-floor"
-                  ApartmentNum="22"
-                  bedroomCount="1"
-                  apartmentType="Bedroom"
-                  className={styles.st2}
-                  x="1285.1"
-                  y="416.59"
-                  width="62.83"
-                  height="48.92"
-                />
-                <polygon
-                  data-image="Second Floor"
-                  data-tip="second-floor"
-                  ApartmentNum="21"
-                  bedroomCount="1"
-                  apartmentType="Bedroom"
-                  className={styles.st2}
-                  points="1365.2 397.32 1365.2 473.76 1408.61 473.76 1408.61 424.23 1365.2 397.32"
-                />
-                <polygon
-                  data-image="Second Floor"
-                  data-tip="second-floor"
-                  ApartmentNum="20"
-                  bedroomCount="1"
-                  apartmentType="Penthouse"
-                  className={styles.st2}
-                  points="1487.49 473.76 1408.61 473.76 1408.61 424.23 1487.49 473.76"
-                />
+            //  <svg
+            //     ref={svgRef}
+            //     version="1.1"
+            //     id={styles.masker}
+            //     xmlns="http://www.w3.org/2000/svg"
+            //     xmlnsXlink="http://www.w3.org/1999/xlink"
+            //     x="0px"
+            //     y="0px"
+            //     viewBox="0 0 1920 1080"
+            //     xmlSpace="preserve"
+            //     onMouseEnter={() =>setSvgHover(true)}
+            //     onMouseLeave={() =>setSvgHover(false)}
 
-                <rect
-                  data-image="First Floor"
-                  data-tip="first-floor"
-                  ApartmentNum="44"
-                  bedroomCount="2"
-                  apartmentType="Bedroom"
-                  className={styles.st2}
-                  x="446.78"
-                  y="463.67"
-                  width="82.09"
-                  height="51.97"
-                />
-                <rect
-                  data-image="First Floor"
-                  data-tip="first-floor"
-                  ApartmentNum="43"
-                  bedroomCount="2"
-                  apartmentType="Bedroom"
-                  className={styles.st2}
-                  x="528.87"
-                  y="463.67"
-                  width="64.36"
-                  height="51.97"
-                />
-                <rect
-                  data-image="First Floor"
-                  data-tip="first-floor"
-                  ApartmentNum="42"
-                  bedroomCount="2"
-                  apartmentType="Bedroom"
-                  className={styles.st2}
-                  x="626.78"
-                  y="457.86"
-                  width="68.56"
-                  height="47.46"
-                />
-                <rect
-                  data-image="First Floor"
-                  data-tip="first-floor"
-                  ApartmentNum="41"
-                  bedroomCount="3"
-                  apartmentType="Bedroom"
-                  className={styles.st2}
-                  x="854.93"
-                  y="468.64"
-                  width="110.52"
-                  height="47.01"
-                />
-                <rect
-                  data-image="First Floor"
-                  data-tip="first-floor"
-                  ApartmentNum="40"
-                  bedroomCount="3"
-                  apartmentType="Bedroom"
-                  className={styles.st2}
-                  x="965.45"
-                  y="468.64"
-                  width="100.89"
-                  height="47.01"
-                />
-                <rect
-                  data-image="First Floor"
-                  data-tip="first-floor"
-                  ApartmentNum="39"
-                  bedroomCount="1"
-                  apartmentType="Bedroom"
-                  className={styles.st2}
-                  x="1206.52"
-                  y="473.76"
-                  width="78.57"
-                  height="48"
-                />
-                <rect
-                  data-image="First Floor"
-                  data-tip="first-floor"
-                  ApartmentNum="38"
-                  bedroomCount="1"
-                  apartmentType="Bedroom"
-                  className={styles.st2}
-                  x="1285.1"
-                  y="473.76"
-                  width="62.83"
-                  height="48"
-                />
-                <rect
-                  data-image="First Floor"
-                  data-tip="first-floor"
-                  ApartmentNum="37"
-                  bedroomCount="1"
-                  apartmentType="Bedroom"
-                  className={styles.st2}
-                  x="1363.97"
-                  y="481.1"
-                  width="57.78"
-                  height="40.66"
-                />
-                <rect
-                  data-image="First Floor"
-                  data-tip="first-floor"
-                  ApartmentNum="36"
-                  bedroomCount="1"
-                  apartmentType="Bedroom"
-                  className={styles.st2}
-                  x="1421.76"
-                  y="481.1"
-                  width="74.9"
-                  height="40.66"
-                />
+            //   >
+            //     <polygon
+            //       data-image="Third Floor"
+            //       data-tip="third-floor"
+            //       ApartmentNum="10"
+            //       bedroomCount="2"
+            //       apartmentType="Penthouse"
+            //       className={styles.st2}
+            //       points="446.78 393.2 591.57 298.53 589.86 396.41 446.78 396.41 446.78 393.2"
+            //     />
+            //     <polygon
+            //       data-image="Third Floor"
+            //       data-tip="third-floor"
+            //       ApartmentNum="9"
+            //       bedroomCount="2"
+            //       apartmentType="Penthouse"
+            //       className={styles.st2}
+            //       points="619.67 303.31 693.04 256.08 695.34 382.19 619.67 382.19 619.67 303.31"
+            //     />
+            //     <rect
+            //       data-image="Third Floor"
+            //       data-tip="third-floor"
+            //       ApartmentNum="8"
+            //       bedroomCount="3"
+            //       apartmentType="Penthouse"
+            //       className={styles.st2}
+            //       x="854.93"
+            //       y="361.55"
+            //       width="110.52"
+            //       height="45.86"
+            //     />
+            //     <rect
+            //       data-image="Third Floor"
+            //       data-tip="third-floor"
+            //       ApartmentNum="7"
+            //       bedroomCount="3"
+            //       apartmentType="Penthouse"
+            //       className={styles.st2}
+            //       x="965.45"
+            //       y="361.55"
+            //       width="100.89"
+            //       height="45.86"
+            //     />
+            //     <polygon
+            //       data-image="Third Floor"
+            //       data-tip="third-floor"
+            //       ApartmentNum="6"
+            //       bedroomCount="3"
+            //       apartmentType="Penthouse"
+            //       className={styles.st2}
+            //       points="1207.59 296.89 1207.59 409.25 1347.92 409.25 1347.92 384.48 1207.59 296.89"
+            //     />
+
+            //     <polygon
+            //       data-image="Second Floor"
+            //       data-tip="second-floor"
+            //       ApartmentNum="28"
+            //       bedroomCount="2"
+            //       apartmentType="Penthouse"
+            //       className={styles.st2}
+            //       points="446.78 407.41 446.78 456.25 528.87 456.25 528.87 404.66 446.78 404.66 446.78 407.41"
+            //     />
+            //     <rect
+            //       data-image="Second Floor"
+            //       data-tip="second-floor"
+            //       ApartmentNum="27"
+            //       bedroomCount="2"
+            //       apartmentType="Bedroom"
+            //       className={styles.st2}
+            //       x="528.87"
+            //       y="404.66"
+            //       width="62.7"
+            //       height="51.59"
+            //     />
+            //     <polygon
+            //       data-image="Second Floor"
+            //       data-tip="second-floor"
+            //       ApartmentNum="26"
+            //       bedroomCount="2"
+            //       apartmentType="Bedroom"
+            //       className={styles.st2}
+            //       points="626.78 398.93 626.78 443.87 695.34 443.87 695.34 398.01 626.78 398.93"
+            //     />
+            //     <rect
+            //       data-image="Second Floor"
+            //       data-tip="second-floor"
+            //       ApartmentNum="25"
+            //       bedroomCount="3"
+            //       apartmentType="Bedroom"
+            //       className={styles.st2}
+            //       x="854.93"
+            //       y="411.08"
+            //       width="110.52"
+            //       height="49.22"
+            //     />
+            //     <rect
+            //       data-image="Second Floor"
+            //       data-tip="second-floor"
+            //       ApartmentNum="24"
+            //       bedroomCount="3"
+            //       apartmentType="Bedroom"
+            //       className={styles.st2}
+            //       x="965.45"
+            //       y="411.08"
+            //       width="100.89"
+            //       height="49.22"
+            //     />
+            //     <polygon
+            //       data-image="Second Floor"
+            //       data-tip="second-floor"
+            //       ApartmentNum="23"
+            //       bedroomCount="1"
+            //       apartmentType="Bedroom"
+            //       className={styles.st2}
+            //       points="1207.59 416.59 1285.1 416.59 1285.1 465.5 1206.52 465.5 1207.59 416.59"
+            //     />
+            //     <rect
+            //       data-image="Second Floor"
+            //       data-tip="second-floor"
+            //       ApartmentNum="22"
+            //       bedroomCount="1"
+            //       apartmentType="Bedroom"
+            //       className={styles.st2}
+            //       x="1285.1"
+            //       y="416.59"
+            //       width="62.83"
+            //       height="48.92"
+            //     />
+            //     <polygon
+            //       data-image="Second Floor"
+            //       data-tip="second-floor"
+            //       ApartmentNum="21"
+            //       bedroomCount="1"
+            //       apartmentType="Bedroom"
+            //       className={styles.st2}
+            //       points="1365.2 397.32 1365.2 473.76 1408.61 473.76 1408.61 424.23 1365.2 397.32"
+            //     />
+            //     <polygon
+            //       data-image="Second Floor"
+            //       data-tip="second-floor"
+            //       ApartmentNum="20"
+            //       bedroomCount="1"
+            //       apartmentType="Penthouse"
+            //       className={styles.st2}
+            //       points="1487.49 473.76 1408.61 473.76 1408.61 424.23 1487.49 473.76"
+            //     />
+
+            //     <rect
+            //       data-image="First Floor"
+            //       data-tip="first-floor"
+            //       ApartmentNum="44"
+            //       bedroomCount="2"
+            //       apartmentType="Bedroom"
+            //       className={styles.st2}
+            //       x="446.78"
+            //       y="463.67"
+            //       width="82.09"
+            //       height="51.97"
+            //     />
+            //     <rect
+            //       data-image="First Floor"
+            //       data-tip="first-floor"
+            //       ApartmentNum="43"
+            //       bedroomCount="2"
+            //       apartmentType="Bedroom"
+            //       className={styles.st2}
+            //       x="528.87"
+            //       y="463.67"
+            //       width="64.36"
+            //       height="51.97"
+            //     />
+            //     <rect
+            //       data-image="First Floor"
+            //       data-tip="first-floor"
+            //       ApartmentNum="42"
+            //       bedroomCount="2"
+            //       apartmentType="Bedroom"
+            //       className={styles.st2}
+            //       x="626.78"
+            //       y="457.86"
+            //       width="68.56"
+            //       height="47.46"
+            //     />
+            //     <rect
+            //       data-image="First Floor"
+            //       data-tip="first-floor"
+            //       ApartmentNum="41"
+            //       bedroomCount="3"
+            //       apartmentType="Bedroom"
+            //       className={styles.st2}
+            //       x="854.93"
+            //       y="468.64"
+            //       width="110.52"
+            //       height="47.01"
+            //     />
+            //     <rect
+            //       data-image="First Floor"
+            //       data-tip="first-floor"
+            //       ApartmentNum="40"
+            //       bedroomCount="3"
+            //       apartmentType="Bedroom"
+            //       className={styles.st2}
+            //       x="965.45"
+            //       y="468.64"
+            //       width="100.89"
+            //       height="47.01"
+            //     />
+            //     <rect
+            //       data-image="First Floor"
+            //       data-tip="first-floor"
+            //       ApartmentNum="39"
+            //       bedroomCount="1"
+            //       apartmentType="Bedroom"
+            //       className={styles.st2}
+            //       x="1206.52"
+            //       y="473.76"
+            //       width="78.57"
+            //       height="48"
+            //     />
+            //     <rect
+            //       data-image="First Floor"
+            //       data-tip="first-floor"
+            //       ApartmentNum="38"
+            //       bedroomCount="1"
+            //       apartmentType="Bedroom"
+            //       className={styles.st2}
+            //       x="1285.1"
+            //       y="473.76"
+            //       width="62.83"
+            //       height="48"
+            //     />
+            //     <rect
+            //       data-image="First Floor"
+            //       data-tip="first-floor"
+            //       ApartmentNum="37"
+            //       bedroomCount="1"
+            //       apartmentType="Bedroom"
+            //       className={styles.st2}
+            //       x="1363.97"
+            //       y="481.1"
+            //       width="57.78"
+            //       height="40.66"
+            //     />
+            //     <rect
+            //       data-image="First Floor"
+            //       data-tip="first-floor"
+            //       ApartmentNum="36"
+            //       bedroomCount="1"
+            //       apartmentType="Bedroom"
+            //       className={styles.st2}
+            //       x="1421.76"
+            //       y="481.1"
+            //       width="74.9"
+            //       height="40.66"
+            //     />
                 
 
-                <rect
-                  data-image="Ground Floor"
-                  data-tip="ground-floor"
-                  ApartmentNum="59"
-                  bedroomCount="2"
-                  apartmentType="Bedroom"
-                  className={styles.st2}
-                  x="446.78"
-                  y="521.15"
-                  width="82.09"
-                  height="45.86"
-                />
-                <rect
-                  data-image="Ground Floor"
-                  data-tip="ground-floor"
-                  ApartmentNum="58"
-                  bedroomCount="2"
-                  apartmentType="Bedroom"
-                  className={styles.st2}
-                  x="528.87"
-                  y="521.15"
-                  width="64.36"
-                  height="45.86"
-                />
-                <path
-                  data-image="Ground Floor"
-                  data-tip="ground-floor"
-                  ApartmentNum="57"
-                  bedroomCount="2"
-                  apartmentType="Bedroom"
-                  className={styles.st2}
-                  d="M625.63,517.25h70.62V567H625.63C626.32,567,625.63,517.25,625.63,517.25Z"
-                />
-                <rect
-                  data-image="Ground Floor"
-                  data-tip="ground-floor"
-                  ApartmentNum="56"
-                  bedroomCount="3"
-                  apartmentType="Bedroom"
-                  className={styles.st2}
-                  x="854.93"
-                  y="526.19"
-                  width="110.52"
-                  height="48.15"
-                />
-                <rect
-                  data-image="Ground Floor"
-                  data-tip="ground-floor"
-                  ApartmentNum="55"
-                  bedroomCount="3"
-                  apartmentType="Bedroom"
-                  className={styles.st2}
-                  x="965.45"
-                  y="526.19"
-                  width="100.89"
-                  height="48.15"
-                />
-                <rect
-                  data-image="Ground Floor"
-                  data-tip="ground-floor"
-                  ApartmentNum="54"
-                  bedroomCount="1"
-                  apartmentType="Bedroom"
-                  className={styles.st2}
-                  x="1206.52"
-                  y="528.48"
-                  width="78.57"
-                  height="49.53"
-                />
-                <rect
-                  data-image="Ground Floor"
-                  data-tip="ground-floor"
-                  ApartmentNum="53"
-                  bedroomCount="1"
-                  apartmentType="Bedroom"
-                  className={styles.st2}
-                  x="1285.1"
-                  y="528.48"
-                  width="62.83"
-                  height="49.53"
-                />
-                <rect
-                  data-image="Ground Floor"
-                  data-tip="ground-floor"
-                  ApartmentNum="52"
-                  bedroomCount="1"
-                  apartmentType="Bedroom"
-                  className={styles.st2}
-                  x="1363.97"
-                  y="536.28"
-                  width="63.06"
-                  height="46.32"
-                />
-                <rect
-                  data-image="Ground Floor"
-                  data-tip="ground-floor"
-                  ApartmentNum="51"
-                  bedroomCount="1"
-                  apartmentType="Bedroom"
-                  className={styles.st2}
-                  x="1427.03"
-                  y="536.28"
-                  width="69.63"
-                  height="46.32"
-                />
+            //     <rect
+            //       data-image="Ground Floor"
+            //       data-tip="ground-floor"
+            //       ApartmentNum="59"
+            //       bedroomCount="2"
+            //       apartmentType="Bedroom"
+            //       className={styles.st2}
+            //       x="446.78"
+            //       y="521.15"
+            //       width="82.09"
+            //       height="45.86"
+            //     />
+            //     <rect
+            //       data-image="Ground Floor"
+            //       data-tip="ground-floor"
+            //       ApartmentNum="58"
+            //       bedroomCount="2"
+            //       apartmentType="Bedroom"
+            //       className={styles.st2}
+            //       x="528.87"
+            //       y="521.15"
+            //       width="64.36"
+            //       height="45.86"
+            //     />
+            //     <path
+            //       data-image="Ground Floor"
+            //       data-tip="ground-floor"
+            //       ApartmentNum="57"
+            //       bedroomCount="2"
+            //       apartmentType="Bedroom"
+            //       className={styles.st2}
+            //       d="M625.63,517.25h70.62V567H625.63C626.32,567,625.63,517.25,625.63,517.25Z"
+            //     />
+            //     <rect
+            //       data-image="Ground Floor"
+            //       data-tip="ground-floor"
+            //       ApartmentNum="56"
+            //       bedroomCount="3"
+            //       apartmentType="Bedroom"
+            //       className={styles.st2}
+            //       x="854.93"
+            //       y="526.19"
+            //       width="110.52"
+            //       height="48.15"
+            //     />
+            //     <rect
+            //       data-image="Ground Floor"
+            //       data-tip="ground-floor"
+            //       ApartmentNum="55"
+            //       bedroomCount="3"
+            //       apartmentType="Bedroom"
+            //       className={styles.st2}
+            //       x="965.45"
+            //       y="526.19"
+            //       width="100.89"
+            //       height="48.15"
+            //     />
+            //     <rect
+            //       data-image="Ground Floor"
+            //       data-tip="ground-floor"
+            //       ApartmentNum="54"
+            //       bedroomCount="1"
+            //       apartmentType="Bedroom"
+            //       className={styles.st2}
+            //       x="1206.52"
+            //       y="528.48"
+            //       width="78.57"
+            //       height="49.53"
+            //     />
+            //     <rect
+            //       data-image="Ground Floor"
+            //       data-tip="ground-floor"
+            //       ApartmentNum="53"
+            //       bedroomCount="1"
+            //       apartmentType="Bedroom"
+            //       className={styles.st2}
+            //       x="1285.1"
+            //       y="528.48"
+            //       width="62.83"
+            //       height="49.53"
+            //     />
+            //     <rect
+            //       data-image="Ground Floor"
+            //       data-tip="ground-floor"
+            //       ApartmentNum="52"
+            //       bedroomCount="1"
+            //       apartmentType="Bedroom"
+            //       className={styles.st2}
+            //       x="1363.97"
+            //       y="536.28"
+            //       width="63.06"
+            //       height="46.32"
+            //     />
+            //     <rect
+            //       data-image="Ground Floor"
+            //       data-tip="ground-floor"
+            //       ApartmentNum="51"
+            //       bedroomCount="1"
+            //       apartmentType="Bedroom"
+            //       className={styles.st2}
+            //       x="1427.03"
+            //       y="536.28"
+            //       width="69.63"
+            //       height="46.32"
+            //     />
 
-                <rect
-                  data-image="Valley Floor 1"
-                  data-tip="valley-floor-1"
-                  ApartmentNum="81"
-                  bedroomCount="2"
-                  apartmentType="Bedroom"
-                  className={styles.st2}
-                  x="446.78"
-                  y="575.26"
-                  width="82.09"
-                  height="50.75"
-                />
-                <rect
-                  data-image="Valley Floor 1"
-                  data-tip="valley-floor-1"
-                  ApartmentNum="80"
-                  bedroomCount="2"
-                  apartmentType="Bedroom"
-                  className={styles.st2}
-                  x="528.87"
-                  y="575.26"
-                  width="65.89"
-                  height="50.75"
-                />
-                <rect
-                  data-image="Valley Floor 1"
-                  data-tip="valley-floor-1"
-                  ApartmentNum="79"
-                  bedroomCount="2"
-                  apartmentType="Bedroom"
-                  className={styles.st2}
-                  x="625.63"
-                  y="575.26"
-                  width="70.63"
-                  height="50.75"
-                />
-                <rect
-                  data-image="Valley Floor 1"
-                  data-tip="valley-floor-1"
-                  ApartmentNum="78"
-                  bedroomCount="2"
-                  apartmentType="Bedroom"
-                  className={styles.st2}
-                  x="732.94"
-                  y="575.26"
-                  width="88.66"
-                  height="50.75"
-                />
-                <rect
-                  data-image="Valley Floor 1"
-                  data-tip="valley-floor-1"
-                  ApartmentNum="77"
-                  bedroomCount="2"
-                  apartmentType="Bedroom"
-                  className={styles.st2}
-                  x="854.93"
-                  y="584.74"
-                  width="88.66"
-                  height="48.31"
-                />
-                <rect
-                  data-image="Valley Floor 1"
-                  data-tip="valley-floor-1"
-                  ApartmentNum="76"
-                  bedroomCount="2"
-                  apartmentType="Bedroom"
-                  className={styles.st2}
-                  x="977.53"
-                  y="584.74"
-                  width="88.82"
-                  height="48.31"
-                />
-                <rect
-                  data-image="Valley Floor 1"
-                  data-tip="valley-floor-1"
-                  ApartmentNum="75"
-                  bedroomCount="2"
-                  apartmentType="Bedroom"
-                  className={styles.st2}
-                  x="1107.16"
-                  y="584.74"
-                  width="76.43"
-                  height="48.31"
-                />
-                <rect
-                  data-image="Valley Floor 1"
-                  data-tip="valley-floor-1"
-                  ApartmentNum="74"
-                  bedroomCount="1"
-                  apartmentType="Bedroom"
-                  className={styles.st2}
-                  x="1205.64"
-                  y="584.74"
-                  width="73.95"
-                  height="48.31"
-                />
-                <rect
-                  data-image="Valley Floor 1"
-                  data-tip="valley-floor-1"
-                  ApartmentNum="73"
-                  bedroomCount="1"
-                  apartmentType="Bedroom"
-                  className={styles.st2}
-                  x="1279.59"
-                  y="584.74"
-                  width="68.33"
-                  height="48.31"
-                />
-                <polygon
-                  data-image="Valley Floor 1"
-                  data-tip="valley-floor-1"
-                  ApartmentNum="72"
-                  bedroomCount="1"
-                  apartmentType="Bedroom"
-                  className={styles.st2}
-                  points="1362.97 588.41 1364.04 633.04 1431.39 633.04 1431.39 588.41 1362.97 588.41"
-                />
-                <rect
-                  data-image="Valley Floor 1"
-                  data-tip="valley-floor-1"
-                  ApartmentNum="71"
-                  bedroomCount="1"
-                  apartmentType="Bedroom"
-                  className={styles.st2}
-                  x="1431.39"
-                  y="588.41"
-                  width="65.27"
-                  height="44.64"
-                />
+            //     <rect
+            //       data-image="Valley Floor 1"
+            //       data-tip="valley-floor-1"
+            //       ApartmentNum="81"
+            //       bedroomCount="2"
+            //       apartmentType="Bedroom"
+            //       className={styles.st2}
+            //       x="446.78"
+            //       y="575.26"
+            //       width="82.09"
+            //       height="50.75"
+            //     />
+            //     <rect
+            //       data-image="Valley Floor 1"
+            //       data-tip="valley-floor-1"
+            //       ApartmentNum="80"
+            //       bedroomCount="2"
+            //       apartmentType="Bedroom"
+            //       className={styles.st2}
+            //       x="528.87"
+            //       y="575.26"
+            //       width="65.89"
+            //       height="50.75"
+            //     />
+            //     <rect
+            //       data-image="Valley Floor 1"
+            //       data-tip="valley-floor-1"
+            //       ApartmentNum="79"
+            //       bedroomCount="2"
+            //       apartmentType="Bedroom"
+            //       className={styles.st2}
+            //       x="625.63"
+            //       y="575.26"
+            //       width="70.63"
+            //       height="50.75"
+            //     />
+            //     <rect
+            //       data-image="Valley Floor 1"
+            //       data-tip="valley-floor-1"
+            //       ApartmentNum="78"
+            //       bedroomCount="2"
+            //       apartmentType="Bedroom"
+            //       className={styles.st2}
+            //       x="732.94"
+            //       y="575.26"
+            //       width="88.66"
+            //       height="50.75"
+            //     />
+            //     <rect
+            //       data-image="Valley Floor 1"
+            //       data-tip="valley-floor-1"
+            //       ApartmentNum="77"
+            //       bedroomCount="2"
+            //       apartmentType="Bedroom"
+            //       className={styles.st2}
+            //       x="854.93"
+            //       y="584.74"
+            //       width="88.66"
+            //       height="48.31"
+            //     />
+            //     <rect
+            //       data-image="Valley Floor 1"
+            //       data-tip="valley-floor-1"
+            //       ApartmentNum="76"
+            //       bedroomCount="2"
+            //       apartmentType="Bedroom"
+            //       className={styles.st2}
+            //       x="977.53"
+            //       y="584.74"
+            //       width="88.82"
+            //       height="48.31"
+            //     />
+            //     <rect
+            //       data-image="Valley Floor 1"
+            //       data-tip="valley-floor-1"
+            //       ApartmentNum="75"
+            //       bedroomCount="2"
+            //       apartmentType="Bedroom"
+            //       className={styles.st2}
+            //       x="1107.16"
+            //       y="584.74"
+            //       width="76.43"
+            //       height="48.31"
+            //     />
+            //     <rect
+            //       data-image="Valley Floor 1"
+            //       data-tip="valley-floor-1"
+            //       ApartmentNum="74"
+            //       bedroomCount="1"
+            //       apartmentType="Bedroom"
+            //       className={styles.st2}
+            //       x="1205.64"
+            //       y="584.74"
+            //       width="73.95"
+            //       height="48.31"
+            //     />
+            //     <rect
+            //       data-image="Valley Floor 1"
+            //       data-tip="valley-floor-1"
+            //       ApartmentNum="73"
+            //       bedroomCount="1"
+            //       apartmentType="Bedroom"
+            //       className={styles.st2}
+            //       x="1279.59"
+            //       y="584.74"
+            //       width="68.33"
+            //       height="48.31"
+            //     />
+            //     <polygon
+            //       data-image="Valley Floor 1"
+            //       data-tip="valley-floor-1"
+            //       ApartmentNum="72"
+            //       bedroomCount="1"
+            //       apartmentType="Bedroom"
+            //       className={styles.st2}
+            //       points="1362.97 588.41 1364.04 633.04 1431.39 633.04 1431.39 588.41 1362.97 588.41"
+            //     />
+            //     <rect
+            //       data-image="Valley Floor 1"
+            //       data-tip="valley-floor-1"
+            //       ApartmentNum="71"
+            //       bedroomCount="1"
+            //       apartmentType="Bedroom"
+            //       className={styles.st2}
+            //       x="1431.39"
+            //       y="588.41"
+            //       width="65.27"
+            //       height="44.64"
+            //     />
 
-                <rect
-                  data-image="Valley Floor 3"
-                  data-tip="valley-floor-3"
-                  ApartmentNum="105"
-                  bedroomCount="2"
-                  apartmentType="Bedroom"
-                  className={styles.st2}
-                  x="446.78"
-                  y="694.96"
-                  width="82.09"
-                  height="50.9"
-                />
-                <rect
-                  data-image="Valley Floor 3"
-                  data-tip="valley-floor-3"
-                  ApartmentNum="104"
-                  bedroomCount="2"
-                  apartmentType="Bedroom"
-                  className={styles.st2}
-                  x="528.87"
-                  y="694.96"
-                  width="65.89"
-                  height="50.9"
-                />
-                <rect
-                  data-image="Valley Floor 3"
-                  data-tip="valley-floor-3"
-                  ApartmentNum="103"
-                  bedroomCount="2"
-                  apartmentType="Bedroom"
-                  className={styles.st2}
-                  x="625.63"
-                  y="694.96"
-                  width="73.84"
-                  height="50.9"
-                />
-                <rect
-                  data-image="Valley Floor 3"
-                  data-tip="valley-floor-3"
-                  ApartmentNum="102"
-                  bedroomCount="2"
-                  apartmentType="Bedroom"
-                  className={styles.st2}
-                  x="732.94"
-                  y="694.96"
-                  width="88.66"
-                  height="50.9"
-                />
-                <rect
-                  data-image="Valley Floor 3"
-                  data-tip="valley-floor-3"
-                  ApartmentNum="101"
-                  bedroomCount="2"
-                  apartmentType="Bedroom"
-                  className={styles.st2}
-                  x="997.1"
-                  y="694.96"
-                  width="69.25"
-                  height="50.9"
-                />
-                <rect
-                  data-image="Valley Floor 3"
-                  data-tip="valley-floor-3"
-                  ApartmentNum="100"
-                  bedroomCount="2"
-                  apartmentType="Bedroom"
-                  className={styles.st2}
-                  x="926.93"
-                  y="694.96"
-                  width="70.17"
-                  height="50.9"
-                />
-                <rect
-                  data-image="Valley Floor 3"
-                  data-tip="valley-floor-3"
-                  ApartmentNum="99"
-                  bedroomCount="2"
-                  apartmentType="Bedroom"
-                  className={styles.st2}
-                  x="854.93"
-                  y="694.96"
-                  width="72"
-                  height="50.9"
-                />
-                <rect
-                  data-image="Valley Floor 3"
-                  data-tip="valley-floor-3"
-                  ApartmentNum="98"
-                  bedroomCount="1"
-                  apartmentType="Bedroom"
-                  className={styles.st2}
-                  x="1107.16"
-                  y="694.96"
-                  width="76.43"
-                  height="50.9"
-                />
-                <rect
-                  data-image="Valley Floor 3"
-                  data-tip="valley-floor-3"
-                  ApartmentNum="97"
-                  bedroomCount="1"
-                  apartmentType="Bedroom"
-                  className={styles.st2}
-                  x="1205.64"
-                  y="694.96"
-                  width="73.95"
-                  height="50.9"
-                />
-                <rect
-                  data-image="Valley Floor 3"
-                  data-tip="valley-floor-3"
-                  ApartmentNum="96"
-                  bedroomCount="1"
-                  apartmentType="Bedroom"
-                  className={styles.st2}
-                  x="1279.59"
-                  y="694.96"
-                  width="68.33"
-                  height="50.9"
-                />
-                <rect
-                  data-image="Valley Floor 3"
-                  data-tip="valley-floor-3"
-                  ApartmentNum="95"
-                  bedroomCount="1"
-                  apartmentType="Bedroom"
-                  className={styles.st2}
-                  x="1363.97"
-                  y="694.96"
-                  width="67.41"
-                  height="50.9"
-                />
-                <rect
-                  data-image="Valley Floor 3"
-                  data-tip="valley-floor-3"
-                  ApartmentNum="94"
-                  bedroomCount="1"
-                  apartmentType="Bedroom"
-                  className={styles.st2}
-                  x="1431.39"
-                  y="694.96"
-                  width="65.27"
-                  height="50.9"
-                />
+            //     <rect
+            //       data-image="Valley Floor 3"
+            //       data-tip="valley-floor-3"
+            //       ApartmentNum="105"
+            //       bedroomCount="2"
+            //       apartmentType="Bedroom"
+            //       className={styles.st2}
+            //       x="446.78"
+            //       y="694.96"
+            //       width="82.09"
+            //       height="50.9"
+            //     />
+            //     <rect
+            //       data-image="Valley Floor 3"
+            //       data-tip="valley-floor-3"
+            //       ApartmentNum="104"
+            //       bedroomCount="2"
+            //       apartmentType="Bedroom"
+            //       className={styles.st2}
+            //       x="528.87"
+            //       y="694.96"
+            //       width="65.89"
+            //       height="50.9"
+            //     />
+            //     <rect
+            //       data-image="Valley Floor 3"
+            //       data-tip="valley-floor-3"
+            //       ApartmentNum="103"
+            //       bedroomCount="2"
+            //       apartmentType="Bedroom"
+            //       className={styles.st2}
+            //       x="625.63"
+            //       y="694.96"
+            //       width="73.84"
+            //       height="50.9"
+            //     />
+            //     <rect
+            //       data-image="Valley Floor 3"
+            //       data-tip="valley-floor-3"
+            //       ApartmentNum="102"
+            //       bedroomCount="2"
+            //       apartmentType="Bedroom"
+            //       className={styles.st2}
+            //       x="732.94"
+            //       y="694.96"
+            //       width="88.66"
+            //       height="50.9"
+            //     />
+            //     <rect
+            //       data-image="Valley Floor 3"
+            //       data-tip="valley-floor-3"
+            //       ApartmentNum="101"
+            //       bedroomCount="2"
+            //       apartmentType="Bedroom"
+            //       className={styles.st2}
+            //       x="997.1"
+            //       y="694.96"
+            //       width="69.25"
+            //       height="50.9"
+            //     />
+            //     <rect
+            //       data-image="Valley Floor 3"
+            //       data-tip="valley-floor-3"
+            //       ApartmentNum="100"
+            //       bedroomCount="2"
+            //       apartmentType="Bedroom"
+            //       className={styles.st2}
+            //       x="926.93"
+            //       y="694.96"
+            //       width="70.17"
+            //       height="50.9"
+            //     />
+            //     <rect
+            //       data-image="Valley Floor 3"
+            //       data-tip="valley-floor-3"
+            //       ApartmentNum="99"
+            //       bedroomCount="2"
+            //       apartmentType="Bedroom"
+            //       className={styles.st2}
+            //       x="854.93"
+            //       y="694.96"
+            //       width="72"
+            //       height="50.9"
+            //     />
+            //     <rect
+            //       data-image="Valley Floor 3"
+            //       data-tip="valley-floor-3"
+            //       ApartmentNum="98"
+            //       bedroomCount="1"
+            //       apartmentType="Bedroom"
+            //       className={styles.st2}
+            //       x="1107.16"
+            //       y="694.96"
+            //       width="76.43"
+            //       height="50.9"
+            //     />
+            //     <rect
+            //       data-image="Valley Floor 3"
+            //       data-tip="valley-floor-3"
+            //       ApartmentNum="97"
+            //       bedroomCount="1"
+            //       apartmentType="Bedroom"
+            //       className={styles.st2}
+            //       x="1205.64"
+            //       y="694.96"
+            //       width="73.95"
+            //       height="50.9"
+            //     />
+            //     <rect
+            //       data-image="Valley Floor 3"
+            //       data-tip="valley-floor-3"
+            //       ApartmentNum="96"
+            //       bedroomCount="1"
+            //       apartmentType="Bedroom"
+            //       className={styles.st2}
+            //       x="1279.59"
+            //       y="694.96"
+            //       width="68.33"
+            //       height="50.9"
+            //     />
+            //     <rect
+            //       data-image="Valley Floor 3"
+            //       data-tip="valley-floor-3"
+            //       ApartmentNum="95"
+            //       bedroomCount="1"
+            //       apartmentType="Bedroom"
+            //       className={styles.st2}
+            //       x="1363.97"
+            //       y="694.96"
+            //       width="67.41"
+            //       height="50.9"
+            //     />
+            //     <rect
+            //       data-image="Valley Floor 3"
+            //       data-tip="valley-floor-3"
+            //       ApartmentNum="94"
+            //       bedroomCount="1"
+            //       apartmentType="Bedroom"
+            //       className={styles.st2}
+            //       x="1431.39"
+            //       y="694.96"
+            //       width="65.27"
+            //       height="50.9"
+            //     />
 
-                <rect
-                  data-image="Valley Floor 4"
-                  data-tip="valley-floor-4"
-                  ApartmentNum="124"
-                  bedroomCount="2"
-                  apartmentType="Bedroom"
-                  className={styles.st2}
-                  x="446.78"
-                  y="755.03"
-                  width="82.09"
-                  height="51.36"
-                />
-                <rect
-                  data-image="Valley Floor 4"
-                  data-tip="valley-floor-4"
-                  ApartmentNum="123"
-                  bedroomCount="2"
-                  apartmentType="Bedroom"
-                  className={styles.st2}
-                  x="528.87"
-                  y="755.03"
-                  width="67.72"
-                  height="51.36"
-                />
-                <rect
-                  data-image="Valley Floor 4"
-                  data-tip="valley-floor-4"
-                  ApartmentNum="122"
-                  bedroomCount="2"
-                  apartmentType="Bedroom"
-                  className={styles.st2}
-                  x="625.63"
-                  y="755.03"
-                  width="73.84"
-                  height="51.36"
-                />
-                <rect
-                  data-image="Valley Floor 4"
-                  data-tip="valley-floor-4"
-                  ApartmentNum="121"
-                  bedroomCount="2"
-                  apartmentType="Bedroom"
-                  className={styles.st2}
-                  x="732.94"
-                  y="755.03"
-                  width="88.66"
-                  height="51.36"
-                />
-                <rect
-                  data-image="Valley Floor 4"
-                  data-tip="valley-floor-4"
-                  ApartmentNum="120"
-                  bedroomCount="2"
-                  apartmentType="Bedroom"
-                  className={styles.st2}
-                  x="854.93"
-                  y="755.03"
-                  width="72"
-                  height="51.36"
-                />
-                <rect
-                  data-image="Valley Floor 4"
-                  data-tip="valley-floor-4"
-                  ApartmentNum="119"
-                  bedroomCount="2"
-                  apartmentType="Bedroom"
-                  className={styles.st2}
-                  x="926.93"
-                  y="755.03"
-                  width="69.71"
-                  height="51.36"
-                />
-                <rect
-                  data-image="Valley Floor 4"
-                  data-tip="valley-floor-4"
-                  ApartmentNum="118"
-                  bedroomCount="2"
-                  apartmentType="Bedroom"
-                  className={styles.st2}
-                  x="996.64"
-                  y="755.03"
-                  width="69.71"
-                  height="51.36"
-                />
-                <rect
-                  data-image="Valley Floor 4"
-                  data-tip="valley-floor-4"
-                  ApartmentNum="117"
-                  bedroomCount="1"
-                  apartmentType="Bedroom"
-                  className={styles.st2}
-                  x="1107.16"
-                  y="755.03"
-                  width="76.43"
-                  height="51.36"
-                />
-                <rect
-                  data-image="Valley Floor 4"
-                  data-tip="valley-floor-4"
-                  ApartmentNum="116"
-                  bedroomCount="1"
-                  apartmentType="Bedroom"
-                  className={styles.st2}
-                  x="1205.64"
-                  y="755.03"
-                  width="47.04"
-                  height="51.36"
-                />
-                <rect
-                  data-image="Valley Floor 4"
-                  data-tip="valley-floor-4"
-                  ApartmentNum="115"
-                  bedroomCount="0"
-                  apartmentType="Studio"
-                  className={styles.st2}
-                  x="1252.69"
-                  y="755.03"
-                  width="47.04"
-                  height="51.36"
-                />
-                <rect
-                  data-image="Valley Floor 4"
-                  data-tip="valley-floor-4"
-                  ApartmentNum="114"
-                  bedroomCount="1"
-                  apartmentType="Bedroom"
-                  className={styles.st2}
-                  x="1299.73"
-                  y="755.03"
-                  width="48.19"
-                  height="51.36"
-                />
+            //     <rect
+            //       data-image="Valley Floor 4"
+            //       data-tip="valley-floor-4"
+            //       ApartmentNum="124"
+            //       bedroomCount="2"
+            //       apartmentType="Bedroom"
+            //       className={styles.st2}
+            //       x="446.78"
+            //       y="755.03"
+            //       width="82.09"
+            //       height="51.36"
+            //     />
+            //     <rect
+            //       data-image="Valley Floor 4"
+            //       data-tip="valley-floor-4"
+            //       ApartmentNum="123"
+            //       bedroomCount="2"
+            //       apartmentType="Bedroom"
+            //       className={styles.st2}
+            //       x="528.87"
+            //       y="755.03"
+            //       width="67.72"
+            //       height="51.36"
+            //     />
+            //     <rect
+            //       data-image="Valley Floor 4"
+            //       data-tip="valley-floor-4"
+            //       ApartmentNum="122"
+            //       bedroomCount="2"
+            //       apartmentType="Bedroom"
+            //       className={styles.st2}
+            //       x="625.63"
+            //       y="755.03"
+            //       width="73.84"
+            //       height="51.36"
+            //     />
+            //     <rect
+            //       data-image="Valley Floor 4"
+            //       data-tip="valley-floor-4"
+            //       ApartmentNum="121"
+            //       bedroomCount="2"
+            //       apartmentType="Bedroom"
+            //       className={styles.st2}
+            //       x="732.94"
+            //       y="755.03"
+            //       width="88.66"
+            //       height="51.36"
+            //     />
+            //     <rect
+            //       data-image="Valley Floor 4"
+            //       data-tip="valley-floor-4"
+            //       ApartmentNum="120"
+            //       bedroomCount="2"
+            //       apartmentType="Bedroom"
+            //       className={styles.st2}
+            //       x="854.93"
+            //       y="755.03"
+            //       width="72"
+            //       height="51.36"
+            //     />
+            //     <rect
+            //       data-image="Valley Floor 4"
+            //       data-tip="valley-floor-4"
+            //       ApartmentNum="119"
+            //       bedroomCount="2"
+            //       apartmentType="Bedroom"
+            //       className={styles.st2}
+            //       x="926.93"
+            //       y="755.03"
+            //       width="69.71"
+            //       height="51.36"
+            //     />
+            //     <rect
+            //       data-image="Valley Floor 4"
+            //       data-tip="valley-floor-4"
+            //       ApartmentNum="118"
+            //       bedroomCount="2"
+            //       apartmentType="Bedroom"
+            //       className={styles.st2}
+            //       x="996.64"
+            //       y="755.03"
+            //       width="69.71"
+            //       height="51.36"
+            //     />
+            //     <rect
+            //       data-image="Valley Floor 4"
+            //       data-tip="valley-floor-4"
+            //       ApartmentNum="117"
+            //       bedroomCount="1"
+            //       apartmentType="Bedroom"
+            //       className={styles.st2}
+            //       x="1107.16"
+            //       y="755.03"
+            //       width="76.43"
+            //       height="51.36"
+            //     />
+            //     <rect
+            //       data-image="Valley Floor 4"
+            //       data-tip="valley-floor-4"
+            //       ApartmentNum="116"
+            //       bedroomCount="1"
+            //       apartmentType="Bedroom"
+            //       className={styles.st2}
+            //       x="1205.64"
+            //       y="755.03"
+            //       width="47.04"
+            //       height="51.36"
+            //     />
+            //     <rect
+            //       data-image="Valley Floor 4"
+            //       data-tip="valley-floor-4"
+            //       ApartmentNum="115"
+            //       bedroomCount="0"
+            //       apartmentType="Studio"
+            //       className={styles.st2}
+            //       x="1252.69"
+            //       y="755.03"
+            //       width="47.04"
+            //       height="51.36"
+            //     />
+            //     <rect
+            //       data-image="Valley Floor 4"
+            //       data-tip="valley-floor-4"
+            //       ApartmentNum="114"
+            //       bedroomCount="1"
+            //       apartmentType="Bedroom"
+            //       className={styles.st2}
+            //       x="1299.73"
+            //       y="755.03"
+            //       width="48.19"
+            //       height="51.36"
+            //     />
 
-                <rect
-                  data-image="Valley Floor 5"
-                  data-tip="valley-floor-5"
-                  ApartmentNum="127"
-                  bedroomCount="1"
-                  apartmentType="Bedroom"
-                  className={styles.st2}
-                  x="446.78"
-                  y="814.65"
-                  width="82.09"
-                  height="50.9"
-                />
-                <rect
-                  data-image="Valley Floor 5"
-                  data-tip="valley-floor-5"
-                  ApartmentNum="128"
-                  bedroomCount="2"
-                  apartmentType="Bedroom"
-                  className={styles.st2}
-                  x="528.87"
-                  y="814.65"
-                  width="67.72"
-                  height="50.9"
-                />
-                <rect
-                  data-image="Valley Floor 5"
-                  data-tip="valley-floor-5"
-                  ApartmentNum="129"
-                  bedroomCount="1"
-                  apartmentType="Bedroom"
-                  className={styles.st2}
-                  x="625.63"
-                  y="814.65"
-                  width="73.84"
-                  height="50.9"
-                />
-                <rect
-                  data-image="Valley Floor 5"
-                  data-tip="valley-floor-5"
-                  ApartmentNum="130"
-                  bedroomCount="1"
-                  apartmentType="Bedroom"
-                  className={styles.st2}
-                  x="732.94"
-                  y="814.65"
-                  width="88.66"
-                  height="50.9"
-                />
-                <rect
-                  data-image="Valley Floor 5"
-                  data-tip="valley-floor-5"
-                  ApartmentNum="131"
-                  bedroomCount="1"
-                  apartmentType="Bedroom"
-                  className={styles.st2}
-                  x="854.93"
-                  y="814.65"
-                  width="72"
-                  height="50.9"
-                />
-                <rect
-                  data-image="Valley Floor 5"
-                  data-tip="valley-floor-5"
-                  ApartmentNum="132"
-                  bedroomCount="1"
-                  apartmentType="Bedroom"
-                  className={styles.st2}
-                  x="926.93"
-                  y="814.65"
-                  width="72"
-                  height="50.9"
-                />
-                <rect
-                  data-image="Valley Floor 5"
-                  data-tip="valley-floor-5"
-                  ApartmentNum="133"
-                  bedroomCount="1"
-                  apartmentType="Bedroom"
-                  className={styles.st2}
-                  x="998.93"
-                  y="814.65"
-                  width="67.41"
-                  height="50.9"
-                />
-                <rect
-                  data-image="Valley Floor 5"
-                  data-tip="valley-floor-5"
-                  ApartmentNum="134"
-                  bedroomCount="1"
-                  apartmentType="Bedroom"
-                  className={styles.st2}
-                  x="1107.16"
-                  y="814.65"
-                  width="76.43"
-                  height="50.9"
-                />
+            //     <rect
+            //       data-image="Valley Floor 5"
+            //       data-tip="valley-floor-5"
+            //       ApartmentNum="127"
+            //       bedroomCount="1"
+            //       apartmentType="Bedroom"
+            //       className={styles.st2}
+            //       x="446.78"
+            //       y="814.65"
+            //       width="82.09"
+            //       height="50.9"
+            //     />
+            //     <rect
+            //       data-image="Valley Floor 5"
+            //       data-tip="valley-floor-5"
+            //       ApartmentNum="128"
+            //       bedroomCount="2"
+            //       apartmentType="Bedroom"
+            //       className={styles.st2}
+            //       x="528.87"
+            //       y="814.65"
+            //       width="67.72"
+            //       height="50.9"
+            //     />
+            //     <rect
+            //       data-image="Valley Floor 5"
+            //       data-tip="valley-floor-5"
+            //       ApartmentNum="129"
+            //       bedroomCount="1"
+            //       apartmentType="Bedroom"
+            //       className={styles.st2}
+            //       x="625.63"
+            //       y="814.65"
+            //       width="73.84"
+            //       height="50.9"
+            //     />
+            //     <rect
+            //       data-image="Valley Floor 5"
+            //       data-tip="valley-floor-5"
+            //       ApartmentNum="130"
+            //       bedroomCount="1"
+            //       apartmentType="Bedroom"
+            //       className={styles.st2}
+            //       x="732.94"
+            //       y="814.65"
+            //       width="88.66"
+            //       height="50.9"
+            //     />
+            //     <rect
+            //       data-image="Valley Floor 5"
+            //       data-tip="valley-floor-5"
+            //       ApartmentNum="131"
+            //       bedroomCount="1"
+            //       apartmentType="Bedroom"
+            //       className={styles.st2}
+            //       x="854.93"
+            //       y="814.65"
+            //       width="72"
+            //       height="50.9"
+            //     />
+            //     <rect
+            //       data-image="Valley Floor 5"
+            //       data-tip="valley-floor-5"
+            //       ApartmentNum="132"
+            //       bedroomCount="1"
+            //       apartmentType="Bedroom"
+            //       className={styles.st2}
+            //       x="926.93"
+            //       y="814.65"
+            //       width="72"
+            //       height="50.9"
+            //     />
+            //     <rect
+            //       data-image="Valley Floor 5"
+            //       data-tip="valley-floor-5"
+            //       ApartmentNum="133"
+            //       bedroomCount="1"
+            //       apartmentType="Bedroom"
+            //       className={styles.st2}
+            //       x="998.93"
+            //       y="814.65"
+            //       width="67.41"
+            //       height="50.9"
+            //     />
+            //     <rect
+            //       data-image="Valley Floor 5"
+            //       data-tip="valley-floor-5"
+            //       ApartmentNum="134"
+            //       bedroomCount="1"
+            //       apartmentType="Bedroom"
+            //       className={styles.st2}
+            //       x="1107.16"
+            //       y="814.65"
+            //       width="76.43"
+            //       height="50.9"
+            //     />
 
-                <rect
-                  data-image="Valley Floor 6"
-                  data-tip="valley-floor-6"
-                  ApartmentNum="138"
-                  bedroomCount="0"
-                  apartmentType="Studio"
-                  className={styles.st2}
-                  x="446.78"
-                  y="873.81"
-                  width="82.09"
-                  height="50.9"
-                />
-                <rect
-                  data-image="Valley Floor 6"
-                  data-tip="valley-floor-6"
-                  ApartmentNum="139"
-                  bedroomCount="1"
-                  apartmentType="Bedroom"
-                  className={styles.st2}
-                  x="528.87"
-                  y="873.81"
-                  width="67.72"
-                  height="50.9"
-                />
-                <rect
-                  data-image="Valley Floor 6"
-                  data-tip="valley-floor-6"
-                  ApartmentNum="140"
-                  bedroomCount="1"
-                  apartmentType="Bedroom"
-                  className={styles.st2}
-                  x="625.63"
-                  y="873.81"
-                  width="73.84"
-                  height="50.9"
-                />
-                <rect
-                  data-image="Valley Floor 6"
-                  data-tip="valley-floor-6"
-                  ApartmentNum="141"
-                  bedroomCount="1"
-                  apartmentType="Bedroom"
-                  className={styles.st2}
-                  x="732.94"
-                  y="873.81"
-                  width="88.66"
-                  height="50.9"
-                />
-                <rect
-                  data-image="Valley Floor 6"
-                  data-tip="valley-floor-6"
-                  ApartmentNum="142"
-                  bedroomCount="1"
-                  apartmentType="Bedroom"
-                  className={styles.st2}
-                  x="854.93"
-                  y="873.81"
-                  width="72"
-                  height="50.9"
-                />
-                <rect
-                  data-image="Valley Floor 6"
-                  data-tip="valley-floor-6"
-                  ApartmentNum="143"
-                  bedroomCount="1"
-                  apartmentType="Bedroom"
-                  className={styles.st2}
-                  x="926.93"
-                  y="873.81"
-                  width="72"
-                  height="50.9"
-                />
-                <rect
-                  data-image="Valley Floor 6"
-                  data-tip="valley-floor-6"
-                  ApartmentNum="144"
-                  bedroomCount="1"
-                  apartmentType="Bedroom"
-                  className={styles.st2}
-                  x="998.93"
-                  y="873.81"
-                  width="67.41"
-                  height="50.9"
-                />
-                <rect
-                  data-image="Valley Floor 6"
-                  data-tip="valley-floor-6"
-                  ApartmentNum="145"
-                  bedroomCount="1"
-                  apartmentType="Bedroom"
-                  className={styles.st2}
-                  x="1107.16"
-                  y="873.81"
-                  width="76.43"
-                  height="50.9"
-                />
+            //     <rect
+            //       data-image="Valley Floor 6"
+            //       data-tip="valley-floor-6"
+            //       ApartmentNum="138"
+            //       bedroomCount="0"
+            //       apartmentType="Studio"
+            //       className={styles.st2}
+            //       x="446.78"
+            //       y="873.81"
+            //       width="82.09"
+            //       height="50.9"
+            //     />
+            //     <rect
+            //       data-image="Valley Floor 6"
+            //       data-tip="valley-floor-6"
+            //       ApartmentNum="139"
+            //       bedroomCount="1"
+            //       apartmentType="Bedroom"
+            //       className={styles.st2}
+            //       x="528.87"
+            //       y="873.81"
+            //       width="67.72"
+            //       height="50.9"
+            //     />
+            //     <rect
+            //       data-image="Valley Floor 6"
+            //       data-tip="valley-floor-6"
+            //       ApartmentNum="140"
+            //       bedroomCount="1"
+            //       apartmentType="Bedroom"
+            //       className={styles.st2}
+            //       x="625.63"
+            //       y="873.81"
+            //       width="73.84"
+            //       height="50.9"
+            //     />
+            //     <rect
+            //       data-image="Valley Floor 6"
+            //       data-tip="valley-floor-6"
+            //       ApartmentNum="141"
+            //       bedroomCount="1"
+            //       apartmentType="Bedroom"
+            //       className={styles.st2}
+            //       x="732.94"
+            //       y="873.81"
+            //       width="88.66"
+            //       height="50.9"
+            //     />
+            //     <rect
+            //       data-image="Valley Floor 6"
+            //       data-tip="valley-floor-6"
+            //       ApartmentNum="142"
+            //       bedroomCount="1"
+            //       apartmentType="Bedroom"
+            //       className={styles.st2}
+            //       x="854.93"
+            //       y="873.81"
+            //       width="72"
+            //       height="50.9"
+            //     />
+            //     <rect
+            //       data-image="Valley Floor 6"
+            //       data-tip="valley-floor-6"
+            //       ApartmentNum="143"
+            //       bedroomCount="1"
+            //       apartmentType="Bedroom"
+            //       className={styles.st2}
+            //       x="926.93"
+            //       y="873.81"
+            //       width="72"
+            //       height="50.9"
+            //     />
+            //     <rect
+            //       data-image="Valley Floor 6"
+            //       data-tip="valley-floor-6"
+            //       ApartmentNum="144"
+            //       bedroomCount="1"
+            //       apartmentType="Bedroom"
+            //       className={styles.st2}
+            //       x="998.93"
+            //       y="873.81"
+            //       width="67.41"
+            //       height="50.9"
+            //     />
+            //     <rect
+            //       data-image="Valley Floor 6"
+            //       data-tip="valley-floor-6"
+            //       ApartmentNum="145"
+            //       bedroomCount="1"
+            //       apartmentType="Bedroom"
+            //       className={styles.st2}
+            //       x="1107.16"
+            //       y="873.81"
+            //       width="76.43"
+            //       height="50.9"
+            //     />
 
-                <path
-                  className={styles.st0}
-                  data-image="Valley Floor 2"
-                  data-tip="valley-floor-2"
-                  d="M429.28,635.11v51.06l193.38.15h75.21l123.21,1.44c10.93.13,21.93,1.19,32.86,1.32,34.83.41,69.58-.11,104.41.3H1291l221.43,1.84.38-46.17-176.26-2.44-130.85-.92-98.45-.31-254.06-.92L821,637.36l-87.08-.56-54.72-1.23h-89Z"
-                />
+            //     <path
+            //       className={styles.st0}
+            //       data-image="Valley Floor 2"
+            //       data-tip="valley-floor-2"
+            //       d="M429.28,635.11v51.06l193.38.15h75.21l123.21,1.44c10.93.13,21.93,1.19,32.86,1.32,34.83.41,69.58-.11,104.41.3H1291l221.43,1.84.38-46.17-176.26-2.44-130.85-.92-98.45-.31-254.06-.92L821,637.36l-87.08-.56-54.72-1.23h-89Z"
+            //     />
 
                 
-              </svg>
+            //   </svg>
               ):
 
 
               (
 
-                <svg
-                   ref={svgRef}
-                   version="1.1"
-                   id={styles.masker}
-                   xmlns="http://www.w3.org/2000/svg"
-                   xmlnsXlink="http://www.w3.org/1999/xlink"
-                   x="0px"
-                   y="0px"
-                   viewBox="0 0 1920 1080"
-                   xmlSpace="preserve"
-                   onMouseEnter={() =>setSvgHover(true)}
-                   onMouseLeave={() =>setSvgHover(false)}
+                <FrontViewSvgs svgRef={svgRef} setSvgHover={setSvgHover} />
+
+                // <svg
+                //    ref={svgRef}
+                //    version="1.1"
+                //    id={styles.masker}
+                //    xmlns="http://www.w3.org/2000/svg"
+                //    xmlnsXlink="http://www.w3.org/1999/xlink"
+                //    x="0px"
+                //    y="0px"
+                //    viewBox="0 0 1920 1080"
+                //    xmlSpace="preserve"
+                //    onMouseEnter={() =>setSvgHover(true)}
+                //    onMouseLeave={() =>setSvgHover(false)}
    
-                 >
-                   <polygon
-                     data-image="Third Floor"
-                     data-tip="third-floor"
-                     ApartmentNum="10"
-                     bedroomCount="2"
-                     apartmentType="Penthouse"
-                     className={styles.st2}
-                     points="446.78 393.2 591.57 298.53 589.86 396.41 446.78 396.41 446.78 393.2"
-                   />
-                   <polygon
-                     data-image="Third Floor"
-                     data-tip="third-floor"
-                     ApartmentNum="9"
-                     bedroomCount="2"
-                     apartmentType="Penthouse"
-                     className={styles.st2}
-                     points="619.67 303.31 693.04 256.08 695.34 382.19 619.67 382.19 619.67 303.31"
-                   />
-                   <rect
-                     data-image="Third Floor"
-                     data-tip="third-floor"
-                     ApartmentNum="8"
-                     bedroomCount="3"
-                     apartmentType="Penthouse"
-                     className={styles.st2}
-                     x="854.93"
-                     y="361.55"
-                     width="110.52"
-                     height="45.86"
-                   />
-                   <rect
-                     data-image="Third Floor"
-                     data-tip="third-floor"
-                     ApartmentNum="7"
-                     bedroomCount="3"
-                     apartmentType="Penthouse"
-                     className={styles.st2}
-                     x="965.45"
-                     y="361.55"
-                     width="100.89"
-                     height="45.86"
-                   />
-                   <polygon
-                     data-image="Third Floor"
-                     data-tip="third-floor"
-                     ApartmentNum="6"
-                     bedroomCount="3"
-                     apartmentType="Penthouse"
-                     className={styles.st2}
-                     points="1207.59 296.89 1207.59 409.25 1347.92 409.25 1347.92 384.48 1207.59 296.89"
-                   />
+                //  >
+                //    <polygon
+                //      data-image="Third Floor"
+                //      data-tip="third-floor"
+                //      ApartmentNum="10"
+                //      bedroomCount="2"
+                //      apartmentType="Penthouse"
+                //      className={styles.st2}
+                //      points="446.78 393.2 591.57 298.53 589.86 396.41 446.78 396.41 446.78 393.2"
+                //    />
+                //    <polygon
+                //      data-image="Third Floor"
+                //      data-tip="third-floor"
+                //      ApartmentNum="9"
+                //      bedroomCount="2"
+                //      apartmentType="Penthouse"
+                //      className={styles.st2}
+                //      points="619.67 303.31 693.04 256.08 695.34 382.19 619.67 382.19 619.67 303.31"
+                //    />
+                //    <rect
+                //      data-image="Third Floor"
+                //      data-tip="third-floor"
+                //      ApartmentNum="8"
+                //      bedroomCount="3"
+                //      apartmentType="Penthouse"
+                //      className={styles.st2}
+                //      x="854.93"
+                //      y="361.55"
+                //      width="110.52"
+                //      height="45.86"
+                //    />
+                //    <rect
+                //      data-image="Third Floor"
+                //      data-tip="third-floor"
+                //      ApartmentNum="7"
+                //      bedroomCount="3"
+                //      apartmentType="Penthouse"
+                //      className={styles.st2}
+                //      x="965.45"
+                //      y="361.55"
+                //      width="100.89"
+                //      height="45.86"
+                //    />
+                //    <polygon
+                //      data-image="Third Floor"
+                //      data-tip="third-floor"
+                //      ApartmentNum="6"
+                //      bedroomCount="3"
+                //      apartmentType="Penthouse"
+                //      className={styles.st2}
+                //      points="1207.59 296.89 1207.59 409.25 1347.92 409.25 1347.92 384.48 1207.59 296.89"
+                //    />
    
-                   <polygon
-                     data-image="Second Floor"
-                     data-tip="second-floor"
-                     ApartmentNum="28"
-                     bedroomCount="2"
-                     apartmentType="Penthouse"
-                     className={styles.st2}
-                     points="446.78 407.41 446.78 456.25 528.87 456.25 528.87 404.66 446.78 404.66 446.78 407.41"
-                   />
-                   <rect
-                     data-image="Second Floor"
-                     data-tip="second-floor"
-                     ApartmentNum="27"
-                     bedroomCount="2"
-                     apartmentType="Bedroom"
-                     className={styles.st2}
-                     x="528.87"
-                     y="404.66"
-                     width="62.7"
-                     height="51.59"
-                   />
-                   <polygon
-                     data-image="Second Floor"
-                     data-tip="second-floor"
-                     ApartmentNum="26"
-                     bedroomCount="2"
-                     apartmentType="Bedroom"
-                     className={styles.st2}
-                     points="626.78 398.93 626.78 443.87 695.34 443.87 695.34 398.01 626.78 398.93"
-                   />
-                   <rect
-                     data-image="Second Floor"
-                     data-tip="second-floor"
-                     ApartmentNum="25"
-                     bedroomCount="3"
-                     apartmentType="Bedroom"
-                     className={styles.st2}
-                     x="854.93"
-                     y="411.08"
-                     width="110.52"
-                     height="49.22"
-                   />
-                   <rect
-                     data-image="Second Floor"
-                     data-tip="second-floor"
-                     ApartmentNum="24"
-                     bedroomCount="3"
-                     apartmentType="Bedroom"
-                     className={styles.st2}
-                     x="965.45"
-                     y="411.08"
-                     width="100.89"
-                     height="49.22"
-                   />
-                   <polygon
-                     data-image="Second Floor"
-                     data-tip="second-floor"
-                     ApartmentNum="23"
-                     bedroomCount="1"
-                     apartmentType="Bedroom"
-                     className={styles.st2}
-                     points="1207.59 416.59 1285.1 416.59 1285.1 465.5 1206.52 465.5 1207.59 416.59"
-                   />
-                   <rect
-                     data-image="Second Floor"
-                     data-tip="second-floor"
-                     ApartmentNum="22"
-                     bedroomCount="1"
-                     apartmentType="Bedroom"
-                     className={styles.st2}
-                     x="1285.1"
-                     y="416.59"
-                     width="62.83"
-                     height="48.92"
-                   />
-                   <polygon
-                     data-image="Second Floor"
-                     data-tip="second-floor"
-                     ApartmentNum="21"
-                     bedroomCount="1"
-                     apartmentType="Bedroom"
-                     className={styles.st2}
-                     points="1365.2 397.32 1365.2 473.76 1408.61 473.76 1408.61 424.23 1365.2 397.32"
-                   />
-                   <polygon
-                     data-image="Second Floor"
-                     data-tip="second-floor"
-                     ApartmentNum="20"
-                     bedroomCount="1"
-                     apartmentType="Penthouse"
-                     className={styles.st2}
-                     points="1487.49 473.76 1408.61 473.76 1408.61 424.23 1487.49 473.76"
-                   />
+                //    <polygon
+                //      data-image="Second Floor"
+                //      data-tip="second-floor"
+                //      ApartmentNum="28"
+                //      bedroomCount="2"
+                //      apartmentType="Penthouse"
+                //      className={styles.st2}
+                //      points="446.78 407.41 446.78 456.25 528.87 456.25 528.87 404.66 446.78 404.66 446.78 407.41"
+                //    />
+                //    <rect
+                //      data-image="Second Floor"
+                //      data-tip="second-floor"
+                //      ApartmentNum="27"
+                //      bedroomCount="2"
+                //      apartmentType="Bedroom"
+                //      className={styles.st2}
+                //      x="528.87"
+                //      y="404.66"
+                //      width="62.7"
+                //      height="51.59"
+                //    />
+                //    <polygon
+                //      data-image="Second Floor"
+                //      data-tip="second-floor"
+                //      ApartmentNum="26"
+                //      bedroomCount="2"
+                //      apartmentType="Bedroom"
+                //      className={styles.st2}
+                //      points="626.78 398.93 626.78 443.87 695.34 443.87 695.34 398.01 626.78 398.93"
+                //    />
+                //    <rect
+                //      data-image="Second Floor"
+                //      data-tip="second-floor"
+                //      ApartmentNum="25"
+                //      bedroomCount="3"
+                //      apartmentType="Bedroom"
+                //      className={styles.st2}
+                //      x="854.93"
+                //      y="411.08"
+                //      width="110.52"
+                //      height="49.22"
+                //    />
+                //    <rect
+                //      data-image="Second Floor"
+                //      data-tip="second-floor"
+                //      ApartmentNum="24"
+                //      bedroomCount="3"
+                //      apartmentType="Bedroom"
+                //      className={styles.st2}
+                //      x="965.45"
+                //      y="411.08"
+                //      width="100.89"
+                //      height="49.22"
+                //    />
+                //    <polygon
+                //      data-image="Second Floor"
+                //      data-tip="second-floor"
+                //      ApartmentNum="23"
+                //      bedroomCount="1"
+                //      apartmentType="Bedroom"
+                //      className={styles.st2}
+                //      points="1207.59 416.59 1285.1 416.59 1285.1 465.5 1206.52 465.5 1207.59 416.59"
+                //    />
+                //    <rect
+                //      data-image="Second Floor"
+                //      data-tip="second-floor"
+                //      ApartmentNum="22"
+                //      bedroomCount="1"
+                //      apartmentType="Bedroom"
+                //      className={styles.st2}
+                //      x="1285.1"
+                //      y="416.59"
+                //      width="62.83"
+                //      height="48.92"
+                //    />
+                //    <polygon
+                //      data-image="Second Floor"
+                //      data-tip="second-floor"
+                //      ApartmentNum="21"
+                //      bedroomCount="1"
+                //      apartmentType="Bedroom"
+                //      className={styles.st2}
+                //      points="1365.2 397.32 1365.2 473.76 1408.61 473.76 1408.61 424.23 1365.2 397.32"
+                //    />
+                //    <polygon
+                //      data-image="Second Floor"
+                //      data-tip="second-floor"
+                //      ApartmentNum="20"
+                //      bedroomCount="1"
+                //      apartmentType="Penthouse"
+                //      className={styles.st2}
+                //      points="1487.49 473.76 1408.61 473.76 1408.61 424.23 1487.49 473.76"
+                //    />
    
-                   <rect
-                     data-image="First Floor"
-                     data-tip="first-floor"
-                     ApartmentNum="44"
-                     bedroomCount="2"
-                     apartmentType="Bedroom"
-                     className={styles.st2}
-                     x="446.78"
-                     y="463.67"
-                     width="82.09"
-                     height="51.97"
-                   />
-                   <rect
-                     data-image="First Floor"
-                     data-tip="first-floor"
-                     ApartmentNum="43"
-                     bedroomCount="2"
-                     apartmentType="Bedroom"
-                     className={styles.st2}
-                     x="528.87"
-                     y="463.67"
-                     width="64.36"
-                     height="51.97"
-                   />
-                   <rect
-                     data-image="First Floor"
-                     data-tip="first-floor"
-                     ApartmentNum="42"
-                     bedroomCount="2"
-                     apartmentType="Bedroom"
-                     className={styles.st2}
-                     x="626.78"
-                     y="457.86"
-                     width="68.56"
-                     height="47.46"
-                   />
-                   <rect
-                     data-image="First Floor"
-                     data-tip="first-floor"
-                     ApartmentNum="41"
-                     bedroomCount="3"
-                     apartmentType="Bedroom"
-                     className={styles.st2}
-                     x="854.93"
-                     y="468.64"
-                     width="110.52"
-                     height="47.01"
-                   />
-                   <rect
-                     data-image="First Floor"
-                     data-tip="first-floor"
-                     ApartmentNum="40"
-                     bedroomCount="3"
-                     apartmentType="Bedroom"
-                     className={styles.st2}
-                     x="965.45"
-                     y="468.64"
-                     width="100.89"
-                     height="47.01"
-                   />
-                   <rect
-                     data-image="First Floor"
-                     data-tip="first-floor"
-                     ApartmentNum="39"
-                     bedroomCount="1"
-                     apartmentType="Bedroom"
-                     className={styles.st2}
-                     x="1206.52"
-                     y="473.76"
-                     width="78.57"
-                     height="48"
-                   />
-                   <rect
-                     data-image="First Floor"
-                     data-tip="first-floor"
-                     ApartmentNum="38"
-                     bedroomCount="1"
-                     apartmentType="Bedroom"
-                     className={styles.st2}
-                     x="1285.1"
-                     y="473.76"
-                     width="62.83"
-                     height="48"
-                   />
-                   <rect
-                     data-image="First Floor"
-                     data-tip="first-floor"
-                     ApartmentNum="37"
-                     bedroomCount="1"
-                     apartmentType="Bedroom"
-                     className={styles.st2}
-                     x="1363.97"
-                     y="481.1"
-                     width="57.78"
-                     height="40.66"
-                   />
-                   <rect
-                     data-image="First Floor"
-                     data-tip="first-floor"
-                     ApartmentNum="36"
-                     bedroomCount="1"
-                     apartmentType="Bedroom"
-                     className={styles.st2}
-                     x="1421.76"
-                     y="481.1"
-                     width="74.9"
-                     height="40.66"
-                   />
+                //    <rect
+                //      data-image="First Floor"
+                //      data-tip="first-floor"
+                //      ApartmentNum="44"
+                //      bedroomCount="2"
+                //      apartmentType="Bedroom"
+                //      className={styles.st2}
+                //      x="446.78"
+                //      y="463.67"
+                //      width="82.09"
+                //      height="51.97"
+                //    />
+                //    <rect
+                //      data-image="First Floor"
+                //      data-tip="first-floor"
+                //      ApartmentNum="43"
+                //      bedroomCount="2"
+                //      apartmentType="Bedroom"
+                //      className={styles.st2}
+                //      x="528.87"
+                //      y="463.67"
+                //      width="64.36"
+                //      height="51.97"
+                //    />
+                //    <rect
+                //      data-image="First Floor"
+                //      data-tip="first-floor"
+                //      ApartmentNum="42"
+                //      bedroomCount="2"
+                //      apartmentType="Bedroom"
+                //      className={styles.st2}
+                //      x="626.78"
+                //      y="457.86"
+                //      width="68.56"
+                //      height="47.46"
+                //    />
+                //    <rect
+                //      data-image="First Floor"
+                //      data-tip="first-floor"
+                //      ApartmentNum="41"
+                //      bedroomCount="3"
+                //      apartmentType="Bedroom"
+                //      className={styles.st2}
+                //      x="854.93"
+                //      y="468.64"
+                //      width="110.52"
+                //      height="47.01"
+                //    />
+                //    <rect
+                //      data-image="First Floor"
+                //      data-tip="first-floor"
+                //      ApartmentNum="40"
+                //      bedroomCount="3"
+                //      apartmentType="Bedroom"
+                //      className={styles.st2}
+                //      x="965.45"
+                //      y="468.64"
+                //      width="100.89"
+                //      height="47.01"
+                //    />
+                //    <rect
+                //      data-image="First Floor"
+                //      data-tip="first-floor"
+                //      ApartmentNum="39"
+                //      bedroomCount="1"
+                //      apartmentType="Bedroom"
+                //      className={styles.st2}
+                //      x="1206.52"
+                //      y="473.76"
+                //      width="78.57"
+                //      height="48"
+                //    />
+                //    <rect
+                //      data-image="First Floor"
+                //      data-tip="first-floor"
+                //      ApartmentNum="38"
+                //      bedroomCount="1"
+                //      apartmentType="Bedroom"
+                //      className={styles.st2}
+                //      x="1285.1"
+                //      y="473.76"
+                //      width="62.83"
+                //      height="48"
+                //    />
+                //    <rect
+                //      data-image="First Floor"
+                //      data-tip="first-floor"
+                //      ApartmentNum="37"
+                //      bedroomCount="1"
+                //      apartmentType="Bedroom"
+                //      className={styles.st2}
+                //      x="1363.97"
+                //      y="481.1"
+                //      width="57.78"
+                //      height="40.66"
+                //    />
+                //    <rect
+                //      data-image="First Floor"
+                //      data-tip="first-floor"
+                //      ApartmentNum="36"
+                //      bedroomCount="1"
+                //      apartmentType="Bedroom"
+                //      className={styles.st2}
+                //      x="1421.76"
+                //      y="481.1"
+                //      width="74.9"
+                //      height="40.66"
+                //    />
                    
    
-                   <rect
-                     data-image="Ground Floor"
-                     data-tip="ground-floor"
-                     ApartmentNum="59"
-                     bedroomCount="2"
-                     apartmentType="Bedroom"
-                     className={styles.st2}
-                     x="446.78"
-                     y="521.15"
-                     width="82.09"
-                     height="45.86"
-                   />
-                   <rect
-                     data-image="Ground Floor"
-                     data-tip="ground-floor"
-                     ApartmentNum="58"
-                     bedroomCount="2"
-                     apartmentType="Bedroom"
-                     className={styles.st2}
-                     x="528.87"
-                     y="521.15"
-                     width="64.36"
-                     height="45.86"
-                   />
-                   <path
-                     data-image="Ground Floor"
-                     data-tip="ground-floor"
-                     ApartmentNum="57"
-                     bedroomCount="2"
-                     apartmentType="Bedroom"
-                     className={styles.st2}
-                     d="M625.63,517.25h70.62V567H625.63C626.32,567,625.63,517.25,625.63,517.25Z"
-                   />
-                   <rect
-                     data-image="Ground Floor"
-                     data-tip="ground-floor"
-                     ApartmentNum="56"
-                     bedroomCount="3"
-                     apartmentType="Bedroom"
-                     className={styles.st2}
-                     x="854.93"
-                     y="526.19"
-                     width="110.52"
-                     height="48.15"
-                   />
-                   <rect
-                     data-image="Ground Floor"
-                     data-tip="ground-floor"
-                     ApartmentNum="55"
-                     bedroomCount="3"
-                     apartmentType="Bedroom"
-                     className={styles.st2}
-                     x="965.45"
-                     y="526.19"
-                     width="100.89"
-                     height="48.15"
-                   />
-                   <rect
-                     data-image="Ground Floor"
-                     data-tip="ground-floor"
-                     ApartmentNum="54"
-                     bedroomCount="1"
-                     apartmentType="Bedroom"
-                     className={styles.st2}
-                     x="1206.52"
-                     y="528.48"
-                     width="78.57"
-                     height="49.53"
-                   />
-                   <rect
-                     data-image="Ground Floor"
-                     data-tip="ground-floor"
-                     ApartmentNum="53"
-                     bedroomCount="1"
-                     apartmentType="Bedroom"
-                     className={styles.st2}
-                     x="1285.1"
-                     y="528.48"
-                     width="62.83"
-                     height="49.53"
-                   />
-                   <rect
-                     data-image="Ground Floor"
-                     data-tip="ground-floor"
-                     ApartmentNum="52"
-                     bedroomCount="1"
-                     apartmentType="Bedroom"
-                     className={styles.st2}
-                     x="1363.97"
-                     y="536.28"
-                     width="63.06"
-                     height="46.32"
-                   />
-                   <rect
-                     data-image="Ground Floor"
-                     data-tip="ground-floor"
-                     ApartmentNum="51"
-                     bedroomCount="1"
-                     apartmentType="Bedroom"
-                     className={styles.st2}
-                     x="1427.03"
-                     y="536.28"
-                     width="69.63"
-                     height="46.32"
-                   />
+                //    <rect
+                //      data-image="Ground Floor"
+                //      data-tip="ground-floor"
+                //      ApartmentNum="59"
+                //      bedroomCount="2"
+                //      apartmentType="Bedroom"
+                //      className={styles.st2}
+                //      x="446.78"
+                //      y="521.15"
+                //      width="82.09"
+                //      height="45.86"
+                //    />
+                //    <rect
+                //      data-image="Ground Floor"
+                //      data-tip="ground-floor"
+                //      ApartmentNum="58"
+                //      bedroomCount="2"
+                //      apartmentType="Bedroom"
+                //      className={styles.st2}
+                //      x="528.87"
+                //      y="521.15"
+                //      width="64.36"
+                //      height="45.86"
+                //    />
+                //    <path
+                //      data-image="Ground Floor"
+                //      data-tip="ground-floor"
+                //      ApartmentNum="57"
+                //      bedroomCount="2"
+                //      apartmentType="Bedroom"
+                //      className={styles.st2}
+                //      d="M625.63,517.25h70.62V567H625.63C626.32,567,625.63,517.25,625.63,517.25Z"
+                //    />
+                //    <rect
+                //      data-image="Ground Floor"
+                //      data-tip="ground-floor"
+                //      ApartmentNum="56"
+                //      bedroomCount="3"
+                //      apartmentType="Bedroom"
+                //      className={styles.st2}
+                //      x="854.93"
+                //      y="526.19"
+                //      width="110.52"
+                //      height="48.15"
+                //    />
+                //    <rect
+                //      data-image="Ground Floor"
+                //      data-tip="ground-floor"
+                //      ApartmentNum="55"
+                //      bedroomCount="3"
+                //      apartmentType="Bedroom"
+                //      className={styles.st2}
+                //      x="965.45"
+                //      y="526.19"
+                //      width="100.89"
+                //      height="48.15"
+                //    />
+                //    <rect
+                //      data-image="Ground Floor"
+                //      data-tip="ground-floor"
+                //      ApartmentNum="54"
+                //      bedroomCount="1"
+                //      apartmentType="Bedroom"
+                //      className={styles.st2}
+                //      x="1206.52"
+                //      y="528.48"
+                //      width="78.57"
+                //      height="49.53"
+                //    />
+                //    <rect
+                //      data-image="Ground Floor"
+                //      data-tip="ground-floor"
+                //      ApartmentNum="53"
+                //      bedroomCount="1"
+                //      apartmentType="Bedroom"
+                //      className={styles.st2}
+                //      x="1285.1"
+                //      y="528.48"
+                //      width="62.83"
+                //      height="49.53"
+                //    />
+                //    <rect
+                //      data-image="Ground Floor"
+                //      data-tip="ground-floor"
+                //      ApartmentNum="52"
+                //      bedroomCount="1"
+                //      apartmentType="Bedroom"
+                //      className={styles.st2}
+                //      x="1363.97"
+                //      y="536.28"
+                //      width="63.06"
+                //      height="46.32"
+                //    />
+                //    <rect
+                //      data-image="Ground Floor"
+                //      data-tip="ground-floor"
+                //      ApartmentNum="51"
+                //      bedroomCount="1"
+                //      apartmentType="Bedroom"
+                //      className={styles.st2}
+                //      x="1427.03"
+                //      y="536.28"
+                //      width="69.63"
+                //      height="46.32"
+                //    />
    
-                   <rect
-                     data-image="Valley Floor 1"
-                     data-tip="valley-floor-1"
-                     ApartmentNum="81"
-                     bedroomCount="2"
-                     apartmentType="Bedroom"
-                     className={styles.st2}
-                     x="446.78"
-                     y="575.26"
-                     width="82.09"
-                     height="50.75"
-                   />
-                   <rect
-                     data-image="Valley Floor 1"
-                     data-tip="valley-floor-1"
-                     ApartmentNum="80"
-                     bedroomCount="2"
-                     apartmentType="Bedroom"
-                     className={styles.st2}
-                     x="528.87"
-                     y="575.26"
-                     width="65.89"
-                     height="50.75"
-                   />
-                   <rect
-                     data-image="Valley Floor 1"
-                     data-tip="valley-floor-1"
-                     ApartmentNum="79"
-                     bedroomCount="2"
-                     apartmentType="Bedroom"
-                     className={styles.st2}
-                     x="625.63"
-                     y="575.26"
-                     width="70.63"
-                     height="50.75"
-                   />
-                   <rect
-                     data-image="Valley Floor 1"
-                     data-tip="valley-floor-1"
-                     ApartmentNum="78"
-                     bedroomCount="2"
-                     apartmentType="Bedroom"
-                     className={styles.st2}
-                     x="732.94"
-                     y="575.26"
-                     width="88.66"
-                     height="50.75"
-                   />
-                   <rect
-                     data-image="Valley Floor 1"
-                     data-tip="valley-floor-1"
-                     ApartmentNum="77"
-                     bedroomCount="2"
-                     apartmentType="Bedroom"
-                     className={styles.st2}
-                     x="854.93"
-                     y="584.74"
-                     width="88.66"
-                     height="48.31"
-                   />
-                   <rect
-                     data-image="Valley Floor 1"
-                     data-tip="valley-floor-1"
-                     ApartmentNum="76"
-                     bedroomCount="2"
-                     apartmentType="Bedroom"
-                     className={styles.st2}
-                     x="977.53"
-                     y="584.74"
-                     width="88.82"
-                     height="48.31"
-                   />
-                   <rect
-                     data-image="Valley Floor 1"
-                     data-tip="valley-floor-1"
-                     ApartmentNum="75"
-                     bedroomCount="2"
-                     apartmentType="Bedroom"
-                     className={styles.st2}
-                     x="1107.16"
-                     y="584.74"
-                     width="76.43"
-                     height="48.31"
-                   />
-                   <rect
-                     data-image="Valley Floor 1"
-                     data-tip="valley-floor-1"
-                     ApartmentNum="74"
-                     bedroomCount="1"
-                     apartmentType="Bedroom"
-                     className={styles.st2}
-                     x="1205.64"
-                     y="584.74"
-                     width="73.95"
-                     height="48.31"
-                   />
-                   <rect
-                     data-image="Valley Floor 1"
-                     data-tip="valley-floor-1"
-                     ApartmentNum="73"
-                     bedroomCount="1"
-                     apartmentType="Bedroom"
-                     className={styles.st2}
-                     x="1279.59"
-                     y="584.74"
-                     width="68.33"
-                     height="48.31"
-                   />
-                   <polygon
-                     data-image="Valley Floor 1"
-                     data-tip="valley-floor-1"
-                     ApartmentNum="72"
-                     bedroomCount="1"
-                     apartmentType="Bedroom"
-                     className={styles.st2}
-                     points="1362.97 588.41 1364.04 633.04 1431.39 633.04 1431.39 588.41 1362.97 588.41"
-                   />
-                   <rect
-                     data-image="Valley Floor 1"
-                     data-tip="valley-floor-1"
-                     ApartmentNum="71"
-                     bedroomCount="1"
-                     apartmentType="Bedroom"
-                     className={styles.st2}
-                     x="1431.39"
-                     y="588.41"
-                     width="65.27"
-                     height="44.64"
-                   />
+                //    <rect
+                //      data-image="Valley Floor 1"
+                //      data-tip="valley-floor-1"
+                //      ApartmentNum="81"
+                //      bedroomCount="2"
+                //      apartmentType="Bedroom"
+                //      className={styles.st2}
+                //      x="446.78"
+                //      y="575.26"
+                //      width="82.09"
+                //      height="50.75"
+                //    />
+                //    <rect
+                //      data-image="Valley Floor 1"
+                //      data-tip="valley-floor-1"
+                //      ApartmentNum="80"
+                //      bedroomCount="2"
+                //      apartmentType="Bedroom"
+                //      className={styles.st2}
+                //      x="528.87"
+                //      y="575.26"
+                //      width="65.89"
+                //      height="50.75"
+                //    />
+                //    <rect
+                //      data-image="Valley Floor 1"
+                //      data-tip="valley-floor-1"
+                //      ApartmentNum="79"
+                //      bedroomCount="2"
+                //      apartmentType="Bedroom"
+                //      className={styles.st2}
+                //      x="625.63"
+                //      y="575.26"
+                //      width="70.63"
+                //      height="50.75"
+                //    />
+                //    <rect
+                //      data-image="Valley Floor 1"
+                //      data-tip="valley-floor-1"
+                //      ApartmentNum="78"
+                //      bedroomCount="2"
+                //      apartmentType="Bedroom"
+                //      className={styles.st2}
+                //      x="732.94"
+                //      y="575.26"
+                //      width="88.66"
+                //      height="50.75"
+                //    />
+                //    <rect
+                //      data-image="Valley Floor 1"
+                //      data-tip="valley-floor-1"
+                //      ApartmentNum="77"
+                //      bedroomCount="2"
+                //      apartmentType="Bedroom"
+                //      className={styles.st2}
+                //      x="854.93"
+                //      y="584.74"
+                //      width="88.66"
+                //      height="48.31"
+                //    />
+                //    <rect
+                //      data-image="Valley Floor 1"
+                //      data-tip="valley-floor-1"
+                //      ApartmentNum="76"
+                //      bedroomCount="2"
+                //      apartmentType="Bedroom"
+                //      className={styles.st2}
+                //      x="977.53"
+                //      y="584.74"
+                //      width="88.82"
+                //      height="48.31"
+                //    />
+                //    <rect
+                //      data-image="Valley Floor 1"
+                //      data-tip="valley-floor-1"
+                //      ApartmentNum="75"
+                //      bedroomCount="2"
+                //      apartmentType="Bedroom"
+                //      className={styles.st2}
+                //      x="1107.16"
+                //      y="584.74"
+                //      width="76.43"
+                //      height="48.31"
+                //    />
+                //    <rect
+                //      data-image="Valley Floor 1"
+                //      data-tip="valley-floor-1"
+                //      ApartmentNum="74"
+                //      bedroomCount="1"
+                //      apartmentType="Bedroom"
+                //      className={styles.st2}
+                //      x="1205.64"
+                //      y="584.74"
+                //      width="73.95"
+                //      height="48.31"
+                //    />
+                //    <rect
+                //      data-image="Valley Floor 1"
+                //      data-tip="valley-floor-1"
+                //      ApartmentNum="73"
+                //      bedroomCount="1"
+                //      apartmentType="Bedroom"
+                //      className={styles.st2}
+                //      x="1279.59"
+                //      y="584.74"
+                //      width="68.33"
+                //      height="48.31"
+                //    />
+                //    <polygon
+                //      data-image="Valley Floor 1"
+                //      data-tip="valley-floor-1"
+                //      ApartmentNum="72"
+                //      bedroomCount="1"
+                //      apartmentType="Bedroom"
+                //      className={styles.st2}
+                //      points="1362.97 588.41 1364.04 633.04 1431.39 633.04 1431.39 588.41 1362.97 588.41"
+                //    />
+                //    <rect
+                //      data-image="Valley Floor 1"
+                //      data-tip="valley-floor-1"
+                //      ApartmentNum="71"
+                //      bedroomCount="1"
+                //      apartmentType="Bedroom"
+                //      className={styles.st2}
+                //      x="1431.39"
+                //      y="588.41"
+                //      width="65.27"
+                //      height="44.64"
+                //    />
    
-                   <rect
-                     data-image="Valley Floor 3"
-                     data-tip="valley-floor-3"
-                     ApartmentNum="105"
-                     bedroomCount="2"
-                     apartmentType="Bedroom"
-                     className={styles.st2}
-                     x="446.78"
-                     y="694.96"
-                     width="82.09"
-                     height="50.9"
-                   />
-                   <rect
-                     data-image="Valley Floor 3"
-                     data-tip="valley-floor-3"
-                     ApartmentNum="104"
-                     bedroomCount="2"
-                     apartmentType="Bedroom"
-                     className={styles.st2}
-                     x="528.87"
-                     y="694.96"
-                     width="65.89"
-                     height="50.9"
-                   />
-                   <rect
-                     data-image="Valley Floor 3"
-                     data-tip="valley-floor-3"
-                     ApartmentNum="103"
-                     bedroomCount="2"
-                     apartmentType="Bedroom"
-                     className={styles.st2}
-                     x="625.63"
-                     y="694.96"
-                     width="73.84"
-                     height="50.9"
-                   />
-                   <rect
-                     data-image="Valley Floor 3"
-                     data-tip="valley-floor-3"
-                     ApartmentNum="102"
-                     bedroomCount="2"
-                     apartmentType="Bedroom"
-                     className={styles.st2}
-                     x="732.94"
-                     y="694.96"
-                     width="88.66"
-                     height="50.9"
-                   />
-                   <rect
-                     data-image="Valley Floor 3"
-                     data-tip="valley-floor-3"
-                     ApartmentNum="101"
-                     bedroomCount="2"
-                     apartmentType="Bedroom"
-                     className={styles.st2}
-                     x="997.1"
-                     y="694.96"
-                     width="69.25"
-                     height="50.9"
-                   />
-                   <rect
-                     data-image="Valley Floor 3"
-                     data-tip="valley-floor-3"
-                     ApartmentNum="100"
-                     bedroomCount="2"
-                     apartmentType="Bedroom"
-                     className={styles.st2}
-                     x="926.93"
-                     y="694.96"
-                     width="70.17"
-                     height="50.9"
-                   />
-                   <rect
-                     data-image="Valley Floor 3"
-                     data-tip="valley-floor-3"
-                     ApartmentNum="99"
-                     bedroomCount="2"
-                     apartmentType="Bedroom"
-                     className={styles.st2}
-                     x="854.93"
-                     y="694.96"
-                     width="72"
-                     height="50.9"
-                   />
-                   <rect
-                     data-image="Valley Floor 3"
-                     data-tip="valley-floor-3"
-                     ApartmentNum="98"
-                     bedroomCount="1"
-                     apartmentType="Bedroom"
-                     className={styles.st2}
-                     x="1107.16"
-                     y="694.96"
-                     width="76.43"
-                     height="50.9"
-                   />
-                   <rect
-                     data-image="Valley Floor 3"
-                     data-tip="valley-floor-3"
-                     ApartmentNum="97"
-                     bedroomCount="1"
-                     apartmentType="Bedroom"
-                     className={styles.st2}
-                     x="1205.64"
-                     y="694.96"
-                     width="73.95"
-                     height="50.9"
-                   />
-                   <rect
-                     data-image="Valley Floor 3"
-                     data-tip="valley-floor-3"
-                     ApartmentNum="96"
-                     bedroomCount="1"
-                     apartmentType="Bedroom"
-                     className={styles.st2}
-                     x="1279.59"
-                     y="694.96"
-                     width="68.33"
-                     height="50.9"
-                   />
-                   <rect
-                     data-image="Valley Floor 3"
-                     data-tip="valley-floor-3"
-                     ApartmentNum="95"
-                     bedroomCount="1"
-                     apartmentType="Bedroom"
-                     className={styles.st2}
-                     x="1363.97"
-                     y="694.96"
-                     width="67.41"
-                     height="50.9"
-                   />
-                   <rect
-                     data-image="Valley Floor 3"
-                     data-tip="valley-floor-3"
-                     ApartmentNum="94"
-                     bedroomCount="1"
-                     apartmentType="Bedroom"
-                     className={styles.st2}
-                     x="1431.39"
-                     y="694.96"
-                     width="65.27"
-                     height="50.9"
-                   />
+                //    <rect
+                //      data-image="Valley Floor 3"
+                //      data-tip="valley-floor-3"
+                //      ApartmentNum="105"
+                //      bedroomCount="2"
+                //      apartmentType="Bedroom"
+                //      className={styles.st2}
+                //      x="446.78"
+                //      y="694.96"
+                //      width="82.09"
+                //      height="50.9"
+                //    />
+                //    <rect
+                //      data-image="Valley Floor 3"
+                //      data-tip="valley-floor-3"
+                //      ApartmentNum="104"
+                //      bedroomCount="2"
+                //      apartmentType="Bedroom"
+                //      className={styles.st2}
+                //      x="528.87"
+                //      y="694.96"
+                //      width="65.89"
+                //      height="50.9"
+                //    />
+                //    <rect
+                //      data-image="Valley Floor 3"
+                //      data-tip="valley-floor-3"
+                //      ApartmentNum="103"
+                //      bedroomCount="2"
+                //      apartmentType="Bedroom"
+                //      className={styles.st2}
+                //      x="625.63"
+                //      y="694.96"
+                //      width="73.84"
+                //      height="50.9"
+                //    />
+                //    <rect
+                //      data-image="Valley Floor 3"
+                //      data-tip="valley-floor-3"
+                //      ApartmentNum="102"
+                //      bedroomCount="2"
+                //      apartmentType="Bedroom"
+                //      className={styles.st2}
+                //      x="732.94"
+                //      y="694.96"
+                //      width="88.66"
+                //      height="50.9"
+                //    />
+                //    <rect
+                //      data-image="Valley Floor 3"
+                //      data-tip="valley-floor-3"
+                //      ApartmentNum="101"
+                //      bedroomCount="2"
+                //      apartmentType="Bedroom"
+                //      className={styles.st2}
+                //      x="997.1"
+                //      y="694.96"
+                //      width="69.25"
+                //      height="50.9"
+                //    />
+                //    <rect
+                //      data-image="Valley Floor 3"
+                //      data-tip="valley-floor-3"
+                //      ApartmentNum="100"
+                //      bedroomCount="2"
+                //      apartmentType="Bedroom"
+                //      className={styles.st2}
+                //      x="926.93"
+                //      y="694.96"
+                //      width="70.17"
+                //      height="50.9"
+                //    />
+                //    <rect
+                //      data-image="Valley Floor 3"
+                //      data-tip="valley-floor-3"
+                //      ApartmentNum="99"
+                //      bedroomCount="2"
+                //      apartmentType="Bedroom"
+                //      className={styles.st2}
+                //      x="854.93"
+                //      y="694.96"
+                //      width="72"
+                //      height="50.9"
+                //    />
+                //    <rect
+                //      data-image="Valley Floor 3"
+                //      data-tip="valley-floor-3"
+                //      ApartmentNum="98"
+                //      bedroomCount="1"
+                //      apartmentType="Bedroom"
+                //      className={styles.st2}
+                //      x="1107.16"
+                //      y="694.96"
+                //      width="76.43"
+                //      height="50.9"
+                //    />
+                //    <rect
+                //      data-image="Valley Floor 3"
+                //      data-tip="valley-floor-3"
+                //      ApartmentNum="97"
+                //      bedroomCount="1"
+                //      apartmentType="Bedroom"
+                //      className={styles.st2}
+                //      x="1205.64"
+                //      y="694.96"
+                //      width="73.95"
+                //      height="50.9"
+                //    />
+                //    <rect
+                //      data-image="Valley Floor 3"
+                //      data-tip="valley-floor-3"
+                //      ApartmentNum="96"
+                //      bedroomCount="1"
+                //      apartmentType="Bedroom"
+                //      className={styles.st2}
+                //      x="1279.59"
+                //      y="694.96"
+                //      width="68.33"
+                //      height="50.9"
+                //    />
+                //    <rect
+                //      data-image="Valley Floor 3"
+                //      data-tip="valley-floor-3"
+                //      ApartmentNum="95"
+                //      bedroomCount="1"
+                //      apartmentType="Bedroom"
+                //      className={styles.st2}
+                //      x="1363.97"
+                //      y="694.96"
+                //      width="67.41"
+                //      height="50.9"
+                //    />
+                //    <rect
+                //      data-image="Valley Floor 3"
+                //      data-tip="valley-floor-3"
+                //      ApartmentNum="94"
+                //      bedroomCount="1"
+                //      apartmentType="Bedroom"
+                //      className={styles.st2}
+                //      x="1431.39"
+                //      y="694.96"
+                //      width="65.27"
+                //      height="50.9"
+                //    />
    
-                   <rect
-                     data-image="Valley Floor 4"
-                     data-tip="valley-floor-4"
-                     ApartmentNum="124"
-                     bedroomCount="2"
-                     apartmentType="Bedroom"
-                     className={styles.st2}
-                     x="446.78"
-                     y="755.03"
-                     width="82.09"
-                     height="51.36"
-                   />
-                   <rect
-                     data-image="Valley Floor 4"
-                     data-tip="valley-floor-4"
-                     ApartmentNum="123"
-                     bedroomCount="2"
-                     apartmentType="Bedroom"
-                     className={styles.st2}
-                     x="528.87"
-                     y="755.03"
-                     width="67.72"
-                     height="51.36"
-                   />
-                   <rect
-                     data-image="Valley Floor 4"
-                     data-tip="valley-floor-4"
-                     ApartmentNum="122"
-                     bedroomCount="2"
-                     apartmentType="Bedroom"
-                     className={styles.st2}
-                     x="625.63"
-                     y="755.03"
-                     width="73.84"
-                     height="51.36"
-                   />
-                   <rect
-                     data-image="Valley Floor 4"
-                     data-tip="valley-floor-4"
-                     ApartmentNum="121"
-                     bedroomCount="2"
-                     apartmentType="Bedroom"
-                     className={styles.st2}
-                     x="732.94"
-                     y="755.03"
-                     width="88.66"
-                     height="51.36"
-                   />
-                   <rect
-                     data-image="Valley Floor 4"
-                     data-tip="valley-floor-4"
-                     ApartmentNum="120"
-                     bedroomCount="2"
-                     apartmentType="Bedroom"
-                     className={styles.st2}
-                     x="854.93"
-                     y="755.03"
-                     width="72"
-                     height="51.36"
-                   />
-                   <rect
-                     data-image="Valley Floor 4"
-                     data-tip="valley-floor-4"
-                     ApartmentNum="119"
-                     bedroomCount="2"
-                     apartmentType="Bedroom"
-                     className={styles.st2}
-                     x="926.93"
-                     y="755.03"
-                     width="69.71"
-                     height="51.36"
-                   />
-                   <rect
-                     data-image="Valley Floor 4"
-                     data-tip="valley-floor-4"
-                     ApartmentNum="118"
-                     bedroomCount="2"
-                     apartmentType="Bedroom"
-                     className={styles.st2}
-                     x="996.64"
-                     y="755.03"
-                     width="69.71"
-                     height="51.36"
-                   />
-                   <rect
-                     data-image="Valley Floor 4"
-                     data-tip="valley-floor-4"
-                     ApartmentNum="117"
-                     bedroomCount="1"
-                     apartmentType="Bedroom"
-                     className={styles.st2}
-                     x="1107.16"
-                     y="755.03"
-                     width="76.43"
-                     height="51.36"
-                   />
-                   <rect
-                     data-image="Valley Floor 4"
-                     data-tip="valley-floor-4"
-                     ApartmentNum="116"
-                     bedroomCount="1"
-                     apartmentType="Bedroom"
-                     className={styles.st2}
-                     x="1205.64"
-                     y="755.03"
-                     width="47.04"
-                     height="51.36"
-                   />
-                   <rect
-                     data-image="Valley Floor 4"
-                     data-tip="valley-floor-4"
-                     ApartmentNum="115"
-                     bedroomCount="0"
-                     apartmentType="Studio"
-                     className={styles.st2}
-                     x="1252.69"
-                     y="755.03"
-                     width="47.04"
-                     height="51.36"
-                   />
-                   <rect
-                     data-image="Valley Floor 4"
-                     data-tip="valley-floor-4"
-                     ApartmentNum="114"
-                     bedroomCount="1"
-                     apartmentType="Bedroom"
-                     className={styles.st2}
-                     x="1299.73"
-                     y="755.03"
-                     width="48.19"
-                     height="51.36"
-                   />
+                //    <rect
+                //      data-image="Valley Floor 4"
+                //      data-tip="valley-floor-4"
+                //      ApartmentNum="124"
+                //      bedroomCount="2"
+                //      apartmentType="Bedroom"
+                //      className={styles.st2}
+                //      x="446.78"
+                //      y="755.03"
+                //      width="82.09"
+                //      height="51.36"
+                //    />
+                //    <rect
+                //      data-image="Valley Floor 4"
+                //      data-tip="valley-floor-4"
+                //      ApartmentNum="123"
+                //      bedroomCount="2"
+                //      apartmentType="Bedroom"
+                //      className={styles.st2}
+                //      x="528.87"
+                //      y="755.03"
+                //      width="67.72"
+                //      height="51.36"
+                //    />
+                //    <rect
+                //      data-image="Valley Floor 4"
+                //      data-tip="valley-floor-4"
+                //      ApartmentNum="122"
+                //      bedroomCount="2"
+                //      apartmentType="Bedroom"
+                //      className={styles.st2}
+                //      x="625.63"
+                //      y="755.03"
+                //      width="73.84"
+                //      height="51.36"
+                //    />
+                //    <rect
+                //      data-image="Valley Floor 4"
+                //      data-tip="valley-floor-4"
+                //      ApartmentNum="121"
+                //      bedroomCount="2"
+                //      apartmentType="Bedroom"
+                //      className={styles.st2}
+                //      x="732.94"
+                //      y="755.03"
+                //      width="88.66"
+                //      height="51.36"
+                //    />
+                //    <rect
+                //      data-image="Valley Floor 4"
+                //      data-tip="valley-floor-4"
+                //      ApartmentNum="120"
+                //      bedroomCount="2"
+                //      apartmentType="Bedroom"
+                //      className={styles.st2}
+                //      x="854.93"
+                //      y="755.03"
+                //      width="72"
+                //      height="51.36"
+                //    />
+                //    <rect
+                //      data-image="Valley Floor 4"
+                //      data-tip="valley-floor-4"
+                //      ApartmentNum="119"
+                //      bedroomCount="2"
+                //      apartmentType="Bedroom"
+                //      className={styles.st2}
+                //      x="926.93"
+                //      y="755.03"
+                //      width="69.71"
+                //      height="51.36"
+                //    />
+                //    <rect
+                //      data-image="Valley Floor 4"
+                //      data-tip="valley-floor-4"
+                //      ApartmentNum="118"
+                //      bedroomCount="2"
+                //      apartmentType="Bedroom"
+                //      className={styles.st2}
+                //      x="996.64"
+                //      y="755.03"
+                //      width="69.71"
+                //      height="51.36"
+                //    />
+                //    <rect
+                //      data-image="Valley Floor 4"
+                //      data-tip="valley-floor-4"
+                //      ApartmentNum="117"
+                //      bedroomCount="1"
+                //      apartmentType="Bedroom"
+                //      className={styles.st2}
+                //      x="1107.16"
+                //      y="755.03"
+                //      width="76.43"
+                //      height="51.36"
+                //    />
+                //    <rect
+                //      data-image="Valley Floor 4"
+                //      data-tip="valley-floor-4"
+                //      ApartmentNum="116"
+                //      bedroomCount="1"
+                //      apartmentType="Bedroom"
+                //      className={styles.st2}
+                //      x="1205.64"
+                //      y="755.03"
+                //      width="47.04"
+                //      height="51.36"
+                //    />
+                //    <rect
+                //      data-image="Valley Floor 4"
+                //      data-tip="valley-floor-4"
+                //      ApartmentNum="115"
+                //      bedroomCount="0"
+                //      apartmentType="Studio"
+                //      className={styles.st2}
+                //      x="1252.69"
+                //      y="755.03"
+                //      width="47.04"
+                //      height="51.36"
+                //    />
+                //    <rect
+                //      data-image="Valley Floor 4"
+                //      data-tip="valley-floor-4"
+                //      ApartmentNum="114"
+                //      bedroomCount="1"
+                //      apartmentType="Bedroom"
+                //      className={styles.st2}
+                //      x="1299.73"
+                //      y="755.03"
+                //      width="48.19"
+                //      height="51.36"
+                //    />
    
-                   <rect
-                     data-image="Valley Floor 5"
-                     data-tip="valley-floor-5"
-                     ApartmentNum="127"
-                     bedroomCount="1"
-                     apartmentType="Bedroom"
-                     className={styles.st2}
-                     x="446.78"
-                     y="814.65"
-                     width="82.09"
-                     height="50.9"
-                   />
-                   <rect
-                     data-image="Valley Floor 5"
-                     data-tip="valley-floor-5"
-                     ApartmentNum="128"
-                     bedroomCount="2"
-                     apartmentType="Bedroom"
-                     className={styles.st2}
-                     x="528.87"
-                     y="814.65"
-                     width="67.72"
-                     height="50.9"
-                   />
-                   <rect
-                     data-image="Valley Floor 5"
-                     data-tip="valley-floor-5"
-                     ApartmentNum="129"
-                     bedroomCount="1"
-                     apartmentType="Bedroom"
-                     className={styles.st2}
-                     x="625.63"
-                     y="814.65"
-                     width="73.84"
-                     height="50.9"
-                   />
-                   <rect
-                     data-image="Valley Floor 5"
-                     data-tip="valley-floor-5"
-                     ApartmentNum="130"
-                     bedroomCount="1"
-                     apartmentType="Bedroom"
-                     className={styles.st2}
-                     x="732.94"
-                     y="814.65"
-                     width="88.66"
-                     height="50.9"
-                   />
-                   <rect
-                     data-image="Valley Floor 5"
-                     data-tip="valley-floor-5"
-                     ApartmentNum="131"
-                     bedroomCount="1"
-                     apartmentType="Bedroom"
-                     className={styles.st2}
-                     x="854.93"
-                     y="814.65"
-                     width="72"
-                     height="50.9"
-                   />
-                   <rect
-                     data-image="Valley Floor 5"
-                     data-tip="valley-floor-5"
-                     ApartmentNum="132"
-                     bedroomCount="1"
-                     apartmentType="Bedroom"
-                     className={styles.st2}
-                     x="926.93"
-                     y="814.65"
-                     width="72"
-                     height="50.9"
-                   />
-                   <rect
-                     data-image="Valley Floor 5"
-                     data-tip="valley-floor-5"
-                     ApartmentNum="133"
-                     bedroomCount="1"
-                     apartmentType="Bedroom"
-                     className={styles.st2}
-                     x="998.93"
-                     y="814.65"
-                     width="67.41"
-                     height="50.9"
-                   />
-                   <rect
-                     data-image="Valley Floor 5"
-                     data-tip="valley-floor-5"
-                     ApartmentNum="134"
-                     bedroomCount="1"
-                     apartmentType="Bedroom"
-                     className={styles.st2}
-                     x="1107.16"
-                     y="814.65"
-                     width="76.43"
-                     height="50.9"
-                   />
+                //    <rect
+                //      data-image="Valley Floor 5"
+                //      data-tip="valley-floor-5"
+                //      ApartmentNum="127"
+                //      bedroomCount="1"
+                //      apartmentType="Bedroom"
+                //      className={styles.st2}
+                //      x="446.78"
+                //      y="814.65"
+                //      width="82.09"
+                //      height="50.9"
+                //    />
+                //    <rect
+                //      data-image="Valley Floor 5"
+                //      data-tip="valley-floor-5"
+                //      ApartmentNum="128"
+                //      bedroomCount="2"
+                //      apartmentType="Bedroom"
+                //      className={styles.st2}
+                //      x="528.87"
+                //      y="814.65"
+                //      width="67.72"
+                //      height="50.9"
+                //    />
+                //    <rect
+                //      data-image="Valley Floor 5"
+                //      data-tip="valley-floor-5"
+                //      ApartmentNum="129"
+                //      bedroomCount="1"
+                //      apartmentType="Bedroom"
+                //      className={styles.st2}
+                //      x="625.63"
+                //      y="814.65"
+                //      width="73.84"
+                //      height="50.9"
+                //    />
+                //    <rect
+                //      data-image="Valley Floor 5"
+                //      data-tip="valley-floor-5"
+                //      ApartmentNum="130"
+                //      bedroomCount="1"
+                //      apartmentType="Bedroom"
+                //      className={styles.st2}
+                //      x="732.94"
+                //      y="814.65"
+                //      width="88.66"
+                //      height="50.9"
+                //    />
+                //    <rect
+                //      data-image="Valley Floor 5"
+                //      data-tip="valley-floor-5"
+                //      ApartmentNum="131"
+                //      bedroomCount="1"
+                //      apartmentType="Bedroom"
+                //      className={styles.st2}
+                //      x="854.93"
+                //      y="814.65"
+                //      width="72"
+                //      height="50.9"
+                //    />
+                //    <rect
+                //      data-image="Valley Floor 5"
+                //      data-tip="valley-floor-5"
+                //      ApartmentNum="132"
+                //      bedroomCount="1"
+                //      apartmentType="Bedroom"
+                //      className={styles.st2}
+                //      x="926.93"
+                //      y="814.65"
+                //      width="72"
+                //      height="50.9"
+                //    />
+                //    <rect
+                //      data-image="Valley Floor 5"
+                //      data-tip="valley-floor-5"
+                //      ApartmentNum="133"
+                //      bedroomCount="1"
+                //      apartmentType="Bedroom"
+                //      className={styles.st2}
+                //      x="998.93"
+                //      y="814.65"
+                //      width="67.41"
+                //      height="50.9"
+                //    />
+                //    <rect
+                //      data-image="Valley Floor 5"
+                //      data-tip="valley-floor-5"
+                //      ApartmentNum="134"
+                //      bedroomCount="1"
+                //      apartmentType="Bedroom"
+                //      className={styles.st2}
+                //      x="1107.16"
+                //      y="814.65"
+                //      width="76.43"
+                //      height="50.9"
+                //    />
    
-                   <rect
-                     data-image="Valley Floor 6"
-                     data-tip="valley-floor-6"
-                     ApartmentNum="138"
-                     bedroomCount="0"
-                     apartmentType="Studio"
-                     className={styles.st2}
-                     x="446.78"
-                     y="873.81"
-                     width="82.09"
-                     height="50.9"
-                   />
-                   <rect
-                     data-image="Valley Floor 6"
-                     data-tip="valley-floor-6"
-                     ApartmentNum="139"
-                     bedroomCount="1"
-                     apartmentType="Bedroom"
-                     className={styles.st2}
-                     x="528.87"
-                     y="873.81"
-                     width="67.72"
-                     height="50.9"
-                   />
-                   <rect
-                     data-image="Valley Floor 6"
-                     data-tip="valley-floor-6"
-                     ApartmentNum="140"
-                     bedroomCount="1"
-                     apartmentType="Bedroom"
-                     className={styles.st2}
-                     x="625.63"
-                     y="873.81"
-                     width="73.84"
-                     height="50.9"
-                   />
-                   <rect
-                     data-image="Valley Floor 6"
-                     data-tip="valley-floor-6"
-                     ApartmentNum="141"
-                     bedroomCount="1"
-                     apartmentType="Bedroom"
-                     className={styles.st2}
-                     x="732.94"
-                     y="873.81"
-                     width="88.66"
-                     height="50.9"
-                   />
-                   <rect
-                     data-image="Valley Floor 6"
-                     data-tip="valley-floor-6"
-                     ApartmentNum="142"
-                     bedroomCount="1"
-                     apartmentType="Bedroom"
-                     className={styles.st2}
-                     x="854.93"
-                     y="873.81"
-                     width="72"
-                     height="50.9"
-                   />
-                   <rect
-                     data-image="Valley Floor 6"
-                     data-tip="valley-floor-6"
-                     ApartmentNum="143"
-                     bedroomCount="1"
-                     apartmentType="Bedroom"
-                     className={styles.st2}
-                     x="926.93"
-                     y="873.81"
-                     width="72"
-                     height="50.9"
-                   />
-                   <rect
-                     data-image="Valley Floor 6"
-                     data-tip="valley-floor-6"
-                     ApartmentNum="144"
-                     bedroomCount="1"
-                     apartmentType="Bedroom"
-                     className={styles.st2}
-                     x="998.93"
-                     y="873.81"
-                     width="67.41"
-                     height="50.9"
-                   />
-                   <rect
-                     data-image="Valley Floor 6"
-                     data-tip="valley-floor-6"
-                     ApartmentNum="145"
-                     bedroomCount="1"
-                     apartmentType="Bedroom"
-                     className={styles.st2}
-                     x="1107.16"
-                     y="873.81"
-                     width="76.43"
-                     height="50.9"
-                   />
+                //    <rect
+                //      data-image="Valley Floor 6"
+                //      data-tip="valley-floor-6"
+                //      ApartmentNum="138"
+                //      bedroomCount="0"
+                //      apartmentType="Studio"
+                //      className={styles.st2}
+                //      x="446.78"
+                //      y="873.81"
+                //      width="82.09"
+                //      height="50.9"
+                //    />
+                //    <rect
+                //      data-image="Valley Floor 6"
+                //      data-tip="valley-floor-6"
+                //      ApartmentNum="139"
+                //      bedroomCount="1"
+                //      apartmentType="Bedroom"
+                //      className={styles.st2}
+                //      x="528.87"
+                //      y="873.81"
+                //      width="67.72"
+                //      height="50.9"
+                //    />
+                //    <rect
+                //      data-image="Valley Floor 6"
+                //      data-tip="valley-floor-6"
+                //      ApartmentNum="140"
+                //      bedroomCount="1"
+                //      apartmentType="Bedroom"
+                //      className={styles.st2}
+                //      x="625.63"
+                //      y="873.81"
+                //      width="73.84"
+                //      height="50.9"
+                //    />
+                //    <rect
+                //      data-image="Valley Floor 6"
+                //      data-tip="valley-floor-6"
+                //      ApartmentNum="141"
+                //      bedroomCount="1"
+                //      apartmentType="Bedroom"
+                //      className={styles.st2}
+                //      x="732.94"
+                //      y="873.81"
+                //      width="88.66"
+                //      height="50.9"
+                //    />
+                //    <rect
+                //      data-image="Valley Floor 6"
+                //      data-tip="valley-floor-6"
+                //      ApartmentNum="142"
+                //      bedroomCount="1"
+                //      apartmentType="Bedroom"
+                //      className={styles.st2}
+                //      x="854.93"
+                //      y="873.81"
+                //      width="72"
+                //      height="50.9"
+                //    />
+                //    <rect
+                //      data-image="Valley Floor 6"
+                //      data-tip="valley-floor-6"
+                //      ApartmentNum="143"
+                //      bedroomCount="1"
+                //      apartmentType="Bedroom"
+                //      className={styles.st2}
+                //      x="926.93"
+                //      y="873.81"
+                //      width="72"
+                //      height="50.9"
+                //    />
+                //    <rect
+                //      data-image="Valley Floor 6"
+                //      data-tip="valley-floor-6"
+                //      ApartmentNum="144"
+                //      bedroomCount="1"
+                //      apartmentType="Bedroom"
+                //      className={styles.st2}
+                //      x="998.93"
+                //      y="873.81"
+                //      width="67.41"
+                //      height="50.9"
+                //    />
+                //    <rect
+                //      data-image="Valley Floor 6"
+                //      data-tip="valley-floor-6"
+                //      ApartmentNum="145"
+                //      bedroomCount="1"
+                //      apartmentType="Bedroom"
+                //      className={styles.st2}
+                //      x="1107.16"
+                //      y="873.81"
+                //      width="76.43"
+                //      height="50.9"
+                //    />
    
-                   <path
-                     className={styles.st0}
-                     data-image="Valley Floor 2"
-                     data-tip="valley-floor-2"
-                     d="M429.28,635.11v51.06l193.38.15h75.21l123.21,1.44c10.93.13,21.93,1.19,32.86,1.32,34.83.41,69.58-.11,104.41.3H1291l221.43,1.84.38-46.17-176.26-2.44-130.85-.92-98.45-.31-254.06-.92L821,637.36l-87.08-.56-54.72-1.23h-89Z"
-                   />
+                //    <path
+                //      className={styles.st0}
+                //      data-image="Valley Floor 2"
+                //      data-tip="valley-floor-2"
+                //      d="M429.28,635.11v51.06l193.38.15h75.21l123.21,1.44c10.93.13,21.93,1.19,32.86,1.32,34.83.41,69.58-.11,104.41.3H1291l221.43,1.84.38-46.17-176.26-2.44-130.85-.92-98.45-.31-254.06-.92L821,637.36l-87.08-.56-54.72-1.23h-89Z"
+                //    />
    
                    
-                 </svg>
+                //  </svg>
+
+
                  )
 
               ):
@@ -2822,135 +2833,94 @@ export default function BackgroundImage() {
                 onMouseLeave={() =>setSvgHover(false)}
 
               >
-                {/* <polygon
-                  data-image="Third Floor"
-                  data-tip="third-floor"
-                  ApartmentNum="10"
-                  bedroomCount="2"
-                  apartmentType="Penthouse"
-                  className={styles.st2}
-                  points="446.78 393.2 591.57 298.53 589.86 396.41 446.78 396.41 446.78 393.2"
-                /> */}
+            
 
-
-
-            {/* <polygon data-image="Third Floor"
-                  data-tip="third-floor"
-                  ApartmentNum="10"
-                  bedroomCount="2"
-                  apartmentType="Penthouse"
-                  className={styles.st2} points="1132.38 418.42 1132.38 419.64 1132.36 418.42 1132.38 418.42"/> */}
-            {/* <polygon data-image="Third Floor"
-                  data-tip="third-floor"
-                  ApartmentNum="9"
-                  bedroomCount="2"
-                  apartmentType="Penthouse"
-                  className={styles.st2} points="737.04 386.21 736.15 452.59 736.15 500.05 630.52 483.24 364.53 482.82 461.85 423.36 652 306.98 737.04 386.21"/>
-            <polygon data-image="Third Floor"
-                  data-tip="third-floor"
-                  ApartmentNum="8"
-                  bedroomCount="3"
-                  apartmentType="Penthouse"
-                  className={styles.st2} points="1132.38 419.64 1132.38 478.96 770.24 480.79 768.71 418.42 771.16 418.45 777.5 418.45 768.71 418.42 771.24 319.36 797.83 230.62 1110.83 226.73 1130.55 319.02 1132.36 418.42 1132.38 419.64"/>
-            <polygon   data-image="Third Floor"
-                  data-tip="third-floor"
-                  ApartmentNum="7"
-                  bedroomCount="3"
-                  apartmentType="Penthouse"
-                  className={styles.st2} points="1639.13 469.32 1639.13 487.21 1173.66 489.21 1173.5 458.17 1172.81 379.98 1269.04 266.17 1388.51 338.85 1407.25 326.66 1533.2 404.66 1639.13 469.32"/> */}
-
-
-
-<polygon  data-image="Third Floor"
+                <polygon data-image="Third Floor"
                   data-tip="third-floor"
                   ApartmentNum="5"
                   bedroomCount="3"
                   apartmentType="Penthouse"
                   className={styles.st2} points="450.45 458.32 450.45 484.46 628.84 484.46 628.84 349.17 450.45 458.32"/>
-<rect  data-image="Third Floor"
+                <rect data-image="Third Floor"
                   data-tip="third-floor"
                   ApartmentNum="4"
                   bedroomCount="3"
                   apartmentType="Penthouse"
                   className={styles.st2} x="812.28" y="353.76" width="142.62" height="130.7"/>
-<rect   data-image="Third Floor"
+                <rect data-image="Third Floor"
                   data-tip="third-floor"
                   ApartmentNum="3"
                   bedroomCount="3"
                   apartmentType="Penthouse"
                   className={styles.st2} x="954.9" y="353.76" width="136.2" height="130.7"/>
-<polygon  data-image="Third Floor"
+                <polygon data-image="Third Floor"
                   data-tip="third-floor"
                   ApartmentNum="2"
                   bedroomCount="2"
                   apartmentType="Penthouse"
                   className={styles.st2} points="1292.43 484.46 1391.49 484.46 1391.49 368.89 1292.43 312.48 1292.43 484.46"/>
-<polygon data-image="Third Floor"
+                <polygon data-image="Third Floor"
                   data-tip="third-floor"
                   ApartmentNum="1"
                   bedroomCount="2"
                   apartmentType="Penthouse"
                   className={styles.st2} points="1430.7 484.46 1612.99 484.46 1430.7 373.02 1430.7 484.46"/>
 
-
-
-              <polygon data-image="Second Floor"
+                <polygon data-image="Second Floor"
                   data-tip="second-floor"
                   ApartmentNum="11"
                   bedroomCount="2"
                   apartmentType="Penthouse"
                   className={styles.st2} points="285.35 557.53 383.19 557.53 383.19 498.83 285.35 557.53"/>
-                  <polygon data-image="Second Floor"
+                <polygon data-image="Second Floor"
                   data-tip="second-floor"
                   ApartmentNum="12"
                   bedroomCount="2"
                   apartmentType="Bedroom"
                   className={styles.st2} points="429.96 470.09 383.19 498.83 383.19 557.53 431.49 557.53 429.96 470.09"/>
-                  <rect data-image="Second Floor"
+                <rect data-image="Second Floor"
                   data-tip="second-floor"
                   ApartmentNum="13"
                   bedroomCount="2"
                   apartmentType="Bedroom"
                   className={styles.st2} x="450.45" y="494.85" width="92.03" height="61.15"/>
-                  <rect data-image="Second Floor"
+                <rect data-image="Second Floor"
                   data-tip="second-floor"
                   ApartmentNum="14"
                   bedroomCount="3"
                   apartmentType="Bedroom"
                   className={styles.st2} x="542.47" y="494.85" width="86.37" height="61.15"/>
-                  <rect data-image="Second Floor"
+                <rect data-image="Second Floor"
                   data-tip="second-floor"
                   ApartmentNum="15"
                   bedroomCount="3"
                   apartmentType="Bedroom"
                   className={styles.st2} x="812.28" y="494.85" width="142.62" height="61.15"/>
-                  <rect data-image="Second Floor"
+                <rect data-image="Second Floor"
                   data-tip="second-floor"
                   ApartmentNum="16"
                   bedroomCount="1"
                   apartmentType="Bedroom"
                   className={styles.st2} x="954.9" y="494.85" width="136.2" height="61.15"/>
-                  <rect data-image="Second Floor"
+                <rect data-image="Second Floor"
                   data-tip="second-floor"
                   ApartmentNum="17"
                   bedroomCount="1"
                   apartmentType="Bedroom"
                   className={styles.st2} x="1293.66" y="494.85" width="96" height="61.15"/>
-                  <rect data-image="Second Floor"
+                <rect data-image="Second Floor"
                   data-tip="second-floor"
                   ApartmentNum="18"
                   bedroomCount="1"
                   apartmentType="Bedroom"
                   className={styles.st2} x="1429.4" y="494.85" width="85.3" height="61.15"/>
                   
-                  <rect data-image="Second Floor"
+                <rect data-image="Second Floor"
                   data-tip="second-floor"
                   ApartmentNum="19"
                   bedroomCount="1"
                   apartmentType="Penthouse"
                   className={styles.st2} x="1514.7" y="494.85" width="98.29" height="61.15"/>
-
-
 
                 <rect data-image="First Floor"
                   data-tip="first-floor"
@@ -2958,13 +2928,13 @@ export default function BackgroundImage() {
                   bedroomCount="2"
                   apartmentType="Bedroom"
                   className={styles.st2} x="266.55" y="568.38" width="164.94" height="62.83"/>
-<rect data-image="First Floor"
+                <rect data-image="First Floor"
                   data-tip="first-floor"
                   ApartmentNum="30"
                   bedroomCount="2"
                   apartmentType="Bedroom"
                   className={styles.st2} x="570.14" y="568.38" width="58.7" height="62.83"/>
-<rect data-image="First Floor"
+                <rect data-image="First Floor"
                   data-tip="first-floor"
                   ApartmentNum="31"
                   bedroomCount="2"
@@ -3900,6 +3870,12 @@ export default function BackgroundImage() {
               <MenubarButton inActive={menuBox} handleMenu={handleMenu} />
             </div>
           </div>
+
+
+            <div >
+
+            </div>
+
 
           <div styles={{zIndex:'100000', position:'absolute'}} >
 
