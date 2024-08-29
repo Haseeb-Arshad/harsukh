@@ -113,14 +113,14 @@ const MenuBox = forwardRef(({ refAmen, handleOverlay, handleContact, handleEleva
             </div>
           </div>
 
-          <div className={styles.menuBox}  onClick={ ()=>{router.push('/blog')}}  >
+          {/* <div className={styles.menuBox}  onClick={ ()=>{router.push('/blog')}}  >
             <div className={styles.menuBoxIcon}>
               <Image src="/images/icons/blogIcon.svg" quality={100} alt="Contact" height={26} width={26} />
             </div>
             <div className={styles.menuBoxTitle}>
               Blog
             </div>
-          </div>
+          </div> */}
 
           <div className={styles.menuBoxContactIcons}>
             <div className={styles.menuBoxContactIconbox} onClick={() => window.open("https://www.facebook.com/people/Harsukh/61556868763411/?mibextid=ZbWKwL", "_blank")}>
