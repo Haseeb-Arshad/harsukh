@@ -19,7 +19,6 @@ import FrontSvgs from "../component/Background/Svg/Floors/FrontSvgs";
 import BackSvgs from "../component/Background/Svg/Floors/BackSvgs";
 // const MenuBox = dynamic(() => import("../component/Bars/menuBox"), { ssr: false });
 
-
 // Dynamically import heavy components
 const FavButton = dynamic(() => import("@/app/component/Icons/favButton"), { ssr: false });
 const MenubarButton = dynamic(() => import("@/app/component/Icons/menuBarBtn"), { ssr: false });
@@ -135,10 +134,6 @@ export default function BackgroundImage() {
   const [isFormHovered, setIsFormHovered] = useState(false);
   const favContainerRef = useRef(null);
   const apartmentListingRef = useRef(null);
-  const ismediumScreen = useMediaQuery({ query: "(max-width: 1024px)" });
-  const ismediumbigScreen = useMediaQuery({ query: "(max-width: 900px)" });
-  const isSmallScreen = useMediaQuery({ query: "(max-width: 700px)" });
-  const verysmallScreen = useMediaQuery({ query: "(max-width: 500px)" });
   const [filterFloorMenu, setFilterFloorMenu] = useState(true);
   const amenityButtonRef = useRef(null);
   const amenityGridRef = useRef(null);
@@ -2812,19 +2807,13 @@ export default function BackgroundImage() {
                      d="M429.28,635.11v51.06l193.38.15h75.21l123.21,1.44c10.93.13,21.93,1.19,32.86,1.32,34.83.41,69.58-.11,104.41.3H1291l221.43,1.84.38-46.17-176.26-2.44-130.85-.92-98.45-.31-254.06-.92L821,637.36l-87.08-.56-54.72-1.23h-89Z"
                    />
    
-                   
                  </svg>
-
 
                  )
 
               ):
               (
 
-                
-                // <>
-                
-                // </>
                 // <BackViewSvgs svgRef={svgRef} setSvgHover={setSvgHover}  />
 
                 <svg
@@ -2835,17 +2824,12 @@ export default function BackgroundImage() {
                 xmlnsXlink="http://www.w3.org/1999/xlink"
                 x="0px"
                 y="0px"
-                // viewBox="0 0 5494.76 3090.8"
                 viewBox="0 0 1920 1080"
-                // viewBox="0 0 5494.76 3090.8"
-
                 xmlSpace="preserve"
                 onMouseEnter={() =>setSvgHover(true)}
                 onMouseLeave={() =>setSvgHover(false)}
-
               >
             
-
                 <polygon data-image="Third Floor"
                   data-tip="third-floor"
                   ApartmentNum="5"
@@ -2976,7 +2960,6 @@ export default function BackgroundImage() {
                   apartmentType="Bedroom"
                   className={styles.st2} x="1521.85" y="568.38" width="91.15" height="64.66"/>
 
-
                 <rect data-image="Ground Floor"
                   data-tip="ground-floor"
                   ApartmentNum="45"
@@ -3104,71 +3087,68 @@ export default function BackgroundImage() {
               >
             
 
-            <g
-                onMouseEnter={() => handleBackMouseEnter('third-floor')}
-                onMouseLeave={handleBackMouseLeave}
-                data-image="Third Floor"
-                data-tip="third-floor"
-              >
-                <polygon
-                  className={hoveredGroup === 'third-floor' ? styles.st1Hovers : styles.st0}
-                  data-image="Third Floor"
-                  data-tip="third-floor"
-                  points="1132.38 418.42 1132.38 419.64 1132.36 418.42 1132.38 418.42 737.04 386.21 736.15 452.59 736.15 500.05 630.52 483.24 364.53 482.82 461.85 423.36 652 306.98 737.04 386.21"/>
-                <polygon
-                data-image="Third Floor"
-                data-tip="third-floor"
-                  className={hoveredGroup === 'third-floor' ? styles.st1Hovers : styles.st0}
-                  points="1132.38 419.64 1132.38 478.96 770.24 480.79 768.71 418.42 771.16 418.45 777.5 418.45 768.71 418.42 771.24 319.36 797.83 230.62 1110.83 226.73 1130.55 319.02 1132.36 418.42 1132.38 419.64 1639.13 469.32 1639.13 487.21 1173.66 489.21 1173.5 458.17 1172.81 379.98 1269.04 266.17 1388.51 338.85 1407.25 326.66 1533.2 404.66 1639.13 469.32"/>
-            </g>
+                <g
+                    onMouseEnter={() => handleBackMouseEnter('third-floor')}
+                    onMouseLeave={handleBackMouseLeave}
+                    data-image="Third Floor"
+                    data-tip="third-floor"
+                  >
+                    <polygon
+                      className={hoveredGroup === 'third-floor' ? styles.st1Hovers : styles.st0}
+                      data-image="Third Floor"
+                      data-tip="third-floor"
+                      points="1132.38 418.42 1132.38 419.64 1132.36 418.42 1132.38 418.42 737.04 386.21 736.15 452.59 736.15 500.05 630.52 483.24 364.53 482.82 461.85 423.36 652 306.98 737.04 386.21"/>
+                    <polygon
+                    data-image="Third Floor"
+                    data-tip="third-floor"
+                      className={hoveredGroup === 'third-floor' ? styles.st1Hovers : styles.st0}
+                      points="1132.38 419.64 1132.38 478.96 770.24 480.79 768.71 418.42 771.16 418.45 777.5 418.45 768.71 418.42 771.24 319.36 797.83 230.62 1110.83 226.73 1130.55 319.02 1132.36 418.42 1132.38 419.64 1639.13 469.32 1639.13 487.21 1173.66 489.21 1173.5 458.17 1172.81 379.98 1269.04 266.17 1388.51 338.85 1407.25 326.66 1533.2 404.66 1639.13 469.32"/>
+                </g>
 
-            <g
-                onMouseEnter={() => handleBackMouseEnter('second-floor')}
-                onMouseLeave={handleBackMouseLeave}
-                data-image="Second Floor"
-                data-tip="second-floor"
-              >
-                <polygon  className={hoveredGroup === 'second-floor' ? styles.st1Hovers : styles.st0}
-                  data-image="Second Floor"
-                  data-tip="second-floor" points="248.2 558.75 665.53 558.75 733.25 560.59 733.25 509.68 629.3 495.46 431.64 493.63 346.8 493.63 248.37 554.48 248.2 558.75"/>
-                <polygon  className={hoveredGroup === 'second-floor' ? styles.st1Hovers : styles.st0}
-                  data-image="Second Floor"
-                  data-tip="second-floor" points="768.71 489.21 768.71 553.87 1132.38 553.87 1132.38 491.5 768.71 489.21 1175.95 508.31 1175.95 557.83 1640.27 551.89 1639.13 494.56 1175.95 497.3 1175.95 508.31"/>
-            </g>
+                <g
+                    onMouseEnter={() => handleBackMouseEnter('second-floor')}
+                    onMouseLeave={handleBackMouseLeave}
+                    data-image="Second Floor"
+                    data-tip="second-floor"
+                  >
+                    <polygon  className={hoveredGroup === 'second-floor' ? styles.st1Hovers : styles.st0}
+                      data-image="Second Floor"
+                      data-tip="second-floor" points="248.2 558.75 665.53 558.75 733.25 560.59 733.25 509.68 629.3 495.46 431.64 493.63 346.8 493.63 248.37 554.48 248.2 558.75"/>
+                    <polygon  className={hoveredGroup === 'second-floor' ? styles.st1Hovers : styles.st0}
+                      data-image="Second Floor"
+                      data-tip="second-floor" points="768.71 489.21 768.71 553.87 1132.38 553.87 1132.38 491.5 768.71 489.21 1175.95 508.31 1175.95 557.83 1640.27 551.89 1639.13 494.56 1175.95 497.3 1175.95 508.31"/>
+                </g>
 
-            <g
-                onMouseEnter={() => handleBackMouseEnter('first-floor')}
-                onMouseLeave={handleBackMouseLeave}
-                data-image="First Floor"
-                data-tip="first-floor"
-              >
-                <polygon  className={hoveredGroup === 'first-floor' ? styles.st1Hovers : styles.st0}
-                  data-image="First Floor"
-                  data-tip="first-floor" points="246.94 626.01 662.62 626.62 733.25 622.34 733.25 570.37 662.93 569.15 247.63 569.64 246.94 626.01 768.71 569.15 770.55 569.14 1132.38 567.01 1132.38 626.62 768.71 626.62 768.71 569.15"/>
-                <polygon  className={hoveredGroup === 'first-floor' ? styles.st1Hovers : styles.st0}
-                  data-image="First Floor"
-                  data-tip="first-floor" points="1175.95 570.67 1175.95 625.4 1255.13 626.62 1430.62 629.38 1641.58 629.38 1640.51 564.87 1292.43 564.87 1175.95 570.67"/>
-            </g>
+                <g
+                    onMouseEnter={() => handleBackMouseEnter('first-floor')}
+                    onMouseLeave={handleBackMouseLeave}
+                    data-image="First Floor"
+                    data-tip="first-floor"
+                  >
+                    <polygon  className={hoveredGroup === 'first-floor' ? styles.st1Hovers : styles.st0}
+                      data-image="First Floor"
+                      data-tip="first-floor" points="246.94 626.01 662.62 626.62 733.25 622.34 733.25 570.37 662.93 569.15 247.63 569.64 246.94 626.01 768.71 569.15 770.55 569.14 1132.38 567.01 1132.38 626.62 768.71 626.62 768.71 569.15"/>
+                    <polygon  className={hoveredGroup === 'first-floor' ? styles.st1Hovers : styles.st0}
+                      data-image="First Floor"
+                      data-tip="first-floor" points="1175.95 570.67 1175.95 625.4 1255.13 626.62 1430.62 629.38 1641.58 629.38 1640.51 564.87 1292.43 564.87 1175.95 570.67"/>
+                </g>
 
-            <g
-                onMouseEnter={() => handleBackMouseEnter('ground-floor')}
-                onMouseLeave={handleBackMouseLeave}
-                data-image="Ground Floor"
-                data-tip="ground-floor"
-              >
-
-                <polygon className={hoveredGroup === 'ground-floor' ? styles.st1Hovers : styles.st0}
-                  data-image="Ground Floor"
-                  data-tip="ground-floor" points="245.49 695.11 447.58 698.78 629.49 700.46 732.83 681.2 732.83 636.41 677.8 636.41 630.71 639.47 246.71 637.94 245.49 695.11"/>
-                <path className={hoveredGroup === 'ground-floor' ? styles.st1Hovers : styles.st0}
-                  data-image="Ground Floor"
-                  data-tip="ground-floor" d="M1643,706.88l-388.28,1.83-81.17-5,1.83-66.5,79.34,3.21h387.51Z"/>
-                <rect className={hoveredGroup === 'ground-floor' ? styles.st1Hovers : styles.st0}
-                  data-image="Ground Floor"
-                  data-tip="ground-floor" x="768.71" y="638.76" width="363.67" height="66.95"/>
-            </g>
-
-
+                <g
+                    onMouseEnter={() => handleBackMouseEnter('ground-floor')}
+                    onMouseLeave={handleBackMouseLeave}
+                    data-image="Ground Floor"
+                    data-tip="ground-floor"
+                  >
+                    <polygon className={hoveredGroup === 'ground-floor' ? styles.st1Hovers : styles.st0}
+                      data-image="Ground Floor"
+                      data-tip="ground-floor" points="245.49 695.11 447.58 698.78 629.49 700.46 732.83 681.2 732.83 636.41 677.8 636.41 630.71 639.47 246.71 637.94 245.49 695.11"/>
+                    <path className={hoveredGroup === 'ground-floor' ? styles.st1Hovers : styles.st0}
+                      data-image="Ground Floor"
+                      data-tip="ground-floor" d="M1643,706.88l-388.28,1.83-81.17-5,1.83-66.5,79.34,3.21h387.51Z"/>
+                    <rect className={hoveredGroup === 'ground-floor' ? styles.st1Hovers : styles.st0}
+                      data-image="Ground Floor"
+                      data-tip="ground-floor" x="768.71" y="638.76" width="363.67" height="66.95"/>
+                </g>
 
                 <polygon className={styles.st0}
                   data-image="Valley Floor 1"
@@ -3179,16 +3159,14 @@ export default function BackgroundImage() {
                   data-tip="valley-floor-2" points="1031.95 789.88 1137.43 797.22 1644.03 799.06 1644.03 867.85 1031.95 803.64 1031.95 789.88"/>
 
             </svg>
-
-
               
-            ):
+            )
+            :
+            (
 
-              (
-
-        !snowMode?
-        (
-                    
+          !snowMode?
+          (
+                      
 
           <svg
             ref={svgRef}
@@ -3289,12 +3267,10 @@ export default function BackgroundImage() {
 
             // <FrontSvgs selectedPath ={selectedPath} svgRef={svgRef} setSelectedPath={setSelectedPath} />
 
-              )
-
-                  :
-                  (
+            )
+            :
+            (
                     
-
               <svg
                 ref={svgRef}
                 version="1.1"
@@ -3692,9 +3668,9 @@ export default function BackgroundImage() {
                 <Image
                   src="/images/icons/callIcon.svg"
                   quality={100}
-                  alt="Maps View Icon"
-                  height={15}
-                  width={15}
+                  alt="Call Us Icon"
+                  height={16}
+                  width={16}
                 />
                 <div className={styles.buttonText}>{translations["callus"]}</div>
               </div>
@@ -3710,7 +3686,7 @@ export default function BackgroundImage() {
                 <Image
                   src="/images/icons/formIcon.svg"
                   quality={100}
-                  alt="Maps View Icon"
+                  alt="Request Register Icon"
                   height={18}
                   width={18}
                 />
@@ -3723,8 +3699,6 @@ export default function BackgroundImage() {
                 <AmenityBtn
                   translations={translations}
                   // ref={amenityButtonRef}
-                  // ref={amenityButtonRef}
-
                   handleMenu={handleAmenities}
                   inActive={amenityClicked}
                 />
@@ -3748,22 +3722,21 @@ export default function BackgroundImage() {
             </div>
 
             <div styles={{zIndex:'100000', position:'absolute', top:'0', left:'0', right:'0', bottom:'0'}} >
-            <MenuBox
-              ref={menuBoxRef}
-              refAmen ={amenityButtonRef}
-              isActive={menuBox}
-              handleContact={handleContact}
-              handleOverlay={handleOverlay}
-              translations={translations}
-              toggleLanguage={toggleLanguage}
-              overlay={overlay}
-              fullScreen={isFullScreen}
-              toggleFullScreen={handleToggleFullScreen}
+              <MenuBox
+                ref={menuBoxRef}
+                refAmen ={amenityButtonRef}
+                isActive={menuBox}
+                handleContact={handleContact}
+                handleOverlay={handleOverlay}
+                translations={translations}
+                toggleLanguage={toggleLanguage}
+                overlay={overlay}
+                fullScreen={isFullScreen}
+                toggleFullScreen={handleToggleFullScreen}
 
-            />
-             
-
+              />
             </div>
+
             { !backView &&
               <div className={styles.snowContainer}>
                 <SnowButton
@@ -3774,7 +3747,6 @@ export default function BackgroundImage() {
               </div>
             }
             
-
             { amenityClicked && (
               <div >
                 <AmenityGrid Amenref={amenityGridRef} onClose={handleAmenitiesCheck} isMobile={isMobile} />
@@ -3857,50 +3829,45 @@ export default function BackgroundImage() {
           </div>
 
 
-            <div >
-
-            </div>
-
-
           <div styles={{zIndex:'100000', position:'absolute'}} >
 
-          <MenuBox
-            isMobile={isMobile}
-            ref={menuBoxRef}
-            refAmen ={amenityButtonRef}
+            <MenuBox
+              isMobile={isMobile}
+              ref={menuBoxRef}
+              refAmen ={amenityButtonRef}
+              setMenuBox={setMenuBox}
+              isActive={menuBox}
+              handleOverlay={handleOverlay}
+              handleFilter={handleFilter}
+              translations={translations}
+              toggleLanguage={toggleLanguage}
+              overlay={overlay}
+              fullScreen={isFullScreen}
+              toggleFullScreen={handleToggleFullScreen}
+              amenitiesBtn={handleAmenities}
+              handleElevation={handleElevationClicked}
 
-            setMenuBox={setMenuBox}
-            isActive={menuBox}
-            handleOverlay={handleOverlay}
-            handleFilter={handleFilter}
-            translations={translations}
-            toggleLanguage={toggleLanguage}
-            overlay={overlay}
-            fullScreen={isFullScreen}
-            toggleFullScreen={handleToggleFullScreen}
-            amenitiesBtn={handleAmenities}
-            handleElevation={handleElevationClicked}
-
-          />
+            />
           </div>
 
           { !backView &&
-          <div className={styles.snowContainer}>
-            <SnowButton
-              inActive={snowMode}
-              handleMenu={handleSnowMode}
+            <div className={styles.snowContainer}>
+              <SnowButton
+                inActive={snowMode}
+                handleMenu={handleSnowMode}
 
-            />
-          </div>}
+              />
+            </div>
+          }
 
-            {isFilterBoxVisible && (
-                <FilterBox
-                  isMobile={isMobile}
-                  onClose={closeFilterBox}
-                  Filterref={filterBoxRef}
-                  isVisible={isFilterBoxVisible}
-                />
-              )}
+          {isFilterBoxVisible && (
+              <FilterBox
+                isMobile={isMobile}
+                onClose={closeFilterBox}
+                Filterref={filterBoxRef}
+                isVisible={isFilterBoxVisible}
+              />
+          )}
 
             { isElevationClicked &&
               (
@@ -3947,7 +3914,6 @@ export default function BackgroundImage() {
               <div className={styles.buttonText}>{translations["callus"]}</div>
             </div>
 
-
             <div
               className={`${styles.buttonss} ${styles.formButton} ${
                 isFormHovered ? styles.expanded : ""
@@ -3989,7 +3955,6 @@ export default function BackgroundImage() {
         </>
       )}
 
-    
     </>
   );
 }

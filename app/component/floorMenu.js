@@ -24,19 +24,14 @@ const FloorMenu = () => {
   const [isElevationOpen, setIsElevationOpen] = useState(false);
   const isMediumScreen = useMediaQuery({ query: '(max-width: 768px)' });
   const [isMobile, setIsMobile] = useState(false);
-  const [harsukhHeight, setHarsukhHeight] = useState(105);
-  const [harsukhWidth, setHarsukhWidth] = useState(180);
   const languageState = useSelector((state) => {
     const languageState = state.language.lang.find((site) => site.id === '1');
-    console.log(languageState, " --- Language State")
     return languageState ? languageState.language : 'en';
   });
 
   const { isElevationClicked } = useSelector((state) => state.elevation);
   const { isFloorClicked } = useSelector((state) => state.floorMenu); // Corrected selector
-
   const floorMenuRef = useRef(null);
-
   
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth <= 768);
@@ -46,27 +41,8 @@ const FloorMenu = () => {
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
-
-  useEffect(()=>
-  {
-    if(isMobile)
-    {
-      setHarsukhHeight(85)
-      setHarsukhWidth(150)
-    }
-    else{
-      setHarsukhHeight(105);
-      setHarsukhWidth(180);
-    }
-  }
-    ,[isMobile])
-
-
-
-
   const params = useParams();
   const dispatch = useDispatch();
-
   const translations = useMemo(() => languageState === 'ur' ? ur : en, [languageState]);
 
   const totalFloor = [
@@ -85,7 +61,6 @@ const FloorMenu = () => {
   const [currentFloorLabel, setCurrentFloor ] = useState(null);
 
   const handleBackClick = () => {
-
     router.push(`/`);
 };
 
@@ -101,8 +76,6 @@ const FloorMenu = () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, []);
-
-
   
   useEffect(() => {
     setIsOpen(isFloorClicked);
@@ -209,11 +182,16 @@ const FloorMenu = () => {
  
   return (
     <>
-    
+    {isMobile?
       <div className={styles.Harsukhlogo} style={{cursor:'pointer', }}  onClick={()=>router.push("/")} >
-      <Image  src="/Webpage/floors/HarsukhLogo.webp" quality={100} alt="Harsukh Logo" height={harsukhHeight} width={harsukhWidth} />
+      <Image  src="/Webpage/floors/HarsukhLogo.webp" quality={100} alt="Harsukh Logo" height={85} width={150} />
       </div>
-      
+      :
+      <div className={styles.Harsukhlogo} style={{cursor:'pointer', }}  onClick={()=>router.push("/")} >
+        <Image  src="/Webpage/floors/HarsukhLogo.webp" quality={100} alt="Harsukh Logo" height={105} width={180} />
+      </div>
+
+    }  
         {
           !isMediumScreen?
           <>

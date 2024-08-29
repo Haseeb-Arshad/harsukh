@@ -135,19 +135,10 @@ const Layout = ({ children }) => {
     const match = apartmentParam.match(/\d+/); // Extracts the digits from the string
     const apartmentNumber = match ? parseInt(match[0]) : null; // Gets the first match or null if no match
     const floorName = floorNameMapping[params.floor];
-    // console.log("Apartment Number: ", apartmentNumber)
-    // console.log("Floor name: ", floorName)
+
     if (floorName && apartmentNumber) {
       const apartmentInfo = apartmentData[floorName].find(apt => apt.Apartmentno === apartmentNumber);
       if (apartmentInfo) {
-
-        // console.log("Compare: ", favoriteApartments.some(
-        //   (apt) => apt.Apartmentno == apartmentNumber
-        // ),  )
-        
-        // console.log("FAV: ", favoriteApartments)
-        // console.log("TYPEEES :", apartmentInfo.Type)
-        // console.log("NUMSSS :", apartmentNumber)
         setApartmentNo(apartmentNumber);
         setApartmentType(apartmentInfo.Type);
       }

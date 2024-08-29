@@ -19,9 +19,6 @@ const ContactUsPopup = ({ onClose }) => {
         };
     }, [onClose]);
 
-
-
-
     const handleCallClick = useCallback(() => {
         // Add "/callus" to the URL without navigating
         const newUrl = `${window.location.origin}${window.location.pathname}${window.location.pathname.endsWith('/') ? '' : '/'}callus`;
@@ -62,8 +59,6 @@ const ContactUsPopup = ({ onClose }) => {
           window.removeEventListener('focus', handleFocus);
         };
       }, []);
-
-
 
     return (
         <div className={styles.popupOverlay}>

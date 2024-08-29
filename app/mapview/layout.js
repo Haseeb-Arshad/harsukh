@@ -269,13 +269,6 @@ const Layout = ({children}) =>
   };
 
 
-  const [isLoading, setIsLoading] = useState(true); // New state for loading
-  const [delayPassed, setDelayPassed] = useState(false); // New state for delay
-
-  useEffect(() => {
-    console.log(elevationArray)
-  }, [translations]);
-
   const handleCallClick = useCallback(() => {
     // Add "/callus" to the URL without navigating
     const newUrl = `${window.location.origin}${window.location.pathname}${window.location.pathname.endsWith('/') ? '' : '/'}callus`;
@@ -356,7 +349,7 @@ const Layout = ({children}) =>
       { !isMobile? <div className={styles.menuContainer}>
         <div className={`${styles.longvideoTab}`} >
         
-            <div className={`${styles.videosubTab}  ${svgVisibility.landmarks ? styles.active : ''} `}  onClick={() =>{ console.log("LandMarks"); toggleSVGVisibility('landmarks')}}>
+            <div className={`${styles.videosubTab}  ${svgVisibility.landmarks ? styles.active : ''} `}  onClick={() =>{ toggleSVGVisibility('landmarks')}}>
                 
                 
                 <div className={styles.videosubTabIcon}>
@@ -367,7 +360,7 @@ const Layout = ({children}) =>
                     {translations['landmarks'] }
                 </div>
             </div>
-            <div className={`${styles.videosubTab}  ${svgVisibility.roads? styles.active : ''} `}  onClick={() =>{ console.log("LandMarks"); toggleSVGVisibility('roads')}}>
+            <div className={`${styles.videosubTab}  ${svgVisibility.roads? styles.active : ''} `}  onClick={() =>{  toggleSVGVisibility('roads')}}>
                 
                 
                 <div className={styles.videosubTabIcon}  >
@@ -379,7 +372,7 @@ const Layout = ({children}) =>
                 </div>
             </div>
   
-            <div className={`${styles.videosubTab}  ${svgVisibility.radius? styles.active : ''} `} onClick={() =>{ console.log("LandMarks"); toggleSVGVisibility('radius')}}>
+            <div className={`${styles.videosubTab}  ${svgVisibility.radius? styles.active : ''} `} onClick={() =>{  toggleSVGVisibility('radius')}}>
                 <div className={styles.videosubTabIcon}>
                     <Image src="/images/icons/radiusIcon.svg" quality={100} alt="Menu" height={20} width={20} />
                 </div>

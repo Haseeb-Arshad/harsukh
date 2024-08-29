@@ -399,9 +399,10 @@
 
 @media (max-width: 786px) {
 
-  .elevationButtonTitle
+  .Harsukhlogo
   {
-    /* margin-left: 0.2rem; */
+    top: 2.5rem;
+    left: 2rem;  
   }
 
   .containerOutside {

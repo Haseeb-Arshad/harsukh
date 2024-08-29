@@ -136,7 +136,6 @@ const Floor = ({ imageName, imageLink }) => {
           Bedrooms: activePolygon.Bedrooms,
           Area: activePolygon.Area,
         };
-        console.log(apartmentToAdd)
         dispatch(addFavoriteApartment(apartmentToAdd));
         setPopupMessage(translations["favAddPopup"]);
       }
@@ -874,7 +873,7 @@ const Floor = ({ imageName, imageLink }) => {
                   const apartmentInfo = apartmentData["Basement 5"].find(
                     (apt) => apt.Apartmentno.toString() === dataImage
                   );
-                  console.log(apartmentInfo);
+
                   if (apartmentInfo) {
                     setActivePolygon({
                       floor: "Valley Floor 5",
@@ -953,8 +952,7 @@ const Floor = ({ imageName, imageLink }) => {
                 const apartmentInfo = apartmentData["Basement 6"].find(
                   (apt) => apt.Apartmentno.toString() === dataImage
                 );
-                console.log(apartmentInfo);
-                console.log(dataImage);
+
                 if (apartmentInfo) {
                   setActivePolygon({
                     floor: "Valley Floor 6",
@@ -1020,6 +1018,8 @@ const Floor = ({ imageName, imageLink }) => {
       }
     };
   }, [imageName, imageLink, router , zoomCoord]);
+
+
 
   useEffect(() => {
     const handleResize = () => {
@@ -1097,11 +1097,6 @@ const Floor = ({ imageName, imageLink }) => {
     ],
   };
 
-  const handleEnterVR = () => {
-    console.log("Enter VR");
-    // Implement VR entry logic here
-  };
-
   const handleResetZoom = () => {
     if (viewer) {
       viewer.viewport.goHome();
@@ -1152,7 +1147,6 @@ const Floor = ({ imageName, imageLink }) => {
   const [activePolygonType, setActivePolygonType] = useState(null);
 
   const openImageBox = (apartmentType) => {
-    console.log("Apartment Type :", apartmentType);
 
     setActivePolygonType(apartmentType);
     dispatch(setGalleryPressed(true));

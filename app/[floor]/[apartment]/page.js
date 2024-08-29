@@ -50,23 +50,16 @@ const Page = () => {
     const apartmentParam = params.apartment; // e.g., "Apartment1"
     const match = apartmentParam.match(/\d+/); // Extracts the digits from the string
     const apartmentNumber = match ? match[0] : null; // Gets the first match or null if no match
-    console.log("APARTTTEEE: ", apartmentNumber, typeof apartmentNumber)
     setApartmentNum(apartmentNumber);
     // Search for the apartment in all floors
     for (const floorName in apartmentData) {
       const apartment = apartmentData[floorName].find(
         (apt) => apt.Apartmentno == apartmentNumber
-        // (apt) => console.log(apt.Apartmentno== apartmentNumber)
       );
-
-      // console.log(apartment, "CAKRESSSS")
 
       if (apartment) {
 
         setApartmentType(apartment.Type)
-        // foundApartment = apartment;
-        // foundFloor = floorName;
-        // break;
       }
     }
   
@@ -109,12 +102,6 @@ const Page = () => {
   }
   
   const currentFloor = floorData[apartmentType] || floorData.basement1; 
-
-  useEffect(() => {
-    console.log("FLOOR: ",  floorData, floor )
-    console.log("Current Floor: ",currentFloor)
-  }, [currentFloor])
-
   const handleResetZoom = () => {
     if (viewer) {
       viewer.viewport.goHome();

@@ -94,7 +94,6 @@ const Floor = ({ imageName, imageLink }) => {
   };
 
   const handleEnterVR = () => {
-    console.log('Enter VR');
     // Implement VR entry logic here
   };
 

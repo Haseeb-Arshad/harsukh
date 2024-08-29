@@ -793,7 +793,6 @@ viewer.addOverlay({
           //   }
           // }
 
-          console.log(dataTip)
           router.push(`/${imageName}/Apartment${dataTip}`);
 
         });
@@ -949,17 +948,6 @@ viewer.addOverlay({
       router.push(`/thirdFloor/${activePolygon.id}`);
     }
   };
-
-
-
-  
-
-
-  const handleEnterVR = () => {
-    console.log('Enter VR');
-    // Implement VR entry logic here
-  };
-
 
   const handleResetZoom = () => {
     if (viewer) {
