@@ -129,13 +129,13 @@ const RegisterRequestForm = ({ onClose }) => {
         // Get the CSRF token from the meta tag
         const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
 
-        const response = await fetch('https://almaymaar.rems.pk/api/harsukh-form/', {
+        const response = await fetch('https://almaymaar.rems.pk/api/harsukh-form', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
             'Authorization': 'Bearer GjKnyjcXFImbsMxCMf0McLaQBmlHKMvGk9',
-            'X-CSRF-TOKEN': csrfToken || '8bac8a991a484128-ISB',
-            'X-Requested-With': 'XMLHttpRequest'
+            // 'X-CSRF-TOKEN': csrfToken || '8bac8a991a484128-ISB',
+            // 'X-Requested-With': 'XMLHttpRequest'
           },
           credentials: 'include', // Include cookies in the request
           body: JSON.stringify(dataForBackend),
