@@ -4,8 +4,16 @@ import React, { useState, useEffect, lazy, Suspense } from 'react';
 import styles from "@/app/page.module.css";
 import Loading from './[floor]/Loading.js';
 import FrontPage from './FrontPage.js';
+// import MainPage from '@/app/component/Background/MainPage.js'
+// './component/Background/MainPage.js';
 
-const ImageBackground = lazy(() => import("./background/page.jsx"));
+const MainPage = lazy(() => import("@/app/component/Background/MainPage.js"));
+
+import dynamic from 'next/dynamic';
+
+const DynamicMainPage = dynamic(() => import("@/app/component/Background/MainPage.js"), {
+  loading: () => <Loading />,
+});
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(true);
@@ -20,7 +28,7 @@ export default function Home() {
       setShowFrontPage(false);
       setIsLoading(false);
     } else {
-      const minDisplayTime = 5000; // 5 seconds minimum display time for FrontPage
+      const minDisplayTime = 2500; // 5 seconds minimum display time for FrontPage
       const startTime = Date.now();
 
       // Simulate loading progress
@@ -35,7 +43,7 @@ export default function Home() {
       }, 50);
 
       // Preload ImageBackground
-      import("./background/page.jsx").then(() => {
+      import("@/app/component/Background/MainPage.js").then(() => {
         const elapsedTime = Date.now() - startTime;
         const remainingTime = Math.max(0, minDisplayTime - elapsedTime);
 
@@ -60,9 +68,7 @@ export default function Home() {
           <FrontPage progress={loadingProgress} />
         </div>
       ) : (
-        <Suspense fallback={<Loading />}>
-          <ImageBackground />
-        </Suspense>
+        <DynamicMainPage />
       )}
     </main>
   );
