@@ -10,7 +10,7 @@ const FrontPage = () => {
           clearInterval(timer);
           return 100;
         }
-        const newProgress = oldProgress + 2;
+        const newProgress = oldProgress + 3;
         return Math.min(newProgress, 100);
       });
     }, 100);
@@ -21,24 +21,33 @@ const FrontPage = () => {
   }, []);
 
   return (
-    <div style={{
-      backgroundImage: 'url("/Webpage/FrontPage.webp")', // Replace with your image path
-      backgroundSize: 'cover',
-      backgroundPosition: 'center',
-      height: '100vh',
-      display: 'flex',
-      flexDirection: 'column',
-      justifyContent: 'center',
-      alignItems: 'center',
-      position: 'relative',
-    }}>
+
+    <>
+     <Image
+        src="/Webpage/FrontPage.webp"
+        layout="fill"
+        objectFit="cover"
+        priority
+        alt="Background"
+      />
+      <div style={{
+        position: 'relative',
+        height: '100vh',
+        width: '100vw',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+        position: 'relative',
+      }}>
+     
       <h1 style={{
         color: 'white',
-        fontSize: '48px',
+        fontSize: '40px',
         fontWeight: 'bold',
         marginBottom: '40px'
       }}>
-        <Image src="/images/Logo/HarsukhLogo.webp" height={70} width={270} alt="Harsukh" />
+        <Image src="/images/Logo/HarsukhLogo.webp" height={65} width={270} alt="Harsukh" />
       </h1>
       <div style={{
         width: '280px',
@@ -55,6 +64,11 @@ const FrontPage = () => {
         }} />
       </div>
     </div>
+    
+    
+    
+    </>
+ 
   );
 };
 

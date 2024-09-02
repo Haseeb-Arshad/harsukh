@@ -68,6 +68,57 @@ svg */
   transition: opacity 0.3s ease-in-out;
 }
 
+
+/* ImageBackground.module.css */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+.popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(0, 109, 119, 0.6);
+  backdrop-filter: blur(5px);
+  padding: 20px;
+  width: 165px;
+  height: 165px;
+  border-radius: 0.5rem;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fadeIn 0.5s ease-in-out, fadeOut 1s ease-in-out 3s;
+}
+
+.popupContent {
+  font-family: "Gill Sans Light";
+  text-align: center;
+  color: white;
+  font-size: 1.2em;
+}
+
+.cursorIcon {
+  display: block;
+  font-size: 2em;
+  margin-bottom: 10px;
+}
+
 #masker {
   position: absolute;
   pointer-events: none;
@@ -903,10 +954,6 @@ background-color: none;
 .bottomLogoContainer {
   user-select: none;
   position: absolute;
-  /* bottom: -10vh; */
-  /* left: 3rem; */
-  /* top: 10rem;
-  left: 0rem; */
   bottom: 3rem;
   left: 3rem;
   display: flex;
@@ -919,10 +966,6 @@ background-color: none;
   font-size: 0.9rem;
   color: #fcf7eb;
   bottom: 2.5rem;
-}
-
-.bottomLogoIcon
-{
 }
 
 .reservedContainer {

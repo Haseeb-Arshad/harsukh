@@ -8,30 +8,31 @@ import { useMediaQuery } from "react-responsive";
 import styles from "@/styles/ImageBackground.module.css";
 import { modifyLanguage } from "@/state/language/languageState";
 import { toggleFullScreen } from '@/state/fullScreen/fullScreen';
-import en from "../locales/en.json";
-import ur from "../locales/ur.json";
+import en from "@/app/locales/en.json";
+import ur from "@/app/locales/ur.json";
 import ElevStyles from "@/styles/elevation.module.css";
 
-import MenuBox from "../component/Bars/menuBox";
-import FrontViewSvgs from "../component/Background/Svg/Filters/FrontViewSvgs";
-import BackViewSvgs from "../component/Background/Svg/Filters/BackViewSvgs";
-import FrontSvgs from "../component/Background/Svg/Floors/FrontSvgs";
-import BackSvgs from "../component/Background/Svg/Floors/BackSvgs";
-// const MenuBox = dynamic(() => import("../component/Bars/menuBox"), { ssr: false });
+import MenuBox from "@/app/component/Bars/menuBox";
+// import FrontViewSvgs from "@/app/component/Background/Svg/Filters/FrontViewSvgs";
+// import BackViewSvgs from "@/app/component/Background/Svg/Filters/BackViewSvgs";
+// import FrontSvgs from "@/app/component/Background/Svg/Floors/FrontSvgs";
+// import BackSvgs from "@/app/component/Background/Svg/Floors/BackSvgs";
+// const MenuBox = dynamic(() => import("@/app/component/Bars/menuBox"), { ssr: false });
 
 // Dynamically import heavy components
 const FavButton = dynamic(() => import("@/app/component/Icons/favButton"), { ssr: false });
 const MenubarButton = dynamic(() => import("@/app/component/Icons/menuBarBtn"), { ssr: false });
-const AmenityGrid = dynamic(() => import("../component/Amenities/AmenityGrid"), { ssr: false });
-const ContactBox = dynamic(() => import("../component/Bars/contactBox"), { ssr: false });
-const FilterBox = dynamic(() => import("../component/Bars/filterBox"), { ssr: false });
-// const MenuBox = dynamic(() => import("../component/Bars/menuBox"), { ssr: false });
-const AmenityBtn = dynamic(() => import("../component/Icons/AmenityBtn"), { ssr: false });
-const ApartmentListing = dynamic(() => import("../component/Reserve/ApartmentListing"), { ssr: false });
-const ElevationBox = dynamic(() => import("../component/Bars/elevationBox"), { ssr: false });
-const Loader = dynamic(() => import("../[floor]/Loading"), { ssr: false });
-const ContactUsPopup = dynamic(() => import("../component/contactus/page"), { ssr: false });
-const SnowButton = dynamic(() => import("../component/Icons/snowBtn"), { ssr: false });
+const AmenityGrid = dynamic(() => import("@/app/component/Amenities/AmenityGrid"), { ssr: false });
+const ContactBox = dynamic(() => import("@/app/component/Bars/contactBox"), { ssr: false });
+const FilterBox = dynamic(() => import("@/app/component/Bars/filterBox"), { ssr: false });
+// const MenuBox = dynamic(() => import("@/app/component/Bars/menuBox"), { ssr: false });
+const AmenityBtn = dynamic(() => import("@/app/component/Icons/AmenityBtn"), { ssr: false });
+const ApartmentListing = dynamic(() => import("@/app/component/Reserve/ApartmentListing"), { ssr: false });
+const ElevationBox = dynamic(() => import("@/app/component/Bars/elevationBox"), { ssr: false });
+const Loader = dynamic(() => import("@/app/[floor]/Loading"), { ssr: false });
+const ContactUsPopup = dynamic(() => import("@/app/component/contactus/page"), { ssr: false });
+const SnowButton = dynamic(() => import("@/app/component/Icons/snowBtn"), { ssr: false });
+
 
 const floorData = {
   "Third Floor": {
@@ -108,7 +109,7 @@ const floorData = {
 
 
 
-export default function BackgroundImage() {
+export default function MainPage() {
   const dispatch = useDispatch();
   const router = useRouter();
 
@@ -217,15 +218,6 @@ export default function BackgroundImage() {
       closeFilterBox();
     }
 
-    // if (
-    //   amenityClicked &&
-    //   amenityButtonRef.current &&
-    //   !amenityButtonRef.current.contains(event.target) &&
-    //   amenityGridRef.current &&
-    //   !amenityGridRef.current.contains(event.target)
-    // ) {
-    //   setAmenityClicked(false);
-    // }
   }, [isFilterBoxVisible, amenityClicked, closeFilterBox]);
 
   useEffect(() => {
@@ -350,15 +342,16 @@ export default function BackgroundImage() {
     };
   }, [isMobile, overlay, params]);
 
-  const handleSVGElementClick = useCallback((event) => { // Use useCallback to memoize the function
-    const element = event.target;
-    const floorName = element.getAttribute("data-tip");
-    if (floorName === "valley-floor-2") return; // Use strict equality
-    if (floorName) {
+  const handleSVGElementClick = useCallback((event) => {
+    const floorName = event.target.getAttribute("data-tip");
+    if (floorName && floorName !== "valley-floor-2") {
       const slug = floorName.replace(/\s+/g, "-");
-      router.push(`/${slug}`); // Navigate immediately
+      router.prefetch(`/${slug}`);
+      requestAnimationFrame(() => {
+        router.push(`/${slug}`);
+      });
     }
-  }, [router]); 
+  }, [router]);
 
   const handleContactClose = () => {
     setIsContacted(false);
@@ -379,18 +372,25 @@ export default function BackgroundImage() {
   useEffect(() => {
     const svg = svgRef.current;
     if (svg) {
-      const elements = svg.querySelectorAll("polygon, polyline, path, rect, g");
-      elements.forEach((element) => {
-        element.addEventListener("click", handleSVGElementClick);
-      });
+      const handleClick = (event) => {
+        if (event.target.tagName === 'polygon' || 
+            event.target.tagName === 'polyline' || 
+            event.target.tagName === 'path' || 
+            event.target.tagName === 'rect' || 
+            event.target.tagName === 'g') {
+          handleSVGElementClick(event);
+        }
+      };
+
+      svg.addEventListener("click", handleClick);
 
       return () => {
-        elements.forEach((element) => {
-          element.removeEventListener("click", handleSVGElementClick); // Clean up
-        });
+        svg.removeEventListener("click", handleClick);
       };
     }
-  }, [handleSVGElementClick, overlay, filterbox, svgHover, params, filterBoxRef, isFilterBoxVisible, backView, snowMode ]);
+  }, [handleSVGElementClick, overlay, filterbox, svgHover, params, filterBoxRef, isFilterBoxVisible, backView, snowMode]);
+  
+  
   const [imageUrl, setImageUrl] = useState('');
 
   const [loading, setLoading] = useState(true);
@@ -667,7 +667,6 @@ export default function BackgroundImage() {
     }
   }, [overlay, filterbox, selectedAmenities.length, filterFloorMenu, params, filterBoxRef, svgHover, backView, snowMode, svgReloadTrigger]);
 
-  
   const handleCallClick = useCallback(() => {
     // Add "/callus" to the URL without navigating
     const newUrl = `${window.location.origin}${window.location.pathname}${window.location.pathname.endsWith('/') ? '' : '/'}callus`;
@@ -793,6 +792,7 @@ export default function BackgroundImage() {
     setHoveredGroup(null);
   };
 
+
   const [showPopup, setShowPopup] = useState(true);
 
 
@@ -802,13 +802,10 @@ export default function BackgroundImage() {
 
     const timer = setTimeout(() => {
       setShowPopup(false);
-      console.log(showPopup)
     }, 4000); // Show popup for 4 seconds
 
-      console.log("POPUP")
-    return () => clearTimeout(timer); // Clean up the timer
-  }, []);
-
+    // return () => clearTimeout(timer);
+  }, [0]);
 
 
   return (
@@ -819,16 +816,18 @@ export default function BackgroundImage() {
         </div>
       )}
 
-
-
       {showPopup && (
         <div className={styles.popup}>
           <div className={styles.popupContent}>
-            <span className={styles.cursorIcon}>🖱️</span>
+            <div className={styles.cursorIcon}>
+              <Image src="/images/icons/pointerIcon.svg" width={55} height={55} alt="Pointer" />
+            </div>
             <p>Choose a floor</p>
           </div>
         </div>
       )}
+
+
 
       <div
         ref={containerRef}
