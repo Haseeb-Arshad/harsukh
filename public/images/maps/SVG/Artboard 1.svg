@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 673.17 614.3">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #fbf7eb;
+        stroke-width: 0px;
+      }
+
+      .cls-2 {
+        stroke-width: 3px;
+      }
+
+      .cls-2, .cls-3 {
+        stroke: #fff;
+      }
+
+      .cls-2, .cls-3, .cls-4 {
+        fill: none;
+        stroke-miterlimit: 10;
+      }
+
+      .cls-5 {
+        fill: #fff;
+        filter: url(#drop-shadow-8);
+        font-family: GillSansMTPro-Medium, 'Gill Sans MT Pro';
+        font-size: 75px;
+        font-weight: 500;
+      }
+
+      .cls-4 {
+        stroke: #fbf7eb;
+        stroke-width: 5px;
+      }
+    </style>
+    <filter id="drop-shadow-8" filterUnits="userSpaceOnUse">
+      <feOffset dx="1" dy="1"/>
+      <feGaussianBlur result="blur" stdDeviation="2"/>
+      <feFlood flood-color="#010101" flood-opacity=".75"/>
+      <feComposite in2="blur" operator="in"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g id="Layer_2" data-name="Layer 2">
+    <rect class="cls-3" x="-540.47" y="-610.99" width="7372" height="3072"/>
+  </g>
+  <g id="Layer_3" data-name="Layer 3">
+    <text class="cls-5" transform="translate(57.48 429.36)"><tspan x="0" y="0">Chanda Top Hill</tspan></text>
+    <polyline class="cls-2" points="595.27 153.66 595.27 352.49 554.34 372.4"/>
+    <path class="cls-1" d="M597.85,60.18l-2.37,4.31c-5.64,10.25-11.27,20.5-16.91,30.75l-4.97-4.97-1.71,2.85c-5.06,8.44-10.13,16.89-15.2,25.33l-2.36,3.93h81.13l-1.55-3.62c-2.59-6.05-5.19-12.1-7.78-18.15l-1.51-3.52-5.36,5.36c-6.4-12.63-12.8-25.25-19.2-37.88l-2.22-4.38ZM597.67,71.28c2.63,5.18,5.26,10.37,7.88,15.55l-2.01,1.72-5.91-5.07-5.91,5.07-2.41-2.07c2.79-5.07,5.57-10.13,8.36-15.2ZM597.63,90.32l5.91,5.07,4.42-3.78c2.77,5.46,5.53,10.92,8.3,16.38l1.62,3.2,5.01-5.01c1.57,3.67,3.15,7.34,4.72,11.02h-64.1c3.71-6.19,7.42-12.37,11.13-18.55l5.16,5.16,1.67-3.02c1.77-3.21,3.53-6.42,5.3-9.63l4.96,4.25,5.91-5.07Z"/>
+    <circle class="cls-4" cx="594.91" cy="91.27" r="61"/>
+  </g>
+</svg>
