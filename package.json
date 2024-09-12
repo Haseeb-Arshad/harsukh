@@ -1,0 +1,37 @@
+{
+  "name": "harsukh",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@barba/core": "^2.10.3",
+    "@reduxjs/toolkit": "^2.2.6",
+    "barba": "^1.0.0",
+    "barba.js": "^1.0.0",
+    "framer-motion": "^11.5.2",
+    "gsap": "^3.12.5",
+    "lucide-react": "^0.408.0",
+    "next": "^14.2.8",
+    "openseadragon": "^4.1.1",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-intersection-observer": "^9.13.1",
+    "react-lottie": "^1.2.4",
+    "react-parallax": "^3.5.1",
+    "react-redux": "^9.1.2",
+    "react-responsive": "^10.0.0",
+    "react-transition-group": "^4.4.5",
+    "react-zoom-pan-pinch": "^3.6.1",
+    "redux-persist": "^6.0.0",
+    "styled-components": "^6.1.11"
+  },
+  "devDependencies": {
+    "eslint": "^8",
+    "eslint-config-next": "14.2.5"
+  }
+}

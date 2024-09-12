@@ -1,0 +1,96 @@
+
+@font-face {
+  font-family: "Gill Sans Light";
+  src: url("/fonts/GillSansMTPro-Light.otf");
+  font-weight: normal;
+}
+
+.popupOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  border-radius: 0.3rem;
+
+}
+
+.popupContent {
+  font-family: "Gill Sans Light";
+  background-color: #f8f8f8;
+  padding: 40px;
+  border-radius: 0.3rem;
+  width: 90%;
+  height: 370px;
+  max-width: 500px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  position: relative;
+  display: flex;
+  align-items:center;
+  justify-content: center;
+  /* background-image: url("/images/ContactUs/contact.png"); */
+}
+
+.popupContentBack
+{
+  position: absolute;
+  z-index: 9999999;
+  height: 300px;
+  width: 90%;
+}
+
+.contactTitle
+{
+  text-align: center;
+  margin-bottom: 140px;
+  color: #333;
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.popupContent .contactTitle {
+  text-align: center;
+  margin-bottom:40px;
+  color: #333;
+}
+
+.contactInfo {
+  /* margin-bottom: 20px; */
+  width: 200px;
+  margin-top: 50px;
+  bottom: 10px;
+}
+
+.contactInfo p {
+  margin: 5px 0;
+  color: #555;
+}
+
+.contactInfo p strong {
+  color: #333;
+}
+
+.imageContainer {
+  width: 100%;
+  height: 200px;
+  position: relative;
+  overflow: hidden;
+  border-radius: 5px;
+}
+
+
+
+@media (max-width: 768px) {
+
+
+
+
+
+}
+
+

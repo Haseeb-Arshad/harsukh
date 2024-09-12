@@ -1,0 +1,179 @@
+.elevationButtonBox {
+    width: 160px;
+    height: 40px;
+    background-color: #FCF7EB;
+    border-radius: 0.2rem;
+    color: #006d77;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    position: relative;
+    z-index: 2;
+    user-select: none;
+  }
+
+
+  .elevationBtnGrid {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    padding: 0 0.5rem;
+    font-size: 0.7rem;
+    cursor: pointer;
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .elevationBtnGrid:hover {
+    /* background-color: rgba(0, 109, 119, 0.1); */
+  }
+  
+  .elevationBtnLeft {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 100%;
+    transition: 0.3s ease all;
+  }
+  
+  .elevationBtnLeft:hover {
+    height: 30px;
+    width: 30px;
+    border-radius: 0.3rem;
+    background-color: rgba(226, 232, 223,1);
+  }
+
+  .elevationMapBtnLeft
+  {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 100%;
+    transition: 0.3s ease all;
+  }
+
+  .elevationMapBtnLeft:hover {
+    height: 30px;
+    width: 30px;
+    border-radius: 0.3rem;
+  }
+
+  
+  .elevationBtnRight {
+    flex: 1;
+    display: flex;
+    height: 40px;
+    align-items: center;
+    justify-content: space-between;
+    /* padding-left: 0.5rem; */
+    /* border-left: rgba(0, 0, 0, 0.2) solid 1px; */
+  }
+
+  .elevationBtnTitle {
+    flex: 1;
+    height: 25px;
+    font-size: 0.7rem;
+    justify-content: center;
+    padding-left: 0.5rem;
+    display: flex;
+    align-items: center;
+    border-left: rgba(0, 0, 0, 0.2) solid 1px;
+  }
+
+  .elevationMapBtnTitle {
+    flex: 1;
+    height: 25px;
+    padding-left: 0.5rem;
+    display: flex;
+    align-items: center;
+    /* border-left: rgba(0, 0, 0, 0.2) solid 1px; */
+  }
+
+  .elevationBtnDownArrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 30px;
+    width: 30px;
+    border-radius: 0.3rem;
+    /* rgba(0, 109, 119, 0.2); */
+    /* width: 20px;
+    display: flex;
+    justify-content: center; */
+    transition: all 0.3s ease-in-out;
+
+  }
+
+  .elevationBtnDownArrow:hover {
+    background-color: rgba(226, 232, 223,1);
+  }
+
+  .dropDownElevationBox {
+    position: absolute;
+    top: 100%;
+    margin-top: -0.1rem;
+    left: 0;
+    width: 100%;
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out, opacity 0.3s ease-out;
+    background-color: #FCF7EB;
+    border-radius: 0 0 0.2rem 0.2rem;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    z-index: 1;
+  }
+
+  .dropDownElevationBox.open {
+    max-height: 500px;
+    opacity: 1;
+    padding: 0.4rem 0.3rem;
+  }
+  
+
+  .dropDownfloorButton {
+    padding: 0.5rem 1rem;
+    background-color: transparent;
+    color: #006d77;
+    border-radius: 0.4rem;
+    font-size: 0.7rem;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 0.25rem;
+  }
+  
+  .dropDownfloorButton:last-child {
+    margin-bottom: 0;
+  }
+  
+  .dropDownfloorButton.active {
+    background-color: #006d77;
+    color: #FCF7EB;
+  }
+
+  .dropDownfloorButton:hover.active {
+    background-color: #006d77;
+    color: #FCF7EB;
+  }
+
+  .dropDownfloorButton:hover
+  {
+  background-color: rgba(226, 232, 223,1);
+}
+  
+
+
+.elevationApContainer
+{
+  position: fixed;
+  height: 5vh;
+  width: 190px;
+  top: 8rem;
+  left: 3rem;
+  display: flex;
+  flex-direction: column;
+  /* gap: 1rem; */
+  z-index: 10000;
+}

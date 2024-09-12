@@ -1,0 +1,88 @@
+/* styles/home/vision.module.css */
+@font-face {
+    font-family: "Optima Bold";
+    src: url("/fonts/optima/OPTIMA_B.TTF");
+    font-weight: normal;
+  }
+
+  @font-face {
+    font-family: "Gill Sans";
+    src: url("/fonts/gillsans/Gill Sans Light.otf");
+    font-weight: normal;
+  }
+
+
+.container {
+    font-family: "Gill Sans";
+
+    height: 100vh;
+    width: 100vw;
+    position: relative;
+  }
+  
+  .visionContent {
+    position: relative;
+    height: 100%;
+    width: 100%;
+  }
+  
+  .visionImage {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 1;
+  }
+  
+  .visionText {
+    position: absolute;
+    /* top: 50%; */
+    bottom: 0;
+    height: 75vh;
+    left: 25%;
+    transform: translate(-50%, 0%);
+    z-index: 2;
+    background-color: rgba(252, 247, 235, 0.16); /* Semi-transparent background */
+    padding: 80px 50px;
+    border-radius: 6px 6px 0px 0px;
+    max-width: 400px;
+    text-align: left;
+    backdrop-filter: blur(10px); /* Add blur effect */
+    -webkit-backdrop-filter: blur(10px); /* Ensure support on Safari */
+  }
+
+  .title
+  {
+    font-family: "Optima Bold";
+    font-size: 2.3rem;
+    margin-bottom: 1rem;
+  }
+
+  .content
+  {
+    color: rgb(252, 247, 235, 0.68);
+
+  }
+
+  
+  .visionText .title {
+    font-size: 2.3rem;
+    margin-bottom: 20px;
+  }
+  
+  .visionText .content {
+    font-size: 18px;
+    line-height: 1.6;
+  }
+  
+  @media (max-width: 768px) {
+    .visionText .title {
+      font-size: 36px;
+    }
+  
+    .visionText .content {
+      font-size: 16px;
+    }
+  }
+  

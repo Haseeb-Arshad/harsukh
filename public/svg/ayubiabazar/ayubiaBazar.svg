@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="ayubiabazar" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 5494.76 3090.8">
+  <defs>
+    <style>
+
+    @font-face {
+        font-family: 'Gill Sans Light';
+        src: url('/fonts/GillSansMTPro-Light.otf');
+        font-weight: normal;
+      }
+
+      .cls-1 {
+        fill: #fff;
+        filter: url(#drop-shadow-1);
+        font-family: 'Gill Sans Light';
+        font-size: 70px;
+        font-weight: 500;
+        cursor: pointer;
+      }
+
+      .cls-2 {
+        fill: #faf7eb;
+        stroke-width: 0px;
+      }
+
+      .cls-3 {
+        stroke: #fff;
+        stroke-width: 3px;
+      }
+
+      .cls-3, .cls-4 {
+        fill: none;
+        stroke-miterlimit: 10;
+      }
+
+      .cls-4 {
+        stroke: #faf7eb;
+        stroke-width: 5px;
+      }
+    </style>
+    <filter id="drop-shadow-1" filterUnits="userSpaceOnUse">
+      <feOffset dx="1" dy="1"/>
+      <feGaussianBlur result="blur" stdDeviation="2"/>
+      <feFlood flood-color="#000" flood-opacity=".75"/>
+      <feComposite in2="blur" operator="in"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g id="Layer_1" data-name="Layer 1">
+    <text class="cls-1" transform="translate(2919.62 1886.54)"><tspan x="0" y="0">Ayubia Bazar</tspan></text>
+    <polyline class="cls-3" points="2704.43 1767.62 2903.25 1768.94 2922.89 1810"/>
+  </g>
+  <g id="Layer_6" data-name="Layer 6">
+    <path class="cls-2" d="M2675.5,1756.76l-3.04-15.21c-.83-4.15-4.51-7.17-8.74-7.17h-41.25c-4.24,0-7.91,3.02-8.74,7.17l-3.04,15.22c-.73,3.68.21,7.45,2.58,10.34,2.38,2.9,5.89,4.56,9.64,4.56,4.12,0,7.8-2.03,10.08-5.17.3.41.57.84.92,1.22,2.35,2.51,5.67,3.95,9.28,3.95s6.75-1.44,9.1-3.95c.35-.37.62-.8.92-1.22,2.28,3.13,5.96,5.17,10.08,5.17,3.75,0,7.26-1.66,9.64-4.56,2.38-2.9,3.32-6.67,2.58-10.34ZM2630.66,1756.93l-.1,1.44h0s-.09,1.33-.09,1.33c-.27,3.98-3.6,7.09-7.58,7.09-2.29,0-4.43-1.01-5.88-2.78-1.45-1.77-2.02-4.07-1.57-6.31l3.04-15.22c.38-1.89,2.05-3.26,3.97-3.26h9.38l-1.18,17.7h0ZM2648.73,1764.39c-1.45,1.55-3.42,2.41-5.73,2.41-2.12,0-4.09-.86-5.55-2.41-1.45-1.55-2.17-3.57-2.03-5.69l.11-1.61,1.19-17.85h12.74l1.19,17.85.11,1.61c.14,2.12-.58,4.14-2.03,5.69ZM2669.16,1764.02c-1.45,1.77-3.59,2.78-5.88,2.78-3.98,0-7.32-3.12-7.58-7.09l-.09-1.33h0s-.1-1.44-.1-1.44l-1.18-17.7h9.38c1.93,0,3.6,1.37,3.97,3.26l3.04,15.22c.45,2.24-.13,4.54-1.57,6.31h0ZM2666.6,1795.17c0,2.24-1.82,4.05-4.05,4.05h-10.54v-10.54c0-4.92-4-8.92-8.92-8.92s-8.92,4-8.92,8.92v10.54h-10.54c-2.24,0-4.05-1.82-4.05-4.05v-19.81c-1.72-.35-3.35-.97-4.86-1.84v21.64c0,4.92,4,8.92,8.92,8.92h38.91c4.92,0,8.92-4,8.92-8.92v-21.64c-1.51.86-3.15,1.49-4.86,1.84v19.81ZM2647.14,1799.23h-8.11v-10.54c0-2.24,1.82-4.05,4.05-4.05s4.05,1.82,4.05,4.05v10.54Z"/>
+    <circle class="cls-4" cx="2643.43" cy="1769.23" r="61"/>
+  </g>
+</svg>

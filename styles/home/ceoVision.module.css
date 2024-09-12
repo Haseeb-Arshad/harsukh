@@ -1,0 +1,120 @@
+.pageContainer {
+  min-height: 100vh;
+  width: 100vw;
+  background-color: #EBDED2;
+  background-image: url('/images/home/ceo-vision-lines-bg.webp');
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 0;
+}
+
+.contentWrapper {
+  display: flex;
+  max-width: 1200px;
+  width: 80%;
+  border-radius: 8px;
+  flex-direction: row;
+}
+
+
+
+.lineWrapper {
+  display: inline-block;
+  overflow: hidden;
+  width: 100%;
+}
+
+.visionTextLine {
+  display: inline-block;
+  white-space: pre-wrap;
+}
+
+.imageContainer {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.textContainer {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 1.5rem;
+}
+
+.title {
+  font-family: "Optima Bold", serif;
+  font-size: 2.5rem;
+  color: #2D2D2D;
+  margin-bottom: 1.5rem;
+}
+
+.animatedTextContainer {
+  text-align: justify;
+  hyphens: auto;
+  font-family: "Gill Sans Light", sans-serif;
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: #909090;
+  margin: 0;
+}
+
+.visionTextWord {
+  display: inline-block;
+}
+
+.visionTextSpace {
+  display: inline-block;
+  width: 0.25em;
+}
+
+@media (max-width: 880px) and (min-width: 769px) {
+  .contentWrapper {
+    width: 90%;
+  }
+}
+
+@media (max-width: 768px) {
+  .pageContainer {
+    padding: 2rem 1rem;
+  }
+
+  .contentWrapper {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .imageContainer,
+  .textContainer {
+    width: 100%;
+  }
+
+  .imageContainer {
+    padding: 1rem;
+  }
+
+  .textContainer {
+    padding: 1rem;
+  }
+
+  .title {
+    font-size: 1.8rem;
+    text-align: center;
+  }
+
+  .animatedTextContainer {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .animatedTextContainer {
+    font-size: 0.9rem;
+  }
+}
