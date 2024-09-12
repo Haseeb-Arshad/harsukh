@@ -106,6 +106,20 @@
 .titleLines:nth-child(2) .lineInner { transition-delay: 0s; }
 .subtitle .lineInner { transition-delay: 0.1s; }
 
+
+.ContactedContainer {
+  position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    min-height: 100vh;
+    background: rgba(0, 0, 0, 0.5); /* Optional: for a semi-transparent background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
 /* Responsive styles */
 @media (max-width: 768px) {
   .content {
