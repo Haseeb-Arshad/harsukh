@@ -1,0 +1,395 @@
+@font-face {
+  font-family: "Gill Sans Light";
+  src: url("/fonts/GillSansMTPro-Light.otf");
+  font-weight: normal;
+}
+/* 
+
+.formContainer {
+    background-color: #FCF7EB;
+    border-radius: 0.3rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+    height: 60vh;
+    width: 100%;
+    max-width: 600px;
+    margin: 2rem auto;
+    font-family: 'Gill Sans Light';
+  } */
+
+.cardContainer {
+  max-height: 400px;
+  overflow-y: auto;
+  margin-bottom: 15px;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.formContainer {
+  background-color: #fcf7eb;
+  border-radius: 0.3rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 1rem;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  height: 65vh;
+  width: 100%;
+  max-width: 600px;
+  margin: 2rem auto;
+  font-family: "Gill Sans Light";
+  display: flex;
+  flex-direction: column;
+}
+
+
+.formContainerBox {
+  background-color: #fcf7eb;
+  border-radius: 0.3rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 1rem;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  height: 70vh;
+  width: 100%;
+  max-width: 600px;
+  margin: 2rem auto;
+  font-family: "Gill Sans Light";
+  display: flex;
+  flex-direction: column;
+}
+
+
+
+.formContainer *::-webkit-scrollbar {
+  width: 5px;
+}
+
+.formContainer *::-webkit-scrollbar-track {
+  background: transparent;
+  border-radius: 4px;
+}
+
+.formContainer *::-webkit-scrollbar-thumb {
+  /* background: #888; */
+  border-radius: 4px;
+}
+
+.formContainer *::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+
+.formContainerBox *::-webkit-scrollbar {
+  width: 5px;
+}
+
+.formContainerBox *::-webkit-scrollbar-track {
+  background: transparent;
+  border-radius: 4px;
+}
+
+.formContainerBox *::-webkit-scrollbar-thumb {
+  /* background: #888; */
+  border-radius: 4px;
+}
+
+.formContainerBox *::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+
+
+.closeButtonBox {
+  display: flex;
+  flex-direction: row-reverse;
+  transition: 0.3s all;
+  height: 3vh;
+}
+
+.closeButtonBox:hover {
+  cursor: pointer;
+}
+
+.closeButton {
+  height: 25px;
+  width: 25px;
+  background-color: #3a3a3a;
+  opacity: 0.4;
+
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.closeButtonBox:hover {
+  opacity: 1;
+}
+
+.formTitle {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  color: #333;
+}
+
+.apartmentInfo {
+  background-color: rgba(0, 109, 119, 0.1);
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.apartmentInfo h3 {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  color: #333;
+}
+
+.apartmentInfo table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.apartmentInfo td {
+  padding: 0.25rem 0;
+}
+
+.apartmentInfo td:first-child {
+  font-weight: bold;
+  color: #555;
+}
+
+.inputGrids {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  flex-grow: 1;
+  overflow-y: auto;
+}
+
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 0.2rem;
+}
+
+.inputBox {
+  display: flex;
+  flex-direction: column;
+}
+
+.inputTitle {
+  font-size: 0.9rem;
+  color: #3a3a3a;
+  margin-bottom: 0.6rem;
+}
+
+.inputGroup input,
+.inputGroup textarea {
+  all: initial;
+
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.inputGroup input:focus,
+.inputGroup textarea:focus {
+  outline: none;
+  border-color: #006d77;
+  box-shadow: 0 0 0 3px rgba(0, 113, 227, 0.1);
+}
+
+/* .inputGroup input {
+    all:initial;
+    flex: 1;
+    padding: 0.75rem;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .inputGroup input:focus {
+    outline: none;
+    border-color: #006d77;
+    box-shadow: 0 0 0 3px rgba(0, 113, 227, 0.2);
+  }
+   */
+
+.formFooter {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.stepButtons {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.stepButton {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #ccc;
+  margin: 0 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.stepButton.active {
+  width: 20px;
+  background-color: #006d77;
+  border-radius: 5px;
+}
+
+.submitButton {
+  width: 100%;
+  padding: 0.75rem;
+  background-color: #006d77;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.submitButton:hover {
+  background-color: #006d77e0;
+}
+
+/* .submitButton {
+    width: 100%;
+    padding: 0.75rem;
+    background-color: #006d77;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+   */
+/* .submitButton:hover {
+    background-color: #006d77e0;
+  }
+   */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.formContainer {
+  animation: fadeIn 0.5s ease-out;
+}
+
+.inputGroup input,
+.submitButton {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.inputGroup input:focus,
+.submitButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* ------------------------------------------------------- */
+/* ------------------------------------------------------- */
+
+.card {
+  background-color: rgba(0, 109, 119, 0.1);
+  border-radius: 6px;
+  padding: 15px;
+  margin-bottom: 15px;
+}
+
+.card:last-child {
+  margin-bottom: 0;
+}
+
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.cardHeader h3 {
+  font-size: 0.9rem;
+  color: #3a3a3a;
+  margin: 0;
+}
+
+.deleteButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 0.7rem;
+  /* border: 1px solid #006d77; */
+  border-radius: 50%;
+  padding: 0.3rem;
+  background-color: rgba(0, 109, 119, 0.12);
+
+  padding-left: 0.4rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 3px;
+}
+
+.row span {
+  font-size: 14px;
+  color: #666;
+}
+
+.price {
+  font-weight: bold;
+  color: #333;
+}
+
+.submitButton.disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.submitButton.disabled:hover {
+  background-color: #ccc;
+  transform: none;
+  box-shadow: none;
+}
+
+.errorMessage {
+  color: #d32f2f;
+  font-size: 0.75rem;
+  margin-top: 0.25rem;
+}

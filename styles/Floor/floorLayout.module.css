@@ -1,0 +1,359 @@
+@font-face {
+    font-family: 'Gill Sans Light';
+    src: url('/fonts/GillSansMTPro-Light.otf');
+    font-weight: normal;
+  }
+
+.fadeIn {
+    opacity: 1;
+}
+
+.fadeOut {
+    opacity: 0;
+}
+  
+
+.floorLayoutContainer {
+    position: relative;
+    font-family: 'Gill Sans Light';
+    background-color: rgba(0, 29, 32, 1);
+    height: 100vh;
+    width: 100%;
+}
+
+.transitionContainer {
+    opacity: 1;
+    transform: scale(1);
+    font-family: 'Gill Sans Light';
+}
+
+.topLogoContainer,
+.buttonsContainer,
+.filterContainer,
+.menuContainer,
+.bottomLogoContainer 
+{
+    display: none;
+}
+
+.topLogoContainer,
+.buttonsContainer,
+.filterContainer,
+.menuContainer
+{
+    position: fixed;
+    z-index: 10;
+    user-select: none;
+    font-family: 'Gill Sans Light';
+
+}
+  
+.menuContainer {
+    top: 3rem;
+    right: 3rem;
+    height: 3.7rem;
+    width: 16rem;
+    z-index: 100000000s;
+    display: grid;
+    align-items: center;
+    justify-content: center;
+    grid-template-columns: 0.8fr 0.4fr 0.4fr;
+}
+
+
+.bottomLogoContainer {
+  user-select: none;
+  position: fixed;
+  bottom: -78px;
+  /* left: 3rem; */
+  z-index: 0;
+  left: 0rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.bottomLogoContainerTitle
+{
+  position: absolute;
+  font-family: 'Gill Sans Medium';
+  font-size: 0.9rem;
+  bottom: 10.5rem;
+  left: 3rem;
+  color: #FCF7EB;
+}
+
+  
+.amenitiesButton
+{
+    align-items: center;
+    justify-content: center;
+    background-color: #FCF7EB;
+    color:  #006d77 ;
+    border: none;
+    height: 2.5rem;
+    border-radius: 0.3rem;
+    cursor: pointer;
+    display: grid;
+    grid-template-columns: 0.6fr 1fr;
+    transition: all 0.3s ease-in-out;
+}
+
+.amenitiesButtonLeft
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color:#FCF7EB;
+    border-radius: 0.7rem;
+    padding: 3px;
+    /* height: 80%; */
+}
+
+.amenitiesButtonTitle
+{
+    display: flex;
+    font-size: 0.75rem;
+    align-items: center;
+    border-radius: 0.4rem;
+    /* font-weight: 600; */
+}
+
+.menuContainerInside
+{
+  display: flex;
+  align-items: center;
+  flex-direction: row-reverse;
+  /* justify-content: center; */
+  /* border: 1px solid red; */
+}
+
+.callContainer
+{
+  position: absolute;
+  bottom: 1.6rem;
+  right: 3rem;
+  height: 2.8rem;
+  width: 2.8rem;
+  background: #FCF7EB;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+  transform: translateY(-20px) scale(0.98);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.callContainer:hover {
+  cursor: pointer;
+  transform: translateY(-20px) scale(1);
+}
+
+.mapsViewBox {
+    padding-top: 0.3rem;
+  }
+  
+  .mapsViewBox img {
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1)); /* Subtle icon shadow */
+  }
+
+
+  .Harsukhlogo {
+    position: fixed;
+    top: 2rem;
+    left: 3rem;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    pointer-events: none; /* This prevents any interaction */
+    user-select: none;
+  }
+  
+  /* .bottomLogoContainer {
+    position: absolute;
+    bottom: 3rem;
+    left: 2rem;
+    overflow: hidden;
+    transition: all 0.3s ease;
+  } */
+  
+.reservedContainer
+{
+  position: absolute;
+  top: 110px;
+  right: 113px;
+  animation: fadeIn 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+
+}
+
+.container {
+  position: absolute;
+  bottom: 0rem;
+  right: 0rem;  
+  height: 200px;
+  width: 100px;
+  margin-bottom: 2rem;
+  /* padding: 2rem;/ */
+  /* border: 1px solid #dcdcdc;   */
+  display: flex;
+  /* align-items: center;
+  justify-content: center; */
+}
+
+.buttonss {
+  color: #006d77;
+  position: absolute;
+  height: 40px;
+  width: 40px;
+  border: none;
+  margin-top: 2rem;
+  border-radius: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding-left: 14px;
+  cursor: pointer;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.mapButton 
+{
+  bottom: 158px;
+  padding-left: 12px;
+  right: 48px;
+  background: linear-gradient(135deg, #fcf7eb, #f0f0f0);
+  border: 1px solid #dcdcdc;
+}
+
+.formButton {
+  bottom: 16px;
+  padding-left: 10px;
+  right: 48px;
+  background: linear-gradient(135deg, #fcf7eb, #f0f0f0);
+  border: 1px solid #dcdcdc;
+
+}
+
+.callButton {
+  /* padding-right: ; */
+  bottom: 48px;
+  right: 48px;
+  background-color: #fcf7eb;
+}
+
+.button:hover {
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+}
+
+.expanded {
+  width: 140px;
+}
+
+.buttonText {
+  margin-left: 8px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: #006d77;
+  white-space: nowrap;
+  font-family: 'Gill Sans Light';
+  font-weight: bold;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.expanded .buttonText {
+  opacity: 1;
+}
+
+.ContactedContainer {
+  position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    min-height: 100vh;
+    background: rgba(0, 0, 0, 0.5); /* Optional: for a semi-transparent background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: fadeIn 0.3s ease-in-out;
+}
+/* 
+.reserveContainerBox
+{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  min-height: 100vh;
+
+} */
+
+
+@media (max-width: 786px) {
+  .callButton {
+    bottom: 48px;
+    right: 28px;
+    background-color: #fcf7eb;
+  }
+
+  .formButton {
+    bottom: 103px;
+    padding-left: 12px;
+    right: 28px;
+    background: linear-gradient(135deg, #fcf7eb, #f0f0f0);
+    border: 1px solid #dcdcdc;
+  
+  }  
+
+  .mapButton {
+    bottom: 158px;
+    right: 28px;
+    background: linear-gradient(135deg, #fcf7eb, #f0f0f0);
+    border: 1px solid #dcdcdc;
+  }
+
+  
+  .reservedContainer
+{
+  z-index: 999999;
+  position: absolute;
+  top: 90px;
+  right: 113px;
+  /* right: 50px;
+  left: 50px; */
+  animation: fadeIn 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+
+}
+
+
+.reserveContainerBox
+{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* background: black; */
+  z-index: 10000000000;
+  /* animation: fadeIn 0.3s ease-in-out; */
+}
+  
+  
+    .menuContainer {
+      position: fixed;
+      top: 2rem;
+      right: 20px;
+      height: 7rem;
+      width: 5rem;
+      z-index: 100000000s;
+      display: grid;
+      align-items: center;
+      justify-content: center;
+      grid-template-rows: 1fr 1fr;
+      grid-template-columns: 1fr;
+    }
+}

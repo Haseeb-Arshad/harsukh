@@ -1,0 +1,164 @@
+@font-face {
+  font-family: "Gill Sans Light";
+  src: url("/fonts/gillsans/Gill Sans Light.otf");
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: "Gill Sans Medium";
+  src: url("/fonts/gillsans/Gill Sans Medium.otf");
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: "Optima Bold";
+  src: url("/fonts/optima/OPTIMA_B.TTF");
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: "Optima";
+  src: url("/fonts/optima/OPTIMA.TTF");
+  font-weight: normal;
+}
+
+.nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0px 40px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  font-family: "Gill Sans Medium";
+  transition: transform 0.35s cubic-bezier(0.49, 0.23, 0, 1);
+}
+
+.menu {     
+  padding: 0.8rem 4rem;     
+  display: flex;     
+  list-style-type: none;     
+  background-color: rgb(252, 247, 235, 0.2);     
+  backdrop-filter: blur(5.27488px);     
+  border-radius: 3rem;     
+  gap: 1.5rem;   
+}
+
+.menuitems
+{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* .menu li {     margin-right: 20px;     cursor: pointer;     color: #2D2D2D;     user-select: none;     position: relative;     padding-bottom: 5px;     font-size: 16px;     transition: color 0.35s cubic-bezier(0.49, 0.23, 0, 1);   }      .menu li:hover {     color: #006D77;   } */
+.menu li {
+  /* display: flex;
+  align-items: center;
+  justify-content: center; */
+  cursor: pointer;
+  color: #2D2D2D;
+  user-select: none;
+  position: relative;
+  padding-bottom: 5px;
+  font-size: 16px;
+  transition: color 0.35s cubic-bezier(0.49, 0.23, 0, 1);
+}
+
+.menu li:hover {
+  color: #006D77;
+}
+
+.menu li::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: #006D77;
+  transition: width 0.35s cubic-bezier(0.49, 0.23, 0, 1);
+}
+
+.menu li:hover::after {
+  width: 100%;
+}
+
+.activeMenuItem {
+  color: #006D77;
+}
+
+.activeMenuItem::after {
+  width: 100%;
+  background-color: #006D77;
+}
+
+.exploreBtn {
+  font-family: "Gill Sans Light";
+  background-color: #006D77;
+  opacity: 0.95;
+  color: #FCF7EB;
+  border: none;
+  font-size: 0.85rem;
+  padding: 0.7rem 23px;
+  border-radius: 1.2rem;
+  word-spacing: 0.13rem;
+  font-weight: 400;
+  cursor: pointer;
+  user-select: none;
+  transition: background-color 0.5s cubic-bezier(0.49, 0.23, 0, 1);
+}
+
+.mobileMenuIcon {
+  display: none;
+}
+
+.mobileExploreBtn {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .nav {
+    padding: 10px 20px;
+  }
+
+  .menu {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background-color: rgb(252, 247, 235, 0.95);
+    padding: 20px;
+  }
+
+  .mobileMenuOpen {
+    display: flex;
+  }
+
+  .mobileMenuIcon {
+    display: block;
+    cursor: pointer;
+  }
+
+  .desktopExploreBtn {
+    display: none;
+  }
+
+  .mobileExploreBtn {
+    display: block;
+    margin-top: 10px;
+  }
+
+  .exploreBtn {
+    width: 100%;
+  }
+
+  .menu{
+    border-radius: 1rem;     
+
+  }
+}

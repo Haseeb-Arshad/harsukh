@@ -1,0 +1,174 @@
+.main
+{
+    position: absolute;
+    height: 70vh;
+    width: 37vw;
+    background: rgba(247, 247, 247, 1);
+    border-radius: 0.3rem;
+    box-shadow: inset 0 4px 8px rgba(0, 0, 0, 0.1), inset 0 -4px 8px rgba(0, 0, 0, 0.07);
+
+    /* box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1); */
+}
+
+.submain
+{
+    height: 100%;
+    padding: 1rem;
+    display: grid;
+    grid-template-rows: 0.3fr 1fr 0.3fr;
+}
+
+.requestTop
+{
+    display: grid;
+    grid-template-rows: 0.5fr 1fr;
+    align-items: center;
+    /* border: rgb(111, 0, 255) 1px solid; */
+}
+
+.requestTopright
+{
+    display: flex;
+    justify-content: flex-end;
+    /* border: 1px solid black; */
+}
+
+.requestClose:hover
+{
+    cursor: pointer;
+}
+
+.requestTitle
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: #000000;
+    /* border: red 1px solid; */
+}
+
+.requestContent
+{
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr;
+    /* border: red 1px solid; */
+    padding-left: 3rem;
+    color: #000000;
+}
+
+.requestContentTop
+{
+    padding-top: 0.5rem;
+    /* border: red 1px solid; */
+}
+
+.requesttypeTitle
+{
+    /* border: red 1px solid; */
+}
+
+.requesttype
+{
+    justify-content: center;
+    height: 60%;;
+    width: 80%;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    /* border: red 1px solid; */
+}
+
+.requesttypebuttons
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;;
+    
+     /* margin-top: 1rem; */
+    /* border: 1px solid; */
+}
+
+.requesttypebuttonbox
+{
+    height: 5vh;
+    width: 7.5vw;
+    border-radius: 2rem;
+    border: 1px solid;
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.3s all ease-in-out;
+}
+
+.requesttypebuttonbox:hover
+{
+    background-color: #134074;
+    color: #FCF7EB;
+    cursor: pointer;
+}
+
+.selected
+{
+    background-color: #134074;
+    color: #FCF7EB;
+    cursor: pointer;
+}
+
+.requestContentMiddle
+{
+    /* border: red 1px solid; */
+}
+
+.requestContentMiddle
+{
+
+}
+
+
+
+
+.requestContentBottom
+{
+    /* border: red 1px solid; */
+}
+
+.requestButton
+{
+    /* border: red 1px solid; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.requestSubmit
+{
+    /* border: 1px solid black; */
+    border-radius: 0.3rem;
+    padding: 0.5rem;
+    height: 7vh;
+    width: 12vw;
+    font-size: 0.9rem;
+    font-weight: 400;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #006d77;
+    color: #FCF7EB;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 0 6px 20px rgba(0, 0, 0, 0.19);
+
+    /* box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.1); */
+}
+
+.requestSubmit:hover
+{
+
+    cursor: pointer;
+}
+
+
+
+

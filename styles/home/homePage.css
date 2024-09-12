@@ -1,0 +1,41 @@
+.main {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+  }
+  
+  .frontPageContainer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #000; /* Or whatever background color you prefer */
+    transform: translateY(0);
+    transition: transform 1s cubic-bezier(0.43, 0.13, 0.23, 0.96);
+  }
+  
+  .exitAnimation {
+    transform: translateY(100%) !important;
+  }
+  
+  /* Ensure the HomePage content is visible underneath the exiting FrontPage */
+  .homePage {
+    position: relative;
+    z-index: 0;
+  }
+  
+  /* Debug styles */
+  .frontPageContainer::after {
+    content: 'FrontPage';
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    color: white;
+    font-size: 20px;
+  }
+  
+  .exitAnimation::after {
+    content: 'Exiting';
+  }

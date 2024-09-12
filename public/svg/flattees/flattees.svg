@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="flattees"  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 5494.76 3090.8">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #fff;
+        filter: url(#drop-shadow-1);
+        font-family: GillSansMTPro-Medium, 'Gill Sans MT Pro';
+        font-size: 75px;
+        font-weight: 500;
+      }
+
+      .cls-2 {
+        fill: #faf7eb;
+        stroke-width: 0px;
+      }
+
+      .cls-3 {
+        stroke: #fff;
+        stroke-width: 3px;
+      }
+
+      .cls-3, .cls-4 {
+        fill: none;
+        stroke-miterlimit: 10;
+      }
+
+      .cls-4 {
+        stroke: #faf7eb;
+        stroke-width: 5px;
+      }
+    </style>
+    <filter id="drop-shadow-1" filterUnits="userSpaceOnUse">
+      <feOffset dx="1" dy="1"/>
+      <feGaussianBlur result="blur" stdDeviation="2"/>
+      <feFlood flood-color="#000" flood-opacity=".75"/>
+      <feComposite in2="blur" operator="in"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g id="Layer_1" data-name="Layer 1">
+    <polyline class="cls-3" points="2653.47 726.76 2454.66 729.95 2434.1 689.35"/>
+    <polyline class="cls-3" points="1734.92 2171.27 1536.1 2172.6 1516.46 2213.65"/>
+  </g>
+  <g id="Layer_2" data-name="Layer 2">
+    <g>
+      <g>
+        <path class="cls-2" d="M2753.29,715.21l-10.02-3.87v-4.38c0-1.43-1.16-2.6-2.6-2.6s-2.6,1.16-2.6,2.6v54.53h-9.09v-10.39h1.3c1.43,0,2.6-1.16,2.6-2.6s-1.16-2.6-2.6-2.6h-28.57c-1.43,0-2.6,1.16-2.6,2.6s1.16,2.6,2.6,2.6h1.3v10.39h-9.09v-54.53c0-1.43-1.16-2.6-2.6-2.6s-2.6,1.16-2.6,2.6v4.38l-10.02,3.87c-1,.39-1.66,1.35-1.66,2.42v46.46c0,1.43,1.16,2.6,2.6,2.6h72.71c1.43,0,2.6-1.16,2.6-2.6v-46.46c0-1.07-.66-2.04-1.66-2.42ZM2682.24,719.41l6.49-2.5v44.59h-6.49v-42.08ZM2723.79,761.5h-5.19v-10.39h5.19v10.39ZM2708.21,751.11h5.19v10.39h-5.19v-10.39ZM2749.76,761.5h-6.49v-44.59l6.49,2.5v42.08Z"/>
+        <path class="cls-2" d="M2714.7,714.75h2.6c1.43,0,2.6-1.16,2.6-2.6s-1.16-2.6-2.6-2.6h-2.6c-1.43,0-2.6,1.16-2.6,2.6s1.16,2.6,2.6,2.6Z"/>
+        <path class="cls-2" d="M2701.72,714.75h2.6c1.43,0,2.6-1.16,2.6-2.6s-1.16-2.6-2.6-2.6h-2.6c-1.43,0-2.6,1.16-2.6,2.6s1.16,2.6,2.6,2.6Z"/>
+        <path class="cls-2" d="M2727.68,714.75h2.6c1.43,0,2.6-1.16,2.6-2.6s-1.16-2.6-2.6-2.6h-2.6c-1.43,0-2.6,1.16-2.6,2.6s1.16,2.6,2.6,2.6Z"/>
+        <path class="cls-2" d="M2714.7,727.74h2.6c1.43,0,2.6-1.16,2.6-2.6s-1.16-2.6-2.6-2.6h-2.6c-1.43,0-2.6,1.16-2.6,2.6s1.16,2.6,2.6,2.6Z"/>
+        <path class="cls-2" d="M2701.72,727.74h2.6c1.43,0,2.6-1.16,2.6-2.6s-1.16-2.6-2.6-2.6h-2.6c-1.43,0-2.6,1.16-2.6,2.6s1.16,2.6,2.6,2.6Z"/>
+        <path class="cls-2" d="M2727.68,727.74h2.6c1.43,0,2.6-1.16,2.6-2.6s-1.16-2.6-2.6-2.6h-2.6c-1.43,0-2.6,1.16-2.6,2.6s1.16,2.6,2.6,2.6Z"/>
+        <path class="cls-2" d="M2714.7,740.72h2.6c1.43,0,2.6-1.16,2.6-2.6s-1.16-2.6-2.6-2.6h-2.6c-1.43,0-2.6,1.16-2.6,2.6s1.16,2.6,2.6,2.6Z"/>
+        <path class="cls-2" d="M2701.72,740.72h2.6c1.43,0,2.6-1.16,2.6-2.6s-1.16-2.6-2.6-2.6h-2.6c-1.43,0-2.6,1.16-2.6,2.6s1.16,2.6,2.6,2.6Z"/>
+        <path class="cls-2" d="M2727.68,740.72h2.6c1.43,0,2.6-1.16,2.6-2.6s-1.16-2.6-2.6-2.6h-2.6c-1.43,0-2.6,1.16-2.6,2.6s1.16,2.6,2.6,2.6Z"/>
+      </g>
+      <path class="cls-2" d="M2748.46,691.38c0-1.43-1.16-2.6-2.6-2.6h-59.73c-1.43,0-2.6,1.16-2.6,2.6v7.79h64.92v-7.79Z"/>
+      <circle class="cls-4" cx="2716" cy="727.74" r="61"/>
+    </g>
+    <text class="cls-1" transform="translate(2143.86 590.65)"><tspan x="0" y="0">Faletti’s Grand</tspan><tspan x="119.14" y="80">Ayubia</tspan></text>
+  </g>
+</svg>
