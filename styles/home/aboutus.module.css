@@ -20,7 +20,7 @@
   font-family: "Optima";
   position: relative;
   width: 100vw;
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -57,6 +57,7 @@
   bottom: 0;
   display: flex;
   align-items: center;
+  z-index: 999999999999;
 }
 
 .content {
@@ -94,4 +95,38 @@
 
 .isInview .lineInner {
   transform: translateY(0);
+}
+
+
+@media (max-width: 768px) {
+  .container {
+    height: auto;
+    min-height: 100vh;
+  }
+
+  .imageSection {
+    height: 100%;
+  }
+
+  .contentOverlay {
+    padding: 2rem 1rem;
+  }
+
+  .content {
+    max-width: 100%;
+  }
+
+  .title {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+
+  .description {
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+
+  .titleLines, .description {
+    text-align: center;
+  }
 }

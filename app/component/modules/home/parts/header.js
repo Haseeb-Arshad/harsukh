@@ -1,9 +1,10 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import styles from '@/styles/home/header.module.css';
 import { useInView } from 'react-intersection-observer';
 import TextMasked from './anim/TextMasked';
+import RegisterRequestForm from '@/app/component/ui/Bars/contactBox';
 
 const Header = () => {
 
@@ -57,9 +58,20 @@ const Header = () => {
     }
   };
 
+  const [isContacted, setIsContacted] = useState(false);
+
+
+  const handleCall = () => {
+    setIsContacted(!isContacted);
+  };
+  const handleContactClose = () => {
+
+    setIsContacted(false);
+  };
   
 
   return (
+    <>
     <motion.div className={styles.container} variants={containerVariants} initial="hidden" animate={inView ? "visible" : "hidden"}>
       <motion.div className={styles.imageWrapper} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5, ease: [0.49, 0.23, 0, 1] }}>
         <Image src="/images/home/harsukhImage1.webp" layout="fill" objectFit="cover" quality={100} priority alt="Luxury hotel in mountains" />
@@ -84,11 +96,19 @@ const Header = () => {
         <motion.div className={`${styles.subtitle} ${inView ? styles.isInview : ''}`}>
           <span className={styles.lineInner}>{subtitle}</span>
         </motion.div>
-        <motion.button className={`${styles.ctaBtn} ctaBtn`} variants={buttonVariants}>
+        <motion.button onClick={handleCall} className={`${styles.ctaBtn} ctaBtn`} variants={buttonVariants}>
           Get in Touch
         </motion.button>
       </motion.div>
     </motion.div>
+          
+    {isContacted && (
+        <div style={{zIndex:'99999999999'}} className={styles.ContactedContainer}>
+          <RegisterRequestForm onClose={handleContactClose} />
+        </div>
+      )}
+
+    </>
   );
 
 };

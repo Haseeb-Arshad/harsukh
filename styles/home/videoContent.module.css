@@ -28,7 +28,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  min-height: 100vh;
   width: 100%;
   position: relative;
   z-index: 1;
@@ -106,3 +106,5 @@
 .isInview .lineInner {
   transform: translateY(0);  /* Animate to original position */
 }
+
+

@@ -7,6 +7,15 @@ export default function VisionPage() {
   return (
     <div className={styles.container}>
       <div className={styles.visionContent}>
+        <div className={styles.visionImage}>
+          <Image
+            src="/images/home/vision-bg.webp" // Make sure the image is placed in your public folder
+            alt="Harsukh Residencies"
+            layout="fill"
+            objectFit="cover"
+            quality={100}
+          />
+        </div>
         <div className={styles.visionText}>
           <div className={styles.title}>VISION</div>
           <div className={styles.content}>
@@ -18,15 +27,6 @@ export default function VisionPage() {
             residents to live peacefully in the hills away from all the hassle
             of life.
           </div>
-        </div>
-        <div className={styles.visionImage}>
-          <Image
-            src="/images/home/vision-bg.webp" // Make sure the image is placed in your public folder
-            alt="Harsukh Residencies"
-            layout="fill"
-            objectFit="cover"
-            quality={100}
-          />
         </div>
       </div>
     </div>
