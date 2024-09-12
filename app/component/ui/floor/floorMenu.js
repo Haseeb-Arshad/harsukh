@@ -132,7 +132,7 @@ const FloorMenu = () => {
   }, [router]);
 
   const handleBackClick = useCallback(() => {
-    router.push('/');
+    router.push('/explore');
   }, [router]);
 
   // Render functions
