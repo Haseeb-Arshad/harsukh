@@ -112,7 +112,7 @@ const Footer = () => {
           </div>
           
           <div className={styles.newsletter}>
-            <div className={styles.newsletterTitle}>Get the freshest News from us</div>
+            <div className={styles.newsletterTitle}>Get the latest News from us</div>
             <div className={styles.form}>
               <div className={styles.formInput}>
                 <input className={styles.inputBox} type="email" placeholder="Enter Your Email" />

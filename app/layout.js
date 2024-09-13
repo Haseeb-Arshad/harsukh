@@ -2,10 +2,11 @@ import { Inter } from "next/font/google";
 import Script from 'next/script';
 import "./globals.css";
 import { Providers } from "@/state/provider";
-import GoogleTagManager from "./component/analytics/GoogleTagManager";
+// import GoogleTagManager from "./component/analytics/GoogleTagManager";
 import BarbaWrapper from "./component/ui/barba/barbaWrapper";
 
 const inter = Inter({ subsets: ["latin"] });
+import { GoogleTagManager } from '@next/third-parties/google'
 
 // export const metadata = {
 //   title: "Harsukh Residences",
@@ -68,11 +69,12 @@ export default function RootLayout({ children }) {
               alt=""
             />
           </noscript>
-          <GoogleTagManager />
           {children}
           {/* </BarbaWrapper> */}
 
         </body>
+        <GoogleTagManager gtmId="GTM-MJDJH587" />
+        
       </html>
     </Providers>
   );

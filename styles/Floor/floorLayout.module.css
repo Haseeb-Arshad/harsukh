@@ -189,7 +189,7 @@
   position: absolute;
   bottom: 0rem;
   right: 0rem;  
-  height: 200px;
+  height: 50px;
   width: 100px;
   margin-bottom: 2rem;
   /* padding: 2rem;/ */
@@ -237,7 +237,7 @@
 
 .callButton {
   /* padding-right: ; */
-  bottom: 48px;
+  bottom: 85px;
   right: 48px;
   background-color: #fcf7eb;
 }

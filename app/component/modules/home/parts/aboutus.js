@@ -45,42 +45,41 @@ const AnimatedText = ({ text, className }) => {
 
 const AboutUs = () => {
   return (
-    <>
-      <div className={styles.container}>
-        <div className={styles.imageSection}>
-          <Image
-            src="/images/home/aboutusHarsukh.webp"
-            alt="Harsukh Residencies"
-            layout="fill"
-            objectFit="cover"
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            quality={100}
-            className={styles.backgroundImage}
+    <section className={styles.container}>
+      <div className={styles.imageSection}>
+        <Image
+          src="/images/home/aboutusHarsukh.webp"
+          alt="Harsukh Residencies"
+          layout="fill"
+          objectFit="cover"
+          sizes="100vw"
+          quality={85}
+          priority
+          className={styles.backgroundImage}
+        />
+        <Image
+          src="/images/home/aboutUsback.webp"
+          alt="Harsukh Residencies Background"
+          layout="fill"
+          objectFit="cover"
+          sizes="100vw"
+          quality={85}
+          className={styles.backgroundImageLines}
+        />
+      </div>
+      <div className={styles.contentOverlay}>
+        <div className={styles.content}>
+          <AnimatedText
+            text="ABOUT US"
+            className={styles.title}
           />
-          <Image
-            src="/images/home/aboutUsback.webp"
-            alt="Harsukh Residencies"
-            layout="fill"
-            objectFit="cover"
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            quality={100}
-            className={styles.backgroundImageLines}
+          <AnimatedText
+            text="Setting an example of grandeur and luxury in Ayubia, Harsukh Residencies is designed for the high-end market. Blending the comfort of nature and beauty. Finishing it to perfection, this project is a combination of modern living within nature, making it an investment like no other."
+            className={styles.description}
           />
-        </div>
-        <div className={styles.contentOverlay}>
-          <div className={styles.content}>
-            <AnimatedText
-              text="ABOUT US"
-              className={styles.title}
-            />
-            <AnimatedText
-              text="Setting an example of grandeur and luxury in Ayubia, Harsukh Residencies is designed for the high-end market. Blending the comfort of nature and beauty. Finishing it to perfection, this project is a combination of modern living within the nature, making it an investment like no other."
-              className={styles.description}
-            />
-          </div>
         </div>
       </div>
-    </>
+    </section>
   );
 }
 
