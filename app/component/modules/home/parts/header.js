@@ -1,12 +1,37 @@
-import React, {useState} from 'react';
+import React, {useState, useCallback} from 'react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import styles from '@/styles/home/header.module.css';
 import { useInView } from 'react-intersection-observer';
 import TextMasked from './anim/TextMasked';
 import RegisterRequestForm from '@/app/component/ui/Bars/contactBox';
+import en from "@/app/component/locales/en.json";
+import ur from "@/app/component/locales/ur.json";
+import { useSelector } from 'react-redux';
+
 
 const Header = () => {
+
+
+  const [isCallHovered, setIsCallHovered] = useState(false);
+  const [isWAHovered, setIsWAHovered] = useState(false);
+  const [isContacted, setIsContacted] = useState(false);
+
+
+  const languageState = useSelector((state) => {
+    const languageState = state.language.lang.find((site) => site.id === "1");
+    return languageState ? languageState.language : "en";
+  });
+
+  const [language, setLanguage] = useState(languageState === "ur");
+ 
+ 
+
+  const [translations, setTranslations] = useState(
+    languageState === "ur" ? ur : en
+  );
+
+
 
   const { ref, inView } = useInView({
     triggerOnce: true,
@@ -21,11 +46,6 @@ const Header = () => {
 
   const subtitle = "Luxury in the heart of Galyat";
 
-  // const text = 'THE BEST OF BOTH WORLDS';
-  // const words = text.split(' ');
-  // const subtitle = "Luxury in the heart of Galyat";
-
-  // Animation variants for the container, text, and button
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: { opacity: 1, transition: { when: "beforeChildren", staggerChildren: 0.1 } }
@@ -58,9 +78,6 @@ const Header = () => {
     }
   };
 
-  const [isContacted, setIsContacted] = useState(false);
-
-
   const handleCall = () => {
     setIsContacted(!isContacted);
   };
@@ -68,6 +85,30 @@ const Header = () => {
 
     setIsContacted(false);
   };
+
+  const handleCallClick = useCallback(() => {
+    // Add "/callus" to the URL without navigating
+    const newUrl = `${window.location.origin}${window.location.pathname}${window.location.pathname.endsWith('/') ? '' : '/'}callus`;
+    window.history.pushState({}, '', newUrl);
+
+    // Attempt to open the phone dialer
+    window.location.href = 'tel:051-111-520-520';
+
+    // Set a timeout to remove "/callus" from the URL
+    setTimeout(() => {
+      if (window.location.pathname.endsWith('/callus')) {
+        const cleanUrl = window.location.href.replace('/callus', '');
+        window.history.replaceState({}, '', cleanUrl);
+      }
+    }, 1000); // Short delay to ensure the call attempt has been made
+  }, []);
+
+  const handleWhatsAppClick = useCallback(() => {
+    // Replace this with your company's WhatsApp number
+    const whatsappNumber = '+923300111166';
+    const whatsappUrl = `https://wa.me/${whatsappNumber}`;
+    window.open(whatsappUrl, '_blank');
+  }, []);
   
 
   return (
@@ -100,7 +141,47 @@ const Header = () => {
           Get in Touch
         </motion.button>
       </motion.div>
+
+      <div
+      className={`${styles.buttonss} ${styles.callButton} ${
+        isCallHovered ? styles.expanded : ""
+      }`}
+      onMouseEnter={() => setIsCallHovered(true)}
+      onMouseLeave={() => setIsCallHovered(false)}
+      onClick={handleCallClick}
+    >
+      <Image
+        src="/images/icons/callIcon.svg"
+        quality={100}
+        alt="Maps View Icon"
+        height={16}
+        width={16}
+      />
+      <div className={styles.buttonText}>{translations["callus"]}</div>
+    </div>
+
+
+    <div
+      className={`${styles.buttonss} ${styles.whatsappButton} ${
+        isWAHovered ? styles.expanded : ""
+      }`}
+      onMouseEnter={() => setIsWAHovered(true)}
+      onMouseLeave={() => setIsWAHovered(false)}
+      onClick={handleWhatsAppClick}
+    >
+      <Image
+        src="/images/icons/homePage/whatsapp-icon.svg"
+        quality={100}
+        alt="Maps View Icon"
+        height={19}
+        width={19}
+      />
+      <div className={styles.buttonText}>WhatsApp us</div>
+    </div>
+
     </motion.div>
+
+  
           
     {isContacted && (
         <div style={{zIndex:'99999999999'}} className={styles.ContactedContainer}>
