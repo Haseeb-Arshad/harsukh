@@ -1237,7 +1237,7 @@ const Floor = ({ imageName, imageLink }) => {
 
           <div
             className={styles.backToBuilding}
-            onClick={() => router.push("/")}
+            onClick={() => router.push("/explore")}
           >
             <div className={styles.backToBuildingInside}>{translations["backTobuilding"]}</div>
           </div>
