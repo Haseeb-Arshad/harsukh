@@ -8,7 +8,7 @@ export default function VisionPage() {
     <div className={styles.container}>
       <div className={styles.visionContent}>
         <div className={styles.visionImage}>
-          <Image
+          <img
             src="/images/home/vision-bg.webp" // Make sure the image is placed in your public folder
             alt="Harsukh Residencies"
             layout="fill"
