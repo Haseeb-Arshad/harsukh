@@ -24,7 +24,7 @@ const FrontPage = () => {
 
     <>
      <Image
-        src="/Webpage/FrontPage.webp"
+        src="/Webpage/FrontPage.png"
         layout="fill"
         objectFit="cover"
         priority
