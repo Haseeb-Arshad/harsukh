@@ -50,8 +50,7 @@ const AboutUs = () => {
         <Image
           src="/images/home/aboutusHarsukh.webp"
           alt="Harsukh Residencies"
-          layout="fill"
-          objectFit="cover"
+          fill
           sizes="100vw"
           quality={85}
           priority
@@ -60,8 +59,7 @@ const AboutUs = () => {
         <Image
           src="/images/home/aboutUsback.webp"
           alt="Harsukh Residencies Background"
-          layout="fill"
-          objectFit="cover"
+          fill
           sizes="100vw"
           quality={85}
           className={styles.backgroundImageLines}

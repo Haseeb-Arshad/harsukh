@@ -744,7 +744,7 @@ export default function MainPage() {
   const [isElevationClicked, setElevationClicked] = useState(false);
   const [elevationArray, setElevationArray] = useState([
     { id: "2", label: translations["mapview"], route: "/mapview" },
-    { id: "1", label: translations["elevation"], route: "/" },
+    { id: "1", label: translations["elevation"], route: "/explore" },
   ]);
 
   useEffect(() => {
@@ -754,7 +754,7 @@ export default function MainPage() {
     // Update elevationArray when translations change
     setElevationArray([
       {id:'2', label: language ? ur['mapview'] : en['mapview'], route:'/mapview'},
-      {id:'1', label: language ? ur['elevation'] : en['elevation'], route:'/'},
+      {id:'1', label: language ? ur['elevation'] : en['elevation'], route:'/explore'},
     ]);
   }, [language, dispatch]);
 
