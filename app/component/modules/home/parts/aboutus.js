@@ -47,7 +47,7 @@ const AboutUs = () => {
   return (
     <section className={styles.container}>
       <div className={styles.imageSection}>
-        <Image
+        <img
           src="/images/home/aboutusHarsukh.webp"
           alt="Harsukh Residencies"
           fill
@@ -56,7 +56,7 @@ const AboutUs = () => {
           priority
           className={styles.backgroundImage}
         />
-        <Image
+        <img
           src="/images/home/aboutUsback.webp"
           alt="Harsukh Residencies Background"
           fill

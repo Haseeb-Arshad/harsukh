@@ -53,7 +53,7 @@ const Navbar = ({ children }) => {
   return (
     <>
       <nav className={`${styles.nav} ${visible ? styles.visible : styles.hidden}`}>
-        <Image style={{cursor:"pointer"}} src="/Webpage/floors/HarsukhLogo.webp" alt="menu" width={180} height={105} />
+        <img style={{cursor:"pointer"}} src="/Webpage/floors/HarsukhLogo.webp" alt="menu" width={180} height={105} />
         <div className={styles.mobileMenuIcon} onClick={toggleMobileMenu}>
           <Menu size={24} />
         </div>

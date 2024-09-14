@@ -23,8 +23,8 @@ const FrontPage = () => {
   return (
 
     <>
-     <Image
-        src="/Webpage/FrontPage.png"
+     <img
+        src="/Webpage/front-page.webp"
         layout="fill"
         objectFit="cover"
         priority
@@ -47,7 +47,7 @@ const FrontPage = () => {
         fontWeight: 'bold',
         marginBottom: '40px'
       }}>
-        <Image src="/images/Logo/HarsukhLogo.webp" height={65} width={270} alt="Harsukh" />
+        <img src="/images/Logo/HarsukhLogo.webp" height={65} width={270} alt="Harsukh" />
       </h1>
       <div style={{
         width: '280px',

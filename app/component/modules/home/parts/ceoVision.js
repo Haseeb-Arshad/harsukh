@@ -86,7 +86,7 @@ const CEOVisionPage = () => {
             },
           }}
         >
-          <Image
+          <img
             src="/images/home/ceo-profile-pic.webp"
             width={isMidScreen ? 300 : 330}
             height={isMidScreen ? 330 : 360}

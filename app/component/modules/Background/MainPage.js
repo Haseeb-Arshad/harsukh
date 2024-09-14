@@ -837,7 +837,7 @@ export default function MainPage() {
           <img
             ref={imageRef}
             src={!backView ? (snowMode ? 
-              "/images/background/frontViewWinter.webp" : "/images/background/frontViewSummer.webp") : "/images/background/backView.webp"}
+              "/images/background/font-view-winter.webp" : "/images/background/front-view-summer.webp") : "/images/background/back-view.webp"}
             alt="Background"
             className={`${styles.backgroundImage} ${loading ? styles.loading : ''}`}
             onLoad={handleImageLoad}
