@@ -21,9 +21,9 @@ const BottomNavbar = () => {
         animate={{ y: 0 }}
         transition={{ type: 'spring', stiffness: 300, damping: 30 }}
       >
-        <NavbarItem icon="/images/icons/filterIcon.svg" label="Filter" onClick={handleFilter} />
-        <NavbarItem icon="/images/icons/floorIcon.svg" label="Seasons" />
-        <NavbarItem icon="/images/icons/menuIcon.svg" label="Menu" onClick={handleMenu} />
+        <NavbarItem icon="https://cdn.theharsukh.com/images/icons/filterIcon.svg" label="Filter" onClick={handleFilter} />
+        <NavbarItem icon="https://cdn.theharsukh.com/images/icons/floorIcon.svg" label="Seasons" />
+        <NavbarItem icon="https://cdn.theharsukh.com/images/icons/menuIcon.svg" label="Menu" onClick={handleMenu} />
       </motion.div>
 
       <AnimatePresence>

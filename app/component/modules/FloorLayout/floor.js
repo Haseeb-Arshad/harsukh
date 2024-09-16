@@ -976,19 +976,19 @@ const Floor = ({ imageName, imageLink }) => {
       const zoomInButton = document.createElement("div");
       zoomInButton.className = styles.ZoomInbuttonStyle;
       zoomInButton.innerHTML =
-        '<img src="/images/icons/zoomIn.svg" alt="Zoom In" width="24" height="24" />';
+        '<img src="https://cdn.theharsukh.com/images/icons/zoomIn.svg" alt="Zoom In" width="24" height="24" />';
       zoomInButton.onclick = () => viewer.viewport.zoomBy(1.5);
 
       const zoomOutButton = document.createElement("div");
       zoomOutButton.className = styles.ZoomOutbuttonStyle;
       zoomOutButton.innerHTML =
-        '<img src="/images/icons/zoomOut.svg" alt="Zoom Out" width="24" height="24" />';
+        '<img src="https://cdn.theharsukh.com/images/icons/zoomOut.svg" alt="Zoom Out" width="24" height="24" />';
       zoomOutButton.onclick = () => viewer.viewport.zoomBy(0.667);
 
       const resetZoomButton = document.createElement("div");
       resetZoomButton.className = styles.ZoonOutbuttonStyle;
       resetZoomButton.innerHTML =
-        '<img src="/images/icons/resetZoom.svg" alt="Reset Zoom" width="24" height="24" />';
+        '<img src="https://cdn.theharsukh.com/images/icons/resetZoom.svg" alt="Reset Zoom" width="24" height="24" />';
       resetZoomButton.onclick = () => viewer.viewport.goHome();
 
       // zoomControls.appendChild(zoomInButton);
@@ -1048,40 +1048,40 @@ const Floor = ({ imageName, imageLink }) => {
 
   const galleryImagesMap = {
     Studio: [
-      "/images/gallery/Studio/studio-1.webp",
-      "/images/gallery/studio/studio-2.webp",
-      "/images/gallery/studio/studio-3.webp",
+      "https://cdn.theharsukh.com/images/gallery/Studio/studio-1.webp",
+      "https://cdn.theharsukh.com/images/gallery/studio/studio-2.webp",
+      "https://cdn.theharsukh.com/images/gallery/studio/studio-3.webp",
     ],
     "One Bed": [
-      "/images/gallery/OneBed/oneBed-1.webp",
-      "/images/gallery/OneBed/oneBed-2.webp",
-      "/images/gallery/OneBed/oneBed-3.webp",
-      "/images/gallery/OneBed/oneBed-4.webp",
+      "https://cdn.theharsukh.com/images/gallery/OneBed/oneBed-1.webp",
+      "https://cdn.theharsukh.com/images/gallery/OneBed/oneBed-2.webp",
+      "https://cdn.theharsukh.com/images/gallery/OneBed/oneBed-3.webp",
+      "https://cdn.theharsukh.com/images/gallery/OneBed/oneBed-4.webp",
     ],
     "Two Bed": [
-      "/images/gallery/TwoBed/twoBed-1.webp",
-      "/images/gallery/TwoBed/twoBed-2.webp",
-      "/images/gallery/TwoBed/twoBed-3.webp",
-      "/images/gallery/TwoBed/twoBed-4.webp",
-      "/images/gallery/TwoBed/twoBed-5.webp",
-      "/images/gallery/TwoBed/twoBed-6.webp",
+      "https://cdn.theharsukh.com/images/gallery/TwoBed/twoBed-1.webp",
+      "https://cdn.theharsukh.com/images/gallery/TwoBed/twoBed-2.webp",
+      "https://cdn.theharsukh.com/images/gallery/TwoBed/twoBed-3.webp",
+      "https://cdn.theharsukh.com/images/gallery/TwoBed/twoBed-4.webp",
+      "https://cdn.theharsukh.com/images/gallery/TwoBed/twoBed-5.webp",
+      "https://cdn.theharsukh.com/images/gallery/TwoBed/twoBed-6.webp",
     ],
     "Three Bed": [
-      "/images/gallery/ThreeBed/threeBed-1.webp",
-      "/images/gallery/ThreeBed/threeBed-2.webp",
-      "/images/gallery/ThreeBed/threeBed-3.webp",
-      "/images/gallery/ThreeBed/threeBed-4.webp",
-      "/images/gallery/ThreeBed/threeBed-5.webp",
+      "https://cdn.theharsukh.com/images/gallery/ThreeBed/threeBed-1.webp",
+      "https://cdn.theharsukh.com/images/gallery/ThreeBed/threeBed-2.webp",
+      "https://cdn.theharsukh.com/images/gallery/ThreeBed/threeBed-3.webp",
+      "https://cdn.theharsukh.com/images/gallery/ThreeBed/threeBed-4.webp",
+      "https://cdn.theharsukh.com/images/gallery/ThreeBed/threeBed-5.webp",
     ],
     Penthouse: [
-      "/images/gallery/Penthouse/penthouse-1.webp",
-      "/images/gallery/Penthouse/penthouse-2.webp",
-      "/images/gallery/Penthouse/penthouse-3.webp",
-      "/images/gallery/Penthouse/penthouse-4.webp",
-      "/images/gallery/Penthouse/penthouse-5.webp",
-      "/images/gallery/Penthouse/penthouse-6.webp",
-      "/images/gallery/Penthouse/penthouse-7.webp",
-      "/images/gallery/Penthouse/penthouse-8.webp",
+      "https://cdn.theharsukh.com/images/gallery/Penthouse/penthouse-1.webp",
+      "https://cdn.theharsukh.com/images/gallery/Penthouse/penthouse-2.webp",
+      "https://cdn.theharsukh.com/images/gallery/Penthouse/penthouse-3.webp",
+      "https://cdn.theharsukh.com/images/gallery/Penthouse/penthouse-4.webp",
+      "https://cdn.theharsukh.com/images/gallery/Penthouse/penthouse-5.webp",
+      "https://cdn.theharsukh.com/images/gallery/Penthouse/penthouse-6.webp",
+      "https://cdn.theharsukh.com/images/gallery/Penthouse/penthouse-7.webp",
+      "https://cdn.theharsukh.com/images/gallery/Penthouse/penthouse-8.webp",
     ],
   };
 
@@ -1177,7 +1177,7 @@ const Floor = ({ imageName, imageLink }) => {
         <>
           <div className={styles.ZoomInbuttonStyle} onClick={handleZoomIn}>
             <img
-              src="/images/icons/zoomIn.svg"
+              src="https://cdn.theharsukh.com/images/icons/zoomIn.svg"
               alt="Zoom Out"
               width="24"
               height="24"
@@ -1186,7 +1186,7 @@ const Floor = ({ imageName, imageLink }) => {
 
           <div className={styles.ZoomOutbuttonStyle} onClick={handleZoomOut}>
             <img
-              src="/images/icons/zoomOut.svg"
+              src="https://cdn.theharsukh.com/images/icons/zoomOut.svg"
               alt="Zoom Out"
               width="24"
               height="24"
@@ -1197,7 +1197,7 @@ const Floor = ({ imageName, imageLink }) => {
         <>
           <div className={styles.ZoomInMobbuttonStyle} onClick={handleZoomIn}>
             <img
-              src="/images/icons/zoomIn.svg"
+              src="https://cdn.theharsukh.com/images/icons/zoomIn.svg"
               alt="Zoom Out"
               width="24"
               height="24"
@@ -1206,7 +1206,7 @@ const Floor = ({ imageName, imageLink }) => {
 
           <div className={styles.ZoomOutMobbuttonStyle} onClick={handleZoomOut}>
             <img
-              src="/images/icons/zoomOut.svg"
+              src="https://cdn.theharsukh.com/images/icons/zoomOut.svg"
               alt="Zoom Out"
               width="24"
               height="24"
@@ -1286,8 +1286,8 @@ const Floor = ({ imageName, imageLink }) => {
                         favoriteApartments.some(
                           (apt) => apt.Apartmentno === activePolygon.id
                         )
-                          ? "/images/icons/favIconFilled.svg"
-                          : "/images/icons/favIcon.svg"
+                          ? "https://cdn.theharsukh.com/images/icons/favIconFilled.svg"
+                          : "https://cdn.theharsukh.com/images/icons/favIcon.svg"
                       }
                       quality={100}
                       alt="Favorite"

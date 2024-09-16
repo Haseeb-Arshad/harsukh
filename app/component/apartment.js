@@ -83,11 +83,11 @@ const Apartment = ({ imageName, imageLink }) => {
   const areas = [
     {
       name: "Studio",
-      image: "/images/Amenity/Studio.png",
+      image: "https://cdn.theharsukh.com/images/Amenity/Studio.png",
       details: [
-        { src: '/images/gallery/Studio/studio-1.webp', caption: 'Cozy and efficient studio apartment' },
-        { src: '/images/gallery/studio/studio-2.webp', caption: 'Modern furnishings in our studio units' },
-        { src: '/images/gallery/studio/studio-3.webp', caption: 'Compact living area in studio apartment' },
+        { src: 'https://cdn.theharsukh.com/images/gallery/Studio/studio-1.webp', caption: 'Cozy and efficient studio apartment' },
+        { src: 'https://cdn.theharsukh.com/images/gallery/studio/studio-2.webp', caption: 'Modern furnishings in our studio units' },
+        { src: 'https://cdn.theharsukh.com/images/gallery/studio/studio-3.webp', caption: 'Compact living area in studio apartment' },
       ]
     },
     {

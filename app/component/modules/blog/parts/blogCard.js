@@ -22,7 +22,7 @@ const BlogCard = ({ title, date, excerpt, image, author }) => (
     <div className={styles.content}>
       <div className={styles.dateContainer}>
         <div className={styles.dateIcon}>
-            <Image src="/images/icons/blog/calendarIcon.svg" alt="harsukhLogo" width={15} height={15} />
+            <Image src="https://cdn.theharsukh.com/images/icons/blog/calendarIcon.svg" alt="harsukhLogo" width={15} height={15} />
         </div>
         <div className={styles.date}>
             {date}
@@ -44,7 +44,7 @@ const BlogCard = ({ title, date, excerpt, image, author }) => (
 
       <div className={styles.authorContainer}>
         <div className={styles.authorImage}>
-            <Image src="/images/icons/blog/user-profile.svg" alt="harsukhLogo" width={15} height={15} />
+            <Image src="https://cdn.theharsukh.com/images/icons/blog/user-profile.svg" alt="harsukhLogo" width={15} height={15} />
         </div>
         <div className={styles.author}> 
             {author}

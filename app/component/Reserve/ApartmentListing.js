@@ -68,7 +68,7 @@ const ApartmentCard = ({ apartment }) => {
         <h3>{translations["apartmentNo"]} {apartment.Apartmentno}</h3>
         <div className={styles.deleteButton} onClick={handleDelete}>
           <Image
-            src="/images/icons/binIcon.svg"
+            src="https://cdn.theharsukh.com/images/icons/binIcon.svg"
             quality={100}
             alt="Delete Icon"
             height={16}

@@ -87,9 +87,9 @@ const Apartment = ({ imageName, imageLink }) => {
       name: "Studio",
       image: "/images/Amenity/Studio.png",
       details: [
-        { src: '/images/gallery/Studio/studio-1.webp', caption: 'Cozy and efficient studio apartment' },
-        { src: '/images/gallery/studio/studio-2.webp', caption: 'Modern furnishings in our studio units' },
-        { src: '/images/gallery/studio/studio-3.webp', caption: 'Compact living area in studio apartment' },
+        { src: 'https://cdn.theharsukh.com/images/gallery/Studio/studio-1.webp', caption: 'Cozy and efficient studio apartment' },
+        { src: 'https://cdn.theharsukh.com/images/gallery/studio/studio-2.webp', caption: 'Modern furnishings in our studio units' },
+        { src: 'https://cdn.theharsukh.com/images/gallery/studio/studio-3.webp', caption: 'Compact living area in studio apartment' },
       ]
     },
     {
@@ -396,17 +396,17 @@ const Apartment = ({ imageName, imageLink }) => {
 
         const zoomInButton = document.createElement('button');
         zoomInButton.className = styles.buttonStyle;
-        zoomInButton.innerHTML = '<img src="/images/icons/zoomIn.svg" alt="Zoom In" width="24" height="24" />';
+        zoomInButton.innerHTML = '<img src="https://cdn.theharsukh.com/images/icons/zoomIn.svg" alt="Zoom In" width="24" height="24" />';
         zoomInButton.onclick = () => viewer.viewport.zoomBy(1.5);
 
         const zoomOutButton = document.createElement('button');
         zoomOutButton.className = styles.buttonStyle;
-        zoomOutButton.innerHTML = '<img src="/images/icons/zoomOut.svg" alt="Zoom Out" width="24" height="24" />';
+        zoomOutButton.innerHTML = '<img src="https://cdn.theharsukh.com/images/icons/zoomOut.svg" alt="Zoom Out" width="24" height="24" />';
         zoomOutButton.onclick = () => viewer.viewport.zoomBy(0.667);
 
         const resetZoomButton = document.createElement('button');
         resetZoomButton.className = styles.buttonStyle;
-        resetZoomButton.innerHTML = '<img src="/images/icons/resetZoom.svg" alt="Reset Zoom" width="24" height="24" />';
+        resetZoomButton.innerHTML = '<img src="https://cdn.theharsukh.com/images/icons/resetZoom.svg" alt="Reset Zoom" width="24" height="24" />';
         resetZoomButton.onclick = () => viewer.viewport.goHome();
 
         viewer.addControl(zoomControls, {
@@ -468,11 +468,11 @@ const Apartment = ({ imageName, imageLink }) => {
       </div>
 
         <div className={styles3.ZoomInbuttonStyle} onClick={handleZoomIn}>         
-          <img src="/images/icons/zoomIn.svg" alt="Zoom Out" width="24" height="24" />         
+          <img src="https://cdn.theharsukh.com/images/icons/zoomIn.svg" alt="Zoom Out" width="24" height="24" />         
         </div>
 
         <div className={styles3.ZoomOutbuttonStyle} onClick={handleZoomOut}>         
-          <img src="/images/icons/zoomOut.svg" alt="Zoom Out" width="24" height="24" />         
+          <img src="https://cdn.theharsukh.com/images/icons/zoomOut.svg" alt="Zoom Out" width="24" height="24" />         
         </div>
 
       {!isMobile && 
