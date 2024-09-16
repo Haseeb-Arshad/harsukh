@@ -400,9 +400,15 @@ export default function BackgroundImage() {
   }, []);
 
   useEffect(() => {
-    const newImageUrl = !backView
-      ? (snowMode ? "/images/background/frontViewWinter.webp" : "/images/background/frontViewSummer.webp")
-      : "/images/background/backView.webp";
+
+    {!backView ? (snowMode ? 
+      frontImageWinter : frontImageSummer) : backImage}
+
+    const newImageUrl =  !backView ? (snowMode ? 
+      frontImageWinter : frontImageSummer) : backImage;
+    // !backView
+    //   ? (snowMode ? "/images/background/frontViewWinter.webp" : "/images/background/frontViewSummer.webp")
+    //   : "/images/background/backView.webp";
   
     if (newImageUrl !== imageUrl) {
       setLoading(true);

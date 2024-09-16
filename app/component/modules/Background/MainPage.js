@@ -805,7 +805,11 @@ export default function MainPage() {
     // return () => clearTimeout(timer);
   }, [0]);
 
+  const frontImageSummer = "https://res.cloudinary.com/dykglphpa/image/upload/v1726482343/harsukh/rdmbs16nppbazw0l1cfv.webp"
+  const frontImageWinter = "https://res.cloudinary.com/dykglphpa/image/upload/v1726482333/harsukh/hcfofwbf1l5v8hz7skyw.webp"
+  const backImage = "https://res.cloudinary.com/dykglphpa/image/upload/v1726482342/harsukh/xzvqrnbfbwmjsbfdbdt2.webp"
 
+  
   return (
     <>
       {loading && (
@@ -837,8 +841,12 @@ export default function MainPage() {
           <img
             ref={imageRef}
             src={!backView ? (snowMode ? 
-              "/images/background/font-view-winter.webp" : "/images/background/front-view-summer.webp") : "/images/background/back-view.webp"}
-            alt="Background"
+              frontImageWinter : frontImageSummer) : backImage}
+
+            // src={!backView ? (snowMode ? 
+            //   "/images/background/font-view-winter.webp" : "/images/background/front-view-summer.webp") : "/images/background/back-view.webp"}
+           
+              alt="Background"
             className={`${styles.backgroundImage} ${loading ? styles.loading : ''}`}
             onLoad={handleImageLoad}
           />
