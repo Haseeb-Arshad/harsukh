@@ -5,6 +5,7 @@ import styles from "@/app/page.module.css";
 import FrontPage from './FrontPage.js';
 import HomePage from './component/modules/home/homePage.js';
 import CustomScrollbarContainer from './component/ui/customScroll.js';
+import Image from 'next/image.js';
 
 export default function Home() {
   const [showFrontPage, setShowFrontPage] = useState(true);
@@ -55,7 +56,16 @@ export default function Home() {
             animationState === 'exiting' ? styles.exitAnimation : ''
           }`}
         >
-          <FrontPage progress={loadingProgress} />
+
+          <Image
+            src="/images/home/harsukhImage1.webp"
+            alt="imageMask-bg"
+            layout="fill"
+            objectFit="cover"
+            quality={100}
+          />
+          {/* <FrontPage progress={loadingProgress} /> */}
+
         </div>
       )}
       {!showFrontPage && <HomePage />}

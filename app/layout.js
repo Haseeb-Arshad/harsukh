@@ -22,7 +22,7 @@ export default function RootLayout({ children }) {
           {children}
         </Providers>
 
-        {/* <Script
+        <Script
           src="https://www.googletagmanager.com/gtag/js?id=AW-16682968635"
           strategy="afterInteractive"
         />
@@ -56,7 +56,7 @@ export default function RootLayout({ children }) {
             src="https://www.facebook.com/tr?id=7384856538283539&ev=PageView&noscript=1"
             alt=""
           />
-        </noscript> */}
+        </noscript>
         <GoogleTagManager gtmId="GTM-MJDJH587" />
       </body>
     </html>
