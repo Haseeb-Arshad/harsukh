@@ -401,7 +401,7 @@ const Layout = ({ children }) => {
       )}
 
       <div className={styles.Harsukhlogo}>
-        <Image onClick={()=>router.push("/")} src="/Webpage/floors/HarsukhLogo.webp" quality={100} alt="Harsukh Logo" height={harsukhHeight} width={harsukhWidth} />
+        <Image onClick={()=>router.push("/")} src="https://cdn.theharsukh.com/Webpage/floors/HarsukhLogo.webp" quality={100} alt="Harsukh Logo" height={harsukhHeight} width={harsukhWidth} />
       </div>
 
       <div className={styles.apartmentInterestBox}>

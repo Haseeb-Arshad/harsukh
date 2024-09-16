@@ -325,8 +325,8 @@ const Layout = ({children}) =>
 
 
       <div className={styles.Harsukhlogo} style={{cursor:'pointer'}} onClick={()=>router.push("/") }>
-      { isMobile?<Image style={{cursor:'pointer'}} src="/Webpage/floors/HarsukhLogo.webp" quality={100} alt="Harsukh Logo" height={85} width={150} />
-      :<Image src="/Webpage/floors/HarsukhLogo.webp" quality={100} alt="Harsukh Logo" height={105} width={180} />
+      { isMobile?<Image style={{cursor:'pointer'}} src="https://cdn.theharsukh.com/Webpage/floors/HarsukhLogo.webp" quality={100} alt="Harsukh Logo" height={85} width={150} />
+      :<Image src="https://cdn.theharsukh.com/Webpage/floors/HarsukhLogo.webp" quality={100} alt="Harsukh Logo" height={105} width={180} />
       }
       </div>
       
@@ -340,7 +340,7 @@ const Layout = ({children}) =>
           {translations['projectby'] }
         </div>
         <div style={{left: '2.5rem', bottom:'8rem', position: 'relative', zIndex: 1}}onClick={() => window.open("https://almaymaar.com/", '_blank')}>
-        <Image style={{cursor:'pointer'}} src="/Webpage/floors/MainLogo.png"  quality={100} alt="Almaymar" 
+        <Image style={{cursor:'pointer'}} src="https://cdn.theharsukh.com/Webpage/floors/MainLogo.png"  quality={100} alt="Almaymar" 
         height={isMobile? 22:24} 
         width={isMobile? 140: 190} />
         </div>
