@@ -85,7 +85,7 @@ const Apartment = ({ imageName, imageLink }) => {
   const areas = [
     {
       name: "Studio",
-      image: "/images/Amenity/Studio.png",
+      image: "https://cdn.theharsukh.com/images/Amenity/Studio.png",
       details: [
         { src: 'https://cdn.theharsukh.com/images/gallery/Studio/studio-1.webp', caption: 'Cozy and efficient studio apartment' },
         { src: 'https://cdn.theharsukh.com/images/gallery/studio/studio-2.webp', caption: 'Modern furnishings in our studio units' },
@@ -94,7 +94,7 @@ const Apartment = ({ imageName, imageLink }) => {
     },
     {
       name: "One Bed",
-      image: "/images/Amenity/OneBed.png",
+      image: "https://cdn.theharsukh.com/images/Amenity/OneBed.png",
       details: [
         { src: '/images/gallery/OneBed/oneBed-1.webp', caption: 'Spacious one-bedroom apartment' },
         { src: '/images/gallery/OneBed/oneBed-2.webp', caption: 'Comfortable living room in one-bed unit' },
@@ -104,7 +104,7 @@ const Apartment = ({ imageName, imageLink }) => {
     },
     {
       name: "Two Bed",
-      image: "/images/Amenity/TwoBed.png",
+      image: "https://cdn.theharsukh.com/images/Amenity/TwoBed.png",
       details: [
         { src: '/images/gallery/TwoBed/twoBed-1.webp', caption: 'Luxurious two-bedroom apartment' },
         { src: '/images/gallery/TwoBed/twoBed-2.webp', caption: 'Elegant dining area in two-bed unit' },
@@ -116,7 +116,7 @@ const Apartment = ({ imageName, imageLink }) => {
     },
     {
       name: "Three Bed",
-      image: "/images/Amenity/ThreeBed.png",
+      image: "https://cdn.theharsukh.com/images/Amenity/ThreeBed.png",
       details: [
         { src: '/images/gallery/ThreeBed/threeBed-1.webp', caption: 'Spacious three-bedroom apartment' },
         { src: '/images/gallery/ThreeBed/threeBed-2.webp', caption: 'Large living area in three-bed unit' },
@@ -127,7 +127,7 @@ const Apartment = ({ imageName, imageLink }) => {
     },
     {
       name: "Penthouse",
-      image: "/images/Amenity/Penthouse.png",
+      image: "https://cdn.theharsukh.com/images/Amenity/Penthouse.png",
       details: [
         { src: '/images/gallery/Penthouse/penthouse-1.webp', caption: 'Luxurious penthouse living room' },
         { src: '/images/gallery/Penthouse/penthouse-2.webp', caption: 'Gourmet kitchen in penthouse suite' },
