@@ -177,13 +177,14 @@ const Floor = ({ imageName, imageLink }) => {
 
   useEffect(() => {
     let viewer;
+    const proxyImageLink = `/api/imageProxy?url=${encodeURIComponent(imageLink)}`;
 
     if (viewerRef.current) {
       viewer = OpenSeadragon({
         element: viewerRef.current,
         tileSources: {
           type: "image",
-          url: imageLink,
+          url: proxyImageLink,
           buildPyramid: false,
           width: 10000,
           height: 10000,
