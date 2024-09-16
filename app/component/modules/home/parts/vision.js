@@ -5,12 +5,17 @@ import styles from '@/styles/home/vision.module.css'; // Importing the CSS modul
 // import visionBg from '@/public/images/home/vision-bg.webp'
 
 export default function VisionPage() {
+
+  const cloudinaryImageUrl = "https://res.cloudinary.com/dykglphpa/image/upload/v1726481427/harsukh/buh5tyxqnjhytzm8kmmo.webp";
+
+
   return (
     <div className={styles.container}>
       <div className={styles.visionContent}>
         <div className={styles.visionImage}>
           <Image
-            src='/images/home/vision-bg.webp' // Make sure the image is placed in your public folder
+          src={cloudinaryImageUrl}
+            // src='/images/home/vision-bg.webp' // Make sure the image is placed in your public folder
             alt="Harsukh Residencies"
             fill
             // layout="fill"
