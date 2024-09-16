@@ -266,7 +266,7 @@ const FloorMenu = () => {
               className={`${ElevStyles.elevationBtnGrid} ${isElevationOpen ? ElevStyles.open : ''}`}
             >
               <div className={ElevStyles.elevationBtnLeft} onClick={handleBackClick}>
-                <Image src="/images/icons/LeftArrow.svg" quality={100} alt="Elevation" height={16} width={16} />
+                <Image src="https://cdn.theharsukh.com/images/icons/LeftArrow.svg" quality={100} alt="Elevation" height={16} width={16} />
               </div>
               <div
                 className={ElevStyles.elevationBtnRight}
@@ -284,7 +284,7 @@ const FloorMenu = () => {
                   }
                 </div>
                 <div className={ElevStyles.elevationBtnDownArrow}>
-                  <Image src="/images/icons/downFillArrow.svg" quality={100} alt="Elevation" height={7} width={7} />
+                  <Image src="https://cdn.theharsukh.com/images/icons/downFillArrow.svg" quality={100} alt="Elevation" height={7} width={7} />
                 </div>
               </div>
             </div>

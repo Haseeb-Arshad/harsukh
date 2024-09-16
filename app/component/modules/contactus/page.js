@@ -77,7 +77,7 @@ const ContactUsPopup = ({ onClose }) => {
                 </div>
                
                  <Image 
-                        src="/images/ContactUs/contact.png"
+                        src="https://cdn.theharsukh.com/images/ContactUs/contact.png"
                         alt="Building" 
                         layout="fill"
                         objectFit="cover"

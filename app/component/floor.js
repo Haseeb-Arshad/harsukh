@@ -988,19 +988,19 @@ const Floor = ({ imageName, imageLink }) => {
       const zoomInButton = document.createElement("div");
       zoomInButton.className = styles.ZoomInbuttonStyle;
       zoomInButton.innerHTML =
-        '<img src="/images/icons/zoomIn.svg" alt="Zoom In" width="24" height="24" />';
+        '<img src="https://cdn.theharsukh.com/images/icons/zoomIn.svg" alt="Zoom In" width="24" height="24" />';
       zoomInButton.onclick = () => viewer.viewport.zoomBy(1.5);
 
       const zoomOutButton = document.createElement("div");
       zoomOutButton.className = styles.ZoomOutbuttonStyle;
       zoomOutButton.innerHTML =
-        '<img src="/images/icons/zoomOut.svg" alt="Zoom Out" width="24" height="24" />';
+        '<img src="https://cdn.theharsukh.com/images/icons/zoomOut.svg" alt="Zoom Out" width="24" height="24" />';
       zoomOutButton.onclick = () => viewer.viewport.zoomBy(0.667);
 
       const resetZoomButton = document.createElement("div");
       resetZoomButton.className = styles.ZoonOutbuttonStyle;
       resetZoomButton.innerHTML =
-        '<img src="/images/icons/resetZoom.svg" alt="Reset Zoom" width="24" height="24" />';
+        '<img src="https://cdn.theharsukh.com/images/icons/resetZoom.svg" alt="Reset Zoom" width="24" height="24" />';
       resetZoomButton.onclick = () => viewer.viewport.goHome();
 
       // zoomControls.appendChild(zoomInButton);

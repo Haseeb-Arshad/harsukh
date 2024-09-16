@@ -48,7 +48,7 @@ const Navbar = ({ children }) => {
   return (
     <>
       <nav className={`${styles.nav} ${visible ? styles.visible : styles.hidden}`}>
-        <Image style={{cursor:"pointer"}} src="/images/blog/harsukhLogo.svg" alt="menu" width={200} height={115} />
+        <Image style={{cursor:"pointer"}} src="https://cdn.theharsukh.com/images/blog/harsukhLogo.svg" alt="menu" width={200} height={115} />
         <ul className={styles.menu}>
           {['Home', 'Developer', 'Blogs', 'News Room'].map((item) => (
             <li
