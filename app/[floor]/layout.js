@@ -581,7 +581,7 @@ const Layout = ({ children }) => {
         >
           <Image
             style={{ cursor: "pointer" }}
-            src="/Webpage/floors/MainLogo.png"
+            src="https://cdn.theharsukh.com/Webpage/floors/MainLogo.png"
             quality={100}
             alt="Almaymar"
             height={isMobile? 22:24} 

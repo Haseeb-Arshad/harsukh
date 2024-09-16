@@ -3549,7 +3549,7 @@ export default function MainPage() {
 
             <div className={styles.topLogoContainer}>
               <Image
-                src="/Webpage/floors/HarsukhLogo.webp"
+                src="https://cdn.theharsukh.com/Webpage/floors/HarsukhLogo.webp"
                 quality={100}
                 alt="bird"
                 height={105}
@@ -3671,7 +3671,7 @@ export default function MainPage() {
                 <Image
                   className={styles.bottomLogoIcon}
                   style={{ cursor: "pointer" }}
-                  src="/Webpage/floors/MainLogo.png"
+                  src="https://cdn.theharsukh.com/Webpage/floors/MainLogo.png"
                   quality={100}
                   alt="Almaymar"
                   height={24}
@@ -3831,7 +3831,7 @@ export default function MainPage() {
           <div className={styles.topLogoContainer}>
             <Image
               style={{cursor: 'pointer'}}
-              src="/Webpage/floors/HarsukhLogo.webp"
+              src="https://cdn.theharsukh.com/Webpage/floors/HarsukhLogo.webp"
               quality={100}
               alt="bird"
               height={85}
@@ -3846,7 +3846,7 @@ export default function MainPage() {
             >
               <Image
                 style={{cursor:"pointer"}}
-                src="/Webpage/floors/MainLogo.png"
+                src="https://cdn.theharsukh.com/Webpage/floors/MainLogo.png"
                 quality={100}
                 alt="Almaymar"
                 height={22}

@@ -184,11 +184,11 @@ const FloorMenu = () => {
     <>
     {isMobile?
       <div className={styles.Harsukhlogo} style={{cursor:'pointer', }}  onClick={()=>router.push("/")} >
-      <Image  src="/Webpage/floors/HarsukhLogo.webp" quality={100} alt="Harsukh Logo" height={85} width={150} />
+      <Image  src="https://cdn.theharsukh.com/Webpage/floors/HarsukhLogo.webp" quality={100} alt="Harsukh Logo" height={85} width={150} />
       </div>
       :
       <div className={styles.Harsukhlogo} style={{cursor:'pointer', }}  onClick={()=>router.push("/")} >
-        <Image  src="/Webpage/floors/HarsukhLogo.webp" quality={100} alt="Harsukh Logo" height={105} width={180} />
+        <Image  src="https://cdn.theharsukh.com/Webpage/floors/HarsukhLogo.webp" quality={100} alt="Harsukh Logo" height={105} width={180} />
       </div>
 
     }  

@@ -61,7 +61,12 @@ export default function Home() {
 
         </div>
       )}
-      {!showFrontPage && <HomePage />}
+      {!showFrontPage && 
+                <FrontPage progress={loadingProgress} />
+
+      // <HomePage />
+      
+      }
     {/* </CustomScrollbarContainer> */}
   </main>
 );

@@ -324,8 +324,8 @@ const Layout = ({children}) =>
 
 
       <div className={styles.Harsukhlogo} style={{cursor:'pointer'}} onClick={()=>router.push("/") }>
-      { isMobile?<Image style={{cursor:'pointer'}} src="/Webpage/floors/HarsukhLogo.webp" quality={100} alt="Harsukh Logo" height={85} width={150} />
-      :<Image src="/Webpage/floors/HarsukhLogo.webp" quality={100} alt="Harsukh Logo" height={105} width={180} />
+      { isMobile?<Image style={{cursor:'pointer'}} src="https://cdn.theharsukh.com/Webpage/floors/HarsukhLogo.webp" quality={100} alt="Harsukh Logo" height={85} width={150} />
+      :<Image src="https://cdn.theharsukh.com/Webpage/floors/HarsukhLogo.webp" quality={100} alt="Harsukh Logo" height={105} width={180} />
       }
       </div>
       

@@ -28,7 +28,7 @@ const TopbarMenu = () => {
     <>
 
             <div className={styles.bottomLogoContainer}>
-              <Image src="/Webpage/floors/ArtBoardLogo.png" quality={100} alt="bird" height={190} width={190} />
+              <Image src="https://cdn.theharsukh.com/Webpage/floors/ArtBoardLogo.png" quality={100} alt="bird" height={190} width={190} />
             </div>
 
             <div className={styles.mapsViewContainer}>
