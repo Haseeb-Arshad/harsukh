@@ -1,4 +1,5 @@
 // pages/api/imageProxy.js
+
 import axios from 'axios';
 
 export default async function handler(req, res) {
@@ -18,7 +19,6 @@ export default async function handler(req, res) {
     res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
     res.status(200).send(response.data);
   } catch (error) {
-    console.error('Error proxying image:', error);
-    res.status(500).json({ error: 'Failed to proxy image' });
+    res.status(error.response?.status || 500).json({ error: 'An error occurred while fetching the image' });
   }
 }

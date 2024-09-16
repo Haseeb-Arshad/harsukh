@@ -16,7 +16,7 @@ const Layout = ({ children }) => {
         zIndex: 0 // Ensures the image stays behind other content
       }}>
         <Image
-          src="/images/blog/imageMask-bg.png"
+          src="https://cdn.theharsukh.com/images/blog/imageMask-bg.png"
           alt="imageMask-bg"
           layout="fill"
           objectFit="cover"
