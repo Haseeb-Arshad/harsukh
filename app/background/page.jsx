@@ -810,6 +810,10 @@ export default function BackgroundImage() {
   }, []);
 
 
+  const frontImageSummer = "https://res.cloudinary.com/dykglphpa/image/upload/v1726482343/harsukh/rdmbs16nppbazw0l1cfv.webp"
+  const frontImageWinter = "https://res.cloudinary.com/dykglphpa/image/upload/v1726482333/harsukh/hcfofwbf1l5v8hz7skyw.webp"
+  const backImage = "https://res.cloudinary.com/dykglphpa/image/upload/v1726482342/harsukh/xzvqrnbfbwmjsbfdbdt2.webp"
+
 
   return (
     <>
@@ -840,7 +844,9 @@ export default function BackgroundImage() {
           <img
             ref={imageRef}
             src={!backView ? (snowMode ? 
-              "/images/background/frontViewWinter.webp" : "/images/background/frontViewSummer.webp") : "/images/background/backView.webp"}
+              frontImageWinter : frontImageSummer) : backImage}
+
+              // "/images/background/frontViewWinter.webp" : "/images/background/frontViewSummer.webp") : "/images/background/backView.webp"}
             alt="Background"
             className={`${styles.backgroundImage} ${loading ? styles.loading : ''}`}
             onLoad={handleImageLoad}
