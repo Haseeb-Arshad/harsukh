@@ -55,7 +55,7 @@ const FrontPage = () => {
         fontWeight: 'bold',
         marginBottom: '40px'
       }}>
-        <img src="/images/Logo/HarsukhLogo.webp" height={65} width={270} alt="Harsukh" />
+        <img src="https://cdn.theharsukh.com/images/Logo/HarsukhLogo.webp" height={65} width={270} alt="Harsukh" />
       </h1>
       <div style={{
         width: '280px',

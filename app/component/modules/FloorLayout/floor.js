@@ -114,6 +114,7 @@ const Floor = ({ imageName, imageLink }) => {
     }
   }, [params.apartment, router]);
 
+
   const handleIconClick = () => {
     if (activePolygon) {
       const apartmentId = activePolygon.id;
@@ -162,6 +163,7 @@ const Floor = ({ imageName, imageLink }) => {
     }
     return inside;
   }
+  
 
   useEffect(() => {
     const checkScreenSize = () => {
@@ -177,14 +179,19 @@ const Floor = ({ imageName, imageLink }) => {
 
   useEffect(() => {
     let viewer;
-    const proxyImageLink = `/api/imageProxy?url=${encodeURIComponent(imageLink)}`;
+    // const proxyImageLink = `/api/imageProxy?url=${encodeURIComponent(imageLink)}`;
+
+
+    // const contentType = await fetchImage(); // Await the fetchImage call
+
+
 
     if (viewerRef.current) {
       viewer = OpenSeadragon({
         element: viewerRef.current,
         tileSources: {
           type: "image",
-          url: proxyImageLink,
+          url: imageLink,
           buildPyramid: false,
           width: 10000,
           height: 10000,
@@ -210,6 +217,7 @@ const Floor = ({ imageName, imageLink }) => {
         },
         loadTilesWithAjax: true,
         ajaxHeaders: {
+            'Cache-Control': 'public, max-age=31536000, immutable',
           "Cache-Control": "no-cache", // Changed to no-cache for iOS
           "Accept": "image/webp,image/apng,image/*,*/*;q=0.8", // Added Accept header
         },
