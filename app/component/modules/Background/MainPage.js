@@ -809,7 +809,7 @@ export default function MainPage() {
   const frontImageWinter = "https://res.cloudinary.com/dykglphpa/image/upload/v1726482333/harsukh/hcfofwbf1l5v8hz7skyw.webp"
   const backImage = "https://res.cloudinary.com/dykglphpa/image/upload/v1726482342/harsukh/xzvqrnbfbwmjsbfdbdt2.webp"
 
-  
+
   return (
     <>
       {loading && (
@@ -840,9 +840,16 @@ export default function MainPage() {
         <div className={styles.imageWrapper}>
           <img
             ref={imageRef}
+            // src={!backView ? (snowMode ? 
+            //   frontImageWinter : frontImageSummer) : backImage}
+            
             src={!backView ? (snowMode ? 
-              frontImageWinter : frontImageSummer) : backImage}
+              "https://cdn.theharsukh.com/images/background/front-view-winter.webp" : "https://cdn.theharsukh.com/images/background/front-view-summer.webp") : "https://cdn.theharsukh.com/images/background/back-view.webp"}
+        
 
+              // src={!backView ? (snowMode ? 
+              // "/images/background/font-view-winter.webp" : "/images/background/front-view-summer.webp") : "/images/background/back-view.webp"}
+           
             // src={!backView ? (snowMode ? 
             //   "/images/background/font-view-winter.webp" : "/images/background/front-view-summer.webp") : "/images/background/back-view.webp"}
            

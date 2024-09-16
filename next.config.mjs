@@ -6,7 +6,7 @@ const nextConfig = {
       imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
       formats: ['image/webp'],
       minimumCacheTTL: 180,
-      domains: ['res.cloudinary.com'],
+      domains: ['res.cloudinary.com', 'cdn.theharsukh.com'],
 
     },
     reactStrictMode: true,

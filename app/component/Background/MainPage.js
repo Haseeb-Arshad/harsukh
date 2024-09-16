@@ -838,9 +838,16 @@ export default function MainPage() {
         <div className={styles.imageWrapper}>
           <img
             ref={imageRef}
+
+            // https://cdn.theharsukh.com/images/background/back-view.webp
             src={!backView ? (snowMode ? 
-              "/images/background/front-view-summer.webp" : "/images/background/front-view-winter.webp") : "/images/background/back-view.webp"}
-            alt="Background"
+                "https://cdn.theharsukh.com/images/background/front-view-summer.webp" : "https://cdn.theharsukh.com/images/background/front-view-winter.webp") : "https://cdn.theharsukh.com/images/background/back-view.webp"}
+          
+            // src={!backView ? (snowMode ? 
+            //   "/images/background/front-view-summer.webp" : "/images/background/front-view-winter.webp") : "/images/background/back-view.webp"}
+        
+        
+              alt="Background"
             className={`${styles.backgroundImage} ${loading ? styles.loading : ''}`}
             onLoad={handleImageLoad}
           />

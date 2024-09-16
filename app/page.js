@@ -57,14 +57,7 @@ export default function Home() {
           }`}
         >
 
-          <Image
-            src="/images/home/harsukhImage1.webp"
-            alt="imageMask-bg"
-            layout="fill"
-            objectFit="cover"
-            quality={100}
-          />
-          {/* <FrontPage progress={loadingProgress} /> */}
+          <FrontPage progress={loadingProgress} />
 
         </div>
       )}

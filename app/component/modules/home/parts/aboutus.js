@@ -48,7 +48,7 @@ const AboutUs = () => {
     <section className={styles.container}>
       <div className={styles.imageSection}>
         <Image
-          src="/images/home/aboutusHarsukh.webp"
+          src="https://cdn.theharsukh.com/images/home/aboutusHarsukh.webp"
           alt="Harsukh Residencies"
           fill
           sizes="100vw"
@@ -57,7 +57,7 @@ const AboutUs = () => {
           className={styles.backgroundImage}
         />
         <Image
-          src="/images/home/aboutUsback.webp"
+          src="https://cdn.theharsukh.com/images/home/aboutUsback.webp"
           alt="Harsukh Residencies Background"
           fill
           sizes="100vw"
