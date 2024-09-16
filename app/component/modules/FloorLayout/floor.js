@@ -186,19 +186,19 @@ const Floor = ({ imageName, imageLink }) => {
     if (viewerRef.current) {
       // const corsProxy = 'https://cors-anywhere.herokuapp.com/';
       // const imageUrl = 'https://cdn.theharsukh.com/floors/floors/thirdfloor.webp';
-       const viewer = OpenSeadragon({
+      const viewer = OpenSeadragon({
         element: viewerRef.current,
         prefixUrl: "images/",
         tileSources: {
           type: "image",
-          url: "https://res.cloudinary.com/dykglphpa/image/upload/v1726497429/harsukh/x7ft24yzvoia1gh9z6dp.webp", // Use the proxy URL
+          url: imageLink,
           buildPyramid: false,
           crossOriginPolicy: 'Anonymous',
           ajaxWithCredentials: false,
           width: 10000,
           height: 10000,
         },
-        showNavigationControl: false,
+        showNavigationControl: false, 
         maxZoomPixelRatio: 10,
         smoothTileEdgesMinZoom: 1,
         blendTime: 0.1,
@@ -213,7 +213,7 @@ const Floor = ({ imageName, imageLink }) => {
         zoomPerClick: 1.5,
         animationTime: 0.5,
         gestureSettingsMouse: {
-          clickToZoom: false,
+          clickToZoom: false, // Change this to true if you want click-to-zoom
           pinchToZoom: true,
           dblClickToZoom: true,
         },
