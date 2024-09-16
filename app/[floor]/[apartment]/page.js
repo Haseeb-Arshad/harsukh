@@ -67,13 +67,13 @@ const Page = () => {
 
   
   const floorData = {
-    'Penthouse': { imageLink: "https://cdn.theharsukh.com/Webpage/apartments/penthouse.webp", imageName: "penthouse" },
-    'One Bed': { imageLink: "https://cdn.theharsukh.com/Webpage/apartments/oneBed.webp", imageName: "oneBed" },
-    'Two Bed': { imageLink: "https://cdn.theharsukh.com/Webpage/apartments/twoBed.webp", imageName: "twoBed" },
-    'Three Bed': { imageLink: "https://cdn.theharsukh.com/Webpage/apartments/threeBed.webp", imageName: "threeBed" },
-    'Studio': { imageLink: "https://cdn.theharsukh.com/Webpage/apartments/studio.webp", imageName: "studio" },
+    'Penthouse': { imageLink: "https://res.cloudinary.com/dykglphpa/image/upload/v1726498333/harsukh/apartment/snefqxcxhxfua9xwyyl7.webp", imageName: "penthouse" },
+    'One Bed': { imageLink: "https://res.cloudinary.com/dykglphpa/image/upload/v1726498334/harsukh/apartment/diwzwlvmgrbn9h6phetr.webp", imageName: "oneBed" },
+    'Two Bed': { imageLink: "https://res.cloudinary.com/dykglphpa/image/upload/v1726498334/harsukh/apartment/hndiuvos3igwbdbzzbni.webp", imageName: "twoBed" },
+    'Three Bed': { imageLink: "https://res.cloudinary.com/dykglphpa/image/upload/v1726498334/harsukh/apartment/p1apn4ghrjukpecfrn2k.webp", imageName: "threeBed" },
+    'Studio': { imageLink: "https://res.cloudinary.com/dykglphpa/image/upload/v1726498334/harsukh/apartment/zdeozmkgjfhwd0md83zn.webp", imageName: "studio" },
     // 'P': { imageLink: "/Webpage/apartments/penthouse.webp", imageName: "penthouse" },
-    basement1: { imageLink: "https://cdn.theharsukh.com/Webpage/apartments/penthouse.webp", imageName: "penthouse" },
+    basement1: { imageLink: "https://res.cloudinary.com/dykglphpa/image/upload/v1726498333/harsukh/apartment/snefqxcxhxfua9xwyyl7.webp", imageName: "penthouse" },
     // basement5: { imageLink: "/Webpage/apartments/penthouse.webp", imageName: "penthouse" },
     // basement: { imageLink: "/Webpage/apartments/penthouse.webp", imageName: "penthouse" },
   

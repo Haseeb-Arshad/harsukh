@@ -177,29 +177,31 @@ const Floor = ({ imageName, imageLink }) => {
     return () => window.removeEventListener("resize", checkScreenSize);
   }, []);
 
+
+
   useEffect(() => {
     let viewer;
-    // const proxyImageLink = `/api/imageProxy?url=${encodeURIComponent(imageLink)}`;
-
-
-    // const contentType = await fetchImage(); // Await the fetchImage call
-
-
+   
 
     if (viewerRef.current) {
-      viewer = OpenSeadragon({
+      // const corsProxy = 'https://cors-anywhere.herokuapp.com/';
+      // const imageUrl = 'https://cdn.theharsukh.com/floors/floors/thirdfloor.webp';
+       const viewer = OpenSeadragon({
         element: viewerRef.current,
+        prefixUrl: "images/",
         tileSources: {
           type: "image",
-          url: imageLink,
+          url: "https://res.cloudinary.com/dykglphpa/image/upload/v1726497429/harsukh/x7ft24yzvoia1gh9z6dp.webp", // Use the proxy URL
           buildPyramid: false,
+          crossOriginPolicy: 'Anonymous',
+          ajaxWithCredentials: false,
           width: 10000,
           height: 10000,
         },
         showNavigationControl: false,
         maxZoomPixelRatio: 10,
         smoothTileEdgesMinZoom: 1,
-        blendTime: 0.1, 
+        blendTime: 0.1,
         constrainDuringPan: true,
         minZoomImageRatio: 1,
         visibilityRatio: zoomCoord,
@@ -216,11 +218,6 @@ const Floor = ({ imageName, imageLink }) => {
           dblClickToZoom: true,
         },
         loadTilesWithAjax: true,
-        ajaxHeaders: {
-            'Cache-Control': 'public, max-age=31536000, immutable',
-          "Cache-Control": "no-cache", // Changed to no-cache for iOS
-          "Accept": "image/webp,image/apng,image/*,*/*;q=0.8", // Added Accept header
-        },
       });
 
       setViewer(viewer);
