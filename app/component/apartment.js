@@ -92,12 +92,12 @@ const Apartment = ({ imageName, imageLink }) => {
     },
     {
       name: "One Bed",
-      image: "/images/Amenity/OneBed.png",
+      image: "https://cdn.theharsukh.com/images/Amenity/OneBed.png",
       details: [
-        { src: '/images/gallery/OneBed/oneBed-1.webp', caption: 'Spacious one-bedroom apartment' },
-        { src: '/images/gallery/OneBed/oneBed-2.webp', caption: 'Comfortable living room in one-bed unit' },
-        { src: '/images/gallery/OneBed/oneBed-3.webp', caption: 'Well-equipped kitchen in one-bedroom apartment' },
-        { src: '/images/gallery/OneBed/oneBed-4.webp', caption: 'Cozy bedroom in one-bed apartment' },
+        { src: 'https://cdn.theharsukh.com/images/gallery/OneBed/oneBed-1.webp', caption: 'Spacious one-bedroom apartment' },
+        { src: 'https://cdn.theharsukh.com/images/gallery/OneBed/oneBed-2.webp', caption: 'Comfortable living room in one-bed unit' },
+        { src: 'https://cdn.theharsukh.com/images/gallery/OneBed/oneBed-3.webp', caption: 'Well-equipped kitchen in one-bedroom apartment' },
+        { src: 'https://cdn.theharsukh.com/images/gallery/OneBed/oneBed-4.webp', caption: 'Cozy bedroom in one-bed apartment' },
       ]
     },
     {

@@ -159,7 +159,7 @@ const FloorMenu = () => {
       onClick={() => router.push("/")}
     >
       <Image 
-        src="/Webpage/floors/HarsukhLogo.webp" 
+        src="https://cdn.theharsukh.com/Webpage/floors/HarsukhLogo.webp" 
         quality={100} 
         alt="Harsukh Logo" 
         height={isMobile ? 85 : 105} 

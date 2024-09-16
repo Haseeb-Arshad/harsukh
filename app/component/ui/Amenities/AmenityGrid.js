@@ -12,30 +12,30 @@ import ur from '@/app/component/locales/ur.json';
 
 const areas = [
   { name: 'Parking', image: '/images/Amenity/Parking.png', details: [
-    { src: '/images/gallery/Parking/Parking-1.webp', caption: 'Dedicated floors for parking' },
-    { src: '/images/gallery/Parking/Parking-2.webp', caption: 'Dedicated floors for parking' }
+    { src: 'https://cdn.theharsukh.com/images/gallery/Parking/Parking-1.webp', caption: 'Dedicated floors for parking' },
+    { src: 'https://cdn.theharsukh.com/images/gallery/Parking/Parking-2.webp', caption: 'Dedicated floors for parking' }
   ]},
   { name: 'Restaurant', image: '/images/Amenity/Resturant.png', details: [
-    { src: '/images/gallery/Restaurant/Restaurant-1.webp', caption: 'Experience the culinary luxury with our eateries floor' },
-    { src: '/images/gallery/Restaurant/Restaurant-2.webp', caption: 'Experience the culinary luxury with our eateries floor' },
-    { src: '/images/gallery/Restaurant/Restaurant-3.webp', caption: 'Experience the culinary luxury with our eateries floor' },
-    { src: '/images/gallery/Restaurant/Restaurant-4.webp', caption: 'Experience the culinary luxury with our eateries floor' },
-    { src: '/images/gallery/Restaurant/Restaurant-5.webp', caption: 'Experience the culinary luxury with our eateries floor' },
-    { src: '/images/gallery/Restaurant/Restaurant-6.webp', caption: 'Experience the culinary luxury with our eateries floor' }
+    { src: 'https://cdn.theharsukh.com/images/gallery/Restaurant/Restaurant-1.webp', caption: 'Experience the culinary luxury with our eateries floor' },
+    { src: 'https://cdn.theharsukh.com/images/gallery/Restaurant/Restaurant-2.webp', caption: 'Experience the culinary luxury with our eateries floor' },
+    { src: 'https://cdn.theharsukh.com/images/gallery/Restaurant/Restaurant-3.webp', caption: 'Experience the culinary luxury with our eateries floor' },
+    { src: 'https://cdn.theharsukh.com/images/gallery/Restaurant/Restaurant-4.webp', caption: 'Experience the culinary luxury with our eateries floor' },
+    { src: 'https://cdn.theharsukh.com/images/gallery/Restaurant/Restaurant-5.webp', caption: 'Experience the culinary luxury with our eateries floor' },
+    { src: 'https://cdn.theharsukh.com/images/gallery/Restaurant/Restaurant-6.webp', caption: 'Experience the culinary luxury with our eateries floor' }
   ]},
-  { name: 'Lobby', image: '/images/Amenity/Lobby.png', details: [
-    { src: '/images/gallery/Lobby/Corridor.webp', caption: 'Welcoming & Luxurious. Our lobbies & corridors combing luxury & warmth' },
-    { src: '/images/gallery/Lobby/lobby-1.webp', caption: 'Welcoming & Luxurious. Our lobbies & corridors combing luxury & warmth' },
-    { src: '/images/gallery/Lobby/lobby-2.webp', caption: 'Welcoming & Luxurious. Our lobbies & corridors combing luxury & warmth' },
-    { src: '/images/gallery/Lobby/lobby-3.webp', caption: 'Welcoming & Luxurious. Our lobbies & corridors combing luxury & warmth' },
-    { src: '/images/gallery/Lobby/lobby-4.webp', caption: 'Welcoming & Luxurious. Our lobbies & corridors combing luxury & warmth' },
-    { src: '/images/gallery/Lobby/lobby-5.webp', caption: 'Welcoming & Luxurious. Our lobbies & corridors combing luxury & warmth' },
-    { src: '/images/gallery/Lobby/lobby-6.webp', caption: 'Welcoming & Luxurious. Our lobbies & corridors combing luxury & warmth' },
-    { src: '/images/gallery/Lobby/lobby-7.webp', caption: 'Welcoming & Luxurious. Our lobbies & corridors combing luxury & warmth' }
+  { name: 'Lobby', image: 'https://cdn.theharsukh.com/images/Amenity/Lobby.png', details: [
+    { src: 'https://cdn.theharsukh.com/images/gallery/Lobby/Corridor.webp', caption: 'Welcoming & Luxurious. Our lobbies & corridors combing luxury & warmth' },
+    { src: 'https://cdn.theharsukh.com/images/gallery/Lobby/lobby-1.webp', caption: 'Welcoming & Luxurious. Our lobbies & corridors combing luxury & warmth' },
+    { src: 'https://cdn.theharsukh.com/images/gallery/Lobby/lobby-2.webp', caption: 'Welcoming & Luxurious. Our lobbies & corridors combing luxury & warmth' },
+    { src: 'https://cdn.theharsukh.com/images/gallery/Lobby/lobby-3.webp', caption: 'Welcoming & Luxurious. Our lobbies & corridors combing luxury & warmth' },
+    { src: 'https://cdn.theharsukh.com/images/gallery/Lobby/lobby-4.webp', caption: 'Welcoming & Luxurious. Our lobbies & corridors combing luxury & warmth' },
+    { src: 'https://cdn.theharsukh.com/images/gallery/Lobby/lobby-5.webp', caption: 'Welcoming & Luxurious. Our lobbies & corridors combing luxury & warmth' },
+    { src: 'https://cdn.theharsukh.com/images/gallery/Lobby/lobby-6.webp', caption: 'Welcoming & Luxurious. Our lobbies & corridors combing luxury & warmth' },
+    { src: 'https://cdn.theharsukh.com/images/gallery/Lobby/lobby-7.webp', caption: 'Welcoming & Luxurious. Our lobbies & corridors combing luxury & warmth' }
   ]},
-  { name: 'Gym', image: '/images/Amenity/Gym.png', details: [
-    { src: '/images/gallery/Gym/gym-1.webp', caption: 'Experience premier fitness with stunning mountain backdrops' },
-    { src: '/images/gallery/Gym/gym-2.webp', caption: 'Experience premier fitness with stunning mountain backdrops' },
+  { name: 'Gym', image: 'https://cdn.theharsukh.com/images/Amenity/Gym.png', details: [
+    { src: 'https://cdn.theharsukh.com/images/gallery/Gym/gym-1.webp', caption: 'Experience premier fitness with stunning mountain backdrops' },
+    { src: 'https://cdn.theharsukh.com/images/gallery/Gym/gym-2.webp', caption: 'Experience premier fitness with stunning mountain backdrops' },
   ]},
 ];
 

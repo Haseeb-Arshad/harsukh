@@ -8,58 +8,58 @@ import Loader from '@/app/component/ui/Loading/Loading';
 const areas = {
   Studio: {
     name: "Studio",
-    image: "/images/Amenity/Studio.png",
+    image: "https://cdn.theharsukh.com/images/Amenity/Studio.png",
     details: [
-      { src: '/images/gallery/Studio/studio-1.webp', caption: 'Elegant Studio Apartments with a vallery view' },
-      { src: '/images/gallery/studio/studio-2.webp', caption: 'Elegant Studio Apartments with a vallery view' },
-      { src: '/images/gallery/studio/studio-3.webp', caption: 'Elegant Studio Apartments with a vallery view' },
+      { src: 'https://cdn.theharsukh.com/images/gallery/Studio/studio-1.webp', caption: 'Elegant Studio Apartments with a vallery view' },
+      { src: 'https://cdn.theharsukh.com/images/gallery/studio/studio-2.webp', caption: 'Elegant Studio Apartments with a vallery view' },
+      { src: 'https://cdn.theharsukh.com/images/gallery/studio/studio-3.webp', caption: 'Elegant Studio Apartments with a vallery view' },
     ]
   },
   "One Bed": {
     name: "One Bed",
-    image: "/images/Amenity/OneBed.png",
+    image: "https://cdn.theharsukh.com/images/Amenity/OneBed.png",
     details: [
-      { src: '/images/gallery/OneBed/oneBed-1.webp', caption: 'Experience luxury Living with our 1 bed apartments' },
-      { src: '/images/gallery/OneBed/oneBed-2.webp', caption: 'Experience luxury Living with our 1 bed apartments' },
-      { src: '/images/gallery/OneBed/oneBed-3.webp', caption: 'Experience luxury Living with our 1 bed apartments' },
-      { src: '/images/gallery/OneBed/oneBed-4.webp', caption: 'Experience luxury Living with our 1 bed apartments' },
+      { src: 'https://cdn.theharsukh.com/images/gallery/OneBed/oneBed-1.webp', caption: 'Experience luxury Living with our 1 bed apartments' },
+      { src: 'https://cdn.theharsukh.com/images/gallery/OneBed/oneBed-2.webp', caption: 'Experience luxury Living with our 1 bed apartments' },
+      { src: 'https://cdn.theharsukh.com/images/gallery/OneBed/oneBed-3.webp', caption: 'Experience luxury Living with our 1 bed apartments' },
+      { src: 'https://cdn.theharsukh.com/images/gallery/OneBed/oneBed-4.webp', caption: 'Experience luxury Living with our 1 bed apartments' },
     ]
   },
   "Two Bed": {
     name: "Two Bed",
-    image: "/images/Amenity/TwoBed.png",
+    image: "https://cdn.theharsukh.com/images/Amenity/TwoBed.png",
     details: [
-      { src: '/images/gallery/TwoBed/twoBed-1.webp', caption: 'Indulge in our spacious 2 bed apartments. Make your living luxury' },
-      { src: '/images/gallery/TwoBed/twoBed-2.webp', caption: 'Indulge in our spacious 2 bed apartments. Make your living luxury' },
-      { src: '/images/gallery/TwoBed/twoBed-3.webp', caption: 'Indulge in our spacious 2 bed apartments. Make your living luxury' },
-      { src: '/images/gallery/TwoBed/twoBed-4.webp', caption: 'Indulge in our spacious 2 bed apartments. Make your living luxury' },
-      { src: '/images/gallery/TwoBed/twoBed-5.webp', caption: 'Indulge in our spacious 2 bed apartments. Make your living luxury' },
-      { src: '/images/gallery/TwoBed/twoBed-6.webp', caption: 'Indulge in our spacious 2 bed apartments. Make your living luxury' },
+      { src: 'https://cdn.theharsukh.com/images/gallery/TwoBed/twoBed-1.webp', caption: 'Indulge in our spacious 2 bed apartments. Make your living luxury' },
+      { src: 'https://cdn.theharsukh.com/images/gallery/TwoBed/twoBed-2.webp', caption: 'Indulge in our spacious 2 bed apartments. Make your living luxury' },
+      { src: 'https://cdn.theharsukh.com/images/gallery/TwoBed/twoBed-3.webp', caption: 'Indulge in our spacious 2 bed apartments. Make your living luxury' },
+      { src: 'https://cdn.theharsukh.com/images/gallery/TwoBed/twoBed-4.webp', caption: 'Indulge in our spacious 2 bed apartments. Make your living luxury' },
+      { src: 'https://cdn.theharsukh.com/images/gallery/TwoBed/twoBed-5.webp', caption: 'Indulge in our spacious 2 bed apartments. Make your living luxury' },
+      { src: 'https://cdn.theharsukh.com/images/gallery/TwoBed/twoBed-6.webp', caption: 'Indulge in our spacious 2 bed apartments. Make your living luxury' },
     ]
   },
   "Three Bed": {
     name: "Three Bed",
-    image: "/images/Amenity/ThreeBed.png",
+    image: "https://cdn.theharsukh.com/images/Amenity/ThreeBed.png",
     details: [
-      { src: '/images/gallery/ThreeBed/threeBed-1.webp', caption: 'Find comfort in our 3 bed apartments where your comfort is luxury' },
-      { src: '/images/gallery/ThreeBed/threeBed-2.webp', caption: 'Find comfort in our 3 bed apartments where your comfort is luxury' },
-      { src: '/images/gallery/ThreeBed/threeBed-3.webp', caption: 'Find comfort in our 3 bed apartments where your comfort is luxury' },
-      { src: '/images/gallery/ThreeBed/threeBed-4.webp', caption: 'Find comfort in our 3 bed apartments where your comfort is luxury' },
-      { src: '/images/gallery/ThreeBed/threeBed-5.webp', caption: 'Find comfort in our 3 bed apartments where your comfort is luxury' },
+      { src: 'https://cdn.theharsukh.com/images/gallery/ThreeBed/threeBed-1.webp', caption: 'Find comfort in our 3 bed apartments where your comfort is luxury' },
+      { src: 'https://cdn.theharsukh.com/images/gallery/ThreeBed/threeBed-2.webp', caption: 'Find comfort in our 3 bed apartments where your comfort is luxury' },
+      { src: 'https://cdn.theharsukh.com/images/gallery/ThreeBed/threeBed-3.webp', caption: 'Find comfort in our 3 bed apartments where your comfort is luxury' },
+      { src: 'https://cdn.theharsukh.com/images/gallery/ThreeBed/threeBed-4.webp', caption: 'Find comfort in our 3 bed apartments where your comfort is luxury' },
+      { src: 'https://cdn.theharsukh.com/images/gallery/ThreeBed/threeBed-5.webp', caption: 'Find comfort in our 3 bed apartments where your comfort is luxury' },
     ]
   },
   Penthouse: {
     name: "Penthouse",
     image: "/images/Amenity/Penthouse.png",
     details: [
-      { src: '/images/gallery/Penthouse/penthouse-1.webp', caption: 'Live in a breathtaking penthouse santuary, away from the hassle' },
-      { src: '/images/gallery/Penthouse/penthouse-2.webp', caption: 'Live in a breathtaking penthouse santuary, away from the hassle' },
-      { src: '/images/gallery/Penthouse/penthouse-3.webp', caption: 'Live in a breathtaking penthouse santuary, away from the hassle' },
-      { src: '/images/gallery/Penthouse/penthouse-4.webp', caption: 'Live in a breathtaking penthouse santuary, away from the hassle' },
-      { src: '/images/gallery/Penthouse/penthouse-5.webp', caption: 'Live in a breathtaking penthouse santuary, away from the hassle' },
-      { src: '/images/gallery/Penthouse/penthouse-6.webp', caption: 'Live in a breathtaking penthouse santuary, away from the hassle' },
-      { src: '/images/gallery/Penthouse/penthouse-7.webp', caption: 'Live in a breathtaking penthouse santuary, away from the hassle' },
-      { src: '/images/gallery/Penthouse/penthouse-8.webp', caption: 'Live in a breathtaking penthouse santuary, away from the hassle' },
+      { src: 'https://cdn.theharsukh.com/images/gallery/Penthouse/penthouse-1.webp', caption: 'Live in a breathtaking penthouse santuary, away from the hassle' },
+      { src: 'https://cdn.theharsukh.com/images/gallery/Penthouse/penthouse-2.webp', caption: 'Live in a breathtaking penthouse santuary, away from the hassle' },
+      { src: 'https://cdn.theharsukh.com/images/gallery/Penthouse/penthouse-3.webp', caption: 'Live in a breathtaking penthouse santuary, away from the hassle' },
+      { src: 'https://cdn.theharsukh.com/images/gallery/Penthouse/penthouse-4.webp', caption: 'Live in a breathtaking penthouse santuary, away from the hassle' },
+      { src: 'https://cdn.theharsukh.com/images/gallery/Penthouse/penthouse-5.webp', caption: 'Live in a breathtaking penthouse santuary, away from the hassle' },
+      { src: 'https://cdn.theharsukh.com/images/gallery/Penthouse/penthouse-6.webp', caption: 'Live in a breathtaking penthouse santuary, away from the hassle' },
+      { src: 'https://cdn.theharsukh.com/images/gallery/Penthouse/penthouse-7.webp', caption: 'Live in a breathtaking penthouse santuary, away from the hassle' },
+      { src: 'https://cdn.theharsukh.com/images/gallery/Penthouse/penthouse-8.webp', caption: 'Live in a breathtaking penthouse santuary, away from the hassle' },
     ]
   },
 };
