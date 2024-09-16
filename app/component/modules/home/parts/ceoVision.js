@@ -87,7 +87,7 @@ const CEOVisionPage = () => {
           }}
         >
           <Image
-            src="/images/home/ceo-profile-pic.webp"
+            src="https://cdn.theharsukh.com/images/home/ceo-profile-pic.webp"
             width={isMidScreen ? 300 : 330}
             height={isMidScreen ? 330 : 360}
             alt="CEO portrait"

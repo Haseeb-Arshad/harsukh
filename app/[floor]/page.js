@@ -13,7 +13,7 @@ const Floor = dynamic(() => import('../component/modules/FloorLayout/floor'), {
 });
 
 const floorData = {
-  "valley-floor-1": { imageLink: "/api/imageProxy?url=https://cdn.theharsukh.com/floors/floors/basement1.webp", imageName: "valley-floor-1", svgFile: "/svg/basement1/B1.1-01.svg" },
+  "valley-floor-1": { imageLink: "https://cdn.theharsukh.com/floors/floors/basement1.webp", imageName: "valley-floor-1", svgFile: "/svg/basement1/B1.1-01.svg" },
   "valley-floor-3": { imageLink: "https://cdn.theharsukh.com/floors/floors/basement3.webp", imageName: "valley-floor-3", svgFile: "/svg/basement3/B3-01.svg" },
   "valley-floor-4": { imageLink: "https://cdn.theharsukh.com/floors/floors/basement4.webp", imageName: "valley-floor-4", svgFile: "/svg/basement4/B4-01.svg" },
   "valley-floor-5": { imageLink: "https://cdn.theharsukh.com/floors/floors/basement5.webp", imageName: "valley-floor-5", svgFile: "/svg/basement5/B5-01.svg" },

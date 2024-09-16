@@ -115,7 +115,7 @@ const Header = () => {
     <>
     <motion.div className={styles.container} variants={containerVariants} initial="hidden" animate={inView ? "visible" : "hidden"}>
       <motion.div className={styles.imageWrapper} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5, ease: [0.49, 0.23, 0, 1] }}>
-        <Image unoptimized src="/images/home/harsukhImage1.webp" layout="fill" objectFit="cover" quality={100} priority alt="Luxury hotel in mountains" />
+        <Image unoptimized src="https://cdn.theharsukh.com/images/home/harsukhImage1.webp" layout="fill" objectFit="cover" quality={100} priority alt="Luxury hotel in mountains" />
       </motion.div>
       <div className={styles.overlay}></div>
       <motion.div className={styles.content}>
