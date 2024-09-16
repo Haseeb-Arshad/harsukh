@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 const FrontPage = () => {
   const [progress, setProgress] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
+
 
   useEffect(() => {
     const timer = setInterval(() => {
