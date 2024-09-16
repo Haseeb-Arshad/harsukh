@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import styles from '@/styles/home/vision.module.css'; // Importing the CSS module
-import visionBg from '@/public/images/home/vision-bg.webp'
+// import visionBg from '@/public/images/home/vision-bg.webp'
 
 export default function VisionPage() {
   return (
@@ -10,7 +10,7 @@ export default function VisionPage() {
       <div className={styles.visionContent}>
         <div className={styles.visionImage}>
           <Image
-            src={visionBg} // Make sure the image is placed in your public folder
+            src='/images/home/vision-bg.webp' // Make sure the image is placed in your public folder
             alt="Harsukh Residencies"
             fill
             // layout="fill"
