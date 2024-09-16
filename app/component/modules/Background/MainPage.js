@@ -401,8 +401,8 @@ export default function MainPage() {
 
   useEffect(() => {
     const newImageUrl = !backView
-      ? (snowMode ? "/images/background/frontViewWinter.webp" : "/images/background/frontViewSummer.webp")
-      : "/images/background/backView.webp";
+      ? (snowMode ? "https://cdn.theharsukh.com/images/background/frontViewWinter.webp" : "https://cdn.theharsukh.com/images/background/frontViewSummer.webp")
+      : "https://cdn.theharsukh.com/images/background/backView.webp";
   
     if (newImageUrl !== imageUrl) {
       setLoading(true);
