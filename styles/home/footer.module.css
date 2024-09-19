@@ -23,7 +23,7 @@
     background-color: #006D77;
     color: white;
     padding: 2rem 0rem;
-    height: 65vh;
+    height: 75vh;
     font-family: "Gill Sans Light";
     width: 100vw;
   }
@@ -49,7 +49,7 @@
   
   .logo {
     text-align: center;
-    margin-bottom:4rem;
+    margin-bottom:1rem;
   }
   
   .logo h2 {
@@ -190,7 +190,7 @@
   } */
   
   .bottom {
-    margin-top: 3vh;
+    margin-top: 10vh;
     padding: 1rem 1rem;
     display: flex;
     justify-content: space-between;

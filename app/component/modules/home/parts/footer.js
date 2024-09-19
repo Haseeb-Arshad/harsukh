@@ -50,10 +50,10 @@ const Footer = () => {
 
     <footer className={styles.footer}>
       <div className={styles.container}>
-        {/* <div className={styles.logo}>
+        <div className={styles.logo}>
 
         <Image style={{cursor:"pointer"}} src="https://cdn.theharsukh.com/floors/floors/HarsukhLogo.webp" alt="menu" width={200} height={115} />
-        </div> */}
+        </div>
         
         {/* <div className={styles.visionImage}>
 
