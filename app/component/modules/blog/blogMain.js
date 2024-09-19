@@ -8,7 +8,7 @@ import BlogGrid from './parts/blogGrid';
 const BlogPage = ({ posts }) => {
   return (
     <div className={styles.container}>
-      <div className={styles.pageTitle}>News</div>
+      <div className={styles.pageTitle}>Blog</div>
       <BlogGrid posts={posts} />
     </div>
   );

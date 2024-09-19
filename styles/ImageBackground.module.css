@@ -174,6 +174,8 @@ svg */
 .buttonsContainer,
 .filterContainer,
 .snowContainer,
+.amenityContainer,
+.aboutHarsukhContainer,
 .menuContainer {
   position: fixed;
   z-index: 100000000;
@@ -189,19 +191,14 @@ svg */
   top: 3rem;
   right: 3rem;
   height: 3.7rem;
-  width: 16rem;
-  /* border: 3px solid red; */
+  width: 20rem;
   z-index: 100000000;
   display: grid;
-  align-items: center;
-  justify-content: center;
-  grid-template-columns: 0.8fr 0.4fr 0.4fr;
+  grid-template-columns: 0.8fr 0.4fr 0.4fr 0.4fr;
 }
 
-.snowContainer
-
+.amenityContainer
 {
-  /* position: fixed; */
   z-index: 0;
   user-select: none;
   top: 119px;
@@ -209,10 +206,19 @@ svg */
   display: flex;
   align-items: center;
   justify-content: center;
-  /* height: 40px;
-  width: 40px; */
   border-radius: 50%;
-  /* background-color: #fcf7eb; */
+}
+
+.snowContainer
+{
+  z-index: 0;
+  user-select: none;
+  top: 119px;
+  right: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
 }
 
 .blur {
@@ -236,6 +242,52 @@ svg */
   justify-content: center;
   align-items: center;
   z-index: 1000;
+}
+
+.aboutHarsukhContainer
+{
+  top: 120px;
+  right: 48px;
+  position: fixed;
+  /* padding: 1rem 2rem; */
+  height: 40px;
+  width: 8.5rem;
+  background-color: #fcf7eb;
+  border-radius: 1.5rem;
+  z-index: 100000000;
+  display: grid;
+  grid-template-columns: 1fr 0.25fr;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.aboutHarsukhContainerLeft
+{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-size: 0.7rem;
+  color: #006d77;
+  z-index: 9999999999999;
+  cursor: pointer;
+  grid-template-columns: 0.7fr 1fr;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.aboutHarsukhContainerRight
+{
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  border-radius: 50%;
+  color: #006d77;
+
+  border-radius: 0.3rem;
+  cursor: pointer;
+  display: grid;
+  /* padding: 0.2rem 0rem; */
 }
 
 @font-face {
@@ -534,6 +586,7 @@ svg */
   justify-content: center;
   background-color: #fcf7eb;
   color: #006d77;
+  width: 7rem;
   border: none;
   height: 2.5rem;
   border-radius: 0.3rem;
@@ -1469,6 +1522,7 @@ background-color: none;
   .buttonsContainer,
   .filterContainer,
   .menuContainer,
+  .aboutHarsukhContainer,
   .bottomLogoContainer {
     display: fixed;
   }

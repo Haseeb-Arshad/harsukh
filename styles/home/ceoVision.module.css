@@ -1,4 +1,5 @@
 .pageContainer {
+  /* min-height: 55vh; */
   min-height: 100vh;
   width: 100vw;
   background-color: #EBDED2;
@@ -18,7 +19,6 @@
   border-radius: 8px;
   flex-direction: row;
 }
-
 
 
 .lineWrapper {

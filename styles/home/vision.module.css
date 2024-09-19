@@ -71,9 +71,9 @@
 
 @media (max-width: 768px) {
   .visionText {
-    left: 50%;
+    left: 30%;
     width: 60%;
-    padding: 50px 40px;
+    padding: 50px 30px;
     font-size: 1.1rem;
   }
 

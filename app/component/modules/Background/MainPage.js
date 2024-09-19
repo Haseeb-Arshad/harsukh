@@ -3553,7 +3553,7 @@ export default function MainPage() {
               </div>
             )}
 
-            <div className={styles.topLogoContainer}>
+            <div className={styles.topLogoContainer} onClick={() => router.push("/")}>
               <Image 
                 src="https://cdn.theharsukh.com/Webpage/floors/HarsukhLogo.webp"
                 quality={100}
@@ -3744,6 +3744,9 @@ export default function MainPage() {
             </div>
 
             <div className={styles.menuContainer}>
+
+
+            <div className={styles.menuContainerInside}>
               <div ref={amenityButtonRef}>
                 <AmenityBtn
                   translations={translations}
@@ -3752,6 +3755,17 @@ export default function MainPage() {
                   inActive={amenityClicked}
                 />
               </div>
+            </div>             
+
+          {/* { !backView && */}
+              <div className={styles.menuContainerInside} >
+                <SnowButton
+                  inActive={snowMode}
+                  handleMenu={handleSnowMode}
+
+                />
+              </div>
+            {/* } */}
 
               <div className={styles.menuContainerInside} ref={favContainerRef}>
                 <FavButton
@@ -3785,16 +3799,6 @@ export default function MainPage() {
               />
             </div>
 
-            { !backView &&
-              <div className={styles.snowContainer}>
-                <SnowButton
-                  inActive={snowMode}
-                  handleMenu={handleSnowMode}
-
-                />
-              </div>
-            }
-            
             { amenityClicked && (
               <div >
                 <AmenityGrid Amenref={amenityGridRef} onClose={handleAmenitiesCheck} isMobile={isMobile} />
@@ -3808,6 +3812,16 @@ export default function MainPage() {
                 isVisible={isFilterBoxVisible}
               />
             )}
+
+            <div className={styles.aboutHarsukhContainer} onClick={() => router.push('/')}>
+                <div className={styles.aboutHarsukhContainerLeft}>
+                  About Harsukh
+                </div>
+                <div className={styles.aboutHarsukhContainerRight}>
+                  <Image src="/images/icons/toClickIcon.svg" quality={100} alt="Menu" height={13} width={13} />
+                </div>
+            </div>
+
           </>
         )}
       </div>

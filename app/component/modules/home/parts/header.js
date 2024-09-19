@@ -5,33 +5,12 @@ import styles from '@/styles/home/header.module.css';
 import { useInView } from 'react-intersection-observer';
 import TextMasked from './anim/TextMasked';
 import RegisterRequestForm from '@/app/component/ui/Bars/contactBox';
-import en from "@/app/component/locales/en.json";
-import ur from "@/app/component/locales/ur.json";
-import { useSelector } from 'react-redux';
-
 
 const Header = () => {
-
 
   const [isCallHovered, setIsCallHovered] = useState(false);
   const [isWAHovered, setIsWAHovered] = useState(false);
   const [isContacted, setIsContacted] = useState(false);
-
-
-  const languageState = useSelector((state) => {
-    const languageState = state.language.lang.find((site) => site.id === "1");
-    return languageState ? languageState.language : "en";
-  });
-
-  const [language, setLanguage] = useState(languageState === "ur");
- 
- 
-
-  const [translations, setTranslations] = useState(
-    languageState === "ur" ? ur : en
-  );
-
-
 
   const { ref, inView } = useInView({
     triggerOnce: true,
@@ -81,56 +60,24 @@ const Header = () => {
   const handleCall = () => {
     setIsContacted(!isContacted);
   };
+  
   const handleContactClose = () => {
-
     setIsContacted(false);
   };
 
-  const handleCallClick = useCallback(() => {
-    // Add "/callus" to the URL without navigating
-    const newUrl = `${window.location.origin}${window.location.pathname}${window.location.pathname.endsWith('/') ? '' : '/'}callus`;
-    window.history.pushState({}, '', newUrl);
-
-    // Attempt to open the phone dialer
-    window.location.href = 'tel:051-111-520-520';
-
-    // Set a timeout to remove "/callus" from the URL
-    setTimeout(() => {
-      if (window.location.pathname.endsWith('/callus')) {
-        const cleanUrl = window.location.href.replace('/callus', '');
-        window.history.replaceState({}, '', cleanUrl);
-      }
-    }, 1000); // Short delay to ensure the call attempt has been made
-  }, []);
-
-  const handleWhatsAppClick = useCallback(() => {
-    // Replace this with your company's WhatsApp number
-    const whatsappNumber = '+923300111166';
-    const whatsappUrl = `https://wa.me/${whatsappNumber}`;
-    window.open(whatsappUrl, '_blank');
-  }, []);
-  
-
   return (
     <>
-    <motion.div className={styles.container} variants={containerVariants} initial="hidden" animate={inView ? "visible" : "hidden"}>
+    <motion.div id="header" className={styles.container} variants={containerVariants} initial="hidden" animate={inView ? "visible" : "hidden"}>
       <motion.div className={styles.imageWrapper} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5, ease: [0.49, 0.23, 0, 1] }}>
         <Image unoptimized src="https://cdn.theharsukh.com/images/home/harsukhImage1.webp" layout="fill" objectFit="cover" quality={100} priority alt="Luxury hotel in mountains" />
       </motion.div>
       <div className={styles.overlay}></div>
       <motion.div className={styles.content}>
-        <h1 ref={ref} className={`${styles.SplitLines} ${inView ? styles.isInview : ''}`}>
-          {titleOneLines.map((line, index) => (
-            <div key={index} className={styles.titleLines}>
-              <span className={styles.lineInner}>{line}</span>
-            </div>
-          ))}
-        </h1>
 
         <h1 ref={ref} className={`${styles.SplitLines} ${inView ? styles.isInview : ''}`}>
           {titleLines.map((line, index) => (
             <div key={index} className={styles.titleLines}>
-              <span className={styles.lineInner}>{line}</span>
+              <div className={styles.lineInner}>{line}</div>
             </div>
           ))}
         </h1>
@@ -141,48 +88,7 @@ const Header = () => {
           Get in Touch
         </motion.button>
       </motion.div>
-
-      <div
-      className={`${styles.buttonss} ${styles.callButton} ${
-        isCallHovered ? styles.expanded : ""
-      }`}
-      onMouseEnter={() => setIsCallHovered(true)}
-      onMouseLeave={() => setIsCallHovered(false)}
-      onClick={handleCallClick}
-    >
-      <Image
-        src="/images/icons/callIcon.svg"
-        quality={100}
-        alt="Maps View Icon"
-        height={16}
-        width={16}
-      />
-      <div className={styles.buttonText}>{translations["callus"]}</div>
-    </div>
-
-
-    <div
-      className={`${styles.buttonss} ${styles.whatsappButton} ${
-        isWAHovered ? styles.expanded : ""
-      }`}
-      onMouseEnter={() => setIsWAHovered(true)}
-      onMouseLeave={() => setIsWAHovered(false)}
-      onClick={handleWhatsAppClick}
-    >
-      <Image
-      
-        src="/images/icons/homePage/whatsapp-icon.svg"
-        quality={100}
-        alt="Maps View Icon"
-        height={19}
-        width={19}
-      />
-      <div className={styles.buttonText}>WhatsApp us</div>
-    </div>
-
     </motion.div>
-
-  
           
     {isContacted && (
         <div style={{zIndex:'99999999999'}} className={styles.ContactedContainer}>

@@ -4,14 +4,12 @@ import Image from 'next/image';
 import styles from '@/styles/blog/navbar.module.css';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import RegisterRequestForm from '@/app/component/ui/Bars/contactBox';
 
 const Navbar = ({ children }) => {
   const [activeMenuItem, setActiveMenuItem] = useState('About');
   const [visible, setVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
   const router = useRouter();
-  const [isContacted, setIsContacted] = useState(false);
 
   const handleMenuItemClick = (menuItem) => {
     setActiveMenuItem(menuItem);
@@ -20,9 +18,6 @@ const Navbar = ({ children }) => {
 
     } else if (menuItem === 'Blogs') {
       router.push('/blog');
-    }
-    else if (menuItem === 'News Room') {
-      router.push('/news-room');
     }
     // Add more conditions for other menu items as needed
   };
@@ -50,18 +45,10 @@ const Navbar = ({ children }) => {
     }
   }, [lastScrollY]);
 
-  const handleCall = () => {
-    setIsContacted(!isContacted);
-  };
-  
-  const handleContactClose = () => {
-    setIsContacted(false);
-  };
-
   return (
     <>
       <nav className={`${styles.nav} ${visible ? styles.visible : styles.hidden}`}>
-        <Image style={{cursor:"pointer"}} onClick={()=>{router.push('/')}} src="https://cdn.theharsukh.com/images/blog/harsukhLogo.svg" alt="menu" width={200} height={115} />
+        <Image style={{cursor:"pointer"}} src="https://cdn.theharsukh.com/images/blog/harsukhLogo.svg" alt="menu" width={200} height={115} />
         <ul className={styles.menu}>
           {['Home', 'Developer', 'Blogs', 'News Room'].map((item) => (
             <li
@@ -75,23 +62,14 @@ const Navbar = ({ children }) => {
         </ul>
         
         <Link href="#">
-            <button  onClick={handleCall} className={styles.exploreBtn}>
+            <button className={styles.exploreBtn}>
                 Get in Touch
             </button>
         </Link>
 
-        
-
           
       </nav>
       {children}
-
-      {isContacted && (
-        <div style={{zIndex:'99999999999'}} className={styles.ContactedContainer}>
-          <RegisterRequestForm onClose={handleContactClose} />
-        </div>
-      )}
-      
     </>
   );
 };
