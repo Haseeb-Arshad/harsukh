@@ -23,16 +23,19 @@
     background-color: #006D77;
     color: white;
     padding: 2rem 0rem;
-    min-height: 87vh;
+    height: 65vh;
     font-family: "Gill Sans Light";
     width: 100vw;
-
   }
   
   .container {
+    display: flex;
+    flex-direction: column;
     width: 100%;
     margin: 0 auto;
     padding: 1rem 3rem;
+    /* row-gap: 4rem; */
+    height: 100%;
   }
 
   .visionImage {
@@ -187,16 +190,20 @@
   } */
   
   .bottom {
-    margin-top: 4rem;
-    padding: 0rem 1rem;
+    margin-top: 3vh;
+    padding: 1rem 1rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
     /* flex-wrap: wrap; */
     /* gap: 1rem; */
-    /* border: 5px solid #771e00; */
     height: 10vh;
     border-top: rgb(255, 255, 255, 0.1) solid 1px;
+  }
+
+  .bottomContainer
+  {
+    bottom: 0.5rem;;
   }
   
   .links {

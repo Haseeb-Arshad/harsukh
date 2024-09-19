@@ -1,0 +1,107 @@
+@font-face {
+    font-family: "Gill Sans Light";
+    src: url("/fonts/gillsans/Gill Sans Light.otf");
+    font-weight: normal;
+  }
+  
+  @font-face {
+    font-family: "Gill Sans Medium";
+    src: url("/fonts/gillsans/Gill Sans Medium.otf");
+    font-weight: normal;
+  }
+  
+  @font-face {
+    font-family: "Optima Bold";
+    src: url("/fonts/optima/OPTIMA_B.TTF");
+    font-weight: normal;
+  }
+  
+  @font-face {
+    font-family: "Optima";
+    src: url("/fonts/optima/OPTIMA.TTF");
+    font-weight: normal;
+  }
+  /* components/Developer.module.css */
+/* .container {
+  font-family: "Gill Sans Medium";
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background-image: url('https://cdn.theharsukh.com/images/blog/imageMask-bg.png'); 
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  padding: 20px;
+  background-size: 30% 100%; 
+  flex-direction: column;
+  background-color: #EBDED2;
+} */
+
+.container {
+  background-color: #EBDED2;
+  font-family: "Gill Sans Medium";
+
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 0.9fr;
+  align-items: center;
+  /* justify-content: center; */
+  min-height: 100vh;
+  background-image: url('https://cdn.theharsukh.com/images/blog/imageMask-bg.png'); /* Replace this with your background image path */
+  background-repeat: no-repeat;
+  background-position: left top;
+  background-size: 30% 100%; /* The image will only cover 30% of the width and 100% of the height */
+  padding: 20px;
+  padding: 5rem;
+}
+
+.content {
+  max-width: 670px;
+  justify-self: space-between;
+  text-align: center;
+  padding: 40px;
+  height: 100%;
+  border-radius: 10px;
+}
+
+.logoCONTAINER
+{
+  display: flex;
+  justify-content: space-between;
+}
+
+.title {
+  font-size: 36px;
+  font-family: "Optima Bold";
+  color: #333;
+  margin-bottom: 40px;
+}
+
+.title2
+{
+  font-size: 36px;
+  font-family: "Optima Bold";
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.logo
+{
+  margin-bottom: 5px;
+}
+
+.desc
+{
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: #555;
+}
+
+.description {
+  
+  margin-bottom: 20px;
+  padding: 4rem;
+  padding-top: 1rem;
+}

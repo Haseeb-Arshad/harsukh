@@ -50,11 +50,10 @@ const Footer = () => {
 
     <footer className={styles.footer}>
       <div className={styles.container}>
-        <div className={styles.logo}>
-          {/* <h2>HARSUKH</h2>
-          <p>RESIDENCIES</p> */}
+        {/* <div className={styles.logo}>
+
         <Image style={{cursor:"pointer"}} src="https://cdn.theharsukh.com/floors/floors/HarsukhLogo.webp" alt="menu" width={200} height={115} />
-        </div>
+        </div> */}
         
         {/* <div className={styles.visionImage}>
 
@@ -123,6 +122,7 @@ const Footer = () => {
         </div>
         
         <div className={styles.bottom}>
+          
           <div className={styles.links}>
           <span onClick={handlePrivacyPolicyClick} style={{ cursor: 'pointer' }}>Privacy Policy</span>
           <Link href="/terms-and-conditions">Terms and Conditions</Link>
@@ -130,6 +130,7 @@ const Footer = () => {
           <div>This website is Designed and Developed by Trescol</div>
         </div>
       </div>
+
     </footer>
 
     </>

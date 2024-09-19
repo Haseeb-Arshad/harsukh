@@ -39,3 +39,84 @@
   .exitAnimation::after {
     content: 'Exiting';
   }
+
+  .section {
+    height: 100vh;
+  }
+/* 
+  html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+  }
+  
+  body {
+    overflow-y: scroll;
+  }
+  
+  .swup-section {
+    min-height: 100vh;
+    opacity: 0;
+    transition: opacity 0.5s;
+  }
+  
+  .swup-section.active {
+    opacity: 1;
+  }
+  
+  .transition-fade {
+    transition: 0.4s;
+    opacity: 1;
+  }
+  
+  html.is-animating .transition-fade {
+    opacity: 0;
+  } */
+/* 
+  .transition-fade {
+    transition: 0.4s;
+    opacity: 1;
+  }
+  
+  html.is-animating .transition-fade {
+    opacity: 0;
+  }
+  
+  .section {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  } */
+
+  html, body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden; /* Prevent default scrolling */
+    height: 100%;
+    width: 100%;
+  }
+  
+  #swup {
+    overflow: hidden;
+  }
+  
+  .section {
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    transition: transform 0.7s ease-out;
+  }
+  
+  .active {
+    z-index: 2;
+  }
+  
+  /* To ensure smooth layering */
+  .section:not(.active) {
+    z-index: 1;
+  }

@@ -9,16 +9,21 @@
   },
   "dependencies": {
     "@barba/core": "^2.10.3",
+    "@fullpage/react-fullpage": "^0.1.44",
     "@next/third-parties": "^14.2.11",
     "@reduxjs/toolkit": "^2.2.6",
+    "@swup/scroll-plugin": "^3.3.2",
     "axios": "^1.7.7",
     "barba": "^1.0.0",
     "barba.js": "^1.0.0",
     "framer-motion": "^11.5.2",
     "gsap": "^3.12.5",
+    "jquery": "^3.7.1",
+    "locomotive-scroll": "^4.1.4",
     "lucide-react": "^0.408.0",
     "next": "^14.2.8",
     "openseadragon": "^4.1.1",
+    "pagepiling.js": "^1.5.6",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-intersection-observer": "^9.13.1",
@@ -29,8 +34,10 @@
     "react-transition-group": "^4.4.5",
     "react-zoom-pan-pinch": "^3.6.1",
     "redux-persist": "^6.0.0",
+    "scrollto": "^1.0.1",
     "sharp": "^0.33.5",
-    "styled-components": "^6.1.11"
+    "styled-components": "^6.1.11",
+    "swup": "^4.7.0"
   },
   "devDependencies": {
     "eslint": "^8",

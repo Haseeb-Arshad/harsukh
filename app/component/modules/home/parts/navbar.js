@@ -1,29 +1,62 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import Image from 'next/image';
 import styles from '@/styles/home/navbar.module.css';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { Menu } from 'lucide-react';
+import en from "@/app/component/locales/en.json";
+import ur from "@/app/component/locales/ur.json";
+import { useSelector } from 'react-redux';
 
-const Navbar = ({ children }) => {
-  const [activeMenuItem, setActiveMenuItem] = useState('About');
+const Navbar = ({ children, currentSection }) => {
+  const [activeMenuItem, setActiveMenuItem] = useState('Home');
   const [visible, setVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+ 
+  const [isCallHovered, setIsCallHovered] = useState(false);
+  const [isWAHovered, setIsWAHovered] = useState(false);
+
+  const languageState = useSelector((state) => {
+    const languageState = state.language.lang.find((site) => site.id === "1");
+    return languageState ? languageState.language : "en";
+  });
+
+  const [language, setLanguage] = useState(languageState === "ur");
+ 
+  const [translations, setTranslations] = useState(
+    languageState === "ur" ? ur : en
+  );
+
   const router = useRouter();
+
+  useEffect(() => {
+    // Update activeMenuItem based on currentSection
+    if (['header', 'video'].includes(currentSection)) {
+      setActiveMenuItem('Home');
+    } else if (['about', 'vision'].includes(currentSection)) {
+      setActiveMenuItem('About');
+    } else if (['developer', 'ceo-vision'].includes(currentSection)) {
+      setActiveMenuItem('Developer');
+    }
+  }, [currentSection]);
 
   const handleMenuItemClick = (menuItem) => {
     setActiveMenuItem(menuItem);
     setIsMobileMenuOpen(false);
-    if (menuItem === 'About') {
-      const aboutSection = document.getElementById('about-section');
-      if (aboutSection) {
-        aboutSection.scrollIntoView({ behavior: 'smooth' });
-      }
-    } else if (menuItem === 'Blogs') {
-      router.push('/blog');
+  
+    const sectionId = menuItem.toLowerCase();
+    const section = document.getElementById(sectionId);
+  
+    if (section) {
+      section.scrollIntoView({ behavior: 'smooth' });
     }
-    // Add more conditions for other menu items as needed
+  
+    if (menuItem === 'Blogs') {
+      router.push('/blog');
+    } else if (menuItem === 'News Room') {
+      router.push('/news-room');
+    }
   };
 
   const controlNavbar = () => {
@@ -36,6 +69,32 @@ const Navbar = ({ children }) => {
       setLastScrollY(window.scrollY);
     }
   };
+  
+
+  const handleCallClick = useCallback(() => {
+    // Add "/callus" to the URL without navigating
+    const newUrl = `${window.location.origin}${window.location.pathname}${window.location.pathname.endsWith('/') ? '' : '/'}callus`;
+    window.history.pushState({}, '', newUrl);
+
+    // Attempt to open the phone dialer
+    window.location.href = 'tel:051-111-520-520';
+
+    // Set a timeout to remove "/callus" from the URL
+    setTimeout(() => {
+      if (window.location.pathname.endsWith('/callus')) {
+        const cleanUrl = window.location.href.replace('/callus', '');
+        window.history.replaceState({}, '', cleanUrl);
+      }
+    }, 1000); // Short delay to ensure the call attempt has been made
+  }, []);
+
+  const handleWhatsAppClick = useCallback(() => {
+    // Replace this with your company's WhatsApp number
+    const whatsappNumber = '+923300111166';
+    const whatsappUrl = `https://wa.me/${whatsappNumber}`;
+    window.open(whatsappUrl, '_blank');
+  }, []);
+  
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -50,6 +109,7 @@ const Navbar = ({ children }) => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
 
+ 
   return (
     <>
       <nav className={`${styles.nav} ${visible ? styles.visible : styles.hidden}`}>
@@ -58,11 +118,10 @@ const Navbar = ({ children }) => {
           <Menu size={24} />
         </div>
         <ul className={`${styles.menu} ${isMobileMenuOpen ? styles.mobileMenuOpen : ''}`}>
-          {['About', 'Developer', 'Blogs', 'News Room'].map((item) => (
+          {['Home', 'About', 'Developer', 'Blogs', 'News Room'].map((item) => (
             <li
-
               key={item}
-              className={` ${styles.menuitems} ${activeMenuItem === item ? styles.activeMenuItem : ''}`}
+              className={`${styles.menuitems} ${activeMenuItem === item ? styles.activeMenuItem : ''}`}
               onClick={() => handleMenuItemClick(item)}
             >
               {item}
@@ -83,6 +142,45 @@ const Navbar = ({ children }) => {
           </button>
         </Link>
       </nav>
+
+
+      <div
+      className={`${styles.buttonss} ${styles.callButton} ${
+        isCallHovered ? styles.expanded : ""
+      }`}
+      onMouseEnter={() => setIsCallHovered(true)}
+      onMouseLeave={() => setIsCallHovered(false)}
+      onClick={handleCallClick}
+    >
+      <Image
+        src="/images/icons/callIcon.svg"
+        quality={100}
+        alt="Maps View Icon"
+        height={16}
+        width={16}
+      />
+      <div className={styles.buttonText}>{translations["callus"]}</div>
+    </div>
+
+
+    <div
+      className={`${styles.buttonss} ${styles.whatsappButton} ${
+        isWAHovered ? styles.expanded : ""
+      }`}
+      onMouseEnter={() => setIsWAHovered(true)}
+      onMouseLeave={() => setIsWAHovered(false)}
+      onClick={handleWhatsAppClick}
+    >
+      <Image
+      
+        src="/images/icons/homePage/whatsapp-icon.svg"
+        quality={100}
+        alt="Maps View Icon"
+        height={19}
+        width={19}
+      />
+      <div className={styles.buttonText}>WhatsApp us</div>
+    </div>
       
       <div className={styles.main}>
         {children}

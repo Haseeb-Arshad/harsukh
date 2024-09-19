@@ -1,0 +1,54 @@
+
+
+@font-face {
+    font-family: "Gill Sans Light";
+    src: url("/fonts/gillsans/Gill Sans Light.otf");
+    font-weight: normal;
+  }
+  
+  @font-face {
+    font-family: "Gill Sans Medium";
+    src: url("/fonts/gillsans/Gill Sans Medium.otf");
+    font-weight: normal;
+  }
+  
+  @font-face {
+    font-family: "Optima Bold";
+    src: url("/fonts/optima/OPTIMA_B.TTF");
+    font-weight: normal;
+  }
+  
+  @font-face {
+    font-family: "Optima";
+    src: url("/fonts/optima/OPTIMA.TTF");
+    font-weight: normal;
+  }
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+    position: relative;
+    /* z-index: 999999999999; */
+  }
+
+
+  @media (max-width: 1200px) {
+    .grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+  
+  @media (max-width: 900px) {
+    .grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+
+  @media (max-width: 600px) {
+    .grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+  }
