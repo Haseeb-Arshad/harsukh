@@ -6,7 +6,7 @@ import { useInView } from 'react-intersection-observer';
 import TextMasked from './anim/TextMasked';
 import RegisterRequestForm from '@/app/component/ui/Bars/contactBox';
 
-const Header = () => {
+const Header = ({ toggleContactForm }) => {
 
   const [isCallHovered, setIsCallHovered] = useState(false);
   const [isWAHovered, setIsWAHovered] = useState(false);
@@ -84,7 +84,11 @@ const Header = () => {
         <motion.div className={`${styles.subtitle} ${inView ? styles.isInview : ''}`}>
           <span className={styles.lineInner}>{subtitle}</span>
         </motion.div>
-        <motion.button onClick={handleCall} className={`${styles.ctaBtn} ctaBtn`} variants={buttonVariants}>
+        <motion.button
+          className={styles.ctaBtn}
+          variants={buttonVariants}
+          onClick={toggleContactForm}
+        >
           Get in Touch
         </motion.button>
       </motion.div>
