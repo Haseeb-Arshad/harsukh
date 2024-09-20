@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useInView } from 'react-intersection-observer';
 import styles from '@/styles/home/videoContent.module.css';
 
@@ -17,12 +17,34 @@ const AnimatedText = ({ text, className }) => {
 
 const VideoContent = () => {
   const [isVideoLoaded, setIsVideoLoaded] = useState(false);
+  const [isAutoplayError, setIsAutoplayError] = useState(false);
+  const videoRef = useRef(null);
 
   useEffect(() => {
-    const video = document.querySelector(`.${styles.videoBackground}`);
+    const video = videoRef.current;
+
     if (video) {
-      video.addEventListener('loadeddata', () => setIsVideoLoaded(true));
-      return () => video.removeEventListener('loadeddata', () => setIsVideoLoaded(true));
+      // When video data is loaded
+      const handleLoadedData = () => setIsVideoLoaded(true);
+      video.addEventListener('loadeddata', handleLoadedData);
+
+      // Try to play video programmatically
+      const playVideo = async () => {
+        try {
+          await video.play();
+          setIsAutoplayError(false);  // Video played successfully
+        } catch (error) {
+          // Autoplay failed - browser blocked the play
+          console.error('Auto-play failed:', error);
+          setIsAutoplayError(true);  // Trigger the error state
+        }
+      };
+
+      // Attempt to auto-play the video
+      playVideo();
+
+      // Clean up the event listener when component unmounts
+      return () => video.removeEventListener('loadeddata', handleLoadedData);
     }
   }, []);
 
@@ -40,16 +62,23 @@ const VideoContent = () => {
           />
         </div>
       </div>
+
+      {/* Show loading placeholder until video is ready */}
       {!isVideoLoaded && <div className={styles.videoPlaceholder}>Loading video...</div>}
-      <video
-        className={`${styles.videoBackground} ${isVideoLoaded ? styles.videoLoaded : ''}`}
+
+      {/* Hide play button (try to auto-play in the background) */}
+      {isAutoplayError && <div className={styles.playButton}>▶ Play Video</div>}
+
+      <video 
+        ref={videoRef}
+        className={styles.videoBackground}
         autoPlay
         loop
         muted
         playsInline
+        preload="auto"
       >
-        <source src="https://res.cloudinary.com/dykglphpa/video/upload/v1726852356/harsukh/kjqoxv455khgkl5tohpn.webm" type="video/webm" />
-        <source src="https://res.cloudinary.com/dykglphpa/video/upload/v1726852356/harsukh/kjqoxv455khgkl5tohpn.mp4" type="video/mp4" />
+        <source src="https://res.cloudinary.com/dykglphpa/video/upload/v1726857866/harsukh/mla8lyus7g4rmk3l4wdy.mp4" type="video/mp4" />
         Your browser does not support the video tag.
       </video>
     </div>
