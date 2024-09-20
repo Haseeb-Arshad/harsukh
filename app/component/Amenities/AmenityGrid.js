@@ -11,17 +11,17 @@ import en from '@/app/locales/en.json';
 import ur from '@/app/locales/ur.json';
 
 const areas = [
-  { name: 'Parking', image: 'https://cdn.theharsukh.comhttps://cdn.theharsukh.com/images/Amenity/Parking.png', details: [
-    { src: 'https://cdn.theharsukh.comhttps://cdn.theharsukh.com/images/gallery/Parking/Parking-1.webp', caption: 'Dedicated floors for parking' },
-    { src: 'https://cdn.theharsukh.comhttps://cdn.theharsukh.com/images/gallery/Parking/Parking-2.webp', caption: 'Dedicated floors for parking' }
+  { name: 'Parking', image: 'https://cdn.theharsukh.com/images/Amenity/Parking.png', details: [
+    { src: 'https://cdn.theharsukh.com/images/gallery/Parking/Parking-1.webp', caption: 'Dedicated floors for parking' },
+    { src: 'https://cdn.theharsukh.com/images/gallery/Parking/Parking-2.webp', caption: 'Dedicated floors for parking' }
   ]},
-  { name: 'Restaurant', image: 'https://cdn.theharsukh.comhttps://cdn.theharsukh.com/images/Amenity/Resturant.png', details: [
-    { src: 'https://cdn.theharsukh.comhttps://cdn.theharsukh.com/images/gallery/Restaurant/Restaurant-1.webp', caption: 'Experience the culinary luxury with our eateries floor' },
-    { src: 'https://cdn.theharsukh.comhttps://cdn.theharsukh.com/images/gallery/Restaurant/Restaurant-2.webp', caption: 'Experience the culinary luxury with our eateries floor' },
-    { src: 'https://cdn.theharsukh.comhttps://cdn.theharsukh.com/images/gallery/Restaurant/Restaurant-3.webp', caption: 'Experience the culinary luxury with our eateries floor' },
-    { src: 'https://cdn.theharsukh.comhttps://cdn.theharsukh.com/images/gallery/Restaurant/Restaurant-4.webp', caption: 'Experience the culinary luxury with our eateries floor' },
-    { src: 'https://cdn.theharsukh.comhttps://cdn.theharsukh.com/images/gallery/Restaurant/Restaurant-5.webp', caption: 'Experience the culinary luxury with our eateries floor' },
-    { src: 'https://cdn.theharsukh.comhttps://cdn.theharsukh.com/images/gallery/Restaurant/Restaurant-6.webp', caption: 'Experience the culinary luxury with our eateries floor' }
+  { name: 'Restaurant', image: 'https://cdn.theharsukh.com/images/Amenity/Resturant.png', details: [
+    { src: 'https://cdn.theharsukh.com/images/gallery/Restaurant/Restaurant-1.webp', caption: 'Experience the culinary luxury with our eateries floor' },
+    { src: 'https://cdn.theharsukh.com/images/gallery/Restaurant/Restaurant-2.webp', caption: 'Experience the culinary luxury with our eateries floor' },
+    { src: 'https://cdn.theharsukh.com/images/gallery/Restaurant/Restaurant-3.webp', caption: 'Experience the culinary luxury with our eateries floor' },
+    { src: 'https://cdn.theharsukh.com/images/gallery/Restaurant/Restaurant-4.webp', caption: 'Experience the culinary luxury with our eateries floor' },
+    { src: 'https://cdn.theharsukh.com/images/gallery/Restaurant/Restaurant-5.webp', caption: 'Experience the culinary luxury with our eateries floor' },
+    { src: 'https://cdn.theharsukh.com/images/gallery/Restaurant/Restaurant-6.webp', caption: 'Experience the culinary luxury with our eateries floor' }
   ]},
   { name: 'Lobby', image: 'https://cdn.theharsukh.com/images/Amenity/Lobby.png', details: [
     { src: 'https://cdn.theharsukh.com/images/gallery/Lobby/Corridor.webp', caption: 'Welcoming & Luxurious. Our lobbies & corridors combing luxury & warmth' },
@@ -176,12 +176,12 @@ const AmenityGrid = ({ isMobile, onClose, Amenref }) => {
             <div className={styles.singleImageWrapper}>
               {isLoading && <Loader />}
               <Image
-              
                 key={currentImageIndex}
                 src={selectedArea.details[currentImageIndex].src}
                 alt={`${selectedArea.name} ${currentImageIndex + 1}`}
-                layout="fill"
-                objectFit="cover"
+                layout="responsive"
+                width={100}
+                height={100}
                 quality={100}
                 onLoadingComplete={handleImageLoad}
                 className={`${styles.slideImage} ${styles[direction]}`}

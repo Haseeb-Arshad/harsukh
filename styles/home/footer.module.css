@@ -33,7 +33,7 @@
     flex-direction: column;
     width: 100%;
     margin: 0 auto;
-    padding: 1rem 3rem;
+    padding: 0.5rem 3rem;
     /* row-gap: 4rem; */
     height: 100%;
   }
@@ -183,11 +183,6 @@
     border-radius: 0.3rem;
     cursor: pointer;
   }
-/*   
-  .submitbutton
-  {
-    padding: 2rem;
-  } */
   
   .bottom {
     margin-top: 10vh;
@@ -209,7 +204,6 @@
   .links {
     display: flex;
     gap: 1rem;
-
   }
   
   .links a {
@@ -218,21 +212,154 @@
   }
   
   @media (max-width: 768px) {
-    .content {
-      flex-direction: column;
+
+    /* .content {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 5rem;
+    }
+     */
+
+     .contact h3, .social h3, .newsletter .newsletterTitle {
+      margin-bottom: 1rem;
+    }
+    
+
+    .socialTitle
+    {
+      font-size: 1rem;
+      font-weight: 500;
+      font-family: "Gill Sans Light";
+      margin-bottom: 0.5rem;
     }
 
+    .social{
+      /* background-color: red;; */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      margin-bottom: 0.5rem;
+    }
+
+    .content {
+      flex-direction: column;
+      gap: 0.5rem;
+
+    }
+
+    .logo h2 {
+      font-size: 1.5rem;
+      margin: 0;
+    }
+    
+    .logo .contactInfo {
+      font-size: 0.85rem;
+      margin: 0;
+    }
+
+    .contactInfo
+    {
+      font-size: 0.8rem;
+    }
+
+    .formInput
+  {
+    height: 4vh;
+    width: 70%;
+    display: flex;
+    /* justify-content: center; */
+    /* align-items: center; */
+    border-radius: 4px;
+    padding-left: 0.5rem;
+    background-color: rgb(252, 247, 235, 0.4);
+  }
+
+  .inputBox
+  {
+    all: initial;
+    color: #2D2D2D;
+    font-family: "Gill Sans Light";
+    font-size: 0.9rem;
+  }
+    
+
+    .contactInfoText
+    {
+      width: 90%;
+    }
+
+    .bottom {
+      margin-top: 0vh;
+      padding: 0rem;
+      padding-top: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: normal;
+      height: 6vh;
+      flex-direction: column;
+      border-top: rgb(255, 255, 255, 0.1) solid 1px;
+    }
+/* 
     .footer {
       background-color: #006D77;
       color: white;
       padding: 2rem 0;
-      min-height: 85vh;
+      height: 100vh;
+      font-family: "Gill Sans Light";
+      width: 100vw;
+    } */
+
+    .footer {
+      background-color: #006D77;
+      color: white;
+      padding: 2rem 0rem;
+      height: 100vh;
       font-family: "Gill Sans Light";
       width: 100vw;
     }
-    
-    .bottom {
-      flex-direction: column;
-      text-align: center;
+
+    /* .bottom {
+      margin-top: 10vh;
+      padding: 1rem 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      height: 10vh;
+      border-top: rgb(255, 255, 255, 0.1) solid 1px;
+    } */
+
+    .handlePrivacyPolicyClick
+    {
+      font-size: 0.9rem;;
     }
+    .designedBy
+    {
+      font-size: 0.8rem;
+    }
+
+      
+  .links {
+    display: flex;
+    align-items: none;
+    justify-content: none;
+    text-align: none;
+    gap: 0.5rem;
+  }
+
+
+  .newsletter .submitbutton {
+    padding: 0.4rem 2rem;
+    font-size: 0.9rem;
+    background-color: white;
+    width: fit-content;
+    color: #008080;
+    border: none;
+    border-radius: 0.3rem;
+    cursor: pointer;
+    margin-bottom: 5rem;
+  }
+
   }

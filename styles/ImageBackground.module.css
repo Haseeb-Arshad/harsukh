@@ -178,7 +178,7 @@ svg */
 .aboutHarsukhContainer,
 .menuContainer {
   position: fixed;
-  z-index: 100000000;
+  z-index: 999;
   user-select: none;
 }
 
@@ -192,7 +192,7 @@ svg */
   right: 3rem;
   height: 3.7rem;
   width: 20rem;
-  z-index: 100000000;
+  z-index: 9999;
   display: grid;
   grid-template-columns: 0.8fr 0.4fr 0.4fr 0.4fr;
 }
@@ -254,7 +254,7 @@ svg */
   width: 8.5rem;
   background-color: #fcf7eb;
   border-radius: 1.5rem;
-  z-index: 100000000;
+  z-index: 2;
   display: grid;
   grid-template-columns: 1fr 0.25fr;
   align-items: center;
@@ -270,7 +270,6 @@ svg */
   border-radius: 50%;
   font-size: 0.7rem;
   color: #006d77;
-  z-index: 9999999999999;
   cursor: pointer;
   grid-template-columns: 0.7fr 1fr;
   transition: opacity 0.3s ease, transform 0.3s ease;
@@ -1025,6 +1024,7 @@ background-color: none;
   position: absolute;
   top: 110px;
   right: 113px;
+  z-index: 999999999;
 }
 
 .tab {

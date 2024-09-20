@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import styles from '@/styles/home/aboutus.module.css';
 import { useInView } from 'react-intersection-observer';
@@ -44,18 +44,33 @@ const AnimatedText = ({ text, className }) => {
 };
 
 const AboutUs = () => {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
   return (
     <section className={styles.container}>
       <div className={styles.imageSection}>
-        <Image
-          src="https://cdn.theharsukh.com/images/home/aboutusHarsukh.webp"
-          alt="Harsukh Residencies"
-          fill
-          sizes="100vw"
-          quality={85}
-          priority
-          className={styles.backgroundImage}
-        />
+        {!isMobile && (
+          <Image
+            src="https://cdn.theharsukh.com/images/home/aboutusHarsukh.webp"
+            alt="Harsukh Residencies"
+            fill
+            sizes="100vw"
+            quality={85}
+            priority
+            className={styles.backgroundImage}
+          />
+        )}
         <Image
           src="https://cdn.theharsukh.com/images/home/aboutUsback.webp"
           alt="Harsukh Residencies Background"
@@ -67,10 +82,7 @@ const AboutUs = () => {
       </div>
       <div className={styles.contentOverlay}>
         <div className={styles.content}>
-          <AnimatedText
-            text="ABOUT US"
-            className={styles.title}
-          />
+          <AnimatedText text="ABOUT US" className={styles.title} />
           <AnimatedText
             text="Setting an example of grandeur and luxury in Ayubia, Harsukh Residencies is designed for the high-end market. Blending the comfort of nature and beauty. Finishing it to perfection, this project is a combination of modern living within nature, making it an investment like no other."
             className={styles.description}
@@ -79,6 +91,6 @@ const AboutUs = () => {
       </div>
     </section>
   );
-}
+};
 
 export default AboutUs;

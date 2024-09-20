@@ -1,8 +1,6 @@
-import React, { useEffect, useRef } from 'react';
-// import AnimatedText from './AnimatedText';
-import styles from '@/styles/home/videoContent.module.css';
+import React from 'react';
 import { useInView } from 'react-intersection-observer';
-
+import styles from '@/styles/home/videoContent.module.css';
 
 const AnimatedText = ({ text, className }) => {
   const { ref, inView } = useInView({
@@ -10,40 +8,12 @@ const AnimatedText = ({ text, className }) => {
     threshold: 0.2,
   });
 
-  const createLines = (text) => {
-    const words = text.split(' ');
-    const lines = [];
-    let currentLine = [];
-
-    words.forEach((word) => {
-      if (currentLine.join(' ').length + word.length < 98) {
-        currentLine.push(word);
-      } else {
-        lines.push(currentLine.join(' '));
-        currentLine = [word];
-      }
-    });
-
-    if (currentLine.length > 0) {
-      lines.push(currentLine.join(' '));
-    }
-
-    return lines;
-  };
-
-  const lines = createLines(text);
-
   return (
-    <div ref={ref} className={className}>
-      {lines.map((line, index) => (
-        <div key={index} className={`${styles.titleLines} ${inView ? styles.isInview : ''}`}>
-          <span className={styles.lineInner}>{line}</span>
-        </div>
-      ))}
+    <div ref={ref} className={`${className} ${styles.animatedText} ${inView ? styles.isInview : ''}`}>
+      <span className={styles.textInner}>{text}</span>
     </div>
   );
 };
-
 
 const VideoContent = () => {
   return (
@@ -60,12 +30,11 @@ const VideoContent = () => {
           />
         </div>
       </div>
-      {/* Background Video */}
       <video 
         className={styles.videoBackground}
-        autoPlay 
-        loop 
-        muted 
+        autoPlay
+        loop
+        muted
         playsInline
       >
         <source src="/video/homePage.webm" type="video/mp4" />

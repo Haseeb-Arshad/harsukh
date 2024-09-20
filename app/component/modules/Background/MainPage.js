@@ -3686,6 +3686,15 @@ export default function MainPage() {
               </div>
             </div>
 
+            <div className={styles.aboutHarsukhContainer} onClick={() => router.push('/')}>
+                <div className={styles.aboutHarsukhContainerLeft}>
+                  About Harsukh
+                </div>
+                <div className={styles.aboutHarsukhContainerRight}>
+                  <Image src="/images/icons/toClickIcon.svg" quality={100} alt="Menu" height={13} width={13} />
+                </div>
+            </div>
+
             <div className={styles.container}>
               
               <div
@@ -3800,7 +3809,7 @@ export default function MainPage() {
             </div>
 
             { amenityClicked && (
-              <div >
+              <div style={{zIndex: '99999999999999'}}>
                 <AmenityGrid Amenref={amenityGridRef} onClose={handleAmenitiesCheck} isMobile={isMobile} />
               </div>
             )}
@@ -3813,14 +3822,7 @@ export default function MainPage() {
               />
             )}
 
-            <div className={styles.aboutHarsukhContainer} onClick={() => router.push('/')}>
-                <div className={styles.aboutHarsukhContainerLeft}>
-                  About Harsukh
-                </div>
-                <div className={styles.aboutHarsukhContainerRight}>
-                  <Image src="/images/icons/toClickIcon.svg" quality={100} alt="Menu" height={13} width={13} />
-                </div>
-            </div>
+          
 
           </>
         )}
@@ -3891,7 +3893,7 @@ export default function MainPage() {
           </div>
 
 
-          <div styles={{zIndex:'100000', position:'absolute'}} >
+          <div styles={{zIndex:'99999999999999', position:'absolute'}} >
 
             <MenuBox
               isMobile={isMobile}

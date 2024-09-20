@@ -1,74 +1,110 @@
+/* styles/home/main.module.css */
 .container {
-    height: 100vh;
-    overflow: hidden;
-    position: relative;
-  }
-  
+  height: 100vh;
+  overflow: hidden;
+}
+
+.nav {
+  position: fixed;
+  top: 50%;
+  right: 1rem;
+  transform: translateY(-50%);
+  z-index: 50;
+}
+
+.navButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 10px;
+  height: 10px;
+  margin: 5px 0;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.navDot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.5);
+  transition: all 0.3s ease;
+}
+
+.navButton:hover .navDot,
+.navButton:focus .navDot {
+  transform: scale(1.5);
+  background-color: rgba(255, 255, 255, 0.8);
+}
+
+.navButton:focus {
+  outline-offset: 2px;
+}
+
+.navButton.active .navDot {
+  width: 7px;
+  height: 7px;
+  background-color: #ffffff;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+}
+
+.sectionContainer {
+  height: 100%;
+  transition: transform 1s cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+
+.section {
+  height: 100vh;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.section:last-child {
+  height: 75vh;
+}
+
+.Developercontainer {
+  background-color: #EBDED2;
+  font-family: "Gill Sans Medium";
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 0.9fr;
+  align-items: center;
+  height: 100vh;
+  background-image: url('https://cdn.theharsukh.com/images/blog/imageMask-bg.png');
+  background-repeat: no-repeat;
+  background-position: left top;
+  background-size: 30% 100%;
+  padding: 5rem;
+}
+
+@media (max-width: 768px) {
   .nav {
-    position: fixed;
-    top: 50%;
-    right: 2rem;
-    transform: translateY(-50%);
-    z-index: 50;
+    right: 0.5rem;
   }
-  
+
   .navButton {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 30px;
+    width: 15px;
     height: 15px;
-    margin: 10px 0;
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
-    transition: all 0.3s ease;
   }
-  
+
   .navDot {
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background-color: rgba(255, 255, 255, 0.5);
-    transition: all 0.3s ease;
-  }
-  
-  .navButton:hover .navDot {
-    transform: scale(1.2);
-    background-color: rgba(255, 255, 255, 0.8);
-  }
-  
-  .navButton:focus {
-    outline: none;
-  }
-  
-  .navButton.active .navDot {
     width: 8px;
     height: 8px;
-    background-color: rgba(255, 255, 255, 0.9);
-    box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
   }
-  
+
   .sectionContainer {
-    height: 100%;
-    transition: transform 1.4s cubic-bezier(0.645, 0.045, 0.355, 1);
+    transition: transform 0.5s ease-out;
   }
-  
-  .section {
-    height: 100vh;
+
+  .section:last-child {
+    height: 100vh; /* Changed to full height for mobile view */
   }
-  
-  .footer {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 75vh;
-    transform: translateY(100%);
-    transition: transform 1.4s cubic-bezier(0.645, 0.045, 0.355, 1);
-    overflow-y: auto;
+
+  .Developercontainer {
+    grid-template-columns: 1fr;
+    padding: 2rem;
   }
-  
-  .footer.show {
-    transform: translateY(0);
-  }
+}

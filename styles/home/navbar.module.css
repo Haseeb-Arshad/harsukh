@@ -216,6 +216,7 @@
 @media (max-width: 768px) {
   .nav {
     padding: 10px 20px;
+    display: flex;
   }
 
   .menu {
@@ -223,10 +224,39 @@
     flex-direction: column;
     position: absolute;
     top: 100%;
-    left: 0;
+    /* left: 0; */
     right: 0;
     background-color: rgb(252, 247, 235, 0.95);
     padding: 20px;
+    width: 60vw;
+    margin-right: 10vw;
+  }
+
+
+  .activeMenuItem {
+    color: #006D77 !important;
+    position: relative;
+  }
+  
+  /* Underline the active menu item */
+  .activeMenuItem::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 5vw;
+    height: 0;
+    background-color: transparent;
+  }
+
+  .menuItemUnderline::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100% !important;
+    height: 2px;
+    background-color: #006D77;
   }
 
   .mobileMenuOpen {
@@ -239,6 +269,7 @@
   }
 
   .desktopExploreBtn {
+ 
     display: none;
   }
 
@@ -247,8 +278,17 @@
     margin-top: 10px;
   }
 
-  .exploreBtn {
+  .explorebtnOutside
+  {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: 100%;
+    height: 100%;
+  }
+
+  .exploreBtn {
+    /* width: 80%; */
   }
 
   .menu{
