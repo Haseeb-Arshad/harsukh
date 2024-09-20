@@ -11,7 +11,6 @@ import styles from '@/styles/home/main.module.css';
 import Developer1 from './parts/developer1';
 import Developer2 from './parts/developer2';
 
-// Custom hook to detect screen size
 const useWindowSize = () => {
   const [windowSize, setWindowSize] = useState({
     width: typeof window !== 'undefined' ? window.innerWidth : 0,
@@ -48,29 +47,27 @@ export default function HomePage() {
   const [isScrolling, setIsScrolling] = useState(false);
   const { width } = useWindowSize();
 
-  // Determine which developer component(s) to use based on screen width
-  const developerSections = width <= 768 // Adjust this breakpoint as needed
+  const developerSections = width <= 768
     ? [
         { id: 'developer1', component: Developer1 },
         { id: 'developer2', component: Developer2 },
       ]
     : [{ id: 'developer', component: Developer }];
 
-  // Combine the regular sections with the responsive developer sections
   const allSections = [
-    ...sections.slice(0, 4), // Sections before developer
+    ...sections.slice(0, 4),
     ...developerSections,
-    ...sections.slice(4), // Sections after developer
+    ...sections.slice(4),
   ];
 
   const scrollToSection = (index) => {
     if (index < 0 || index >= allSections.length || isScrolling) return;
     setIsScrolling(true);
     setCurrentSection(index);
-    const maxScroll = (allSections.length - 1) * 100 - 25; // Accounting for 75vh footer
+    const maxScroll = (allSections.length - 1) * 100 - 25;
     const scrollPercentage = Math.min(index * 100, maxScroll);
     containerRef.current.style.transform = `translateY(-${scrollPercentage}vh)`;
-    setTimeout(() => setIsScrolling(false), 1500);
+    setTimeout(() => setIsScrolling(false), 500); // Reduced from 1500ms to 500ms for faster response
   };
 
   const handleScroll = (direction) => {
@@ -90,8 +87,9 @@ export default function HomePage() {
     let lastScrollTime = 0;
 
     const handleWheel = (e) => {
+      e.preventDefault();
       const now = new Date().getTime();
-      if (now - lastScrollTime > 1500) { // Debounce scroll events
+      if (now - lastScrollTime > 500) { // Reduced from 1500ms to 500ms
         if (e.deltaY > 0) {
           handleScroll('down');
         } else if (e.deltaY < 0) {
@@ -106,15 +104,16 @@ export default function HomePage() {
     };
 
     const handleTouchMove = (e) => {
+      e.preventDefault();
       touchEndY = e.touches[0].clientY;
     };
 
     const handleTouchEnd = () => {
       const now = new Date().getTime();
-      if (now - lastScrollTime > 1500) { // Debounce touch events
-        if (touchStartY - touchEndY > 50) {
+      if (now - lastScrollTime > 300) { // Reduced from 1500ms to 300ms for more responsive touch
+        if (touchStartY - touchEndY > 30) { // Reduced threshold from 50 to 30
           handleScroll('down');
-        } else if (touchEndY - touchStartY > 50) {
+        } else if (touchEndY - touchStartY > 30) { // Reduced threshold from 50 to 30
           handleScroll('up');
         }
         lastScrollTime = now;
@@ -129,10 +128,9 @@ export default function HomePage() {
       }
     };
 
-    // Use passive listeners to improve performance
-    container.addEventListener('wheel', handleWheel, { passive: true });
+    container.addEventListener('wheel', handleWheel, { passive: false });
     container.addEventListener('touchstart', handleTouchStart, { passive: true });
-    container.addEventListener('touchmove', handleTouchMove, { passive: true });
+    container.addEventListener('touchmove', handleTouchMove, { passive: false });
     container.addEventListener('touchend', handleTouchEnd, { passive: true });
     window.addEventListener('keydown', handleKeyDown);
 

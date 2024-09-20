@@ -2,6 +2,7 @@
 .container {
   height: 100vh;
   overflow: hidden;
+  touch-action: none; /* Prevent default touch actions */
 }
 
 .nav {
@@ -52,13 +53,14 @@
 
 .sectionContainer {
   height: 100%;
-  transition: transform 1s cubic-bezier(0.645, 0.045, 0.355, 1);
+  transition: transform 0.5s cubic-bezier(0.645, 0.045, 0.355, 1);
 }
 
 .section {
   height: 100vh;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
+  touch-action: pan-y; /* Allow vertical scrolling within sections */
 }
 
 .section:last-child {
@@ -86,8 +88,8 @@
   }
 
   .navButton {
-    width: 15px;
-    height: 15px;
+    width: 20px; /* Increased touch target size */
+    height: 20px;
   }
 
   .navDot {
@@ -96,11 +98,11 @@
   }
 
   .sectionContainer {
-    transition: transform 0.5s ease-out;
+    transition: transform 0.3s ease-out; /* Faster transition for mobile */
   }
 
   .section:last-child {
-    height: 100vh; /* Changed to full height for mobile view */
+    height: 100vh;
   }
 
   .Developercontainer {
