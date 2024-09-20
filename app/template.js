@@ -8,7 +8,8 @@ export default function Template({ children }) {
   const pathname = usePathname();
 
   return (
-    <BarbaWrapper>
+    // <BarbaWrapper>
+    <>
       {/* <motion.div
         className="animation-element"
         initial={{ opacity: 0 }}
@@ -18,6 +19,7 @@ export default function Template({ children }) {
       > */}
         {children}
       {/* </motion.div> */}
-    </BarbaWrapper>
+      </>
+    // </BarbaWrapper>
   );
 }
