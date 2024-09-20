@@ -62,9 +62,9 @@ const CEOVisionPage = () => {
 
   const getImageDimensions = () => {
     if (isMobile) {
-      return { width: 150, height: 165 };
+      return { width: 190, height: 205 };
     } else if (isMidScreen) {
-      return { width: 180, height: 200 };
+      return { width: 220, height: 240 };
     } else {
       return { width: 300, height: 330 };
     }
