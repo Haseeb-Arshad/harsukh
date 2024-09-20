@@ -67,7 +67,7 @@ export default function HomePage() {
     const maxScroll = (allSections.length - 1) * 100 - 25;
     const scrollPercentage = Math.min(index * 100, maxScroll);
     containerRef.current.style.transform = `translateY(-${scrollPercentage}vh)`;
-    setTimeout(() => setIsScrolling(false), 500); // Reduced from 1500ms to 500ms for faster response
+    setTimeout(() => setIsScrolling(false), 500);
   };
 
   const handleScroll = (direction) => {
@@ -89,7 +89,7 @@ export default function HomePage() {
     const handleWheel = (e) => {
       e.preventDefault();
       const now = new Date().getTime();
-      if (now - lastScrollTime > 500) { // Reduced from 1500ms to 500ms
+      if (now - lastScrollTime > 500) {
         if (e.deltaY > 0) {
           handleScroll('down');
         } else if (e.deltaY < 0) {
@@ -105,16 +105,19 @@ export default function HomePage() {
 
     const handleTouchMove = (e) => {
       e.preventDefault();
-      touchEndY = e.touches[0].clientY;
     };
 
-    const handleTouchEnd = () => {
+    const handleTouchEnd = (e) => {
+      touchEndY = e.changedTouches[0].clientY;
       const now = new Date().getTime();
-      if (now - lastScrollTime > 300) { // Reduced from 1500ms to 300ms for more responsive touch
-        if (touchStartY - touchEndY > 30) { // Reduced threshold from 50 to 30
-          handleScroll('down');
-        } else if (touchEndY - touchStartY > 30) { // Reduced threshold from 50 to 30
-          handleScroll('up');
+      if (now - lastScrollTime > 300) {
+        const touchDiff = touchStartY - touchEndY;
+        if (Math.abs(touchDiff) > 30) { // Ensure there's a significant swipe
+          if (touchDiff > 0) {
+            handleScroll('down');
+          } else {
+            handleScroll('up');
+          }
         }
         lastScrollTime = now;
       }
