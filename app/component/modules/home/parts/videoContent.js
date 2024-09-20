@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';
 import styles from '@/styles/home/videoContent.module.css';
 
@@ -16,6 +16,16 @@ const AnimatedText = ({ text, className }) => {
 };
 
 const VideoContent = () => {
+  const [isVideoLoaded, setIsVideoLoaded] = useState(false);
+
+  useEffect(() => {
+    const video = document.querySelector(`.${styles.videoBackground}`);
+    if (video) {
+      video.addEventListener('loadeddata', () => setIsVideoLoaded(true));
+      return () => video.removeEventListener('loadeddata', () => setIsVideoLoaded(true));
+    }
+  }, []);
+
   return (
     <div className={styles.main}>
       <div className={styles.videoContent}>
@@ -30,14 +40,16 @@ const VideoContent = () => {
           />
         </div>
       </div>
-      <video 
-        className={styles.videoBackground}
+      {!isVideoLoaded && <div className={styles.videoPlaceholder}>Loading video...</div>}
+      <video
+        className={`${styles.videoBackground} ${isVideoLoaded ? styles.videoLoaded : ''}`}
         autoPlay
         loop
         muted
         playsInline
       >
-        <source src="/video/homePage.webm" type="video/mp4" />
+        <source src="https://res.cloudinary.com/dykglphpa/video/upload/v1726852356/harsukh/kjqoxv455khgkl5tohpn.webm" type="video/webm" />
+        <source src="https://res.cloudinary.com/dykglphpa/video/upload/v1726852356/harsukh/kjqoxv455khgkl5tohpn.mp4" type="video/mp4" />
         Your browser does not support the video tag.
       </video>
     </div>

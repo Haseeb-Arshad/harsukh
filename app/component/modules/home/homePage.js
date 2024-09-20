@@ -46,10 +46,15 @@ export default function HomePage() {
   const [currentSection, setCurrentSection] = useState(0);
   const [isScrolling, setIsScrolling] = useState(false);
   const { width } = useWindowSize();
+  const scrollTimeoutRef = useRef(null);
+  const lastScrollDeltaRef = useRef(0);
 
+
+
+  
   const developerSections = width <= 768
     ? [
-        { id: 'developer1', component: Developer1 },
+        { id: 'developer', component: Developer1 },
         { id: 'developer2', component: Developer2 },
       ]
     : [{ id: 'developer', component: Developer }];
@@ -66,16 +71,32 @@ export default function HomePage() {
     setCurrentSection(index);
     const maxScroll = (allSections.length - 1) * 100 - 25;
     const scrollPercentage = Math.min(index * 100, maxScroll);
+    
+    containerRef.current.style.transition = 'transform 0.8s cubic-bezier(0.645, 0.045, 0.355, 1)';
     containerRef.current.style.transform = `translateY(-${scrollPercentage}vh)`;
-    setTimeout(() => setIsScrolling(false), 500);
+    
+    setTimeout(() => {
+      setIsScrolling(false);
+      containerRef.current.style.transition = '';
+    }, 800);
   };
 
-  const handleScroll = (direction) => {
-    if (direction === 'up' && currentSection > 0) {
-      scrollToSection(currentSection - 1);
-    } else if (direction === 'down' && currentSection < allSections.length - 1) {
-      scrollToSection(currentSection + 1);
-    }
+  const handleScroll = (delta) => {
+    clearTimeout(scrollTimeoutRef.current);
+    
+    lastScrollDeltaRef.current += delta;
+    
+    scrollTimeoutRef.current = setTimeout(() => {
+      const totalDelta = lastScrollDeltaRef.current;
+      if (Math.abs(totalDelta) > 50) {
+        if (totalDelta > 0 && currentSection < allSections.length - 1) {
+          scrollToSection(currentSection + 1);
+        } else if (totalDelta < 0 && currentSection > 0) {
+          scrollToSection(currentSection - 1);
+        }
+      }
+      lastScrollDeltaRef.current = 0;
+    }, 50);
   };
 
   useEffect(() => {
@@ -84,19 +105,10 @@ export default function HomePage() {
 
     let touchStartY = 0;
     let touchEndY = 0;
-    let lastScrollTime = 0;
 
     const handleWheel = (e) => {
       e.preventDefault();
-      const now = new Date().getTime();
-      if (now - lastScrollTime > 500) {
-        if (e.deltaY > 0) {
-          handleScroll('down');
-        } else if (e.deltaY < 0) {
-          handleScroll('up');
-        }
-        lastScrollTime = now;
-      }
+      handleScroll(e.deltaY);
     };
 
     const handleTouchStart = (e) => {
@@ -105,29 +117,21 @@ export default function HomePage() {
 
     const handleTouchMove = (e) => {
       e.preventDefault();
+      touchEndY = e.touches[0].clientY;
     };
 
-    const handleTouchEnd = (e) => {
-      touchEndY = e.changedTouches[0].clientY;
-      const now = new Date().getTime();
-      if (now - lastScrollTime > 300) {
-        const touchDiff = touchStartY - touchEndY;
-        if (Math.abs(touchDiff) > 30) { // Ensure there's a significant swipe
-          if (touchDiff > 0) {
-            handleScroll('down');
-          } else {
-            handleScroll('up');
-          }
-        }
-        lastScrollTime = now;
+    const handleTouchEnd = () => {
+      const touchDelta = touchStartY - touchEndY;
+      if (Math.abs(touchDelta) > 50) {
+        handleScroll(touchDelta);
       }
     };
 
     const handleKeyDown = (e) => {
       if (e.key === 'ArrowDown') {
-        handleScroll('down');
+        handleScroll(100);
       } else if (e.key === 'ArrowUp') {
-        handleScroll('up');
+        handleScroll(-100);
       }
     };
 
