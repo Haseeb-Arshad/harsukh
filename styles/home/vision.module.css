@@ -47,13 +47,14 @@
   transform: translateX(-50%);
   z-index: 2;
   height: 70%;
-  background-color: rgba(252, 247, 235, 0.16);
+  background-color: rgba(252, 247, 235, 0.2);
   padding: 80px 50px;
   border-radius: 6px 6px 0px 0px;
   max-width: 350px;
   text-align: left;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  /* filter: drop-shadow(0px 0px 10px rgba(252, 247, 235, 0.3)); */
+  backdrop-filter: blur(25px);
+  -webkit-backdrop-filter: blur(25px);
 }
 
 .title {
@@ -70,8 +71,12 @@
 }
 
 @media (max-width: 768px) {
+
   .visionText {
+    background-color: rgba(252, 247, 235, 0.16);
     left: 30%;
+    backdrop-filter: blur(30px);
+
     width: 60%;
     padding: 50px 30px;
     font-size: 1.1rem;

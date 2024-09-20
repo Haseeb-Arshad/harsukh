@@ -60,7 +60,21 @@ const CEOVisionPage = () => {
 
   const visionText = "My journey in real estate has always been guided by a passion for redefining luxury living. With Harsukh Residencies, that vision comes to life where elegance meets comfort and modern design meets natural beauty. Harsukh Residencies is distinct because it reflects a deep commitment to quality, sustainability, and enhancing the community. This isn't just about building homes; it's about building a legacy that contributes positively to the surroundings and offers residents a serene escape from the bustle of everyday life. For those considering Harsukh Residencies, I am looking forward to having you join me on this journey.";
 
+  const getImageDimensions = () => {
+    if (isMobile) {
+      return { width: 150, height: 165 };
+    } else if (isMidScreen) {
+      return { width: 180, height: 200 };
+    } else {
+      return { width: 300, height: 330 };
+    }
+  };
+
+  const imageDimensions = getImageDimensions();
+
   return (
+    <>
+    <div className={styles.mainPage}>
     <div className={styles.pageContainer}>
       <motion.div 
         className={styles.contentWrapper}
@@ -88,8 +102,8 @@ const CEOVisionPage = () => {
         >
           <Image
             src="https://cdn.theharsukh.com/images/home/ceo-profile-pic.webp"
-            width={isMidScreen ? 300 : 330}
-            height={isMidScreen ? 330 : 360}
+            width={imageDimensions.width}
+            height={imageDimensions.height}
             alt="CEO portrait"
             className={styles.ceoImage}
           />
@@ -101,11 +115,13 @@ const CEOVisionPage = () => {
           >
             CEO&apos;s Vision
           </motion.h2>
-
+          
           <AnimatedText text={visionText} />
         </div>
       </motion.div>
+      </div>
     </div>
+    </>
   );
 };
 

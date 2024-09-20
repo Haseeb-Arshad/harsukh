@@ -1,9 +1,10 @@
 'use client'
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import styles from '@/styles/home/footer.module.css';
 import PrivacyPolicy from './privacyPolicy';
+import { useInView } from 'react-intersection-observer';
 
 const Footer = () => {
 
@@ -42,31 +43,53 @@ const Footer = () => {
     setIsPrivacyPolicyOpen(true);
   };
 
+
+  const [isMobile, setIsMobile] = useState(false);
+  const [isMidScreen, setIsMidScreen] = useState(false);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const checkScreenSize = () => {
+        const width = window.innerWidth;
+        setIsMobile(width <= 768);
+        setIsMidScreen(width > 768 && width < 880);
+      };
+      
+      checkScreenSize();
+      window.addEventListener("resize", checkScreenSize);
+      return () => window.removeEventListener("resize", checkScreenSize);
+    }
+  }, []);
+
+
+  const getImageDimensions = () => {
+    if (isMobile) {
+      return { width: 140, height: 70 };
+    } else if (isMidScreen) {
+      return { width: 180, height: 100 };
+    } else {
+      return { width: 200, height: 115 };
+    }
+  };
+
+  const imageDimensions = getImageDimensions();
+
+
+
   return (
 
     <>
     
     <PrivacyPolicy isOpen={isPrivacyPolicyOpen} onClose={() => setIsPrivacyPolicyOpen(false)} />
-
-    <footer className={styles.footer}>
+    <div className={styles.footer}>
       <div className={styles.container}>
+       
+        {!isMobile && (
+
         <div className={styles.logo}>
-
-        <Image style={{cursor:"pointer"}} src="https://cdn.theharsukh.com/floors/floors/HarsukhLogo.webp" alt="menu" width={200} height={115} />
+          <Image style={{cursor:"pointer"}} src="https://cdn.theharsukh.com/floors/floors/HarsukhLogo.webp" alt="menu" width={imageDimensions.width} height={imageDimensions.height} />
         </div>
-        
-        {/* <div className={styles.visionImage}>
-
-          <Image
-              src="/images/home/vision-bg.webp" // Make sure the image is placed in your public folder
-              alt="Harsukh Residencies"
-              layout="fill"
-              objectFit="cover"
-              quality={100}
-            />
-        </div> */}
-
-
+        )}
         <div className={styles.content}>
           <div className={styles.contact}>
             <h3>Get in Touch</h3>
@@ -124,14 +147,15 @@ const Footer = () => {
         <div className={styles.bottom}>
           
           <div className={styles.links}>
-          <span onClick={handlePrivacyPolicyClick} style={{ cursor: 'pointer' }}>Privacy Policy</span>
-          <Link href="/terms-and-conditions">Terms and Conditions</Link>
+            <div onClick={handlePrivacyPolicyClick} className={styles.handlePrivacyPolicyClick}>
+            Privacy Policy
+            </div>
           </div>
-          <div>This website is Designed and Developed by Trescol</div>
+          <div className={styles.designedBy}>This website is Designed and Developed by Trescol</div>
         </div>
       </div>
 
-    </footer>
+    </div>
 
     </>
 

@@ -45,7 +45,7 @@
 }
 
 .backgroundImageLines {
-  transform: rotate(8deg) scale(1.2);
+  transform: rotate(5deg) scale(1.2);
   margin-left: 5rem;
   margin-top: -10rem;
 }
@@ -129,4 +129,11 @@
   .description {
     text-align: center;
   }
+
+  .backgroundImageLines {
+    transform: rotate(100deg) scale(1.2);
+    margin-left: 5rem;
+    margin-top: 0rem;
+  }
+
 }

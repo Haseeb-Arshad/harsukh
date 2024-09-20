@@ -8,78 +8,96 @@ import VideoContent from './parts/videoContent';
 import Navbar from './parts/navbar';
 import Developer from './parts/developer';
 import styles from '@/styles/home/main.module.css';
+import Developer1 from './parts/developer1';
+import Developer2 from './parts/developer2';
+
+// Custom hook to detect screen size
+const useWindowSize = () => {
+  const [windowSize, setWindowSize] = useState({
+    width: typeof window !== 'undefined' ? window.innerWidth : 0,
+  });
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const handleResize = () => {
+        setWindowSize({ width: window.innerWidth });
+      };
+
+      window.addEventListener('resize', handleResize);
+      handleResize();
+
+      return () => window.removeEventListener('resize', handleResize);
+    }
+  }, []);
+
+  return windowSize;
+};
 
 const sections = [
   { id: 'header', component: Header },
   { id: 'video', component: VideoContent },
   { id: 'about', component: AboutUs },
   { id: 'vision', component: Vision },
-  { id: 'developer', component: Developer },
   { id: 'ceo-vision', component: CeoVision },
+  { id: 'footer', component: Footer },
 ];
 
 export default function HomePage() {
   const containerRef = useRef(null);
-  const footerRef = useRef(null);
   const [currentSection, setCurrentSection] = useState(0);
   const [isScrolling, setIsScrolling] = useState(false);
-  const [showFooter, setShowFooter] = useState(false);
-  const [footerScrollPosition, setFooterScrollPosition] = useState(0);
+  const { width } = useWindowSize();
+
+  // Determine which developer component(s) to use based on screen width
+  const developerSections = width <= 768 // Adjust this breakpoint as needed
+    ? [
+        { id: 'developer1', component: Developer1 },
+        { id: 'developer2', component: Developer2 },
+      ]
+    : [{ id: 'developer', component: Developer }];
+
+  // Combine the regular sections with the responsive developer sections
+  const allSections = [
+    ...sections.slice(0, 4), // Sections before developer
+    ...developerSections,
+    ...sections.slice(4), // Sections after developer
+  ];
 
   const scrollToSection = (index) => {
-    if (index < 0 || index > sections.length || isScrolling) return;
+    if (index < 0 || index >= allSections.length || isScrolling) return;
     setIsScrolling(true);
     setCurrentSection(index);
-    
-    if (index === sections.length) {
-      // Scroll to footer
-      setShowFooter(true);
-      containerRef.current.style.transform = `translateY(-${(sections.length - 1) * 100}vh)`;
-      footerRef.current.scrollIntoView({ behavior: 'smooth' });
-    } else {
-      setShowFooter(false);
-      containerRef.current.style.transform = `translateY(-${index * 100}vh)`;
-    }
-    
+    const maxScroll = (allSections.length - 1) * 100 - 25; // Accounting for 75vh footer
+    const scrollPercentage = Math.min(index * 100, maxScroll);
+    containerRef.current.style.transform = `translateY(-${scrollPercentage}vh)`;
     setTimeout(() => setIsScrolling(false), 1500);
   };
 
   const handleScroll = (direction) => {
     if (direction === 'up' && currentSection > 0) {
       scrollToSection(currentSection - 1);
-    } else if (direction === 'down' && currentSection < sections.length) {
+    } else if (direction === 'down' && currentSection < allSections.length - 1) {
       scrollToSection(currentSection + 1);
     }
   };
 
-  const handleFooterScroll = (e) => {
-    setFooterScrollPosition(e.target.scrollTop);
-  };
-
   useEffect(() => {
     const container = containerRef.current;
-    const footer = footerRef.current;
-    if (!container || !footer) return;
+    if (!container) return;
 
     let touchStartY = 0;
     let touchEndY = 0;
+    let lastScrollTime = 0;
 
     const handleWheel = (e) => {
-      e.preventDefault();
-      if (showFooter) {
-        if (e.deltaY > 0 && footerScrollPosition < footer.scrollHeight - footer.clientHeight) {
-          // Scroll footer
-          footer.scrollTop += 30;
-        } else if (e.deltaY < 0 && footerScrollPosition === 0) {
-          // Go back to last section
-          scrollToSection(sections.length - 1);
-        }
-      } else {
+      const now = new Date().getTime();
+      if (now - lastScrollTime > 1500) { // Debounce scroll events
         if (e.deltaY > 0) {
           handleScroll('down');
         } else if (e.deltaY < 0) {
           handleScroll('up');
         }
+        lastScrollTime = now;
       }
     };
 
@@ -92,20 +110,14 @@ export default function HomePage() {
     };
 
     const handleTouchEnd = () => {
-      if (showFooter) {
-        if (touchStartY - touchEndY > 50 && footerScrollPosition < footer.scrollHeight - footer.clientHeight) {
-          // Scroll footer down
-          footer.scrollTop += 30;
-        } else if (touchEndY - touchStartY > 50 && footerScrollPosition === 0) {
-          // Go back to last section
-          scrollToSection(sections.length - 1);
-        }
-      } else {
+      const now = new Date().getTime();
+      if (now - lastScrollTime > 1500) { // Debounce touch events
         if (touchStartY - touchEndY > 50) {
           handleScroll('down');
         } else if (touchEndY - touchStartY > 50) {
           handleScroll('up');
         }
+        lastScrollTime = now;
       }
     };
 
@@ -117,12 +129,12 @@ export default function HomePage() {
       }
     };
 
-    container.addEventListener('wheel', handleWheel, { passive: false });
-    container.addEventListener('touchstart', handleTouchStart);
-    container.addEventListener('touchmove', handleTouchMove);
-    container.addEventListener('touchend', handleTouchEnd);
+    // Use passive listeners to improve performance
+    container.addEventListener('wheel', handleWheel, { passive: true });
+    container.addEventListener('touchstart', handleTouchStart, { passive: true });
+    container.addEventListener('touchmove', handleTouchMove, { passive: true });
+    container.addEventListener('touchend', handleTouchEnd, { passive: true });
     window.addEventListener('keydown', handleKeyDown);
-    footer.addEventListener('scroll', handleFooterScroll);
 
     return () => {
       container.removeEventListener('wheel', handleWheel);
@@ -130,42 +142,31 @@ export default function HomePage() {
       container.removeEventListener('touchmove', handleTouchMove);
       container.removeEventListener('touchend', handleTouchEnd);
       window.removeEventListener('keydown', handleKeyDown);
-      footer.removeEventListener('scroll', handleFooterScroll);
     };
-  }, [currentSection, isScrolling, showFooter, footerScrollPosition]);
+  }, [currentSection, isScrolling]);
 
   return (
     <div className={styles.container}>
-      <Navbar currentSection={showFooter ? 'footer' : sections[currentSection].id} />
+      <Navbar currentSection={allSections[currentSection].id} />
       <nav className={styles.nav}>
-        {sections.map((section, index) => (
+        {allSections.map((section, index) => (
           <button
             key={section.id}
             onClick={() => scrollToSection(index)}
-            className={`${styles.navButton} ${index === currentSection && !showFooter ? styles.active : ''}`}
+            className={`${styles.navButton} ${index === currentSection ? styles.active : ''}`}
             aria-label={`Scroll to ${section.id}`}
           >
             <span className={styles.navDot}></span>
           </button>
         ))}
-        <button
-          onClick={() => scrollToSection(sections.length)}
-          className={`${styles.navButton} ${showFooter ? styles.active : ''}`}
-          aria-label="Scroll to footer"
-        >
-          <span className={styles.navDot}></span>
-        </button>
       </nav>
       <div ref={containerRef} className={styles.sectionContainer}>
-        {sections.map((Section, index) => (
+        {allSections.map((Section, index) => (
           <section key={Section.id} id={Section.id} className={styles.section}>
             <Section.component />
           </section>
         ))}
       </div>
-      <footer ref={footerRef} className={`${styles.footer} ${showFooter ? styles.show : ''}`}>
-        <Footer />
-      </footer>
     </div>
   );
 }
