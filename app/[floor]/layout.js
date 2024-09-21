@@ -26,8 +26,6 @@ import ContactUsPopup from "../component/modules/contactus/page";
 import { toggleFullScreen } from '@/state/fullScreen/fullScreen';
 import FloorMenu from "../component/ui/floor/floorMenu";
 
-
-
 const Layout = ({ children }) => {
   const dispatch = useDispatch();
   const router = useRouter();

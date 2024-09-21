@@ -52,7 +52,9 @@ export default function HomePage() {
   const [isContactFormOpen, setIsContactFormOpen] = useState(false);
 
   // Refs for Large Screen Scroll Handling
-  const lastScrollTime = useRef(0);
+  const lastWheelEventTime = useRef(0);
+  const wheelEventCount = useRef(0);
+  const wheelAccumulator = useRef(0);
   const touchStartRefLarge = useRef(null);
 
   // Refs for Small Screen Scroll Handling
@@ -99,28 +101,41 @@ export default function HomePage() {
     setTimeout(() => {
       setIsScrolling(false);
       containerRef.current.style.transition = '';
-    }, 800); // Match the transition duration
+    }, 800); // Increased from 500ms to 800ms to match the transition duration
   };
 
   const toggleContactForm = () => {
     setIsContactFormOpen(!isContactFormOpen);
   };
 
-  // Updated handleWheelLarge function to prevent multiple scrolls
+  // Updated handleWheelLarge function
   const handleWheelLarge = (e) => {
     e.preventDefault();
     const now = Date.now();
     const deltaY = e.deltaY;
 
-    // Ensure at least 1000ms (1 second) has passed since the last scroll
-    if (now - lastScrollTime.current > 1000 && !isScrolling) {
-      if (deltaY > 0 && currentSection < allSections.length - 1) {
+    // Reset counters if it's been a while since the last wheel event
+    if (now - lastWheelEventTime.current > 300) {
+      wheelEventCount.current = 0;
+      wheelAccumulator.current = 0;
+    }
+
+    wheelEventCount.current++;
+    wheelAccumulator.current += deltaY;
+
+    // Only trigger a scroll after we've accumulated enough delta
+    // and we've received at least 2 wheel events
+    if (Math.abs(wheelAccumulator.current) > 100 && wheelEventCount.current >= 2) {
+      if (wheelAccumulator.current > 0 && currentSection < allSections.length - 1) {
         scrollToSection(currentSection + 1);
-      } else if (deltaY < 0 && currentSection > 0) {
+      } else if (wheelAccumulator.current < 0 && currentSection > 0) {
         scrollToSection(currentSection - 1);
       }
-      lastScrollTime.current = now;
+      wheelAccumulator.current = 0;
+      wheelEventCount.current = 0;
     }
+
+    lastWheelEventTime.current = now;
   };
 
   const handleTouchStartLarge = (e) => {
@@ -129,35 +144,29 @@ export default function HomePage() {
 
   const handleTouchMoveLarge = (e) => {
     e.preventDefault();
-    const now = Date.now();
     const currentY = e.touches[0].clientY;
-    const deltaY = touchStartRefLarge.current - currentY;
+    const deltaY = currentY - touchStartRefLarge.current;
 
-    // Ensure at least 1000ms (1 second) has passed since the last scroll
-    if (Math.abs(deltaY) > 50 && now - lastScrollTime.current > 1000 && !isScrolling) {
-      if (deltaY > 0 && currentSection < allSections.length - 1) {
-        scrollToSection(currentSection + 1);
-      } else if (deltaY < 0 && currentSection > 0) {
+    if (Math.abs(deltaY) > 50) {
+      const direction = deltaY > 0 ? 'up' : 'down';
+      if (direction === 'up' && currentSection > 0) {
         scrollToSection(currentSection - 1);
+      } else if (direction === 'down' && currentSection < allSections.length - 1) {
+        scrollToSection(currentSection + 1);
       }
-      lastScrollTime.current = now;
+      touchStartRefLarge.current = currentY;
     }
   };
 
   const handleKeyDownLarge = (e) => {
-    const now = Date.now();
-    if (now - lastScrollTime.current > 1000 && !isScrolling) {
-      if (e.key === 'ArrowDown' && currentSection < allSections.length - 1) {
-        scrollToSection(currentSection + 1);
-        lastScrollTime.current = now;
-      } else if (e.key === 'ArrowUp' && currentSection > 0) {
-        scrollToSection(currentSection - 1);
-        lastScrollTime.current = now;
-      }
+    if (e.key === 'ArrowDown' && currentSection < allSections.length - 1) {
+      scrollToSection(currentSection + 1);
+    } else if (e.key === 'ArrowUp' && currentSection > 0) {
+      scrollToSection(currentSection - 1);
     }
   };
 
-  // Small Screen Scroll Handlers (unchanged)
+  // Small Screen Scroll Handlers
   const handleScrollSmall = (delta) => {
     clearTimeout(scrollTimeoutRefSmall.current);
 
@@ -165,7 +174,7 @@ export default function HomePage() {
 
     scrollTimeoutRefSmall.current = setTimeout(() => {
       const totalDelta = lastScrollDeltaRefSmall.current;
-      if (Math.abs(totalDelta) > 50 && !isScrolling) {
+      if (Math.abs(totalDelta) > 50) {
         if (totalDelta > 0 && currentSection < allSections.length - 1) {
           scrollToSection(currentSection + 1);
         } else if (totalDelta < 0 && currentSection > 0) {
@@ -197,12 +206,10 @@ export default function HomePage() {
   };
 
   const handleKeyDownSmall = (e) => {
-    if (!isScrolling) {
-      if (e.key === 'ArrowDown') {
-        handleScrollSmall(100);
-      } else if (e.key === 'ArrowUp') {
-        handleScrollSmall(-100);
-      }
+    if (e.key === 'ArrowDown') {
+      handleScrollSmall(100);
+    } else if (e.key === 'ArrowUp') {
+      handleScrollSmall(-100);
     }
   };
 
