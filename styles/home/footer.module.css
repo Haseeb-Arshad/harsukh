@@ -21,7 +21,7 @@
 
 .footer {
     background-color: #006D77;
-    color: white;
+    color: #FCF7EB;
     padding: 2rem 0rem;
     height: 75vh;
     font-family: "Gill Sans Light";
@@ -156,7 +156,7 @@
   .inputBox
   {
     all: initial;
-    color: #2D2D2D;
+    color: #000;
     font-family: "Gill Sans Light";
 
   }
@@ -176,7 +176,7 @@
   
   .newsletter .submitbutton {
     padding: 0.6rem 2rem;
-    background-color: white;
+    background-color: #FCF7EB;
     width: fit-content;
     color: #008080;
     border: none;
@@ -207,7 +207,7 @@
   }
   
   .links a {
-    color: white;
+    color: #FCF7EB;
     text-decoration: none;
   }
   
@@ -279,7 +279,7 @@
   .inputBox
   {
     all: initial;
-    color: #2D2D2D;
+    color: #000;
     font-family: "Gill Sans Light";
     font-size: 0.9rem;
   }

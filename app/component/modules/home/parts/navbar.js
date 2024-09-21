@@ -7,8 +7,10 @@ import { Menu } from 'lucide-react';
 import en from "@/app/component/locales/en.json";
 import ur from "@/app/component/locales/ur.json";
 import { useSelector } from 'react-redux';
+import { motion } from 'framer-motion';
 
-const Navbar = ({ children, currentSection }) => {
+
+const Navbar = ({ children, currentSection, toggleContactForm, useGreenLogo }) => {
   const [activeMenuItem, setActiveMenuItem] = useState('Home');
   const [visible, setVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
@@ -119,13 +121,32 @@ const Navbar = ({ children, currentSection }) => {
     setIsMobileMenuOpen((prevState) => !prevState);
   };
 
+  const buttonVariants = {
+    hidden: { y: 5, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: { delay: 0.5, duration: 0.4, ease: [0.49, 0.23, 0, 1] }
+    }
+  };
+
+  const harsukhGreenLogo = "https://cdn.theharsukh.com/images/blog/harsukhLogo.svg";
+  const harsukhWhiteLogo = "https://cdn.theharsukh.com/Webpage/floors/HarsukhLogo.webp";
+
   return (
     <>
       <div>
         <div className={`${styles.nav} ${visible ? styles.visible : styles.hidden}`}>
-          <img style={{cursor:"pointer"}} src="https://cdn.theharsukh.com/Webpage/floors/HarsukhLogo.webp" alt="menu" width={180} height={105} />
+        <img 
+            style={{cursor:"pointer"}} 
+            src={useGreenLogo ? harsukhGreenLogo : harsukhWhiteLogo} 
+            alt="Harsukh Logo" 
+            width={useGreenLogo? 200:180} 
+            height={useGreenLogo? 115:105} 
+          />
+                   
           <div ref={menuIconRef} className={styles.mobileMenuIcon} onClick={toggleMobileMenu}>
-            <Menu size={24} />
+            <Menu color={useGreenLogo ? '#006D77' : '#FCF7EB'} size={24} />
           </div>
           <ul ref={mobileMenuRef} className={`${styles.menu} ${isMobileMenuOpen ? styles.mobileMenuOpen : ''}`}>
             {['Home', 'About', 'Developer', 'Blogs', 'News Room'].map((item) => (
@@ -188,8 +209,20 @@ const Navbar = ({ children, currentSection }) => {
             width={19}
           />
           <div className={styles.buttonText}>WhatsApp us</div>
-        </div>
+       
         
+        </div>
+          
+        <div
+          className={`${styles.ctaBtn}`}
+          onClick={toggleContactForm}
+        >
+          Get in Touch
+        </div>
+       
+       
+
+
         <div className={styles.main}>
           {children}
         </div>

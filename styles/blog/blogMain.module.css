@@ -21,7 +21,7 @@
     src: url("/fonts/optima/OPTIMA.TTF");
     font-weight: normal;
   }
-  
+/*   
   .main {
     font-family: "Optima", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     min-height: 100vh;
@@ -59,4 +59,48 @@
       margin-bottom: 1.5rem;
     }
  
+  } */
+
+
+  .main {
+    min-height: 100vh;
+    width: 100vw;
+    background-color: #FCF7EB;
+    color: #1D1D1F;
+    padding-top: 8vh;
+    font-family: "Gill Sans Light";
+
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+  }
+  
+  .pageTitle {
+    font-family: "Optima", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 2rem;
+  }
+  
+  .blogGrid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+  }
+  
+  .blogGrid > *:first-child {
+    grid-column: span 3;
+  }
+  
+  @media (max-width: 768px) {
+    .blogGrid {
+      grid-template-columns: 1fr;
+    }
+  
+    .blogGrid > *:first-child {
+      grid-column: span 1;
+    }
   }

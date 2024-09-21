@@ -3561,6 +3561,7 @@ export default function MainPage() {
                 height={105}
                 width={180}
                 style={{cursor: "pointer"}}
+                onClick={() => router.push("/")}
               />
             </div>
            

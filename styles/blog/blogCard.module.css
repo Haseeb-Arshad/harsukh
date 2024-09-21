@@ -23,173 +23,67 @@
     font-weight: normal;
   }
 
-.card {
-    background-color: #FCF7EB;
-    border-radius: 0.3rem;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+  .card {
+    background-color: #fff;
+    border-radius: 8px;
     overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    height: 380px;
-    transition: all 0.3s ease;
-    /* z-index: 9999999999999; */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   }
   
-  .card:hover {
-    transform: scale(1.01);
-    transition: transform 0.3s cubic-bezier(0.49, 0.23, 0, 1);
-    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15);
+  .largeCard {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
   }
   
   .imageContainer {
     position: relative;
-    height: 160px;
-    overflow: hidden;
+    width: 100%;
+    height: 200px;
   }
   
-  .imageContainer img {
-    transition: transform 0.3s  cubic-bezier(0.49, 0.23, 0, 1);
-  }
-  
-  .card:hover .imageContainer img {
-    transform: scale(1.03);
+  .largeCard .imageContainer {
+    width: 50%;
+    height: 300px;
   }
   
   .content {
-    padding: 1rem;
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
+    padding: 1.5rem;
+  }
+  
+  .largeCard .content {
+    width: 50%;
   }
   
   .title {
-    font-size: 1.1rem;
-    font-weight: 600;
+    font-size: 1.25rem;
+    font-weight: bold;
     margin-bottom: 0.5rem;
-    color: #1D1D1F;
-    font-family: "Gill Sans Medium";
-
-  }
-  
-  .dateContainer
-  {
-    display: flex;
-    height: 25px;
-    column-gap: 0.5rem;
-  }
-
-  .dateIcon
-  {
-    display: flex;
-    align-items: center;
-  }
-
-  .date {
-    color: #86868B;
-    display: flex;
-    align-items: center;
-    padding: 1px;
-    font-size: 0.8rem;
   }
   
   .excerpt {
-    color: #515154;
-    font-size: 0.9rem;
+    font-size: 1rem;
+    color: #666;
     margin-bottom: 1rem;
-    flex-grow: 1;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
   }
   
   .readMore {
     color: #006D77;
     text-decoration: none;
     font-weight: 500;
-    font-size: 0.9rem;
-    align-self: flex-start;
-    transition: color 0.2s ease;
-    margin-bottom: 0.5rem;
   }
   
-  .readMore:hover {
-    color: #004499;
-  }
-  
-  .authorContainer {
-    display: flex;
-    align-items: center;
-    margin-top: auto;
-    border-top: 1px solid #DCE0E0;;
-  }
-  
-  .authorImage {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 30px;
-    height: 30px;
-    /* border-radius: 50%; */
-    overflow: hidden;
-    /* margin-right: 0.5rem; */
-  }
-  
-  .author {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    /* width: 30px; */
-    height: 30px;
-    color: #515154;
-    font-size: 0.9rem;
-    font-family: "Gill Sans Medium";
-  }
-
-
-@media (max-width: 600px) {
-    
-    .card {
-      height: auto;
-      min-height: 340px;
+  @media (max-width: 768px) {
+    .largeCard {
+      flex-direction: column;
     }
   
-    .imageContainer {
-      height: 140px;
-      cursor: pointer;
-    }
-  
-    .content {
-      padding: 0.8rem;
-    }
-  
-    .title {
-      font-size: 1rem;
-    }
-  
-    .excerpt {
-      font-size: 0.85rem;
-      -webkit-line-clamp: 2;
-    }
-  
-    .authorContainer {
-      padding: 0.3rem 0;
-    }
-  
-    .authorImage {
-      width: 25px;
-      height: 25px;
-    }
-  
-    .author {
-      font-size: 0.75rem;
+    .largeCard .imageContainer,
+    .largeCard .content {
+      width: 100%;
     }
   }
-
-
-
-
 
 
 

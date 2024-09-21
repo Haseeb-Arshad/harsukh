@@ -1,0 +1,97 @@
+/* BlogPost
+Page.module.css */
+
+
+@font-face {
+    font-family: "Gill Sans Light";
+    src: url("/fonts/gillsans/Gill Sans Light.otf");
+    font-weight: normal;
+  }
+  
+  @font-face {
+    font-family: "Gill Sans Medium";
+    src: url("/fonts/gillsans/Gill Sans Medium.otf");
+    font-weight: normal;
+  }
+  
+  @font-face {
+    font-family: "Optima Bold";
+    src: url("/fonts/optima/OPTIMA_B.TTF");
+    font-weight: normal;
+  }
+  
+  @font-face {
+    font-family: "Optima";
+    src: url("/fonts/optima/OPTIMA.TTF");
+    font-weight: normal;
+  }
+
+
+.main {
+    min-height: 100vh;
+    width: 100vw;
+    background-color: #FCF7EB;
+    color: #1D1D1F;
+    padding-top: 15vh;
+    
+    font-family: "Gill Sans Medium";
+
+  }
+
+.blogPostContainer {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+  }
+  
+  .blogTitle {
+    font-family: "Optima Bold";
+    font-size: 2.3rem;
+    margin-bottom: 20px;
+    /* text-align: center; */
+  }
+  
+  .blogImage {
+    width: 100%;
+    /* 
+    height: auto; */
+    border-radius: 8px;
+    margin-bottom: 20px;
+  }
+  
+  .blogContent {
+    font-size: 1rem;
+    line-height: 1.6;
+    text-align: justify;
+  }
+  
+  /* Mobile View */
+  @media (max-width: 600px) {
+
+.main {
+    padding: 3rem;
+    padding-top: 20vh;
+
+}
+
+.blogImage {
+    width: 100%;
+    
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 20px;
+  }
+
+    .blogPostContainer {
+      padding: 10px;
+    }
+  
+    .blogTitle {
+      font-size: 2rem;
+    }
+  
+    .blogContent {
+      font-size: 1rem;
+    }
+  }
