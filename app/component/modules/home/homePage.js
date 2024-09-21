@@ -113,7 +113,7 @@ export default function HomePage() {
     const deltaY = e.deltaY;
 
     // Ensure at least 1000ms (1 second) has passed since the last scroll
-    if (now - lastScrollTime.current > 1000 && !isScrolling) {
+    if (now - lastScrollTime.current > 1500 && !isScrolling) {
       if (deltaY > 0 && currentSection < allSections.length - 1) {
         scrollToSection(currentSection + 1);
       } else if (deltaY < 0 && currentSection > 0) {
@@ -134,7 +134,7 @@ export default function HomePage() {
     const deltaY = touchStartRefLarge.current - currentY;
 
     // Ensure at least 1000ms (1 second) has passed since the last scroll
-    if (Math.abs(deltaY) > 50 && now - lastScrollTime.current > 1000 && !isScrolling) {
+    if (Math.abs(deltaY) > 100 && now - lastScrollTime.current > 1000 && !isScrolling) {
       if (deltaY > 0 && currentSection < allSections.length - 1) {
         scrollToSection(currentSection + 1);
       } else if (deltaY < 0 && currentSection > 0) {
@@ -160,7 +160,6 @@ export default function HomePage() {
   // Small Screen Scroll Handlers (unchanged)
   const handleScrollSmall = (delta) => {
     clearTimeout(scrollTimeoutRefSmall.current);
-
     lastScrollDeltaRefSmall.current += delta;
 
     scrollTimeoutRefSmall.current = setTimeout(() => {
