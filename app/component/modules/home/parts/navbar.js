@@ -150,13 +150,18 @@ const Navbar = ({ children, currentSection, toggleContactForm, useGreenLogo, onN
     <>
       <div>
         <div className={`${styles.nav} ${visible ? styles.visible : styles.hidden}`}>
-        <img 
+        
+        <div className={styles.logo}>
+          <img 
             style={{cursor:"pointer"}} 
             src={useGreenLogo ? harsukhGreenLogo : harsukhWhiteLogo} 
             alt="Harsukh Logo" 
             width={useGreenLogo? 200:180} 
             height={useGreenLogo? 115:105} 
           />
+
+        </div>
+       
                    
           <div ref={menuIconRef} className={styles.mobileMenuIcon} onClick={toggleMobileMenu}>
             <Menu color={useGreenLogo ? '#006D77' : '#FCF7EB'} size={24} />
