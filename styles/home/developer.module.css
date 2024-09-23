@@ -45,7 +45,7 @@
 
   position: relative;
   display: grid;
-  grid-template-columns: 1fr 0.9fr;
+  grid-template-columns: 1fr 1fr;
   align-items: center;
   /* justify-content: center; */
   height: 100vh;
@@ -53,9 +53,9 @@
   background-repeat: no-repeat;
   background-position: left top;
   background-size: 30% 100%; /* The image will only cover 30% of the width and 100% of the height */
-  padding: 20px;
+  /* padding: 20px;/ */
   /* margin-top: 5rem; */
-  padding: 5rem;
+  /* padding: 5rem; */
 }
 
 .DeveloperPartcontainer
@@ -80,14 +80,22 @@
 
 .content {
   max-width: 100%;
-  /* border: 1px solid red; */
-  justify-self: space-between;
+  /* justify-self: space-between; */
   /* background-color: #EBDED2; */
-  padding-top: 5rem;
+  height: 100%;
+  /* padding-top: 5rem; */
   text-align: center;
+  display: grid;
+  grid-template-rows: 0.3fr 0.3fr 0.3fr 1fr;
+
   /* padding: 40px; */
   /* height: 100vh; */
   /* border-radius: 10px; */
+}
+
+.emptyDiv
+{
+  
 }
 
 .logoCONTAINER
@@ -96,11 +104,22 @@
   justify-content: space-between;
 }
 
+.logoDiv
+{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .title {
   font-size: 2rem;
   font-family: "Optima Bold";
   color: #333;
-  margin-bottom: 40px;
+  margin-bottom: 0px;
+  display: flex;
+  flex-direction: column-reverse;
+  text-align: center bottom;
+
 }
 
 .title2

@@ -11,11 +11,11 @@ import en from '@/app/locales/en.json';
 import ur from '@/app/locales/ur.json';
 
 const areas = [
-  { name: 'Parking', image: 'https://cdn.theharsukh.com/images/Amenity/Parking.png', details: [
+  { name: 'Parking', image: 'https://res.cloudinary.com/dykglphpa/image/upload/v1727087993/harsukh/yumv0qiuf9p8rv2cxmyc.png', details: [
     { src: 'https://cdn.theharsukh.com/images/gallery/Parking/Parking-1.webp', caption: 'Dedicated floors for parking' },
     { src: 'https://cdn.theharsukh.com/images/gallery/Parking/Parking-2.webp', caption: 'Dedicated floors for parking' }
   ]},
-  { name: 'Restaurant', image: 'https://cdn.theharsukh.com/images/Amenity/Resturant.png', details: [
+  { name: 'Restaurant', image: 'https://res.cloudinary.com/dykglphpa/image/upload/v1727087988/harsukh/zrcqz95abpufoysm3pxj.png', details: [
     { src: 'https://cdn.theharsukh.com/images/gallery/Restaurant/Restaurant-1.webp', caption: 'Experience the culinary luxury with our eateries floor' },
     { src: 'https://cdn.theharsukh.com/images/gallery/Restaurant/Restaurant-2.webp', caption: 'Experience the culinary luxury with our eateries floor' },
     { src: 'https://cdn.theharsukh.com/images/gallery/Restaurant/Restaurant-3.webp', caption: 'Experience the culinary luxury with our eateries floor' },
