@@ -11,6 +11,7 @@ import Developer1 from './parts/developer1';
 import Developer2 from './parts/developer2';
 import RegisterRequestForm from '../../ui/Bars/contactBox';
 import styles from '@/styles/home/main.module.css';
+import { useRouter } from 'next/navigation';
 
 const useWindowSize = () => {
   const [windowSize, setWindowSize] = useState({
@@ -34,12 +35,12 @@ const useWindowSize = () => {
 };
 
 const sections = [
-  { id: 'header', component: Header },
-  { id: 'video', component: VideoContent },
-  { id: 'about', component: AboutUs },
-  { id: 'vision', component: Vision },
-  { id: 'ceo-vision', component: CeoVision },
-  { id: 'footer', component: Footer },
+  { id: 'header', component: Header, path: '/' },
+  { id: 'video', component: VideoContent, path: '/' },
+  { id: 'about', component: AboutUs, path: '/about' },
+  { id: 'vision', component: Vision, path: '/about' },
+  { id: 'ceo-vision', component: CeoVision, path: '/developer' },
+  { id: 'footer', component: Footer, path: '/developer' },
 ];
 
 export default function HomePage() {
@@ -47,6 +48,8 @@ export default function HomePage() {
   const [currentSection, setCurrentSection] = useState(0);
   const [isScrolling, setIsScrolling] = useState(false);
   const { width } = useWindowSize();
+
+  const router = useRouter();
 
   // Contact Form State
   const [isContactFormOpen, setIsContactFormOpen] = useState(false);
@@ -61,12 +64,12 @@ export default function HomePage() {
 
   // Determine Developer Sections Based on Screen Width
   const developerSections =
-    width <= 768
-      ? [
-          { id: 'developer1', component: Developer1 },
-          { id: 'developer2', component: Developer2 },
-        ]
-      : [{ id: 'developer', component: Developer }];
+  width <= 768
+  ? [
+      { id: 'developer', component: Developer1, path: '/developer' },
+      { id: 'developer2', component: Developer2, path: '/developer2' },
+    ]
+  : [{ id: 'developer', component: Developer, path: '/developer' }];
 
   const allSections = [
     ...sections.slice(0, 4),
@@ -95,6 +98,10 @@ export default function HomePage() {
 
     containerRef.current.style.transition = 'transform 0.8s cubic-bezier(0.645, 0.045, 0.355, 1)';
     containerRef.current.style.transform = `translateY(-${scrollPercentage}vh)`;
+
+    // Update URL without reloading the page
+    const newPath = allSections[index].path;
+    router.push(newPath, undefined, { shallow: true });
 
     setTimeout(() => {
       setIsScrolling(false);
@@ -234,6 +241,12 @@ export default function HomePage() {
       window.addEventListener('keydown', handleKeyDownSmall);
     }
 
+    const path = router.asPath;
+    const initialSectionIndex = allSections.findIndex(section => section.path === path);
+    if (initialSectionIndex !== -1) {
+      scrollToSection(initialSectionIndex);
+    }
+
     // Cleanup function to remove the appropriate handlers
     return () => {
       if (width > 768) {
@@ -248,7 +261,7 @@ export default function HomePage() {
         window.removeEventListener('keydown', handleKeyDownSmall);
       }
     };
-  }, [width, currentSection, isScrolling]);
+  }, [width, currentSection, isScrolling, router.asPath]);
 
   return (
     <div className={styles.container}>

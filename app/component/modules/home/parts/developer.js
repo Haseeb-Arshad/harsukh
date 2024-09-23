@@ -9,20 +9,34 @@ const Developer = () => {
     return (
         <div className={styles.container}>
             <div className={styles.content}>
-                <h2 className={styles.title}>Developer</h2>
-                <Image className={styles.logo} src="https://cdn.theharsukh.com/images/ContactUs/Almaymaar.png" alt="Harsukh Residencies" width={190} height={45} />
+                <div className={styles.emptyDiv}></div>
+                <div className={styles.title}>
+                    <div className={styles.titleText}>
+                        Developer
+                    </div>
+                </div>
+                <div className={styles.logoDiv}>
+                    <Image className={styles.logo} src="https://cdn.theharsukh.com/images/ContactUs/Almaymaar.png" alt="Harsukh Residencies" width={190} height={45} />
+                </div>
                 <div className={styles.description}>
-                    <p className={styles.desc}>{devText1}</p>
-                    <p className={styles.desc}>{devText2}</p>
+                    <div className={styles.desc}>{devText1}</div>
+                    <div className={styles.desc}>{devText2}</div>
                 </div>
             </div>
             <div className={styles.content}>
-                <h2 className={styles.title}>Architect</h2>
-                <Image className={styles.logo} src="https://res.cloudinary.com/dykglphpa/image/upload/v1726839449/harsukh/k9glegpujsehrkikfczn.png" alt="Harsukh Residencies" width={160} height={65} />
+                <div className={styles.emptyDiv}></div>
+                <div className={styles.title}>
+                    <div className={styles.titleText}>
+                        Architect
+                    </div>
+                </div>
+                <div className={styles.logoDiv}>
+                    <Image className={styles.logo} src="https://res.cloudinary.com/dykglphpa/image/upload/v1726839449/harsukh/k9glegpujsehrkikfczn.png" alt="Harsukh Residencies" width={160} height={65} />
+                </div>
                 <div className={styles.description}>
-                    <p className={styles.desc}>
+                    <div className={styles.desc}>
                         6 Figures Architectural Firm is renowned for their ability to craft spaces that tell a story. With a perfect balance of functionality and artistic expression, their designs are innovative, sustainable, and timeless. Their portfolio includes iconic projects, such as luxury high-rises and peaceful retreats, each reflecting their commitment to excellence. Every structure they create is a testament to their philosophy of blending architecture with the human spirit
-                    </p>
+                    </div>
                 </div>
             </div>
         </div>

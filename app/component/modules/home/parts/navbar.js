@@ -74,23 +74,6 @@ const Navbar = ({ children, currentSection, toggleContactForm, useGreenLogo, onN
       onNavClick(menuItem);
     }
   };
-  // const handleMenuItemClick = (menuItem) => {
-  //   setActiveMenuItem(menuItem);
-  //   setIsMobileMenuOpen(false);
-  
-  //   const sectionId = menuItem.toLowerCase();
-  //   const section = document.getElementById(sectionId);
-  
-  //   if (section) {
-  //     section.scrollIntoView({ behavior: 'smooth' });
-  //   }
-  
-  //   if (menuItem === 'Blogs') {
-  //     router.push('/blog');
-  //   } else if (menuItem === 'News Room') {
-  //     router.push('/news-room');
-  //   }
-  // };
 
   const controlNavbar = () => {
     if (typeof window !== 'undefined') {
