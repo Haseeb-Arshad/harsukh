@@ -23,7 +23,7 @@ const Developer = () => {
                     <div className={styles.desc}>{devText2}</div>
                 </div>
             </div>
-            <div className={styles.content}>
+            {/* <div className={styles.content}>
                 <div className={styles.emptyDiv}></div>
                 <div className={styles.title}>
                     <div className={styles.titleText}>
@@ -38,7 +38,7 @@ const Developer = () => {
                         6 Figures Architectural Firm is renowned for their ability to craft spaces that tell a story. With a perfect balance of functionality and artistic expression, their designs are innovative, sustainable, and timeless. Their portfolio includes iconic projects, such as luxury high-rises and peaceful retreats, each reflecting their commitment to excellence. Every structure they create is a testament to their philosophy of blending architecture with the human spirit
                     </div>
                 </div>
-            </div>
+            </div> */}
         </div>
     );
 };

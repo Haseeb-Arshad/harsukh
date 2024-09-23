@@ -67,7 +67,7 @@ export default function HomePage() {
   width <= 768
   ? [
       { id: 'developer', component: Developer1, path: '/developer' },
-      { id: 'developer2', component: Developer2, path: '/developer2' },
+      // { id: 'developer2', component: Developer2, path: '/developer2' },
     ]
   : [{ id: 'developer', component: Developer, path: '/developer' }];
 
@@ -101,7 +101,7 @@ export default function HomePage() {
 
     // Update URL without reloading the page
     const newPath = allSections[index].path;
-    router.push(newPath, undefined, { shallow: true });
+    // router.push(newPath, undefined, { shallow: true });
 
     setTimeout(() => {
       setIsScrolling(false);
