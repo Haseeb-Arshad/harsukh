@@ -6,10 +6,23 @@ import styles from '@/styles/blog/part/blogPostPage.module.css';
 // Simulating the blog data, ideally this would come from a CMS or API
 const blogPosts = [
   {
-    title: "Almaymaar Unveils Luxury Living with High-Rise Apartments in Galiyat’s Scenic Landscape",
-    content: "Galiyat Welcomes Luxury Living Galiyat, the region which is known for its beautiful landscapes and tourism, is on the verge of the launch of new project that promises to elevate the area’s surroundings. Almaymaar has announced a high-rise luxury apartments that are set to redefine modern and Luxury living in this stunning region. While details are still under wraps, there is a blend of a unique architecture designs that will harmonize with Galiyat's natural beauty. Residents can expect top-notch amenities, panoramic views of the majestic Himalayas, and a lifestyle that seamlessly combines comfort with luxury and elegance. This development will not only provide luxurious housing options but will also boost the local economy through new job opportunities and increased tourism.",
+    title: "Harsukh – Your Ultimate Destination",
+    content: `Located in the heart of Galiyat, Harsukh residencies offers a unique living of combing luxury with comfort. Harsukh represents a blend of luxury living combined with the beauty of nature. Despite the location its accessibility with the capital city Islamabad is a 1.5 hours drive.
+
+    This example of luxury living present on the Nathiagali road, nearby Ayubia is an escape from the daily hassles of urban life. Harsukh's closeness to nearby tourist destinations e.g Mushkpuri top, motto tunnel, Miranjani trek, Ayubia Chairlift make it more unique and a premier choice for luxury living in the Galiyat.
+
+    Harsukh facilitates the investors by offering them different amenities and facilities. The amenities include:
+    
+    • Hot water Thermal pools
+    • Dedicated Car Parking
+    • Culinary Square
+    • Gymnasium
+
+    These amenities combine to make Harsukh an example of luxury living in the Galiyat region. Whether you are tired or restless, Harsukh is an escape into the nature with luxury amenities provided and state of the art lobbies, corridors and a luxurious reception.
+
+    Investing here in Harsukh brings an attractive opportunity for the investors. The location, combined with the potential of development make it a promising opportunity for investment in real estate. Harsukh is promised to increase in value as the location of Harsukh will provide more than 1% ROI making it a sound investment choice for the ones who want to secure an apartment in the Harsukh Residencies.`,
     image: "https://res.cloudinary.com/dykglphpa/image/upload/v1726917679/harsukh/blog/rulfseo5gi7zdgsntjll.png",
-    url: "almaymaar-unveils-luxury-living-high-rise-apartments-galiyats-scenic-landscape"
+    url: "harsukh-your-ultimate-destination"
   },
 ];
 
@@ -30,17 +43,16 @@ const BlogPostPage = ({ params }) => {
 
   return (
     <div className={styles.main}>
-
-        <div className={styles.blogPostContainer}>
+      <div className={styles.blogPostContainer}>
         <Image src={post.image} alt={post.title} width={600} height={400} className={styles.blogImage} />
         <div className={styles.blogTitle}>{post.title}</div>
-
         <div className={styles.blogContent}>
-            <p>{post.content}</p>
+          {post.content.split('\n\n').map((paragraph, index) => (
+            <p key={index}>{paragraph}</p>
+          ))}
         </div>
-        </div>
+      </div>
     </div>
-
   );
 };
 

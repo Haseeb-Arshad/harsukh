@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import styles from '@/styles/blog/blogGrid.module.css';
+import styles from '@/styles/newsroom/newsroomGrid.module.css';
 import NewsroomCard from './newsroomCard';
 
 const NewsroomGrid = ({ posts }) => {

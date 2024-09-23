@@ -42,93 +42,192 @@
   font-family: "Optima", sans-serif;
   font-size: 2rem;
   font-weight: bold;
-  margin-bottom: 2rem;
+  padding-left: 2rem;
+
 }
 
 .blogGrid {
   display: flex;
+  
+  /* border: 1px green solid; */
   gap: 2rem;
+  min-height: 100vh;
+  /* height: calc(100vh - 15rem);  */
+  /* Adjust based on your layout */
 }
 
-.largePost {
+.largePostWrapper {
   flex: 1;
-  background-color: #fff;
+  position: sticky;
+  /* top: 2rem; */
+  height: fit-content;
+  max-height: 100%;
+}
+
+.smallPostsWrapper {
+  flex: 0.9;
+  height: 100%;
+  /* width:50%; */
+  /* padding-left: 5rem; */
+  /* width: ; */
+  padding-right: 5rem;
+  overflow: hidden; /* Hide overflow */
+}
+
+.smallPosts {
+  display: flex;
+  flex-direction: column;
+  gap: 2.2rem;
+  overflow-y: auto;
+  height: 100%;
+  width: fit-content;
+  
+
+  padding-right: 4rem; 
+  /* border: 1px solid red; */
+  /* Add some padding for the scrollbar */
+}
+
+.card {
+  /* background-color: #d2d2d2; */
+  width: fit-content;
   border-radius: 8px;
   overflow: hidden;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  height: 140px;
+  padding: 3rem;
+  padding-top: 0rem;
+  padding-left: 0rem;
+  padding-bottom: 0rem;
+  /* box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); */
+}
+
+.largeCard {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.smallCard {
+  display: flex;
+  /* border: 1px solid grey; */
+  height: 150px; 
+  /* padding-left: 4rem; */
+  padding-right: 7rem;
+  /* padding: ; */
+}
+
+.imageWrapper
+{
+  padding: 2rem;;
+  padding-bottom: 0rem;
 }
 
 .imageContainer {
   position: relative;
   width: 100%;
-  height: 300px;
+  padding-top: 56.25%; /* 16:9 Aspect Ratio */
+}
+
+.image {
+  object-fit: cover;
+  border-radius: 0.5rem;
+}
+
+.largeCard .imageContainer {
+  flex: 0 0 auto;
+}
+
+.smallCard .imageContainer {
+  width: 266px; /* 16:9 aspect ratio for 150px height */
+  padding-top: 0;
+  height: 100%;
 }
 
 .content {
-  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  padding: 2rem;
+  padding-top: 1rem;
+}
+
+.content .excerpt {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: normal;
+}
+
+.SmallCardcontent
+{
+  display: flex;
+  flex-direction: column;
+  padding: 2rem;
+  padding-top: 2rem;
+}
+
+.titleText
+{
+  font-size: 1.3rem;
+}
+
+.largeCard .content {
+  flex: 1;
 }
 
 .title {
   font-size: 1.25rem;
-  font-weight: bold;
   margin-bottom: 0.5rem;
+  text-decoration: none;
+  color: inherit;
+  font-family: "Optima Bold";
+
 }
 
 .excerpt {
   font-size: 1rem;
   color: #666;
   margin-bottom: 1rem;
+  flex: 1;
 }
+
+.SmallCardcontent .excerpt {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: normal;
+}
+
 
 .readMore {
   color: #006D77;
-  text-decoration: none;
+  text-decoration: underline; 
   font-weight: 500;
+  width: fit-content;
+  margin-top: auto;
 }
 
-.smallPosts {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  overflow-y: auto;
-  max-height: calc(100vh - 10rem);
+.readMore:hover {
+  text-decoration: none; 
 }
 
-.smallPost {
-  display: flex;
-  background-color: #fff;
-  border-radius: 8px;
-  overflow: hidden;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.smallImageContainer {
-  width: 100px;
-  height: 100px;
-  position: relative;
-}
-
-.smallContent {
-  flex: 1;
-  padding: 1rem;
-}
-
-.smallTitle {
-  font-size: 1rem;
-  font-weight: bold;
-  margin-bottom: 0.5rem;
-}
-
-.smallExcerpt {
-  font-size: 0.875rem;
-  color: #666;
-  margin-bottom: 0.5rem;
-}
 
 @media (max-width: 768px) {
   .blogGrid {
     flex-direction: column;
+    height: auto;
+  }
+
+  .largePostWrapper {
+    position: static;
+  }
+
+  .smallPostsWrapper {
+    height: auto;
+    max-height: none;
   }
 
   .smallPosts {
@@ -141,16 +240,14 @@
     padding-right: 1rem;
   }
 
-  .imageContainer {
-    height: 200px;
-  }
-
-  .smallPost {
+  .smallCard {
     flex-direction: column;
+    height: auto;
   }
 
-  .smallImageContainer {
+  .smallCard .imageContainer {
     width: 100%;
-    height: 150px;
+    height: 0;
+    padding-top: 56.25%; /* 16:9 Aspect Ratio */
   }
 }

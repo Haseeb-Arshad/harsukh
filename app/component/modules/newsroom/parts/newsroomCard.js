@@ -1,58 +1,84 @@
-'use client'
 import React from 'react';
 import Image from 'next/image';
-import { motion } from 'framer-motion';
 import styles from '@/styles/blog/blogCard.module.css';
+import Link from 'next/link';
 
-const NewsroomCard = ({ title, date, excerpt, image, author }) => (
-  <motion.div
-    className={styles.card}
-    whileHover={{ y: -5 }}
-    transition={{ duration: 0.3 }}
-    ease={[0.49, 0.23, 0, 1]}
-  >
-    <div className={styles.imageContainer}>
-      <Image
-        src={image}
-        alt={title}
-        layout="fill"
-        objectFit="cover"
-      />
-    </div>
-    <div className={styles.content}>
-      <div className={styles.dateContainer}>
-        <div className={styles.dateIcon}>
-            <Image src="https://cdn.theharsukh.com/images/icons/blog/calendarIcon.svg" alt="harsukhLogo" width={15} height={15} />
-        </div>
-        <div className={styles.date}>
-            {date}
-        </div>
-      </div>
-
-    <div className={styles.title}>{title}</div>
-
-      {/* <p className={styles.date}>{date}</p> */}
-      <p className={styles.excerpt}>{excerpt}</p>
-      <motion.a
-        href="#"
-        className={styles.readMore}
-        whileHover={{ x: 5 }}
-        transition={{ duration: 0.2 }}
-      >
-        Continue reading
-      </motion.a>
-
-      <div className={styles.authorContainer}>
-        <div className={styles.authorImage}>
-            <Image src="https://cdn.theharsukh.com/images/icons/blog/user-profile.svg" alt="harsukhLogo" width={15} height={15} />
-        </div>
-        <div className={styles.author}> 
-            {author}
+const NewsCard = ({ post, isLarge }) => {
+  return (
+    <div className={`${styles.card} ${isLarge ? styles.largeCard : styles.smallCard}`}>
+      <div className={styles.imageWrapper}>
+        <div className={styles.imageContainer}>
+          <Image 
+            src={post.image} 
+            alt={post.title} 
+            layout="fill" 
+            objectFit="cover" 
+            className={styles.image}
+          />
         </div>
       </div>
       
+      <div className={styles.content}>
+        <Link href={`/news-room${post.url}`} className={styles.title}>
+          <div className={styles.titleText}>{post.title}</div>
+        </Link>
+        {isLarge && <p className={styles.excerpt}>{post.excerpt}</p>}
+        <Link href={`/news-room${post.url}`} className={styles.readMore}>Read more</Link>
+      </div>
     </div>
-  </motion.div>
-);
+  );
+};
 
-export default NewsroomCard;
+
+
+const SmallNewsCard = ({ post, isLarge }) => {
+  return (
+    <div className={`${styles.card} ${isLarge ? styles.largeCard : styles.smallCard}`}>
+      <div className={styles.imageWrapper}>
+        <div className={styles.imageContainer}>
+          <Image 
+            src={post.image} 
+            alt={post.title} 
+            layout="fill" 
+            objectFit="cover" 
+            className={styles.image}
+          />
+        </div>
+      </div>
+      
+      <div className={styles.SmallCardcontent}>
+        <Link href={`/news-room${post.url}`} className={styles.title}>
+          <div className={styles.titleText}>{post.title}</div>
+        </Link>
+        <p className={styles.excerpt}>{post.excerpt}</p>
+        <Link href={`/news-room${post.url}`} className={styles.readMore}>Read more</Link>
+      </div>
+    </div>
+  );
+};
+
+const NewsLayout = ({ posts }) => {
+  const [largePost, ...smallPosts] = posts;
+
+  return (
+    <div className={styles.main}>
+      <div className={styles.container}>
+        <h1 className={styles.pageTitle}>NEWS</h1>
+        <div className={styles.blogGrid}>
+          <div className={styles.largePostWrapper}>
+            <NewsCard post={largePost} isLarge={true} />
+          </div>
+          <div className={styles.smallPostsWrapper}>
+            <div className={styles.smallPosts}>
+              {smallPosts.map((post, index) => (
+                <SmallNewsCard key={index} post={post} isLarge={false} />
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default NewsLayout;

@@ -1,17 +1,30 @@
-
-// BlogPage.js
-'use client'
 import React from 'react';
 import styles from '@/styles/blog/blogMain.module.css';
-import NewsroomGrid from './parts/newsroomGrid';
+import NewsRoom from '@/app/component/modules/newsroom/parts/newsroomCard';
+import blogData from '@/app/component/data/newsroom/newsroomData.json';
 
-const NewsroomPage = ({ posts }) => {
+// const BlogPage = () => {
+//   return (
+//     <div className={styles.main}>
+//       <div className={styles.container}>
+//         <h1 className={styles.pageTitle}>BLOGS</h1>
+//         <div className={styles.blogGrid}>
+//           {blogData.blogPosts.map((post, index) => (
+//             <BlogCard key={index} post={post} isLarge={index === 0} />
+//           ))}
+//         </div>
+//       </div>
+//     </div>
+
+//   );
+// };
+
+// export default BlogPage;
+
+const BlogPage = () => {
   return (
-    <div className={styles.container}>
-      <div className={styles.pageTitle}>News</div>
-      <NewsroomGrid posts={posts} />
-    </div>
+    <NewsRoom posts={blogData.blogPosts} />
   );
 };
 
-export default NewsroomPage;
+export default BlogPage;
