@@ -10,7 +10,7 @@ import { useSelector } from 'react-redux';
 import { motion } from 'framer-motion';
 
 
-const Navbar = ({ children, currentSection, toggleContactForm, useGreenLogo }) => {
+const Navbar = ({ children, currentSection, toggleContactForm, useGreenLogo, onNavClick }) => {
   const [activeMenuItem, setActiveMenuItem] = useState('Home');
   const [visible, setVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
@@ -61,23 +61,36 @@ const Navbar = ({ children, currentSection, toggleContactForm, useGreenLogo }) =
     };
   }, []);
 
+
   const handleMenuItemClick = (menuItem) => {
     setActiveMenuItem(menuItem);
     setIsMobileMenuOpen(false);
-  
-    const sectionId = menuItem.toLowerCase();
-    const section = document.getElementById(sectionId);
-  
-    if (section) {
-      section.scrollIntoView({ behavior: 'smooth' });
-    }
   
     if (menuItem === 'Blogs') {
       router.push('/blog');
     } else if (menuItem === 'News Room') {
       router.push('/news-room');
+    } else {
+      onNavClick(menuItem);
     }
   };
+  // const handleMenuItemClick = (menuItem) => {
+  //   setActiveMenuItem(menuItem);
+  //   setIsMobileMenuOpen(false);
+  
+  //   const sectionId = menuItem.toLowerCase();
+  //   const section = document.getElementById(sectionId);
+  
+  //   if (section) {
+  //     section.scrollIntoView({ behavior: 'smooth' });
+  //   }
+  
+  //   if (menuItem === 'Blogs') {
+  //     router.push('/blog');
+  //   } else if (menuItem === 'News Room') {
+  //     router.push('/news-room');
+  //   }
+  // };
 
   const controlNavbar = () => {
     if (typeof window !== 'undefined') {

@@ -99,11 +99,22 @@ export default function HomePage() {
     setTimeout(() => {
       setIsScrolling(false);
       containerRef.current.style.transition = '';
-    }, 800); // Match the transition duration
+    }, 800);
   };
 
   const toggleContactForm = () => {
     setIsContactFormOpen(!isContactFormOpen);
+  };
+
+
+  const handleNavClick = (sectionName) => {
+    const sectionIndex = allSections.findIndex(section => 
+      section.id.toLowerCase() === sectionName.toLowerCase() ||
+      (sectionName === 'Home' && section.id === 'header')
+    );
+    if (sectionIndex !== -1) {
+      scrollToSection(sectionIndex);
+    }
   };
 
   // Updated handleWheelLarge function to prevent multiple scrolls
@@ -245,6 +256,7 @@ export default function HomePage() {
         currentSection={allSections[currentSection].id}
         toggleContactForm={toggleContactForm}
         useGreenLogo={!useGreenLogo}
+        onNavClick={handleNavClick}
       />
       <nav className={styles.nav}>
         {allSections.map((section, index) => (
