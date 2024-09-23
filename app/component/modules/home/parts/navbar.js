@@ -151,7 +151,7 @@ const Navbar = ({ children, currentSection, toggleContactForm, useGreenLogo, onN
       <div>
         <div className={`${styles.nav} ${visible ? styles.visible : styles.hidden}`}>
         
-        <div className={styles.logo}>
+        {/* <div className={styles.logo}> */}
           <img 
             style={{cursor:"pointer"}} 
             src={useGreenLogo ? harsukhGreenLogo : harsukhWhiteLogo} 
@@ -160,7 +160,7 @@ const Navbar = ({ children, currentSection, toggleContactForm, useGreenLogo, onN
             height={useGreenLogo? 115:105} 
           />
 
-        </div>
+        {/* </div> */}
        
                    
           <div ref={menuIconRef} className={styles.mobileMenuIcon} onClick={toggleMobileMenu}>
