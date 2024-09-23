@@ -151,7 +151,7 @@ const Footer = () => {
             Privacy Policy
             </div>
           </div>
-          <div className={styles.designedBy}>This website is Designed and Developed by Trescol</div>
+          {/* <div className={styles.designedBy}>This website is Designed and Developed by Trescol</div> */}
         </div>
       </div>
 
