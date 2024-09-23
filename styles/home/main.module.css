@@ -18,7 +18,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1000; /* Ensure it's above all other components */
+  z-index: 99999999999999; /* Ensure it's above all other components */
 }
 
 .nav {
@@ -133,4 +133,46 @@
     grid-template-columns: 1fr;
     padding: 2rem;
   }
+
+  
+.navDot {
+  /* width: 3px;
+  height: 3px; */
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.5);
+  transition: all 0.3s ease;
+}
+
+.navButton:hover .navDot,
+.navButton:focus .navDot {
+  transform: scale(1.5);
+  background-color: rgba(255, 255, 255, 0.8);
+}
+
+.navButton:focus {
+  outline-offset: 2px;
+}
+
+.navButton.active .navDot {
+  width: 7px;
+  height: 7px;
+  background-color: #ffffff;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+}
+
+.navButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 10px;
+  height: 10px;
+  margin: 5px 0;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+
+
 }
