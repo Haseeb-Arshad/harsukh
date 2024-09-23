@@ -10,8 +10,20 @@ const Developer1 = () => {
     
     <div className={styles.DeveloperPartcontainer}>
        <div className={styles.content}>
-            <h2 className={styles.title}>Developer</h2>
-            <Image className={styles.logo} src="https://cdn.theharsukh.com/images/ContactUs/Almaymaar.png" alt="Harsukh Residencies" width={190} height={45} />
+
+       <div className={styles.emptyDiv}></div>
+
+       <div className={styles.title}>
+                    <div className={styles.titleText}>
+                        Developer
+                    </div>
+                </div>
+            {/* <h2 className={styles.title}>Developer</h2> */}
+            {/* <Image className={styles.logo} src="https://cdn.theharsukh.com/images/ContactUs/Almaymaar.png" alt="Harsukh Residencies" width={190} height={45} /> */}
+            <div className={styles.logoDiv}>
+                    <Image className={styles.logo} src="https://cdn.theharsukh.com/images/ContactUs/Almaymaar.png" alt="Harsukh Residencies" width={190} height={45} />
+                </div>
+           
             <div className={styles.description}>
                 <p className={styles.desc}>{devText1}</p>
                 <p className={styles.desc}>{devText2}</p>
