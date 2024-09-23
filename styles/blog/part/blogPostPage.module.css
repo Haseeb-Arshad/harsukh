@@ -44,10 +44,11 @@ Page.module.css */
     padding: 20px;
     font-family: Arial, sans-serif;
   }
-  
+
+
   .blogTitle {
     font-family: "Optima Bold";
-    font-size: 2.3rem;
+    font-size: 2.1rem;
     margin-bottom: 20px;
     /* text-align: center; */
   }
@@ -60,20 +61,90 @@ Page.module.css */
     margin-bottom: 20px;
   }
   
-  .blogContent {
+  /* .blogContent {
+  } */
+
+  .blogContent {    
+    /* padding: 0 20px 20px; */
+
     font-size: 1rem;
     line-height: 1.6;
     text-align: justify;
   }
+
+
+
+
+
+  /* .main {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+   */
+  /* .blogPostContainer {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+  }
+   */
+  .blogImage {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
+  
+ 
+  
+  
+  
+  .paragraph {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: #444;
+    margin-bottom: 1.5em;
+  }
+  
+  .bulletList {
+    margin-left: 20px;
+    margin-bottom: 1.5em;
+  }
+  
+  .bulletList li {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: #444;
+    margin-bottom: 0.5em;
+  }
+  
+  .subheading {
+    font-size: 1.8rem;
+    color: #333;
+    margin-top: 1.5em;
+    margin-bottom: 0.8em;
+  }
+  
+  .blockquote {
+    font-style: italic;
+    color: #666;
+    border-left: 4px solid #ccc;
+    padding-left: 20px;
+    margin: 1.5em 0;
+  }
+
+
+
   
   /* Mobile View */
-  @media (max-width: 600px) {
+@media (max-width: 600px) 
+{
 
-.main {
-    padding: 3rem;
-    padding-top: 20vh;
+    .main {
+        padding: 3rem;
+        padding-top: 20vh;
 
-}
+    }
 
 .blogImage {
     width: 100%;
