@@ -1,8 +1,25 @@
+
+'use client'
 import React from 'react'
 import Navbar from '../component/modules/blog/parts/navbar'
 import Image from 'next/image'
+import { useEffect } from 'react';
+import Swup from 'swup';
+import SwupFadeTheme from '@swup/fade-theme';
 
 const Layout = ({ children }) => {
+
+
+  useEffect(() => {
+    const swup = new Swup({
+      plugins: [new SwupFadeTheme()],
+    });
+
+    return () => {
+      swup.destroy();
+    };
+  }, []);
+
   return (
     <div style={{ position: 'relative' }}>
       <div style={{

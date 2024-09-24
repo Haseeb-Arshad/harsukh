@@ -44,6 +44,7 @@ const Navbar = ({ children, currentSection, toggleContactForm, useGreenLogo, onN
   }, [currentSection]);
 
   useEffect(() => {
+    
     const handleClickOutside = (event) => {
       if (
         mobileMenuRef.current &&
@@ -126,24 +127,24 @@ const Navbar = ({ children, currentSection, toggleContactForm, useGreenLogo, onN
     }
   };
 
-  const harsukhGreenLogo = "https://cdn.theharsukh.com/images/blog/harsukhLogo.svg";
-  const harsukhWhiteLogo = "https://cdn.theharsukh.com/Webpage/floors/HarsukhLogo.webp";
+  const harsukhGreenLogo = "https://res.cloudinary.com/dykglphpa/image/upload/v1727174238/harsukh/Logo/ljvd3ds9mwks0lh65zab.svg";
+  const harsukhWhiteLogo = "https://res.cloudinary.com/dykglphpa/image/upload/v1727174238/harsukh/Logo/hdcxdutxghs2lozogcqx.svg";
 
   return (
     <>
       <div>
         <div className={`${styles.nav} ${visible ? styles.visible : styles.hidden}`}>
         
-        {/* <div className={styles.logo}> */}
+        <div className={styles.logo}>
           <img 
             style={{cursor:"pointer"}} 
             src={useGreenLogo ? harsukhGreenLogo : harsukhWhiteLogo} 
             alt="Harsukh Logo" 
-            width={useGreenLogo? 200:180} 
-            height={useGreenLogo? 115:105} 
+            width={ 330} 
+            height={ 115} 
           />
 
-        {/* </div> */}
+        </div>
        
                    
           <div ref={menuIconRef} className={styles.mobileMenuIcon} onClick={toggleMobileMenu}>

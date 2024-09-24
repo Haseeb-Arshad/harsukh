@@ -7,7 +7,7 @@ const Developer = () => {
     const devText2 = "Almaymaar's projects consistently reflect a deep understanding of homeowners' desires, ensuring that each development not only meets but anticipates the needs of future residents. With Harsukh Residencies, Almaymaar aims to redefine luxury living, integrating modern design with the serene beauty of nature."
 
     return (
-        <div className={styles.container}>
+        <section className={styles.container}>
             <div className={styles.content}>
                 <div className={styles.emptyDiv}></div>
                 <div className={styles.title}>
@@ -39,7 +39,7 @@ const Developer = () => {
                     </div>
                 </div>
             </div> */}
-        </div>
+        </section>
     );
 };
 
