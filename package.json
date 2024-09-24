@@ -12,6 +12,7 @@
     "@fullpage/react-fullpage": "^0.1.44",
     "@next/third-parties": "^14.2.11",
     "@reduxjs/toolkit": "^2.2.6",
+    "@swup/fade-theme": "^2.0.1",
     "@swup/scroll-plugin": "^3.3.2",
     "axios": "^1.7.7",
     "barba": "^1.0.0",
