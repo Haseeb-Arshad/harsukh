@@ -10,12 +10,13 @@ import { useSelector, useDispatch } from 'react-redux';
 import en from '@/app/locales/en.json';
 import ur from '@/app/locales/ur.json';
 
+
 const areas = [
-  { name: 'Parking', image: '/images/Amenity/Parking.png', details: [
+  { name: 'Parking', image: 'https://cdn.theharsukh.com/images/Amenity/Parking.png', details: [
     { src: 'https://cdn.theharsukh.com/images/gallery/Parking/Parking-1.webp', caption: 'Dedicated floors for parking' },
     { src: 'https://cdn.theharsukh.com/images/gallery/Parking/Parking-2.webp', caption: 'Dedicated floors for parking' }
   ]},
-  { name: 'Restaurant', image: '/images/Amenity/Restaurant.png', details: [
+  { name: 'Restaurant', image: 'https://res.cloudinary.com/dykglphpa/image/upload/v1727087988/harsukh/zrcqz95abpufoysm3pxj.png', details: [
     { src: 'https://cdn.theharsukh.com/images/gallery/Restaurant/Restaurant-1.webp', caption: 'Experience the culinary luxury with our eateries floor' },
     { src: 'https://cdn.theharsukh.com/images/gallery/Restaurant/Restaurant-2.webp', caption: 'Experience the culinary luxury with our eateries floor' },
     { src: 'https://cdn.theharsukh.com/images/gallery/Restaurant/Restaurant-3.webp', caption: 'Experience the culinary luxury with our eateries floor' },
@@ -49,6 +50,7 @@ const AmenityGrid = ({ isMobile, onClose, Amenref }) => {
   const autoPlayRef = useRef(null);
   const imageLoadingRef = useRef(false);
   const amenityGridRef = useRef(null);
+  const [imageErrors, setImageErrors] = useState({});
 
   const languageState = useSelector((state) => {
     const languageState = state.language.lang.find((site) => site.id === '1');
@@ -140,6 +142,11 @@ const AmenityGrid = ({ isMobile, onClose, Amenref }) => {
     };
   }, [selectedArea]);
 
+  const handleImageError = (areaName) => {
+    setImageErrors(prev => ({ ...prev, [areaName]: true }));
+    console.error(`Failed to load image for ${areaName}`);
+  }
+
   
   return (
     <div className={styles.container} ref= {Amenref}>
@@ -154,13 +161,16 @@ const AmenityGrid = ({ isMobile, onClose, Amenref }) => {
             onClick={() => openImageBox(area)}
           >
             <div className={styles.imageWrapper}>
-              <Image
-                src={area.image}
-                alt={area.name}
-                layout="fill"
-                objectFit="cover"
-                quality={100}
-              />
+              {imageErrors[area.name] ? (
+                <div className={styles.errorMessage}>Image failed to load</div>
+              ) : (
+                <img
+                  src={area.image}
+                  alt={area.name}
+                  className={styles.areaImage}
+                  onError={() => handleImageError(area.name)}
+                />
+              )}
             </div>
             <div className={styles.areaName}>
               {translations[area.name]}
