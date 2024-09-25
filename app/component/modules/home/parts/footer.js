@@ -128,7 +128,7 @@ const Footer = ({onPrivacyPolicyClick }) => {
             <div className={styles.socialIcons}>
               <Link className={styles.socialIcon} href="https://www.facebook.com/people/Harsukh/61556868763411/?mibextid=ZbWKwL"><Image src="https://cdn.theharsukh.com/images/icons/homePage/facebook.svg" alt="Facebook" width={20} height={20} /></Link>
               <Link className={styles.socialIcon} href="https://www.instagram.com/theharsukh/?igsh=M3UzM2s4cXVza255"><Image src="/images/icons/homePage/insta.svg" alt="Instagram" width={20} height={20} /></Link>
-              <Link className={styles.socialIcon} href="#"><Image src="/images/Logo/tiktokIcon.svg" alt="Twitter" width={20} height={20} /></Link>
+              <Link className={styles.socialIcon} href="https://www.tiktok.com/@the.harsukh?_t=8q0ybPnsxho&_r=1"><Image src="/images/Logo/tiktokIcon.svg" alt="Twitter" width={20} height={20} /></Link>
               <Link className={styles.socialIcon} href="https://www.youtube.com/@theharsukh"><Image src="https://cdn.theharsukh.com/images/icons/homePage/youtube.svg" alt="YouTube" width={20} height={20} /></Link>
               <Link className={styles.socialIcon} href="https://www.linkedin.com/company/harsukh-residencies/about/"><Image src="https://cdn.theharsukh.com/images/icons/homePage/linkedin.svg" alt="LinkedIn" width={20} height={20} /></Link>
             </div>
