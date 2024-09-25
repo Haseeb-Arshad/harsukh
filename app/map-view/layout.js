@@ -18,6 +18,7 @@ import MenuBox from '@/app/component/ui/Bars/menuBox';
 import { toggleFullScreen } from '@/state/fullScreen/fullScreen';
 
 import { toggleVisibility } from '@/state/mapView/mapViewState'; 
+import { useRegisterForm } from "@/app/component/hooks/useRegisterForm"
 
 // Import translations
 import en from '@/app/component/locales/en.json';
@@ -68,6 +69,8 @@ const Layout = ({children}) =>
   const [isContactusClicked, setContactUs]= useState(false);
   const [isFormHovered, setIsFormHovered] = useState(false);
 
+  const { isFormOpen, openForm, closeForm } = useRegisterForm();
+
   const languageState = useSelector((state) => {
     const languageState = state.language.lang.find((site) => site.id === '1');
     return languageState ? languageState.language : 'en';
@@ -90,7 +93,9 @@ const Layout = ({children}) =>
   }
 
   const handleCall = () => {
-    setIsContacted(!isContacted);
+    openForm();
+
+    // setIsContacted(!isContacted);
   }
      
   const isFullScreen = useSelector((state) => state.fullscreen.isFullScreen);
@@ -483,8 +488,8 @@ const Layout = ({children}) =>
           src="/images/icons/callIcon.svg"
           quality={100}
           alt="Maps View Icon"
-          height={19}
-          width={19}
+          height={15}
+          width={15}
         />
         <div className={styles.buttonText}>{translations["callus"]}</div>
       </div>
@@ -550,9 +555,9 @@ const Layout = ({children}) =>
           </div>
       </div>}
 
-      { isContacted &&
+      { isFormOpen &&
       <div className={styles.ContactedContainer}>
-          <ContactBox onClose={handleContactClose}/>
+          <ContactBox onClose={closeForm}/>
       </div>
       }
 
