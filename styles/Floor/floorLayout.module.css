@@ -219,27 +219,28 @@
 
 .mapButton 
 {
-  bottom: 158px;
+  bottom: 118px;
   padding-left: 12px;
   right: 48px;
   background: linear-gradient(135deg, #fcf7eb, #f0f0f0);
   border: 1px solid #dcdcdc;
 }
 
+.callButton {
+  /* padding-right: ; */
+  right: 48px;
+  bottom: 8px;
+  background-color: #fcf7eb;
+}
+
 .formButton {
-  bottom: 16px;
   padding-left: 10px;
   right: 48px;
+  bottom: 63px;
+
   background: linear-gradient(135deg, #fcf7eb, #f0f0f0);
   border: 1px solid #dcdcdc;
 
-}
-
-.callButton {
-  /* padding-right: ; */
-  bottom: 85px;
-  right: 48px;
-  background-color: #fcf7eb;
 }
 
 .button:hover {
@@ -291,6 +292,7 @@
 
 
 @media (max-width: 786px) {
+
   .callButton {
     bottom: 48px;
     right: 28px;
