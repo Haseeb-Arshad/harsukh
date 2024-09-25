@@ -29,8 +29,8 @@ export default function sitemap() {
       {
         url: 'https://theharsukh.com/news-room',
         lastModified: today,
-        changeFrequency: 'weekly',
-        priority: 0.9, 
+        changeFrequency: 'daily',
+        priority: 0.7, 
       },
       {
         url: 'https://theharsukh.com/map-view',
