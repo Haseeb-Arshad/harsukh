@@ -102,7 +102,9 @@ const RegisterRequestForm = ({ onClose, onSuccess }) => {
       isValid = false;
     }
 
-    const phoneRegex = /^\+?[1-9]\d{1,14}$/;
+
+    const phoneRegex = /^[+]?[0-9\s()-]*$/; // Allows more formats, including local styles
+    
     if (!phoneRegex.test(formData.phone)) {
       newErrors.phone = 'Invalid phone number';
       isValid = false;
@@ -142,9 +144,10 @@ const RegisterRequestForm = ({ onClose, onSuccess }) => {
     e.preventDefault();
     const isValid = validateForm();
 
-    if (!isValid) {
+    if (!isValid && currentStep === 2) { // Only validate in the input step
       return;
     }
+
 
     if (currentStep < totalSteps) {
       setCurrentStep(currentStep + 1);
@@ -156,7 +159,6 @@ const RegisterRequestForm = ({ onClose, onSuccess }) => {
           data: favoriteApartments,
         };
 
-        // Simulating API call (commented out for now)
         const response = await fetch('https://almaymaar.rems.pk/api/harsukh-form', {
           method: 'POST',
           headers: {
@@ -301,8 +303,8 @@ const RegisterRequestForm = ({ onClose, onSuccess }) => {
               <button
                 onClick={handleSubmit}
                 type="submit"
-                className={`${styles.submitButton} ${(!isFormValid || isSubmitting) ? styles.disabled : ''}`}
-                disabled={!isFormValid || isSubmitting}
+                className={`${styles.submitButton} ${currentStep === 2 && !isFormValid && !isSubmitting ? styles.disabled : ''}`}
+                disabled={currentStep === 2 && !isFormValid && !isSubmitting}
               >
                 {currentStep < totalSteps ? 'Next' : (isSubmitting ? 'Submitting...' : 'Submit')}
               </button>
