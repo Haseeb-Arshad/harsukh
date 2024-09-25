@@ -3,49 +3,49 @@ export default function sitemap() {
   
     return [
       {
-        url: 'https://theharsukh.com', // Home route
+        url: 'https://harsukh-123-git-master-haseebarshads-projects.vercel.app', // Home route
         lastModified: today,
         changeFrequency: 'yearly',
         priority: 1, // Home pages are critical
       },
       {
-        url: 'https://theharsukh.com/about',
+        url: 'https://harsukh-123-git-master-haseebarshads-projects.vercel.app/about',
         lastModified: today,
         changeFrequency: 'monthly',
         priority: 0.8, // "About" pages are important, but rarely updated
       },
       {
-        url: 'https://theharsukh.com/blog',
+        url: 'https://harsukh-123-git-master-haseebarshads-projects.vercel.app/blog',
         lastModified: today,
         changeFrequency: 'daily',
         priority: 0.7, // Blog content usually gets updated frequently
       },
       {
-        url: 'https://theharsukh.com/callus',
+        url: 'https://harsukh-123-git-master-haseebarshads-projects.vercel.app/callus',
         lastModified: today,
         changeFrequency: 'yearly',
         priority: 0.3, // A "Contact/Call Us" page, so not frequently updated
       },
       {
-        url: 'https://theharsukh.com/news-room',
+        url: 'https://harsukh-123-git-master-haseebarshads-projects.vercel.app/news-room',
         lastModified: today,
         changeFrequency: 'daily',
         priority: 0.7, 
       },
       {
-        url: 'https://theharsukh.com/map-view',
+        url: 'https://harsukh-123-git-master-haseebarshads-projects.vercel.app/map-view',
         lastModified: today,
         changeFrequency: 'yearly',
         priority: 0.3, // A "Contact/Call Us" page, so not frequently updated
       },
       {
-        url: 'https://theharsukh.com/explore',
+        url: 'https://harsukh-123-git-master-haseebarshads-projects.vercel.app/explore',
         lastModified: today,
         changeFrequency: 'monthly',
         priority: 0.8, // A "Contact/Call Us" page, so not frequently updated
       },
       {
-        url: 'https://theharsukh.com/developer',
+        url: 'https://harsukh-123-git-master-haseebarshads-projects.vercel.app/developer',
         lastModified: today,
         changeFrequency: 'monthly',
         priority: 0.3, // A "Contact/Call Us" page, so not frequently updated
