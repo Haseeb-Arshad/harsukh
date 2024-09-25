@@ -1,56 +1,86 @@
+
+import TotalFloor from '@/app/component/data/TotalFloorData';
+
 export default function sitemap() {
     const today = new Date();
   
-    return [
+    const staticRoutes =  [
       {
-        url: 'https://harsukh-123-git-master-haseebarshads-projects.vercel.app', // Home route
+        url: 'https://theharsukh.com', // Home route
         lastModified: today,
         changeFrequency: 'yearly',
-        priority: 1, // Home pages are critical
+        priority: 1, 
       },
       {
-        url: 'https://harsukh-123-git-master-haseebarshads-projects.vercel.app/about',
+        url: 'https://theharsukh.com/about',
         lastModified: today,
         changeFrequency: 'monthly',
-        priority: 0.8, // "About" pages are important, but rarely updated
+        priority: 0.8, 
       },
       {
-        url: 'https://harsukh-123-git-master-haseebarshads-projects.vercel.app/blog',
+        url: 'https://theharsukh.com/blog',
         lastModified: today,
         changeFrequency: 'daily',
-        priority: 0.7, // Blog content usually gets updated frequently
+        priority: 0.7,
       },
       {
-        url: 'https://harsukh-123-git-master-haseebarshads-projects.vercel.app/callus',
+        url: 'https://theharsukh.com/callus',
         lastModified: today,
         changeFrequency: 'yearly',
         priority: 0.3, // A "Contact/Call Us" page, so not frequently updated
       },
       {
-        url: 'https://harsukh-123-git-master-haseebarshads-projects.vercel.app/news-room',
+        url: 'https://theharsukh.com/news-room',
         lastModified: today,
         changeFrequency: 'daily',
         priority: 0.7, 
       },
       {
-        url: 'https://harsukh-123-git-master-haseebarshads-projects.vercel.app/map-view',
+        url: 'https://theharsukh.com/map-view',
         lastModified: today,
         changeFrequency: 'yearly',
         priority: 0.3, // A "Contact/Call Us" page, so not frequently updated
       },
       {
-        url: 'https://harsukh-123-git-master-haseebarshads-projects.vercel.app/explore',
+        url: 'https://theharsukh.com/explore',
         lastModified: today,
         changeFrequency: 'monthly',
         priority: 0.8, // A "Contact/Call Us" page, so not frequently updated
       },
       {
-        url: 'https://harsukh-123-git-master-haseebarshads-projects.vercel.app/developer',
+        url: 'https://theharsukh.com/developer',
         lastModified: today,
         changeFrequency: 'monthly',
         priority: 0.3, // A "Contact/Call Us" page, so not frequently updated
       },
+    ]
 
 
-    ]};
+    const dynamicRoutes = TotalFloor.flatMap((floor) => {
+        // Generate URLs for each floor
+        const floorUrl = {
+          url: `https://theharsukh.com/${floor.id}`,
+          lastModified: currentDate,
+          changeFrequency: 'monthly',
+          priority: 0.7,
+        };
+    
+        // Generate URLs for apartments within each floor
+        const apartmentUrls = Array.from({ length: 146 }, (_, i) => ({
+          url: `https://theharsukh.com/${floor.id}/Apartment${i + 1}`, // Dynamic apartment URL for each floor
+          lastModified: currentDate,
+          changeFrequency: 'monthly',
+          priority: 0.6,
+        }));
+    
+        // Combine the floor URL and its respective apartment URLs
+        return [floorUrl, ...apartmentUrls];
+      });
+    
+
+      return [
+        ...staticRoutes,
+        ...dynamicRoutes,
+      ];
+};
 
