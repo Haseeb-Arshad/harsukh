@@ -1294,9 +1294,22 @@ background-color: none;
   opacity: 1;
 }
 
+
+
 @media (max-width: 480px) {
   .filterElevationContainer {
     width: 180px;
+  }
+  .backViewButton
+  {
+    right: 35vw;
+  }
+}
+
+@media (max-width: 900px) {
+  .backViewButton
+  {
+    right: 40vw;
   }
 }
 
@@ -1407,9 +1420,9 @@ background-color: none;
 
   .backViewButton {
     user-select: none;
-    position: absolute;
+    /* position: absolute; */
     bottom: 12vh;
-    right: 40vw;
+    right: 42vw;
     align-items: center;
     justify-content: center;
     background-color: #fcf7eb;
@@ -1425,7 +1438,7 @@ background-color: none;
     transition: all 0.3s ease-in-out;
     opacity: 1;
     transition: opacity 0.3s ease-in-out;
-    z-index: 10;
+    z-index: 9999999999999999;
   }
 
   .filterElevationContainer {
