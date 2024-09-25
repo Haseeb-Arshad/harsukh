@@ -165,9 +165,6 @@ export default function HomePage({ initialSection }) {
 
 
 
-
-
-  
   const [currentSection, setCurrentSection] = useState(
     initialSection
       ? allSections.findIndex((section) => section.id === initialSection)
@@ -181,6 +178,9 @@ export default function HomePage({ initialSection }) {
   useEffect(() => {
     if (initialSection) {
       const sectionIndex = allSections.findIndex((section) => section.id === initialSection);
+      scrollToSection(sectionIndex);
+    } else if (pathname === '/home') {
+      const sectionIndex = allSections.findIndex((section) => section.id === 'about');
       scrollToSection(sectionIndex);
     } else if (pathname === '/about') {
       const sectionIndex = allSections.findIndex((section) => section.id === 'about');
