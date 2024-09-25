@@ -1,11 +1,7 @@
-import React from 'react'
+import HomePage from '@/app/component/modules/home/homePage';
 
-const page = () => {
-  return (
-    <div>
-      
-    </div>
-  )
-}
+const DeveloperPage = () => {
+  return <HomePage initialSection="developer" />;
+};
 
-export default page
+export default DeveloperPage;

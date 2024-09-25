@@ -1,3 +1,5 @@
+'use client'
+
 import React, { useEffect, useRef, useState } from 'react';
 import Header from './parts/header';
 import Vision from './parts/vision';
@@ -11,9 +13,10 @@ import Developer1 from './parts/developer1';
 import Developer2 from './parts/developer2';
 import RegisterRequestForm from '../../ui/Bars/contactBox';
 import styles from '@/styles/home/main.module.css';
-import { useRouter } from 'next/navigation';
+import { useParams, useRouter, usePathname } from 'next/navigation';
 import PrivacyPolicy from './parts/privacyPolicy';
 import { useRegisterForm } from "@/app/component/hooks/useRegisterForm"
+import Link from 'next/link';
 
 const useWindowSize = () => {
   const [windowSize, setWindowSize] = useState({
@@ -45,13 +48,16 @@ const sections = [
   { id: 'footer', component: Footer, path: '/developer' },
 ];
 
-export default function HomePage() {
+export default function HomePage({ initialSection }) {
   const containerRef = useRef(null);
-  const [currentSection, setCurrentSection] = useState(0);
+  // const [currentSection, setCurrentSection] = useState(0);
   const [isScrolling, setIsScrolling] = useState(false);
   const { width } = useWindowSize();
 
   const router = useRouter();
+  const pathname = usePathname();
+
+
 
   const [isPrivacyPolicyOpen, setIsPrivacyPolicyOpen] = useState(false);
 
@@ -100,6 +106,7 @@ export default function HomePage() {
     );
   };
 
+
   const scrollToSection = (index) => {
     if (index < 0 || index >= allSections.length || isScrolling) return;
     setIsScrolling(true);
@@ -111,20 +118,17 @@ export default function HomePage() {
     containerRef.current.style.transition = 'transform 0.8s cubic-bezier(0.645, 0.045, 0.355, 1)';
     containerRef.current.style.transform = `translateY(-${scrollPercentage}vh)`;
 
-    // Update URL without reloading the page
+    // Update URL without triggering a page navigation
     const newPath = allSections[index].path;
-    // router.push(newPath, undefined, { shallow: true });
+    if (newPath === '/about' || newPath === '/developer') {
+      window.history.pushState(null, '', newPath);
+    }
 
     setTimeout(() => {
       setIsScrolling(false);
       containerRef.current.style.transition = '';
     }, 800);
   };
-
-  const toggleContactForm = () => {
-    setIsContactFormOpen(!isContactFormOpen);
-  };
-
 
   const handleNavClick = (sectionName) => {
     const sectionIndex = allSections.findIndex(section => 
@@ -135,6 +139,57 @@ export default function HomePage() {
       scrollToSection(sectionIndex);
     }
   };
+
+  useEffect(() => {
+    // Handle initial routing and path changes
+    const handleRouteChange = () => {
+      if (pathname === '/about') {
+        const aboutIndex = allSections.findIndex(section => section.id === 'about');
+        scrollToSection(aboutIndex);
+      } else if (pathname === '/developer') {
+        const developerIndex = allSections.findIndex(section => section.id === 'ceo-vision');
+        scrollToSection(developerIndex);
+      }
+    };
+
+    handleRouteChange();
+
+    // Handle browser back/forward navigation
+    window.addEventListener('popstate', handleRouteChange);
+
+    return () => {
+      window.removeEventListener('popstate', handleRouteChange);
+    };
+  }, [pathname]);
+
+
+
+
+
+
+  
+  const [currentSection, setCurrentSection] = useState(
+    initialSection
+      ? allSections.findIndex((section) => section.id === initialSection)
+      : pathname === '/about'
+      ? allSections.findIndex((section) => section.id === 'about')
+      : pathname === '/developer'
+      ? allSections.findIndex((section) => section.id === 'developer')
+      : 0
+  );
+
+  useEffect(() => {
+    if (initialSection) {
+      const sectionIndex = allSections.findIndex((section) => section.id === initialSection);
+      scrollToSection(sectionIndex);
+    } else if (pathname === '/about') {
+      const sectionIndex = allSections.findIndex((section) => section.id === 'about');
+      scrollToSection(sectionIndex);
+    } else if (pathname === '/developer') {
+      const sectionIndex = allSections.findIndex((section) => section.id === 'developer');
+      scrollToSection(sectionIndex);
+    }
+  }, [initialSection, pathname]);
 
   // Updated handleWheelLarge function to prevent multiple scrolls
   const handleWheelLarge = (e) => {
@@ -285,18 +340,20 @@ export default function HomePage() {
         useGreenLogo={!useGreenLogo}
         onNavClick={handleNavClick}
       />
-      <nav className={styles.nav}>
-        {allSections.map((section, index) => (
-          <button
-            key={section.id}
-            onClick={() => scrollToSection(index)}
-            className={`${styles.navButton} ${index === currentSection ? styles.active : ''}`}
-            aria-label={`Scroll to ${section.id}`}
-          >
-            <span className={styles.navDot}></span>
-          </button>
-        ))}
-      </nav>
+
+        <nav className={styles.nav}>
+          {allSections.map((section, index) => (
+            <button
+              key={section.id}
+              onClick={() => scrollToSection(index)}
+              className={`${styles.navButton} ${index === currentSection ? styles.active : ''}`}
+              aria-label={`Scroll to ${section.id}`}
+            >
+              <span className={styles.navDot}></span>
+            </button>
+          ))}
+        </nav>
+
 
       <div ref={containerRef} className={styles.sectionContainer}>
         {allSections.map((Section, index) => (
