@@ -121,6 +121,7 @@ const AmenityGrid = ({ isMobile, onClose, Amenref }) => {
       }
     };
     
+    
 
     document.addEventListener('mousedown', handleClickOutside);
     document.addEventListener('touchstart', handleClickOutside);
