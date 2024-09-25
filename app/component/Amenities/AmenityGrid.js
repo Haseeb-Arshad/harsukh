@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, useCallback, useMemo } from 'react';
-import Image from 'next/image';
+import Image from 'next/legacy/image';
 import styles from "@/styles/amenity/amenityGrid.module.css"
 import RightArrow from '../Icons/rightArrow';
 import LeftArrow from '../Icons/leftArrow';
@@ -8,7 +8,7 @@ import Loader from '@/app/[floor]/Loading';
 import { useSelector, useDispatch } from 'react-redux';
 
 import en from '@/app/locales/en.json';
-import ur from '@/app/locales/ur.json';
+import ur from '@/app/locales/ur.json'; 
 
 
 const areas = [
