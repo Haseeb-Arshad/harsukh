@@ -105,11 +105,11 @@ const RegisterRequestForm = ({ onClose, onSuccess }) => {
 
     const phoneRegex = /^[+]?[0-9\s()-]*$/; // Allows more formats, including local styles
     
-    if (!phoneRegex.test(formData.phone)) {
-      newErrors.phone = 'Invalid phone number';
+    if (!phoneRegex.test(formData.phone) || formData.phone.length < 4) {
+      newErrors.phone = 'Invalid phone number. It must be at least 4 characters long.';
       isValid = false;
     }
-
+    
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(formData.email)) {
       newErrors.email = 'Invalid email address';
