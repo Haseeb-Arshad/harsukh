@@ -8,7 +8,8 @@ export default function robots() {
         },
         {
           userAgent: ['Applebot', 'Bingbot'],
-          allow: ['/'],
+          
+          disallow: ['/'],
         },
       ],
       sitemap: 'https://theharsukh.com/sitemap.xml',
