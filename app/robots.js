@@ -11,6 +11,6 @@ export default function robots() {
           disallow: ['/'],
         },
       ],
-      sitemap: 'https://acme.com/sitemap.xml',
+      sitemap: 'https://theharsukh.com/sitemap.xml',
     }
   }
