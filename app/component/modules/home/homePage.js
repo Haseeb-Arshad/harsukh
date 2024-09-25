@@ -13,6 +13,7 @@ import RegisterRequestForm from '../../ui/Bars/contactBox';
 import styles from '@/styles/home/main.module.css';
 import { useRouter } from 'next/navigation';
 import PrivacyPolicy from './parts/privacyPolicy';
+import { useRegisterForm } from "@/app/component/hooks/useRegisterForm"
 
 const useWindowSize = () => {
   const [windowSize, setWindowSize] = useState({
@@ -58,6 +59,8 @@ export default function HomePage() {
     setIsPrivacyPolicyOpen(true);
   };
 
+  // const { isFormOpen, openForm, closeForm } = useRegisterForm();
+  const { isFormOpen, isSuccess, openForm, closeForm, handleSuccess } = useRegisterForm();
 
 
   // Contact Form State
@@ -276,7 +279,9 @@ export default function HomePage() {
     <div className={styles.container}>
       <Navbar 
         currentSection={allSections[currentSection].id}
-        toggleContactForm={toggleContactForm}
+        toggleContactForm={openForm}
+        successContactForm={isSuccess}
+        handleSuccess={handleSuccess}
         useGreenLogo={!useGreenLogo}
         onNavClick={handleNavClick}
       />
@@ -305,9 +310,9 @@ export default function HomePage() {
         ))}
       </div>
 
-      {isContactFormOpen && (
+      {(isFormOpen || isSuccess) && (
         <div className={styles.contactFormOverlay}>
-          <RegisterRequestForm onClose={toggleContactForm} />
+          <RegisterRequestForm  onSuccess= {handleSuccess} onClose={closeForm} />
         </div>
       )}
 

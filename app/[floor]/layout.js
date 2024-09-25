@@ -9,6 +9,7 @@ import { modifyLanguage } from "../../state/language/languageState";
 import FavButton from "@/app/component/Icons/favButton";
 import MenubarButton from "@/app/component/Icons/menuBarBtn";
 import { useRouter } from "next/navigation";
+import { useRegisterForm } from "@/app/component/hooks/useRegisterForm"
 
 // Import translations
 import AmenityGrid from "../component/ui/Amenities/AmenityGrid";
@@ -58,6 +59,7 @@ const Layout = ({ children }) => {
   );
   const menuContainerRef = useRef(null);
   const menuBoxRef = useRef(null);
+  const { isFormOpen, openForm, closeForm } = useRegisterForm();
 
  
 
@@ -101,7 +103,9 @@ const Layout = ({ children }) => {
   };
 
   const handleCall = () => {
-    setIsContacted(!isContacted);
+    openForm();
+
+    // setIsContacted(!isContacted);
   };
   const handleContactClose = () => {
     closeMenu();
@@ -589,14 +593,13 @@ const Layout = ({ children }) => {
         </div>
       </div>
 
-      {isContacted && (
+      {isFormOpen && (
         <div style={{zIndex:'99999999999'}} className={styles.ContactedContainer}>
-
-          <ContactBox onClose={handleContactClose} />
+          <ContactBox onClose={closeForm} />
         </div>
       )}
 
-    {isContactusClicked && (
+      {isContactusClicked && (
           <div className={styles.ContactedContainer}>
               <ContactUsPopup onClose={handleContact} />
           </div>

@@ -56,8 +56,12 @@ const VideoContent = () => {
             text="LUXURY BENCHMARK"
             className={styles.title}
           />
+          <AnimatedText
+            text="By Harsukh Residencies"
+            className={styles.subTitle}
+          />
           <AnimatedText 
-            text="Galiyat region offers immense views which showcase the natural beauty of Pakistan. With many places to visit, every year the number of tourists is gradually increasing, making this region a perfect opportunity for investment. The weather being quite pleasant in the summer, this region is a gateway to beauty. Many projects under construction help make the Galiyat a more prominent region for investors to invest. With expressway being under talks of extension, this draws more tourists gradually and the location helps us secure an ROI with a percentage of more than one"
+            text="Galiyat region offers immense views which showcase the natural beauty of Pakistan. With many places to visit, every year the number of tourists is gradually increasing, making this region a perfect opportunity for investment. The ideal location of Harsukh Residencies, where the weather being quite pleasant in the summer, this region is a gateway to beauty. Many projects under construction help make the Galiyat a more prominent region for investors to invest. With expressway being under talks of extension, this draws more tourists gradually and the location helps us secure an ROI with a percentage of more than one"
             className={styles.content}
           />
         </div>

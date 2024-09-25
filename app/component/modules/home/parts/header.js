@@ -20,7 +20,7 @@ const Header = ({ toggleContactForm }) => {
   const TitleOne = "THE BEST APARTMENT OF GALYAT"
   const titleOneLines = TitleOne.split('\n');
 
-  const titleText = 'The Best of Both Worlds';
+  const titleText = 'HARSUKH - The Best of Both Worlds';
   const titleLines = titleText.split('\n');
 
   const subtitle = "Luxury in the heart of Galyat";

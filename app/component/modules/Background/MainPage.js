@@ -11,7 +11,7 @@ import { toggleFullScreen } from '@/state/fullScreen/fullScreen';
 import en from "@/app/component/locales/en.json";
 import ur from "@/app/component/locales/ur.json";
 import ElevStyles from "@/styles/elevation.module.css";
-
+import { useRegisterForm } from "@/app/component/hooks/useRegisterForm"
 import MenuBox from "@/app/component/ui/Bars/menuBox";
 // import FrontViewSvgs from "@/app/component/Background/Svg/Filters/FrontViewSvgs";
 // import BackViewSvgs from "@/app/component/Background/Svg/Filters/BackViewSvgs";
@@ -49,7 +49,7 @@ const floorData = {
     "One Beds": 6,
     "Studio Apartments": 0,
   },
-  "First Floor": {
+  "First Floor": { 
     Penthouse: 0,
     "Three Beds": 4,
     "Two Beds": 7,
@@ -86,7 +86,7 @@ const floorData = {
   },
   "Valley Floor 4": {
     Penthouse: 0,
-    "Three Beds": 0,
+    "Three Beds": 0, 
     "Two Beds": 14,
     "One Beds": 5,
     "Studio Apartments": 0,
@@ -152,6 +152,7 @@ export default function MainPage() {
   const hideTimeout = useRef(null);
   const [svgReloadTrigger, setSvgReloadTrigger] = useState(0);
 
+  const { isFormOpen, openForm, closeForm } = useRegisterForm();
 
   
   const languageState = useSelector((state) => {
@@ -166,7 +167,8 @@ export default function MainPage() {
 
   const handleContact = () => {
     setMenuBox(false);
-    setContactUs(!isContactusClicked);
+    openForm();
+    // setContactUs(!isContactusClicked);
   };
 
   const memoizedFloorData = useMemo(() => {
@@ -353,10 +355,6 @@ export default function MainPage() {
     }
   }, [router]);
 
-  const handleContactClose = () => {
-    setIsContacted(false);
-  };
-
   useEffect(() => {
     if (selectedAmenities.length == 0) {
       setFilterSelection(false);
@@ -364,7 +362,8 @@ export default function MainPage() {
   }, [filterbox, selectedAmenities.length, filterFloorMenu, params]);
 
   const handleCall = () => {
-    setIsContacted(!isContacted);
+    openForm();
+    // setIsContacted(!isContacted);
   };
 
   const [svgHover, setSvgHover] = useState(false);
@@ -834,7 +833,7 @@ export default function MainPage() {
       <div
         ref={containerRef}
         className={`${styles.backgroundImageContainer} ${
-          isContacted ? styles.blur : ""
+          isFormOpen ? styles.blur : ""
         }`}
       >
         <div className={styles.imageWrapper}>
@@ -3829,11 +3828,18 @@ export default function MainPage() {
         )}
       </div>
 
-      {isContacted && (
+      {/* {isContacted && (
         <div className={styles.ContactedContainer}>
           <ContactBox onClose={handleContactClose} />
         </div>
+      )} */}
+
+      {isFormOpen && (
+        <div className={styles.ContactedContainer}>
+          <ContactBox onClose={closeForm} />
+        </div>
       )}
+
 
       
     {isContactusClicked && (
