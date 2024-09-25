@@ -164,7 +164,9 @@ const AmenityGrid = ({ isMobile, onClose, Amenref }) => {
               {imageErrors[area.name] ? (
                 <div className={styles.errorMessage}>Image failed to load</div>
               ) : (
-                <img
+                <Image
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                fill
                   src={area.image}
                   alt={area.name}
                   className={styles.areaImage}
