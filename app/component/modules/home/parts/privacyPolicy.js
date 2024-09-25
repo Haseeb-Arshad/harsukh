@@ -34,30 +34,29 @@ const PrivacyPolicy = ({ isOpen, onClose }) => {
     visible: { 
       y: 0, 
       opacity: 1, 
-    //   transition: { 
-    //     type: 'spring', 
-    //     damping: 25, 
-    //     stiffness: 500,
-    //     duration: 0.5
-    //   } 
+      transition: { 
+        type: 'spring', 
+        damping: 25, 
+        stiffness: 300,
+        duration: 0.7
+      } 
     }
   };
 
   const contentVariants = {
-    hidden: { opacity: 0, y: 20 },
+    hidden: { opacity: 0 },
     visible: { 
       opacity: 1, 
-      y: 0, 
-    //   transition: { 
-    //     // staggerChildren: 0.1,
-    //     delayChildren: 0.3
-    //   } 
+      transition: { 
+        staggerChildren: 0.1,
+        delayChildren: 0.3
+      } 
     }
   };
 
   const itemVariants = {
     hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0 }
+    visible: { opacity: 1, y: 0, transition: { duration: 0.5 } }
   };
 
   return (
@@ -78,19 +77,17 @@ const PrivacyPolicy = ({ isOpen, onClose }) => {
             animate="visible"
             exit="hidden"
           >
-
             <div className={styles.closeButtonBox}>
-                <motion.button 
+              <motion.button 
                 className={styles.closeButton}
                 onClick={onClose}
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
-                >
+              >
                 <X size={15} />
-                </motion.button>
+              </motion.button>
             </div>
             
-
             <motion.div 
               variants={contentVariants}
               initial="hidden"
@@ -144,7 +141,7 @@ const PrivacyPolicy = ({ isOpen, onClose }) => {
                 <li key={index}>{item}</li>
               ))}
             </ul>
-            <motion.div  className={styles.headings} variants={itemVariants}>Contact Us</motion.div>
+            <motion.div className={styles.headings} variants={itemVariants}>Contact Us</motion.div>
               <motion.p variants={itemVariants}>{data.contactUs}</motion.p>
             </motion.div>
           </motion.div>

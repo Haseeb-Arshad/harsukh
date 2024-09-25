@@ -12,6 +12,7 @@ import Developer2 from './parts/developer2';
 import RegisterRequestForm from '../../ui/Bars/contactBox';
 import styles from '@/styles/home/main.module.css';
 import { useRouter } from 'next/navigation';
+import PrivacyPolicy from './parts/privacyPolicy';
 
 const useWindowSize = () => {
   const [windowSize, setWindowSize] = useState({
@@ -50,6 +51,14 @@ export default function HomePage() {
   const { width } = useWindowSize();
 
   const router = useRouter();
+
+  const [isPrivacyPolicyOpen, setIsPrivacyPolicyOpen] = useState(false);
+
+  const handlePrivacyPolicyClick = () => {
+    setIsPrivacyPolicyOpen(true);
+  };
+
+
 
   // Contact Form State
   const [isContactFormOpen, setIsContactFormOpen] = useState(false);
@@ -287,7 +296,11 @@ export default function HomePage() {
       <div ref={containerRef} className={styles.sectionContainer}>
         {allSections.map((Section, index) => (
           <section key={Section.id} id={Section.id} className={styles.section}>
-            <Section.component />
+            {Section.id === 'footer' ? (
+              <Footer onPrivacyPolicyClick={handlePrivacyPolicyClick} />
+            ) : (
+              <Section.component />
+            )}
           </section>
         ))}
       </div>
@@ -297,6 +310,14 @@ export default function HomePage() {
           <RegisterRequestForm onClose={toggleContactForm} />
         </div>
       )}
+
+
+      {isPrivacyPolicyOpen && (
+        <div className={styles.privacyPolicyOverlay}>
+          <PrivacyPolicy isOpen={isPrivacyPolicyOpen} onClose={() => setIsPrivacyPolicyOpen(false)} />
+        </div>
+      )}
+
     </div>
   );
 }

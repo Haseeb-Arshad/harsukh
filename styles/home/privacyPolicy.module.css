@@ -1,168 +1,137 @@
 @font-face {
-    font-family: "Gill Sans Light";
-    src: url("/fonts/GillSansMTPro-Light.otf");
-    font-weight: normal;
-  }
-
-  @font-face {
-    font-family: "Gill Sans Bold";
-    src: url("/fonts/gillsans/Gill Sans Bold.otf");
-    font-weight: normal;
-  }
-  
-  @font-face {
-    font-family: "Optima Bold";
-    src: url("/fonts/optima/OPTIMA_B.TTF");
-    font-weight: normal;
-  }
-  
-  @font-face {
-    font-family: "Optima";
-    src: url("/fonts/optima/OPTIMA.TTF");
-    font-weight: normal;
-  }
-  
-  
-  .overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    /* padding: ; */
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 9999999999999999;
-  }
-  
-
-
-  .overlay *::-webkit-scrollbar {
-    width: 5px;
-  }
-  
-  .overlay *::-webkit-scrollbar-track {
-    background: transparent;
-    border-radius: 4px;
-  }
-  
-  .overlay *::-webkit-scrollbar-thumb {
-    /* background: #888; */
-    border-radius: 4px;
-  }
-  
-  .overlay *::-webkit-scrollbar-thumb:hover {
-    background: #555;
-  }
-  
-
-
-
-  .modal {
-    font-family: "Gill Sans Light";
-    background-color: #FCF7EB;
-    color: #636363;
-    /* padding: 2rem; */
-    border-radius: 10px;
-    margin-top: 20vh;
-    max-width: 100%;
-    max-height: 100%;
-    padding: 3rem 5rem 5rem 5rem;
-    /* overflow-y: ; */
-    border-radius: 1.5rem 1.5rem 0 0;
-    overflow-y: auto;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  }
-  
-  .content {
-    margin-bottom: 1rem;
-  }
-
-  .dateTitle
-  {
-    color: #202020;
-    font-family: "Optima";
-    font-size: 1.1rem;
-    margin-top: 0.5rem;
-    line-height: 2.3;
-  }
-
-  .title
-  {
-    color: #202020;
-    font-family: "Optima Bold";
-    font-size: 1.8rem;
-    margin-top: 0.5rem;
-    line-height: 2.3;
-  }
-
-  .headings
-  {
-    color: #202020;
-    font-family: "Gill Sans Light";
-    font-weight: 700;
-    font-size: 1.3rem;
-    margin-top: 0.5rem;
-    line-height: 2.3;
-  }
-  
-  .modal h2 {
-    color: #202020;
-    font-family: "Optima";
-    font-size: 1.3rem;
-    margin-top: 0.5rem;
-    line-height: 2.3;
-
-  }
-
-  .modal ul {
-    color: #202020;
-    
-    font-family: "Gill Sans Light";
-    line-height: 1.8;
+  font-family: "Gill Sans Light";
+  src: url("/fonts/GillSansMTPro-Light.otf");
+  font-weight: normal;
 }
-  
-  
-  .modal button {
-    /* padding: 0.5rem 1rem; */
-    background-color: #f0f0f0;
-    color: rgb(0, 0, 0);
-    border: none;
-    border-radius: 50%;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  .modal button:hover {
-    background-color: #1ebad8;
-  }
 
+@font-face {
+  font-family: "Gill Sans Bold";
+  src: url("/fonts/gillsans/Gill Sans Bold.otf");
+  font-weight: normal;
+}
 
-  .closeButtonBox
-  {
-    width: 100%;
-    display: flex;
-    justify-content: flex-end;
-  }
-  
+@font-face {
+  font-family: "Optima Bold";
+  src: url("/fonts/optima/OPTIMA_B.TTF");
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: "Optima";
+  src: url("/fonts/optima/OPTIMA.TTF");
+  font-weight: normal;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999999999999999;
+}
+
+.overlay *::-webkit-scrollbar {
+  width: 5px;
+}
+
+.overlay *::-webkit-scrollbar-track {
+  background: transparent;
+  border-radius: 4px;
+}
+
+.overlay *::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+}
+
+.overlay *::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+.modal {
+  font-family: "Gill Sans Light";
+  background-color: #FCF7EB;
+  color: #636363;
+  border-radius: 10px;
+  margin-top: 20vh;
+  max-width: 100%;
+  max-height: 80vh;
+  padding: 3rem 5rem 5rem 5rem;
+  border-radius: 1.5rem 1.5rem 0 0;
+  overflow-y: auto;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.content {
+  margin-bottom: 1rem;
+}
+
+.dateTitle {
+  color: #202020;
+  font-family: "Optima";
+  font-size: 1.1rem;
+  margin-top: 0.5rem;
+  line-height: 2.3;
+}
+
+.title {
+  color: #202020;
+  font-family: "Optima Bold";
+  font-size: 1.8rem;
+  margin-top: 0.5rem;
+  line-height: 2.3;
+}
+
+.headings {
+  color: #202020;
+  font-family: "Gill Sans Light";
+  font-weight: 700;
+  font-size: 1.3rem;
+  margin-top: 0.5rem;
+  line-height: 2.3;
+}
+
+.modal h2 {
+  color: #202020;
+  font-family: "Optima";
+  font-size: 1.3rem;
+  margin-top: 0.5rem;
+  line-height: 2.3;
+}
+
+.modal ul {
+  color: #202020;
+  font-family: "Gill Sans Light";
+  line-height: 1.8;
+}
+
+.closeButtonBox {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
+
 .closeButton {
-    position: relative;
-    top: -1.5rem;
-    right: -1.5rem;
-    background-color: #f0f0f0;
-    border: none;
-    border-radius: 50%;
-    width: 30px;
-    height: 30px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
+  position: relative;
+  top: -1.5rem;
+  right: -1.5rem;
+  background-color: #f0f0f0;
+  border: none;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
 
-  .closeButton:hover {
-    background-color: #e0e0e0;
-  }
+.closeButton:hover {
+  background-color: #e0e0e0;
+}
