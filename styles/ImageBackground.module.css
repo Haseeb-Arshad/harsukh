@@ -1446,14 +1446,11 @@ background-color: none;
   }
 
   .backgroundImageContainer {
-       /* Removed highlight property */
-
     user-select: none;
     padding-bottom: 80px;
     overflow-x: auto;
     overflow-y: hidden;
     -webkit-overflow-scrolling: touch;
-
   }
 
   .backgroundImageContainer::selection

@@ -6,7 +6,7 @@ import styles from '@/styles/home/footer.module.css';
 import PrivacyPolicy from './privacyPolicy';
 import { useInView } from 'react-intersection-observer';
 
-const Footer = () => {
+const Footer = ({onPrivacyPolicyClick }) => {
 
   const handleCallClick = useCallback(() => {
     // Add "/callus" to the URL without navigating
@@ -37,12 +37,18 @@ const Footer = () => {
     window.open(url, '_blank');
   };
 
-  const [isPrivacyPolicyOpen, setIsPrivacyPolicyOpen] = useState(false);
+  // const [isPrivacyPolicyOpen, setIsPrivacyPolicyOpen] = useState(false);
+
+  // const handlePrivacyPolicyClick = () => {
+  //   setIsPrivacyPolicyOpen(true);
+  // };
+
 
   const handlePrivacyPolicyClick = () => {
-    setIsPrivacyPolicyOpen(true);
+    if (onPrivacyPolicyClick) {
+      onPrivacyPolicyClick();
+    }
   };
-
 
   const [isMobile, setIsMobile] = useState(false);
   const [isMidScreen, setIsMidScreen] = useState(false);
@@ -74,18 +80,13 @@ const Footer = () => {
 
   const imageDimensions = getImageDimensions();
 
-
-
   return (
-
     <>
-    
-    <PrivacyPolicy isOpen={isPrivacyPolicyOpen} onClose={() => setIsPrivacyPolicyOpen(false)} />
+    {/* <PrivacyPolicy isOpen={isPrivacyPolicyOpen} onClose={() => setIsPrivacyPolicyOpen(false)} /> */}
     <div className={styles.footer}>
       <div className={styles.container}>
        
         {!isMobile && (
-
         <div className={styles.logo}>
           <Image style={{cursor:"pointer"}} src="https://cdn.theharsukh.com/floors/floors/HarsukhLogo.webp" alt="menu" width={imageDimensions.width} height={imageDimensions.height} />
         </div>
@@ -145,13 +146,11 @@ const Footer = () => {
         </div>
         
         <div className={styles.bottom}>
-          
           <div className={styles.links}>
             <div onClick={handlePrivacyPolicyClick} className={styles.handlePrivacyPolicyClick}>
-            Privacy Policy
+              Privacy Policy
             </div>
           </div>
-          {/* <div className={styles.designedBy}>This website is Designed and Developed by Trescol</div> */}
         </div>
       </div>
 
