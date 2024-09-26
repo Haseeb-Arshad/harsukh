@@ -19,8 +19,30 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <Head>
-
-      <Script id="linkedin-insight-tag" strategy="afterInteractive">
+        <noscript>
+          <img
+            height="1"
+            width="1"
+            style={{ display: 'none' }}
+            alt=""
+            src="https://px.ads.linkedin.com/collect/?pid=7619137&fmt=gif"
+          />
+        </noscript>
+        <noscript>
+          <img
+            height="1"
+            width="1"
+            style={{ display: 'none' }}
+            src="https://www.facebook.com/tr?id=7384856538283539&ev=PageView&noscript=1"
+            alt=""
+          />
+        </noscript>
+      </Head>
+      <body className={inter.className}>
+        <Providers>
+          {children}
+        </Providers>
+        <Script id="linkedin-insight-tag" strategy="afterInteractive">
           {`
             _linkedin_partner_id = "7619137";
             window._linkedin_data_partner_ids = window._linkedin_data_partner_ids || [];
@@ -41,62 +63,33 @@ export default function RootLayout({ children }) {
             })(window.lintrk);
           `}
         </Script>
-        <noscript>
-          <img
-            height="1"
-            width="1"
-            style={{ display: 'none' }}
-            alt=""
-            src="https://px.ads.linkedin.com/collect/?pid=7619137&fmt=gif"
-          />
-        </noscript>
-        
-        
         <Script
-            src="https://www.googletagmanager.com/gtag/js?id=AW-16682968635"
-            strategy="afterInteractive"
-          />
-          <Script id="google-analytics" strategy="afterInteractive">
-            {`
-              window.dataLayer = window.dataLayer || [];
-              function gtag(){dataLayer.push(arguments);}
-              gtag('js', new Date());
-              gtag('config', 'AW-16682968635');
-            `}
-          </Script>
-          <Script id="facebook-pixel" strategy="afterInteractive">
-            {`
-              !function(f,b,e,v,n,t,s)
-              {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-              n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-              if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-              n.queue=[];t=b.createElement(e);t.async=!0;
-              t.src=v;s=b.getElementsByTagName(e)[0];
-              s.parentNode.insertBefore(t,s)}(window, document,'script',
-              'https://connect.facebook.net/en_US/fbevents.js');
-              fbq('init', '7384856538283539');
-              fbq('track', 'PageView');
-            `}
-          </Script>
-          <noscript>
-            <img 
-              height="1" 
-              width="1" 
-              style={{ display: 'none' }}
-              src="https://www.facebook.com/tr?id=7384856538283539&ev=PageView&noscript=1"
-              alt=""
-            />
-          </noscript>
-          <GoogleTagManager gtmId="GTM-MJDJH587" />
-
-
-      </Head>
-
-      
-      <body className={inter.className}>
-        <Providers>
-          {children}
-        </Providers>
+          src="https://www.googletagmanager.com/gtag/js?id=AW-16682968635"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'AW-16682968635');
+          `}
+        </Script>
+        <Script id="facebook-pixel" strategy="afterInteractive">
+          {`
+            !function(f,b,e,v,n,t,s)
+            {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+            n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+            if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+            n.queue=[];t=b.createElement(e);t.async=!0;
+            t.src=v;s=b.getElementsByTagName(e)[0];
+            s.parentNode.insertBefore(t,s)}(window, document,'script',
+            'https://connect.facebook.net/en_US/fbevents.js');
+            fbq('init', '7384856538283539');
+            fbq('track', 'PageView');
+          `}
+        </Script>
+        <GoogleTagManager gtmId="GTM-MJDJH587" />
       </body>
     </html>
   );
