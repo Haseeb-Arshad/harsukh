@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchBlogs } from '@/state/blog/blogSlice';
 import styles from '@/styles/blog/blogMain.module.css';
