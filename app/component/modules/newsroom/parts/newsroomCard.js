@@ -36,7 +36,7 @@ const NewsCard = ({ post, isLarge }) => {
         <div className={styles.imageContainer}>
           <Link href={`/news-room/${post.url}`}>
             <Image
-              src={post.image}
+              src={post.file}
               alt={post.title}
               fill
               className={styles.image}
@@ -44,12 +44,12 @@ const NewsCard = ({ post, isLarge }) => {
           </Link>
         </div>
       </div>
-      <Link href={`/news-room/${post.url}`}>
+      <Link href={`/news-room/${post.slug}`}>
 
       <div className={styles.content}>
         <h2 className={styles.title}>{post.title}</h2>
         {isLarge && <p className={styles.excerpt}>{post.excerpt}</p>}
-        <Link href={`/news-room/${post.url}`} className={styles.readMore}>
+        <Link href={`/news-room/${post.slug}`} className={styles.readMore}>
           Read more
         </Link>
       </div>
@@ -90,7 +90,7 @@ const SmallNewsCard = ({ post }) => {
     >
       <div className={styles.imageContainer}>
         <Image
-          src={post.coverImage}
+          src={post.file}
           alt={post.title}
           fill
           className={styles.image}
@@ -99,7 +99,7 @@ const SmallNewsCard = ({ post }) => {
       <div className={styles.SmallCardcontent}>
         <h2 className={styles.title}>{post.title}</h2>
         <p className={styles.excerpt}>{post.excerpt}</p>
-        <Link href={`/blog/${post.slug}`} className={styles.readMore}>
+        <Link href={`/news-room/${post.slug}`} className={styles.readMore}>
           Read more
         </Link>
       </div>
