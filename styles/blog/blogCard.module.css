@@ -42,6 +42,7 @@
   color: #000;
   /* padding-top: vh; */
   font-family: "Gill Sans Light";
+  z-index: 9999999999999999;
 }
 
 .container {

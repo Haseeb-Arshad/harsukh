@@ -266,43 +266,6 @@
 }
 
 
-
-.logoWrapper,
-.menuIconWrapper {
-  position: relative;
-  overflow: hidden;
-}
-
-.logoWrapper::after,
-.menuIconWrapper::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  height: 0;
-  background-color: #006D77; /* Green color */
-  transition: height 0.3s ease-out;
-}
-
-.logoWrapper.colorTransition::after,
-.menuIconWrapper.colorTransition::after {
-  height: 100%;
-}
-
-.logoWrapper img,
-.menuIconWrapper svg {
-  position: relative;
-  z-index: 1;
-  transition: filter 0.3s ease-out;
-}
-
-.logoWrapper.colorTransition img,
-.menuIconWrapper.colorTransition svg {
-  filter: brightness(0) saturate(100%) invert(35%) sepia(19%) saturate(1419%) hue-rotate(134deg) brightness(93%) contrast(101%);
-}
-
-
 @media (max-width: 768px) {
   .nav {
     padding: 10px 20px;
