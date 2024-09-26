@@ -82,7 +82,7 @@ const VideoContent = () => {
         playsInline
         preload="auto"
       >
-        <source src="https://res.cloudinary.com/dykglphpa/video/upload/v1726857866/harsukh/mla8lyus7g4rmk3l4wdy.mp4" type="video/mp4" />
+        <source src="https://res.cloudinary.com/dykglphpa/video/upload/v1727349342/harsukh/t47bupxevu0rkxitiley.webm" type="video/webm" />
         Your browser does not support the video tag.
       </video>
     </div>
