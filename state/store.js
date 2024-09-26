@@ -10,6 +10,8 @@ import floorMenuReducer from './floor/FloorMenu'; // Corrected import name
 import amenitiesReducer from './Amenity/amenityState';
 import GalleryReducer from './gallery/GalleryState';
 import fullscreenReducer from './fullScreen/fullScreen';
+import blogReducer from './blog/blogSlice'
+import newsRoomReducer from './newsroom/newsroomSlice'
 
 const persistConfig = {
   key: 'root',
@@ -29,6 +31,9 @@ export const store = configureStore({
     amenities: amenitiesReducer,
     gallery: GalleryReducer,
     fullscreen: fullscreenReducer,
+    blogs: blogReducer,
+    news: newsRoomReducer,
+
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

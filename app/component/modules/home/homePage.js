@@ -56,11 +56,7 @@ export default function HomePage({ initialSection }) {
 
   const router = useRouter();
   const pathname = usePathname();
-
-
-
   const [isPrivacyPolicyOpen, setIsPrivacyPolicyOpen] = useState(false);
-
   const handlePrivacyPolicyClick = () => {
     setIsPrivacyPolicyOpen(true);
   };
@@ -106,7 +102,6 @@ export default function HomePage({ initialSection }) {
     );
   };
 
-
   const scrollToSection = (index) => {
     if (index < 0 || index >= allSections.length || isScrolling) return;
     setIsScrolling(true);
@@ -118,11 +113,8 @@ export default function HomePage({ initialSection }) {
     containerRef.current.style.transition = 'transform 0.8s cubic-bezier(0.645, 0.045, 0.355, 1)';
     containerRef.current.style.transform = `translateY(-${scrollPercentage}vh)`;
 
-    // Update URL without triggering a page navigation
-    const newPath = allSections[index].path;
-    if (newPath === '/about' || newPath === '/developer') {
-      window.history.pushState(null, '', newPath);
-    }
+    // Remove URL changes
+    // window.history.pushState(null, '', newPath);
 
     setTimeout(() => {
       setIsScrolling(false);
@@ -162,9 +154,6 @@ export default function HomePage({ initialSection }) {
     };
   }, [pathname]);
 
-
-
-
   const [currentSection, setCurrentSection] = useState(
     initialSection
       ? allSections.findIndex((section) => section.id === initialSection)
@@ -174,6 +163,17 @@ export default function HomePage({ initialSection }) {
       ? allSections.findIndex((section) => section.id === 'developer')
       : 0
   );
+
+
+  useEffect(() => {
+    // Handle initial section based on prop
+    if (initialSection) {
+      const sectionIndex = allSections.findIndex(section => section.id === initialSection);
+      if (sectionIndex !== -1) {
+        scrollToSection(sectionIndex);
+      }
+    }
+  }, [initialSection]);
 
   useEffect(() => {
     if (initialSection) {

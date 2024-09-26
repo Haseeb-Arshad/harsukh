@@ -1,0 +1,36 @@
+{
+    "blogs": [
+        {
+            "id": 1,
+            "title": "test",
+            "slug": "test",
+            "file": "https://aiwa-city-rems.s3.amazonaws.com/blog/0iL3mESjqLmUVxluhbCgkdck2OjbPmNHY5syaJNA.png",
+            "type": "blog",
+            "status": 1
+        },
+        {
+            "id": 2,
+            "title": "HARSUKH Residencies - Luxury Redefined",
+            "slug": "harsukh-residencies-luxury-redefined",
+            "file": "https://aiwa-city-rems.s3.amazonaws.com/blog/KjUu1ABMYol3R1cy9eL8Gf2K55MXcRIhaUrENzho.png",
+            "type": "blog",
+            "status": 1
+        },
+        {
+            "id": 2,
+            "title": "HARSUKH Residencies - Luxury Redefined",
+            "slug": "harsukh-residencies-luxury-redefined",
+            "file": "https://aiwa-city-rems.s3.amazonaws.com/blog/KjUu1ABMYol3R1cy9eL8Gf2K55MXcRIhaUrENzho.png",
+            "type": "blog",
+            "status": 1
+        },
+        {
+            "id": 2,
+            "title": "HARSUKH Residencies - Luxury Redefined",
+            "slug": "harsukh-residencies-luxury-redefined",
+            "file": "https://aiwa-city-rems.s3.amazonaws.com/blog/KjUu1ABMYol3R1cy9eL8Gf2K55MXcRIhaUrENzho.png",
+            "type": "blog",
+            "status": 1
+        }
+    ]
+}

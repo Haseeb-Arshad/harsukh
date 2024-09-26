@@ -40,7 +40,7 @@
   width: 100vw;
   background-color: #FCF7EB;
   color: #000;
-  padding-top: 10vh;
+  /* padding-top: vh; */
   font-family: "Gill Sans Light";
 }
 
@@ -122,16 +122,17 @@
 
 .smallCard {
   display: flex;
-  /* border: 1px solid grey; */
-  height: 150px; 
+  height: 190px; 
   /* padding-left: 4rem; */
-  padding-right: 7rem;
+  padding-right: 3rem;
+  width: 100%;
   /* padding: ; */
 }
 
 .imageWrapper
 {
   padding: 2rem;;
+  padding-right: 1rem;
   padding-bottom: 0rem;
 }
 
@@ -151,7 +152,7 @@
 }
 
 .smallCard .imageContainer {
-  width: 266px; /* 16:9 aspect ratio for 150px height */
+  width: 240px; /* 16:9 aspect ratio for 150px height */
   padding-top: 0;
   height: 100%;
 }
@@ -176,8 +177,9 @@
 {
   display: flex;
   flex-direction: column;
-  padding: 2rem;
+  /* padding: 1rem; */
   padding-top: 2rem;
+  width: 100%;
 }
 
 .titleText
@@ -212,6 +214,8 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: normal;
+  max-height: 3rem; /* Ensure this height aligns with the two lines */
+  line-height: 1.5rem; /* Adjust according to your font size */
 }
 
 
