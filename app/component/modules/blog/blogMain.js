@@ -4,10 +4,13 @@ import { fetchBlogs } from '@/state/blog/blogSlice';
 import styles from '@/styles/blog/blogMain.module.css';
 import BlogLayout from '@/app/component/modules/blog/parts/blogCard';
 import Loader from '../../ui/Loading/Loading';
+import Footer from '../home/parts/footer';
+import PrivacyPolicy from '../home/parts/privacyPolicy';
 
 const BlogPage = () => {
   const dispatch = useDispatch();
   const { blogPosts, loading, error } = useSelector((state) => state.blogs);
+  const [isPrivacyPolicyOpen, setIsPrivacyPolicyOpen] = useState(false);
 
   useEffect(() => {
     dispatch(fetchBlogs());
@@ -21,6 +24,10 @@ const BlogPage = () => {
     return <div>Error fetching blog posts: {error}</div>;
   }
 
+  const handlePrivacyPolicyClick = () => {
+    setIsPrivacyPolicyOpen(true);
+  };
+
   return (
     <div className={styles.main}>
       {blogPosts.length > 0 ? (
@@ -28,6 +35,15 @@ const BlogPage = () => {
       ) : (
         <div>No blog posts available.</div>
       )}
+
+      <Footer onPrivacyPolicyClick={handlePrivacyPolicyClick}  />
+
+      {isPrivacyPolicyOpen && (
+      <div className={styles.privacyPolicyOverlay}>
+        <PrivacyPolicy isOpen={isPrivacyPolicyOpen} onClose={() => setIsPrivacyPolicyOpen(false)} />
+      </div>
+      )}
+
     </div>
   );
 };

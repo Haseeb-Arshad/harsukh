@@ -127,16 +127,19 @@ const Navbar = ({ children, currentSection, toggleContactForm, useGreenLogo }) =
   return (
     <div>
       <div className={`${styles.nav} ${visible ? styles.visible : styles.hidden}`}>
-        <img 
-          style={{ cursor: "pointer" }} 
-          src={greenLogo} 
-          alt="Harsukh Logo" 
-          width={useGreenLogo ? 200 : 180} 
-          height={useGreenLogo ? 115 : 105} 
-        />
+        <div className={styles.logo}>
+          <img 
+            style={{ cursor: "pointer" }} 
+            onClick={() => router.push('/')}
+            src="https://res.cloudinary.com/dykglphpa/image/upload/v1727174238/harsukh/Logo/ljvd3ds9mwks0lh65zab.svg"
+            alt="Harsukh Logo" 
+            width={ 330} 
+            height={ 115}
+          />
+        </div>
         
         <div ref={menuIconRef} className={styles.mobileMenuIcon} onClick={toggleMobileMenu}>
-          <Menu color={useGreenLogo ? '#006D77' : '#FCF7EB'} size={24} />
+          <Menu color={ '#006D77' } size={24} />
         </div>
         
         <ul ref={mobileMenuRef} className={`${styles.menu} ${isMobileMenuOpen ? styles.mobileMenuOpen : ''}`}>
