@@ -102,6 +102,19 @@ export default function HomePage({ initialSection }) {
     );
   };
 
+  
+  
+  const updateURL = (index) => {
+    const currentSection = allSections[index];
+    if (currentSection.id === 'vision' || currentSection.id === 'about') {
+      window.history.replaceState(null, '', '/about');
+    } else if (currentSection.id === 'developer' || currentSection.id === 'ceo-vision') {
+      window.history.replaceState(null, '', '/developer');
+    } else {
+      window.history.replaceState(null, '', '/');
+    }
+  };
+
   const scrollToSection = (index) => {
     if (index < 0 || index >= allSections.length || isScrolling) return;
     setIsScrolling(true);
@@ -113,8 +126,7 @@ export default function HomePage({ initialSection }) {
     containerRef.current.style.transition = 'transform 0.8s cubic-bezier(0.645, 0.045, 0.355, 1)';
     containerRef.current.style.transform = `translateY(-${scrollPercentage}vh)`;
 
-    // Remove URL changes
-    // window.history.pushState(null, '', newPath);
+    updateURL(index);
 
     setTimeout(() => {
       setIsScrolling(false);
@@ -190,6 +202,31 @@ export default function HomePage({ initialSection }) {
       scrollToSection(sectionIndex);
     }
   }, [initialSection, pathname]);
+
+
+
+  useEffect(() => {
+    const handleRouteChange = () => {
+      const path = window.location.pathname;
+      if (path === '/about') {
+        const aboutIndex = allSections.findIndex(section => section.id === 'about');
+        scrollToSection(aboutIndex);
+      } else if (path === '/developer') {
+        const developerIndex = allSections.findIndex(section => section.id === 'developer');
+        scrollToSection(developerIndex);
+      } else if (path === '/') {
+        scrollToSection(0);
+      }
+    };
+
+    handleRouteChange();
+    window.addEventListener('popstate', handleRouteChange);
+
+    return () => {
+      window.removeEventListener('popstate', handleRouteChange);
+    };
+  }, []);
+
 
   // Updated handleWheelLarge function to prevent multiple scrolls
   const handleWheelLarge = (e) => {
