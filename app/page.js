@@ -84,7 +84,10 @@ export default function Home() {
                 "addressRegion": "KP",
                 "addressCountry": "Pakistan"
               },
-              "image": "https://cdn.theharsukh.com/images/background/front-view-winter.webp",
+              "image": ["https://cdn.theharsukh.com/images/background/front-view-winter.webp",
+                "https://cdn.theharsukh.com/images/home/harsukhImage1.webp",
+                "https://cdn.theharsukh.com/images/home/vision-bg.webp"
+              ],
               "numberOfAvailableAccommodationUnitsTotal": 146,
               "offers": {
                 "@type": "Offer",

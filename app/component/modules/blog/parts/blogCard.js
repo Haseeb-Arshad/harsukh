@@ -81,6 +81,7 @@ const SmallBlogCard = ({ post }) => {
   }, []);
 
   return (
+    
     <div
       ref={cardRef}
       className={`${styles.card} ${styles.smallCard} ${styles.swupFadeIn}`}
@@ -113,6 +114,7 @@ const BlogLayout = ({ posts }) => {
   const [largePost, ...smallPosts] = posts;
 
   return (
+    
     <main className={styles.main}>
       <div className={styles.container}>
         <h1 className={styles.pageTitle}>BLOGS</h1>
