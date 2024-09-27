@@ -85,17 +85,17 @@
   /* padding-left: 5rem; */
   /* width: ; */
   padding-right: 5rem;
-  overflow: hidden; /* Hide overflow */
+  overflow: hidden;
 }
 
 .smallPosts {
   display: flex;
   flex-direction: column;
   gap: 2.2rem;
-  overflow-y: auto;
+  /* overflow-y: auto; */
   height: 100%;
   width: fit-content;
-  
+  overflow: hidden;
 
   padding-right: 4rem; 
   /* border: 1px solid red; */
