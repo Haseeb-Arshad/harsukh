@@ -41,7 +41,6 @@ const BlogPostPage = ({ params }) => {
           throw new Error('Failed to fetch blog post');
         }
         const postData = await detailResponse.json();
-        console.log(postData.blog, "POST DATA");
         setPost(postData.blog);
         setLoading(false);
       } catch (err) {
