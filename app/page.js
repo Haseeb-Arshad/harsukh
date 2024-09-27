@@ -85,7 +85,7 @@ export default function Home() {
                 "addressCountry": "Pakistan"
               },
               "image": "https://cdn.theharsukh.com/images/background/front-view-winter.webp",
-              "numberOfAvailableAccommodationUnitsTotal": 100,
+              "numberOfAvailableAccommodationUnitsTotal": 146,
               "offers": {
                 "@type": "Offer",
                 "url": "https://theharsukh.com"
