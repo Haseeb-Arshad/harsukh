@@ -79,6 +79,7 @@ const VideoContent = () => {
         autoPlay
         loop
         muted
+        priority={true}
         playsInline
         preload="auto"
       >
