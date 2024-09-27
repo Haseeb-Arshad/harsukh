@@ -165,6 +165,9 @@ const apartmentData = {
     { Apartmentno: 146, Type: "One Bed", Bedrooms: 1, Area: "593 sqft" },
   ],
 };
+
+
+
 const floorNameMapping = {
   'third-floor': "3rd Floor",
   'second-floor': "2nd Floor",
@@ -181,9 +184,34 @@ const reverseFloorNameMapping = Object.fromEntries(
   Object.entries(floorNameMapping).map(([key, value]) => [value, key])
 );
 
-export default function sitemap() {
+
+async function fetchBlogData() {
+  try {
+    const response = await fetch('https://almaymaar.rems.pk/api/blog', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': 'Bearer GjKnyjcXFImbsMxCMf0McLaQBmlHKMvGk9',
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error('Error fetching blog data:', error);
+    return [];
+  }
+}
+
+
+export default async function sitemap() {
   const today = new Date();
-  
+
   const staticRoutes = [
     {
       url: 'https://theharsukh.com',
@@ -264,6 +292,23 @@ export default function sitemap() {
     console.error('Error generating dynamic routes:', error);
   }
 
+
+  let blogRoutes = [];
+  try {
+    const blogData = await fetchBlogData();
+
+    const blogs = blogData.blogs || [];
+
+    blogRoutes = blogs.map((blog) => ({
+      url: `https://theharsukh.com/blog/${blog.slug}`,
+      lastModified: today,
+      changeFrequency: 'weekly',
+      priority: 0.5,
+    }));
+  } catch (error) {
+    console.error('Error fetching blog data:', error);
+  }
+
   // Combine static and dynamic routes
-  return [...staticRoutes, ...dynamicRoutes];
+  return [...staticRoutes, ...dynamicRoutes, ... blogRoutes];
 }
