@@ -89,9 +89,11 @@ const Navbar = ({ children, currentSection, toggleContactForm, useGreenLogo }) =
         break;
       case 'Home':
         router.push('/');
-
+        break;
       case 'Developer':
         router.push('/developer');
+        break;
+
       case 'About':
         router.push('/about');
         break;
