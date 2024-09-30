@@ -21,43 +21,19 @@
     src: url("/fonts/optima/OPTIMA.TTF");
     font-weight: normal;
   }
-  /* components/Developer.module.css */
-/* .container {
-  font-family: "Gill Sans Medium";
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 100vh;
-  background-image: url('https://cdn.theharsukh.com/images/blog/imageMask-bg.png'); 
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: cover;
-  padding: 20px;
-  background-size: 30% 100%; 
-  flex-direction: column;
-  background-color: #EBDED2;
-} */
 
 .container {
   background-color: #EBDED2;
   font-family: "Gill Sans Medium";
-  /* padding-top: 10rem; */
   position: relative;
   display: flex;
   justify-content: center;
-  /* display: grid; */
-  /* grid-template-columns: 1fr 1fr; */
   align-items: center;
-  /* justify-content: center; */
   height: 100vh;
-  background-image: url('https://cdn.theharsukh.com/images/blog/imageMask-bg.png'); /* Replace this with your background image path */
+  background-image: url('https://cdn.theharsukh.com/images/blog/imageMask-bg.png');
   background-repeat: no-repeat;
   background-position: left top;
-  background-size: 30% 100%; /* The image will only cover 30% of the width and 100% of the height */
-  /* padding: 20px;/ */
-  /* margin-top: 5rem; */
-  /* padding: 5rem; */
+  background-size: 30% 100%;
 }
 
 .DeveloperPartcontainer
@@ -91,26 +67,16 @@
   display: grid;
   grid-template-rows: 0.3fr 0.3fr 0.3fr 1fr;
   width: 60vw;
-  /* padding: 40px; */
-  /* height: 100vh; */
-  /* border-radius: 10px; */
 }
 
 
 .contentDev1 {
   max-width: 100%;
-  /* justify-self: space-between; */
-  /* background-color: #EBDED2; */
   height: 100%;
-  /* padding-top: 5rem; */
   text-align: center;
   display: grid;
-  grid-template-rows: 0.3fr 0.3fr 0.2fr 1fr;
+  grid-template-rows: 0.2fr 0.25fr 0.2fr 1fr;
   width: 60vw;
-  /* gap: 100px; */
-  /* padding: 40px; */
-  /* height: 100vh; */
-  /* border-radius: 10px; */
 }
 
 
@@ -173,6 +139,14 @@
 
 
 @media (max-width: 768px) {
+
+
+  .description {
+  
+    margin-bottom: 20px;
+    padding: 4rem;
+    padding-top: 0rem;
+  }
 
 .content
 {

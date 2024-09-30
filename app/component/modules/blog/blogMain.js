@@ -4,8 +4,8 @@ import { fetchBlogs } from '@/state/blog/blogSlice';
 import styles from '@/styles/blog/blogMain.module.css';
 import BlogLayout from '@/app/component/modules/blog/parts/blogCard';
 import Loader from '../../ui/Loading/Loading';
-import Footer from '../home/parts/footer';
 import PrivacyPolicy from '../home/parts/privacyPolicy';
+import Footer from './parts/footer';
 
 const BlogPage = () => {
   const dispatch = useDispatch();
