@@ -10,7 +10,7 @@ import en from "@/app/component/locales/en.json";
 import ur from "@/app/component/locales/ur.json";
 import { useSelector } from 'react-redux';
 
-const Navbar = ({ children, currentSection, toggleContactForm, useGreenLogo }) => {
+const Navbar = ({ children, currentSection, toggleContactForm, useGreenLogo, onNavClick }) => {
   const [activeMenuItem, setActiveMenuItem] = useState('Blogs');
   const [visible, setVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
@@ -18,6 +18,8 @@ const Navbar = ({ children, currentSection, toggleContactForm, useGreenLogo }) =
   const mobileMenuRef = useRef(null);
   const menuIconRef = useRef(null);
   const router = useRouter();
+  const [isCallHovered, setIsCallHovered] = useState(false);
+  const [isWAHovered, setIsWAHovered] = useState(false);
 
   const languageState = useSelector((state) => {
     const languageState = state.language.lang.find((site) => site.id === "1");
@@ -26,7 +28,26 @@ const Navbar = ({ children, currentSection, toggleContactForm, useGreenLogo }) =
 
   const translations = languageState === "ur" ? ur : en;
 
+  const handleCallClick = useCallback(() => {
+    const newUrl = `${window.location.origin}${window.location.pathname}${window.location.pathname.endsWith('/') ? '' : '/'}callus`;
+    window.history.pushState({}, '', newUrl);
+    window.location.href = 'tel:051-111-520-520';
+    setTimeout(() => {
+      if (window.location.pathname.endsWith('/callus')) {
+        const cleanUrl = window.location.href.replace('/callus', '');
+        window.history.replaceState({}, '', cleanUrl);
+      }
+    }, 1000);
+  }, []);
+
+  const handleWhatsAppClick = useCallback(() => {
+    const whatsappNumber = '+923300111166';
+    const whatsappUrl = `https://wa.me/${whatsappNumber}`;
+    window.open(whatsappUrl, '_blank');
+  }, []);
+
   useEffect(() => {
+    
     const updateActiveMenuItem = () => {
       const path = window.location.pathname;
 
@@ -173,6 +194,50 @@ const Navbar = ({ children, currentSection, toggleContactForm, useGreenLogo }) =
           <button className={styles.exploreBtn}>Explore Building</button>
         </Link>
       </div>
+
+
+
+      <div
+          className={`${styles.buttonss} ${styles.callButton} ${isCallHovered ? styles.expanded : ""}`}
+          onMouseEnter={() => setIsCallHovered(true)}
+          onMouseLeave={() => setIsCallHovered(false)}
+          onClick={handleCallClick}
+        >
+          <Image
+            src="/images/icons/callIcon.svg"
+            quality={100}
+            alt="Maps View Icon"
+            height={16}
+            width={16}
+          />
+          <div className={styles.buttonText}>{translations["callus"]}</div>
+        </div>
+
+        <div
+          className={`${styles.buttonss} ${styles.whatsappButton} ${isWAHovered ? styles.expanded : ""}`}
+          onMouseEnter={() => setIsWAHovered(true)}
+          onMouseLeave={() => setIsWAHovered(false)}
+          onClick={handleWhatsAppClick}
+        >
+          <Image
+            src="/images/icons/homePage/whatsapp-icon.svg"
+            quality={100}
+            alt="Maps View Icon"
+            height={19}
+            width={19}
+          />
+          <div className={styles.buttonText}>WhatsApp us</div>
+       
+        
+        </div>
+          
+        <div
+          className={`${styles.ctaBtn}`}
+          onClick={toggleContactForm}
+        >
+          Get in Touch
+        </div>
+
 
       <div className={styles.main}>
         {children}
