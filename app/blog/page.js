@@ -9,6 +9,9 @@ const Page = () => {
   return (
     <>
     <div className={styles.main}>
+    {/* <Navbar/> */}
+
+
       <BlogPage posts={blogData.posts} />
 
     </div>

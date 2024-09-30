@@ -33,9 +33,7 @@ Page.module.css */
     background-color: #FCF7EB;
     color: #1D1D1F;
     padding-top: 15vh;
-    
     font-family: "Gill Sans Light";
-
   }
 
 .blogPostContainer {
@@ -50,55 +48,26 @@ Page.module.css */
     font-family: "Optima Bold";
     font-size: 2.1rem;
     margin-bottom: 20px;
-    /* text-align: center; */
   }
   
   .blogImage {
     width: 100%;
-    /* 
-    height: auto; */
     border-radius: 8px;
     margin-bottom: 20px;
   }
   
-  /* .blogContent {
-  } */
-
   .blogContent {    
-    /* padding: 0 20px 20px; */
     font-family: "Gill Sans Light";
-
     font-size: 1rem;
     line-height: 1.8;
     text-align: justify;
   }
 
-
-
-
-
-  /* .main {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-  }
-   */
-  /* .blogPostContainer {
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-  }
-   */
   .blogImage {
     width: 100%;
     height: auto;
     object-fit: cover;
   }
-  
- 
-  
-  
   
   .paragraph {
     font-size: 1.1rem;
@@ -134,36 +103,31 @@ Page.module.css */
     margin: 1.5em 0;
   }
 
-
-
-  
   /* Mobile View */
 @media (max-width: 600px) 
 {
 
-    .main {
-        padding: 3rem;
-        padding-top: 20vh;
+  .main {
+    padding: 3rem;
+    padding-top: 20vh;
+  }
 
-    }
-
-.blogImage {
+  .blogImage {
     width: 100%;
-    
     height: auto;
     border-radius: 8px;
     margin-bottom: 20px;
   }
 
-    .blogPostContainer {
-      padding: 10px;
-    }
-  
-    .blogTitle {
-      font-size: 2rem;
-    }
-  
-    .blogContent {
-      font-size: 1rem;
-    }
+  .blogPostContainer {
+    padding: 10px;
   }
+
+  .blogTitle {
+    font-size: 2rem;
+  }
+
+  .blogContent {
+    font-size: 1rem;
+  }
+}

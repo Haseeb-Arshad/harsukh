@@ -64,7 +64,6 @@ export default function HomePage({ initialSection }) {
   // const { isFormOpen, openForm, closeForm } = useRegisterForm();
   const { isFormOpen, isSuccess, openForm, closeForm, handleSuccess } = useRegisterForm();
 
-
   // Contact Form State
   const [isContactFormOpen, setIsContactFormOpen] = useState(false);
 

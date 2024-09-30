@@ -3,7 +3,7 @@ import Image from 'next/image';
 import styles from '@/styles/blog/blogCard.module.css';
 import Link from 'next/link';
 
-const NewsCard = ({ post, isLarge }) => {
+const BlogCard = ({ post, isLarge }) => {
   const cardRef = useRef(null);
 
   useEffect(() => {
@@ -34,32 +34,29 @@ const NewsCard = ({ post, isLarge }) => {
     >
       <div className={styles.imageWrapper}>
         <div className={styles.imageContainer}>
-          <Link href={`/news-room/${post.url}`}>
-            <Image
-              src={post.file}
-              alt={post.title}
-              fill
-              className={styles.image}
-            />
-          </Link>
+          <Image
+            src={post.file}
+            alt={post.title}
+            layout="fill"
+            objectFit="cover"
+            className={styles.image}
+          />
         </div>
       </div>
-      <Link href={`/news-room/${post.slug}`}>
-
       <div className={styles.content}>
-        <h2 className={styles.title}>{post.title}</h2>
+        <Link href={`/news-room/${post.slug}`} className={styles.title}>
+          <div className={styles.titleText}>{post.title}</div>
+        </Link>
         {isLarge && <p className={styles.excerpt}>{post.excerpt}</p>}
         <Link href={`/news-room/${post.slug}`} className={styles.readMore}>
           Read more
         </Link>
       </div>
-      </Link>
-
     </div>
   );
 };
 
-const SmallNewsCard = ({ post }) => {
+const SmallBlogCard = ({ post }) => {
   const cardRef = useRef(null);
 
   useEffect(() => {
@@ -84,20 +81,26 @@ const SmallNewsCard = ({ post }) => {
   }, []);
 
   return (
+    
     <div
       ref={cardRef}
       className={`${styles.card} ${styles.smallCard} ${styles.swupFadeIn}`}
     >
-      <div className={styles.imageContainer}>
-        <Image
-          src={post.file}
-          alt={post.title}
-          fill
-          className={styles.image}
-        />
+      <div className={styles.imageWrapper}>
+        <div className={styles.imageContainer}>
+          <Image
+            src={post.file}
+            alt={post.title}
+            layout="fill"
+            objectFit="cover"
+            className={styles.image}
+          />
+        </div>
       </div>
       <div className={styles.SmallCardcontent}>
-        <h2 className={styles.title}>{post.title}</h2>
+        <Link href={`/news-room/${post.slug}`} className={styles.title}>
+          <div className={styles.titleText}>{post.title}</div>
+        </Link>
         <p className={styles.excerpt}>{post.excerpt}</p>
         <Link href={`/news-room/${post.slug}`} className={styles.readMore}>
           Read more
@@ -107,21 +110,22 @@ const SmallNewsCard = ({ post }) => {
   );
 };
 
-const NewsLayout = ({ posts }) => {
+const BlogLayout = ({ posts }) => {
   const [largePost, ...smallPosts] = posts;
 
   return (
+    
     <main className={styles.main}>
       <div className={styles.container}>
-        <h1 className={styles.pageTitle}>NEWS</h1>
+        <h1 className={styles.pageTitle}>BLOGS</h1>
         <div className={styles.blogGrid}>
           <div className={styles.largePostWrapper}>
-            <NewsCard post={largePost} isLarge={true} />
+            <BlogCard post={largePost} isLarge={true} />
           </div>
           <div className={styles.smallPostsWrapper}>
             <div className={styles.smallPosts}>
               {smallPosts.map((post, index) => (
-                <SmallNewsCard key={index} post={post} />
+                <SmallBlogCard key={index} post={post} />
               ))}
             </div>
           </div>
@@ -131,4 +135,4 @@ const NewsLayout = ({ posts }) => {
   );
 };
 
-export default NewsLayout;
+export default BlogLayout;
