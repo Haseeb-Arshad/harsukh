@@ -62,12 +62,8 @@
 
 .blogGrid {
   display: flex;
-  
-  /* border: 1px green solid; */
   gap: 2rem;
   min-height: 100vh;
-  /* height: calc(100vh - 15rem);  */
-  /* Adjust based on your layout */
 }
 
 .largePostWrapper {
@@ -92,18 +88,13 @@
   display: flex;
   flex-direction: column;
   gap: 2.2rem;
-  /* overflow-y: auto; */
   height: 100%;
   width: fit-content;
   overflow: hidden;
-
   padding-right: 4rem; 
-  /* border: 1px solid red; */
-  /* Add some padding for the scrollbar */
 }
 
 .card {
-  /* background-color: #d2d2d2; */
   width: fit-content;
   border-radius: 8px;
   overflow: hidden;
@@ -112,7 +103,6 @@
   padding-top: 0rem;
   padding-left: 0rem;
   padding-bottom: 0rem;
-  /* box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); */
 }
 
 .largeCard {
@@ -124,10 +114,8 @@
 .smallCard {
   display: flex;
   height: 190px; 
-  /* padding-left: 4rem; */
   padding-right: 3rem;
   width: 100%;
-  /* padding: ; */
 }
 
 .imageWrapper
@@ -251,11 +239,14 @@
   .blogGrid {
     flex-direction: column;
     height: auto;
+    gap: 1rem;
+    min-height: 60vh;
   }
 
   .largePostWrapper {
     position: static;
-    margin-bottom: 2rem;
+    margin-bottom: 0rem;
+    /* border:1px solid red; */
   }
 
   .smallPostsWrapper {
@@ -264,19 +255,28 @@
     padding-right: 0;
   }
 
+  .card {
+
+    padding: 0rem;
+
+  }
+
   .smallPosts {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 1rem;
+    gap: 0rem;
     overflow: visible;
     padding-right: 0;
     width: 100%;
+    /* border: 1px solid red; */
+    padding: 0rem;
   }
 
   .smallCard {
     flex-direction: column;
     height: auto;
-    padding: 1rem;
+    padding: 0rem;
+    padding-right: 0rem;
   }
 
   .smallCard .imageContainer {
@@ -288,7 +288,8 @@
   {
     display: flex;
     flex-direction: column; 
-    padding: 1.8rem;
+    padding: 1rem;
+    padding-left: 2rem;
   }
 
   .container {
@@ -297,10 +298,15 @@
   }
 
   .largeCard {
-    padding: 1rem;
+    padding: 0.5rem;
   }
 
   .titleText {
-    font-size: 1rem;
+    font-size: 0.9rem;
   }
+
+  .excerpt {
+    font-size: 0.8rem;
+  }
+
 }

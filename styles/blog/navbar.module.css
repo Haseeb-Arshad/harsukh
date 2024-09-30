@@ -45,6 +45,29 @@
     .hidden {
       transform: translateY(-100%);
     } */
+
+    
+.buttonss {
+  
+  bottom: 0rem;
+  right:0rem;
+  color: #006d77;
+  position: absolute;
+  z-index: 99999999999999999;
+  height: 40px;
+  width: 40px;
+  border: none;
+  /* margin-top: 2rem; */
+  border-radius: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding-left: 14px;
+  cursor: pointer;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
     
     .menu {
       padding: 0.8rem 4rem;

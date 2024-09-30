@@ -71,7 +71,7 @@
   
   .contact, .social, .newsletter {
     flex: 1;
-    min-width: 250px;
+    min-width: 150px;
   }
 
   .social{
@@ -79,6 +79,7 @@
     align-items: center;
     justify-content: center;
     flex-direction: column;
+    /* border: 1px solid red; */
   }
 
   .socialTitle
@@ -91,6 +92,11 @@
   
   .contact h3, .social h3, .newsletter .newsletterTitle {
     margin-bottom: 1rem;
+  }
+
+  .newsletter
+  {
+    border: transparent solid 1px;
   }
   
   .contact .contactInfo {
@@ -138,6 +144,11 @@
     font-size: 1.1rem;
   }
 
+  .submitbutton
+  {
+    
+  }
+
   .formInput
   {
     height: 7vh;
@@ -180,7 +191,7 @@
   }
   
   .bottom {
-    margin-top: 0vh;
+    margin-top: 10vh;
     padding: 1rem 1rem;
     display: flex;
     justify-content: center;
@@ -220,6 +231,15 @@
   
   @media (max-width: 768px) {
 
+    .footer {
+        background-color: #006D77;
+        color: white;
+        padding: 2rem 0rem;
+        height: 80vh;
+        font-family: "Gill Sans Light";
+        width: 100vw;
+      }
+
      .contact h3, .social h3, .newsletter .newsletterTitle {
       margin-bottom: 1rem;
     }
@@ -242,10 +262,27 @@
       margin-bottom: 0.5rem;
     }
 
-    .content {
-      flex-direction: column;
-      gap: 0.5rem;
+    .contact
+    {
+        width: 100%;
+    }
 
+
+    /* .content {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 2rem;
+      } */
+
+    .content {
+        gap: 0.5rem;
+        height: 100%;
+        flex-wrap: none;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
     }
 
     .logo h2 {
@@ -265,7 +302,7 @@
 
     .formInput
     {
-      height: 4vh;
+      height: 7vh;
       width: 70%;
       display: flex;
       border-radius: 4px;
@@ -283,7 +320,7 @@
     
     .contactInfoText
     {
-      width: 90%;
+      width: 60%;
     }
 
     .bottom {
@@ -297,14 +334,7 @@
       border-top: rgb(255, 255, 255, 0.1) solid 1px;
     }
 
-    .footer {
-      background-color: #006D77;
-      color: white;
-      padding: 2rem 0rem;
-      height: 50vh;
-      font-family: "Gill Sans Light";
-      width: 100vw;
-    }
+    
 
     .handlePrivacyPolicyClick
     {
@@ -328,7 +358,7 @@
     }
 
     .newsletter .submitbutton {
-      padding: 0.4rem 2rem;
+      padding: 0.6rem 2.3rem;
       font-size: 0.9rem;
       background-color: white;
       width: fit-content;
@@ -336,7 +366,15 @@
       border: none;
       border-radius: 0.3rem;
       cursor: pointer;
-      margin-bottom: 5rem;
+      margin-bottom: 0;
+    }
+
+    .newsletter
+    {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        
     }
 
 }
