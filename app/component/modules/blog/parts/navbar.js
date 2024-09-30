@@ -2,7 +2,7 @@
 
 import React, { useState, useCallback, useEffect, useRef } from 'react';
 import Image from 'next/image';
-import styles from '@/styles/home/navbar.module.css';
+import styles from '@/styles/blog/navbar.module.css';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { Menu } from 'lucide-react';

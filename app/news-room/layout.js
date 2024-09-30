@@ -1,8 +1,18 @@
+'use client'
+
 import React from 'react'
 import Navbar from '../component/modules/blog/parts/navbar'
 import Image from 'next/image'
 
+import RegisterRequestForm from '@/app/component/ui/Bars/contactBox';
+import { useRegisterForm } from "@/app/component/hooks/useRegisterForm"
+import styles from '@/styles/home/main.module.css';
+
+
 const Layout = ({ children }) => {
+  const { isFormOpen, isSuccess, openForm, closeForm, handleSuccess } = useRegisterForm();
+
+
   return (
     <div style={{ position: 'relative' }}>
       <div style={{
@@ -23,9 +33,20 @@ const Layout = ({ children }) => {
           quality={100}
         />
       </div>
-      <Navbar>
-        <main style={{paddng: '5rem', minHeight: '100vh'}}>{children}</main>
-      </Navbar>
+      <Navbar
+          successContactForm={isSuccess}
+          handleSuccess={handleSuccess}
+          toggleContactForm={openForm}
+
+        />
+
+      <main style={{paddng: '5rem', minHeight: '100vh'}}>{children}</main>
+
+      {(isFormOpen || isSuccess) && (
+        <div className={styles.contactFormOverlay}>
+          <RegisterRequestForm  onSuccess= {handleSuccess} onClose={closeForm} />
+        </div>
+      )}
     </div>
   )
 }

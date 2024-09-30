@@ -6,8 +6,13 @@ import Image from 'next/image'
 import { useEffect } from 'react';
 import Swup from 'swup';
 import SwupFadeTheme from '@swup/fade-theme';
+import { useRegisterForm } from "@/app/component/hooks/useRegisterForm"
+import styles from '@/styles/home/main.module.css';
+import RegisterRequestForm from '@/app/component/ui/Bars/contactBox';
+
 
 const Layout = ({ children }) => {
+  const { isFormOpen, isSuccess, openForm, closeForm, handleSuccess } = useRegisterForm();
 
 
   useEffect(() => {
@@ -26,8 +31,6 @@ const Layout = ({ children }) => {
         position: 'fixed',
         left: 0,
         top: 0,
-        // border: '1px solid red',
-        // backgroundColor: 'rgba(0, 0, 0, 0.5)',
         width: '30%', // Adjust this value to control how much of the left side is covered
         height: '100%',
         zIndex: 0 // Ensures the image stays behind other content
@@ -40,10 +43,22 @@ const Layout = ({ children }) => {
           quality={100}
         />
       </div>
-      <Navbar/>
+        <Navbar
+          successContactForm={isSuccess}
+          handleSuccess={handleSuccess}
+          toggleContactForm={openForm}
+
+        />
+
       <main style={{paddng: '5rem', minHeight: '100vh'}}>{children}</main>
 
-      {/* </Navbar> */}
+      {(isFormOpen || isSuccess) && (
+        <div className={styles.contactFormOverlay}>
+          <RegisterRequestForm  onSuccess= {handleSuccess} onClose={closeForm} />
+        </div>
+      )}
+
+
     </div>
   )
 }

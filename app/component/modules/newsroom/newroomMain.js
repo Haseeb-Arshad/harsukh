@@ -7,7 +7,7 @@ import NewsRoom from '@/app/component/modules/newsroom/parts/newsroomCard';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchNews } from '@/state/newsroom/newsroomSlice';
 import Loader from '@/app/component/ui/Loading/Loading'
-import Footer from '../home/parts/footer';
+import Footer from '@/app/component/modules/blog/parts/footer';
 import PrivacyPolicy from '../home/parts/privacyPolicy';
 
 const NewsroomMain = () => {
