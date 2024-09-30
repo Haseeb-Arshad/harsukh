@@ -40,10 +40,10 @@ const Layout = ({ children }) => {
           quality={100}
         />
       </div>
-      <Navbar>
+      <Navbar/>
       <main style={{paddng: '5rem', minHeight: '100vh'}}>{children}</main>
 
-      </Navbar>
+      {/* </Navbar> */}
     </div>
   )
 }

@@ -221,9 +221,6 @@ const Navbar = ({ children, currentSection, toggleContactForm, useGreenLogo, onN
         >
           Get in Touch
         </div>
-       
-       
-
 
         <div className={styles.main}>
           {children}
