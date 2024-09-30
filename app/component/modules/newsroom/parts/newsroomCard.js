@@ -28,11 +28,11 @@ const BlogCard = ({ post, isLarge }) => {
   }, []);
 
   return (
-    <div
+    <div 
       ref={cardRef}
       className={`${styles.card} ${isLarge ? styles.largeCard : styles.smallCard} ${styles.swupFadeIn}`}
     >
-      <div className={styles.imageWrapper}>
+      <Link href={`/news-room/${post.slug}`} className={styles.largeimageWrapper}>
         <div className={styles.imageContainer}>
           <Image
             src={post.file}
@@ -42,7 +42,7 @@ const BlogCard = ({ post, isLarge }) => {
             className={styles.image}
           />
         </div>
-      </div>
+      </Link>
       <div className={styles.content}>
         <Link href={`/news-room/${post.slug}`} className={styles.title}>
           <div className={styles.titleText}>{post.title}</div>

@@ -8,57 +8,45 @@ import Head from "next/head";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
-  title: 'HARSUKH',
-  description: 'HARSUKH',
-  verification: {
-    google: 'pdF67cKTIKSHMJM0IRkz4p7_4A2CZlKPQD22CDeK4Hs',
-  }
-}
+  title: 'Luxury Apartments in Galyat | Harsukh Residences, Pakistan',
+  description: 'Experience luxury living at Harsukh Residences in Galyat, Pakistan. Modern apartments with stunning views and world-class amenities.',
+};
+
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
+
       <Head>
-        <title>Harsukh Residences | The Best Apartment in Galyat, Pakistan</title>
-        <meta name="description" content="The Best Apartment in Galyat, Pakistan" />
-        <meta name="keywords" content="Best Apartment, Harsukh, Harsukh Apartment, Harsukh Residence, Harsukh Residency, Harsukh Apartments, Harsukh Residentials, Harsukh Property, Harsukh Properties, Galyat, Pakistan" />
+        <title>Luxury Apartments in Galyat | Harsukh Residences, Pakistan</title>
+        <meta name="description" content="Discover luxury apartments at Harsukh Residences, Galyat, Pakistan. Modern amenities, breathtaking views, and the perfect location for serene living." />
+        <meta name="keywords" content="Luxury Apartments, Harsukh Residences, Apartments in Galyat, Pakistan Properties, Galyat Real Estate, Modern Apartments in Galyat, Best Apartments in Pakistan" />
         <meta name="robots" content="index, follow" />
         <meta name="google-site-verification" content="pdF67cKTIKSHMJM0IRkz4p7_4A2CZlKPQD22CDeK4Hs" />
         <link rel="canonical" href="https://theharsukh.com" />
-        
-        {/* Add Open Graph meta tags for social media sharing */}
-        <meta property="og:title" content="Harsukh Residences" />
-        <meta property="og:description" content="Luxury apartments in Galyat, Pakistan with modern amenities and breathtaking views." />
+
+        {/* Open Graph meta tags for social media */}
+        <meta property="og:title" content="Luxury Apartments in Galyat | Harsukh Residences" />
+        <meta property="og:description" content="Explore Harsukh Residences in Galyat, Pakistan—offering luxury living with stunning views and modern amenities." />
         <meta property="og:image" content="https://cdn.theharsukh.com/images/background/front-view-winter.webp" />
         <meta property="og:url" content="https://theharsukh.com" />
         <meta property="og:type" content="website" />
 
-        {/* Add Twitter Card meta tags */}
+        {/* Twitter Card meta tags */}
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Harsukh Residences" />
-        <meta name="twitter:description" content="Luxury apartments in Galyat, Pakistan with modern amenities and breathtaking views." />
+        <meta name="twitter:title" content="Luxury Apartments in Galyat | Harsukh Residences" />
+        <meta name="twitter:description" content="Luxury apartments in Galyat, Pakistan with breathtaking views and top-notch amenities. Discover Harsukh Residences today." />
         <meta name="twitter:image" content="https://cdn.theharsukh.com/images/background/front-view-winter.webp" />
 
         {/* NoScript LinkedIn and Facebook Pixels */}
         <noscript>
-          <img
-            height="1"
-            width="1"
-            style={{ display: 'none' }}
-            alt=""
-            src="https://px.ads.linkedin.com/collect/?pid=7619137&fmt=gif"
-          />
+          <img height="1" width="1" style={{ display: 'none' }} alt="" src="https://px.ads.linkedin.com/collect/?pid=7619137&fmt=gif" />
         </noscript>
         <noscript>
-          <img
-            height="1"
-            width="1"
-            style={{ display: 'none' }}
-            src="https://www.facebook.com/tr?id=7384856538283539&ev=PageView&noscript=1"
-            alt=""
-          />
+          <img height="1" width="1" style={{ display: 'none' }} src="https://www.facebook.com/tr?id=7384856538283539&ev=PageView&noscript=1" alt="" />
         </noscript>
       </Head>
+
       <body className={inter.className}>
         <Providers>
           {children}

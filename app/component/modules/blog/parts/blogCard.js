@@ -32,7 +32,7 @@ const BlogCard = ({ post, isLarge }) => {
       ref={cardRef}
       className={`${styles.card} ${isLarge ? styles.largeCard : styles.smallCard} ${styles.swupFadeIn}`}
     >
-      <div className={styles.imageWrapper}>
+      <div className={styles.largeimageWrapper}>
         <div className={styles.imageContainer}>
           <Image
             src={post.file}
