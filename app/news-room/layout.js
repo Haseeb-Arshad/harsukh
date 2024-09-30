@@ -18,12 +18,10 @@ const Layout = ({ children }) => {
       <div style={{
         position: 'fixed',
         left: 0,
-        top: 0,
-        // border: '1px solid red',
-        // backgroundColor: 'rgba(0, 0, 0, 0.5)',
-        width: '30%', // Adjust this value to control how much of the left side is covered
+        top: '-25px',
+        width: '30%', 
         height: '100%',
-        zIndex: 0 // Ensures the image stays behind other content
+        zIndex: 0
       }}>
         <Image
           src="https://cdn.theharsukh.com/images/blog/imageMask-bg.png"
