@@ -22,6 +22,41 @@
     font-weight: normal;
   }
 
+
+  .animatedText {
+    overflow: hidden;
+    text-align: center;
+    width: 100%;
+  }
+  
+  .textInner {
+    display: inline-block;
+    transform: translateY(100%);
+    transition: transform 1.5s cubic-bezier(0.49, 0.23, 0, 1);
+  }
+  
+  .isInview .textInner {
+    transform: translateY(0);
+  }
+
+  .animatedText {
+    overflow: hidden;
+    text-align: center;
+    width: 100%;
+  }
+  
+  .textInner {
+    display: inline-block;
+    transform: translateY(100%);
+    transition: transform 1.5s cubic-bezier(0.49, 0.23, 0, 1);
+  }
+  
+  .isInView .textInner {
+    transform: translateY(0);
+  }
+  
+
+
 .container {
   background-color: #EBDED2;
   font-family: "Gill Sans Medium";

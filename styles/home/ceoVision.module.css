@@ -32,6 +32,23 @@
   white-space: pre-wrap;
 }
 
+.animatedText {
+  overflow: hidden;
+  text-align: justify;
+  width: 100%;
+}
+
+.textInner {
+  display: inline-block;
+  transform: translateY(100%);
+  transition: transform 1.5s cubic-bezier(0.49, 0.23, 0, 1);
+}
+
+.isInview .textInner {
+  transform: translateY(0);
+}
+
+
 .imageContainer {
   flex: 1;
   display: flex;

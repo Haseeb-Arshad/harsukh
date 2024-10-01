@@ -28,7 +28,8 @@ const BlogCard = ({ post, isLarge }) => {
   }, []);
 
   return (
-    <div
+    <Link
+      href={`/blog/${post.slug}`}
       ref={cardRef}
       className={`${styles.card} ${isLarge ? styles.largeCard : styles.smallCard} ${styles.swupFadeIn}`}
     >
@@ -45,14 +46,14 @@ const BlogCard = ({ post, isLarge }) => {
       </div>
       <div className={styles.content}>
         <Link href={`/blog/${post.slug}`} className={styles.title}>
-          <div className={styles.titleText}>{post.title}</div>
+          <div styles={{fontSize:'1.5rem'}} className={styles.LargetitleText}>{post.title}</div>
         </Link>
         {isLarge && <p className={styles.excerpt}>{post.excerpt}</p>}
         <Link href={`/blog/${post.slug}`} className={styles.readMore}>
           Read more
         </Link>
       </div>
-    </div>
+    </Link>
   );
 };
 
@@ -82,7 +83,8 @@ const SmallBlogCard = ({ post }) => {
 
   return (
     
-    <div
+    <Link
+      href={`/blog/${post.slug}`} 
       ref={cardRef}
       className={`${styles.card} ${styles.smallCard} ${styles.swupFadeIn}`}
     >
@@ -106,7 +108,7 @@ const SmallBlogCard = ({ post }) => {
           Read more
         </Link>
       </div>
-    </div>
+    </Link>
   );
 };
 
