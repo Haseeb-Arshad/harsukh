@@ -30,7 +30,7 @@ const Layout = ({ children }) => {
       <div style={{
         position: 'fixed',
         left: 0,
-        top: 0,
+        top: '-25px',
         width: '30%', // Adjust this value to control how much of the left side is covered
         height: '100%',
         zIndex: 0 // Ensures the image stays behind other content

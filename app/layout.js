@@ -8,7 +8,7 @@ import Head from "next/head";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
-  title: 'Luxury Apartments in Galyat | Harsukh Residences, Pakistan',
+  title: 'Harsukh',
   description: 'Experience luxury living at Harsukh Residences in Galyat, Pakistan. Modern apartments with stunning views and world-class amenities.',
 };
 

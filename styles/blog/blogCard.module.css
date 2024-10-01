@@ -181,10 +181,17 @@
   width: 100%;
 }
 
+
+.LargetitleText
+{
+  font-size: 1.4rem;
+}
+
 .titleText
 {
   font-size: 1.1rem;
 }
+
 
 .largeCard .content {
   flex: 1;

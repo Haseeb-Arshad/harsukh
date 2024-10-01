@@ -45,7 +45,7 @@ const BlogCard = ({ post, isLarge }) => {
       </Link>
       <div className={styles.content}>
         <Link href={`/news-room/${post.slug}`} className={styles.title}>
-          <div className={styles.titleText}>{post.title}</div>
+          <div className={styles.LargetitleText}>{post.title}</div>
         </Link>
         {isLarge && <p className={styles.excerpt}>{post.excerpt}</p>}
         <Link href={`/news-room/${post.slug}`} className={styles.readMore}>
