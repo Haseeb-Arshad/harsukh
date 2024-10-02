@@ -6,6 +6,8 @@ import BlogLayout from '@/app/component/modules/blog/parts/blogCard';
 import Loader from '../../ui/Loading/Loading';
 import PrivacyPolicy from '../home/parts/privacyPolicy';
 import Footer from './parts/footer';
+// import blogPosts from '@/app/component/data/blog/blogData.json';
+
 
 const BlogPage = () => {
   const dispatch = useDispatch();
@@ -29,7 +31,7 @@ const BlogPage = () => {
   };
 
   return (
-    <div className={styles.main}>
+    <div id="swup" className={styles.main}>
       {blogPosts.length > 0 ? (
         <BlogLayout posts={blogPosts} />
       ) : (

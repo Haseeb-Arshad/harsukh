@@ -3,45 +3,53 @@
   font-family: 'Gill Sans Medium';
   src: url('/fonts/GillSansMTPro-Medium.otf');
   font-weight: normal;
+  font-display: swap;
 }
 
 @font-face {
   font-family: 'Gill Sans Condensed';
   src: url('/fonts/GillSansMTPro-Condensed.otf');
   font-weight: normal;
+  font-display: swap;
 }
 @font-face {
   font-family: 'Gill Sans Book';
   src: url('/fonts/GillSansMTPro-Book.otf');
   font-weight: normal;
+  font-display: swap;
 }
 @font-face {
   font-family: 'Gill Sans Light';
   src: url('/fonts/GillSansMTPro-Light.otf');
   font-weight: normal;
+  font-display: swap;
 }
 @font-face {
   font-family: 'Gill Sans BdCn';
   src: url('/fonts/GillSansDisplayMTPro-BdCn.otf');
   font-weight: normal;
+  font-display: swap;
 }
 
 @font-face {
   font-family: 'Gill Sans Heavy';
   src: url('/fonts/GillSansMTPro-Heavy.otf');
   font-weight: normal;
+  font-display: swap;
 }
 
 @font-face {
   font-family: 'Gill Sans BdCn';
   src: url('/fonts/GillSansMTPro-BdCn.otf');
   font-weight: normal;
+  font-display: swap;
 }
 
 @font-face {
   font-family: 'Gill Sans ShawdowLight';
   src: url('/fonts/GillSansShadowedMTPro-Light.otf');
   font-weight: normal;
+  font-display: swap;
 }
 
 

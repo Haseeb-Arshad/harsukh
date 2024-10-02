@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 export function useRegisterForm() {
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+  const [originalPath, setOriginalPath] = useState('');
 
   useEffect(() => {
     const url = new URL(window.location.href);
@@ -10,34 +11,44 @@ export function useRegisterForm() {
     const successParam = url.searchParams.get('success');
     setIsFormOpen(registerParam === 'true');
     setIsSuccess(successParam === 'true');
+    setOriginalPath(url.pathname);
   }, []);
 
   const updateURL = (params) => {
     const url = new URL(window.location.href);
+
+    // Clear existing search params
+    url.search = '';
+
     Object.entries(params).forEach(([key, value]) => {
-      if (value === null) {
-        url.searchParams.delete(key);
-      } else {
+      if (value !== null) {
         url.searchParams.set(key, value);
       }
     });
-    window.history.pushState({}, '', url.toString());
+
+    // Replace the entire path with just the search params
+    const newURL = `/${url.search}`;
+    window.history.pushState({}, '', newURL);
+  };
+
+  const restoreOriginalPath = () => {
+    window.history.pushState({}, '', originalPath);
   };
 
   const openForm = () => {
-    updateURL({ register: 'true', success: null });
+    updateURL({ register: 'true' });
     setIsFormOpen(true);
     setIsSuccess(false);
   };
 
   const closeForm = () => {
-    updateURL({ register: null, success: null });
+    restoreOriginalPath();
     setIsFormOpen(false);
     setIsSuccess(false);
   };
 
   const handleSuccess = () => {
-    updateURL({ register: null, success: 'true' });
+    updateURL({ success: 'true' });
     setIsFormOpen(false);
     setIsSuccess(true);
   };

@@ -77,7 +77,9 @@ const newsSlice = createSlice({
         state.error = null;
       })
       .addCase(fetchNews.fulfilled, (state, action) => {
-        state.newsPosts = action.payload.filter((blog) => blog.type === 'news'); // Only store blog type
+        state.newsPosts = action.payload
+        .filter((blog) => blog.type === 'news')
+        .sort((a, b) => b.id - a.id);
         state.loading = false;
       })
       .addCase(fetchNews.rejected, (state, action) => {

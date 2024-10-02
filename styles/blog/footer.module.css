@@ -4,18 +4,21 @@
     font-family: "Gill Sans Light";
     src: url("/fonts/GillSansMTPro-Light.otf");
     font-weight: normal;
+    font-display: swap;
   }
 
   @font-face {
     font-family: "Optima Bold";
     src: url("/fonts/optima/OPTIMA_B.TTF");
     font-weight: normal;
+    font-display: swap;
   }
 
   @font-face {
     font-family: "Optima";
     src: url("/fonts/optima/OPTIMA.TTF");
     font-weight: normal;
+    font-display: swap;
   }
 
 
@@ -23,7 +26,8 @@
     background-color: #006D77;
     color: #FCF7EB;
     padding: 2rem 0rem;
-    height: 75vh;
+    max-height: 95vh;
+    min-height: 65vh;
     font-family: "Gill Sans Light";
     width: 100vw;
   }

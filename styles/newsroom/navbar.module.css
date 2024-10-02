@@ -3,24 +3,28 @@
     font-family: "Gill Sans Light";
     src: url("/fonts/gillsans/Gill Sans Light.otf");
     font-weight: normal;
+    font-display: swap;
   }
   
   @font-face {
     font-family: "Gill Sans Medium";
     src: url("/fonts/gillsans/Gill Sans Medium.otf");
     font-weight: normal;
+    font-display: swap;
   }
   
     @font-face {
       font-family: "Optima Bold";
       src: url("/fonts/optima/OPTIMA_B.TTF");
       font-weight: normal;
+      font-display: swap;
     }
   
     @font-face {
       font-family: "Optima";
       src: url("/fonts/optima/OPTIMA.TTF");
       font-weight: normal;
+      font-display: swap;
     }
   
   

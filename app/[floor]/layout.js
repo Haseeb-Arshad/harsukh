@@ -1,3 +1,5 @@
+
+// Client-side component
 "use client";
 import styles from "@/styles/Floor/floorLayout.module.css";
 import Image from "next/image";
@@ -28,6 +30,7 @@ import { toggleFullScreen } from '@/state/fullScreen/fullScreen';
 import FloorMenu from "../component/ui/floor/floorMenu";
 
 const Layout = ({ children }) => {
+  
   const dispatch = useDispatch();
   const router = useRouter();
   const [isContacted, setIsContacted] = useState(false);
@@ -350,22 +353,37 @@ const Layout = ({ children }) => {
 
 
 
-  const handleCallClick = useCallback(() => {
-    // Add "/callus" to the URL without navigating
-    const newUrl = `${window.location.origin}${window.location.pathname}${window.location.pathname.endsWith('/') ? '' : '/'}callus`;
-    window.history.pushState({}, '', newUrl);
+  const [originalPath, setOriginalPath] = useState('');
 
-    // Attempt to open the phone dialer
-    window.location.href = 'tel:051-111-520-520';
-
-    // Set a timeout to remove "/callus" from the URL
-    setTimeout(() => {
-      if (window.location.pathname.endsWith('/callus')) {
-        const cleanUrl = window.location.href.replace('/callus', '');
-        window.history.replaceState({}, '', cleanUrl);
-      }
-    }, 1000); // Short delay to ensure the call attempt has been made
+  useEffect(() => {
+    setOriginalPath(window.location.pathname);
   }, []);
+
+
+  const updateURL = (params) => {
+    const url = new URL(window.location.href);
+    url.search = '';
+    Object.entries(params).forEach(([key, value]) => {
+      if (value !== null) {
+        url.searchParams.set(key, value);
+      }
+    });
+    const newURL = `/${url.search}`;
+    window.history.pushState({}, '', newURL);
+  };
+
+  const restoreOriginalPath = () => {
+    window.history.pushState({}, '', originalPath);
+  };
+
+  const handleCallClick = useCallback(() => {
+    updateURL({ callus: 'true' });
+    window.location.href = 'tel:051-111-520-520';
+    setTimeout(() => {
+      restoreOriginalPath();
+    }, 1000);
+  }, [originalPath]);
+
 
   useEffect(() => {
     const handleVisibilityChange = () => {

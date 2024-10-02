@@ -30,22 +30,38 @@ import ElevationBox from '../component/ui/Bars/elevationBox';
 import ContactUsPopup from '../component/modules/contactus/page';
 
 // Move this outside of the component function
-const handleCallClick = () => {
-  // Add "/callus" to the URL without navigating
-  const newUrl = `${window.location.origin}${window.location.pathname}${window.location.pathname.endsWith('/') ? '' : '/'}callus`;
-  window.history.pushState({}, '', newUrl);
+const [originalPath, setOriginalPath] = useState('');
 
-  // Attempt to open the phone dialer
-  window.location.href = 'tel:051-111-520-520';
+useEffect(() => {
+  setOriginalPath(window.location.pathname);
+}, []);
 
-  // Set a timeout to remove "/callus" from the URL
-  setTimeout(() => {
-    if (window.location.pathname.endsWith('/callus')) {
-      const cleanUrl = window.location.href.replace('/callus', '');
-      window.history.replaceState({}, '', cleanUrl);
+
+const updateURL = (params) => {
+  const url = new URL(window.location.href);
+  url.search = '';
+  Object.entries(params).forEach(([key, value]) => {
+    if (value !== null) {
+      url.searchParams.set(key, value);
     }
-  }, 1000); // Short delay to ensure the call attempt has been made
+  });
+  const newURL = `/${url.search}`;
+  window.history.pushState({}, '', newURL);
 };
+
+const restoreOriginalPath = () => {
+  window.history.pushState({}, '', originalPath);
+};
+
+const handleCallClick = useCallback(() => {
+  updateURL({ callus: 'true' });
+  window.location.href = 'tel:051-111-520-520';
+  setTimeout(() => {
+    restoreOriginalPath();
+  }, 1000);
+}, [originalPath]);
+
+
 
 const Layout = ({children}) => 
 {   
@@ -202,6 +218,33 @@ const Layout = ({children}) =>
     ]);
   }, [language, dispatch]);
 
+
+
+  useEffect(() => {
+    // Initialize GTM
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+      window.dataLayer.push(arguments);
+    }
+    gtag('js', new Date());
+    gtag('config', 'GTM-MJDJH587');
+
+    // Track clicks
+    const clickHandler = (event) => {
+      if (event.target.dataset.gtmClick) {
+        gtag('event', event.target.dataset.gtmClick, {
+          eventCategory: 'click',
+          eventAction: 'submit',
+          eventLabel: 'submit-button',
+        });
+      }
+    };
+    document.addEventListener('click', clickHandler);
+
+    return () => {
+      document.removeEventListener('click', clickHandler);
+    };
+  }, []);
 
 
   const [isMobile, setIsMobile] = useState(false);
@@ -556,7 +599,11 @@ const Layout = ({children}) =>
       </div>}
 
       { isFormOpen &&
-      <div className={styles.ContactedContainer}>
+      <div 
+        data-gtm-click="submit-button"
+        id="submit-button-id"
+        className={styles.ContactedContainer}
+      >
           <ContactBox onClose={closeForm}/>
       </div>
       }

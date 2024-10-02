@@ -8,12 +8,19 @@
        url('/fonts/GillSansMTPro-Medium.ttf') format('truetype');
   font-weight: bold;
   font-style: normal;
+  font-display: swap;
 }
+
+
 
 @font-face {
   font-family: "Gill Sans Light";
   src: url("/fonts/GillSansMTPro-Light.otf");
   font-weight: normal;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
 }
 
 :root {

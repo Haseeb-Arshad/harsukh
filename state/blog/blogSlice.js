@@ -77,7 +77,10 @@ const blogSlice = createSlice({
         state.error = null;
       })
       .addCase(fetchBlogs.fulfilled, (state, action) => {
-        state.blogPosts = action.payload.filter((blog) => blog.type === 'blog'); // Only store blog type
+        // Filter blog type posts, sort by ID in descending order, then reverse the array
+        state.blogPosts = action.payload
+          .filter((blog) => blog.type === 'blog')
+          .sort((a, b) => b.id - a.id);
         state.loading = false;
       })
       .addCase(fetchBlogs.rejected, (state, action) => {

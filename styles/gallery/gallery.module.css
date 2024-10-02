@@ -3,11 +3,13 @@
     font-family: "Gill Sans Light";
     src: url("/fonts/GillSansMTPro-Light.otf");
     font-weight: normal;
+    font-display: swap;
   }
   @font-face {
     font-family: "Gill Sans Medium Italic";
     src: url("/fonts/GillSansMTPro-MediumItalic.otf");
     font-weight: normal;
+    font-display: swap;
   }
   
   .imageBoxOverlay {

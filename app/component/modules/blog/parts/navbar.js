@@ -28,17 +28,37 @@ const Navbar = ({ children, currentSection, toggleContactForm, useGreenLogo, onN
 
   const translations = languageState === "ur" ? ur : en;
 
+  const [originalPath, setOriginalPath] = useState('');
+
+  useEffect(() => {
+    setOriginalPath(window.location.pathname);
+  }, []);
+
+
+  const updateURL = (params) => {
+    const url = new URL(window.location.href);
+    url.search = '';
+    Object.entries(params).forEach(([key, value]) => {
+      if (value !== null) {
+        url.searchParams.set(key, value);
+      }
+    });
+    const newURL = `/${url.search}`;
+    window.history.pushState({}, '', newURL);
+  };
+
+  const restoreOriginalPath = () => {
+    window.history.pushState({}, '', originalPath);
+  };
+
   const handleCallClick = useCallback(() => {
-    const newUrl = `${window.location.origin}${window.location.pathname}${window.location.pathname.endsWith('/') ? '' : '/'}callus`;
-    window.history.pushState({}, '', newUrl);
+    updateURL({ callus: 'true' });
     window.location.href = 'tel:051-111-520-520';
     setTimeout(() => {
-      if (window.location.pathname.endsWith('/callus')) {
-        const cleanUrl = window.location.href.replace('/callus', '');
-        window.history.replaceState({}, '', cleanUrl);
-      }
+      restoreOriginalPath();
     }, 1000);
-  }, []);
+  }, [originalPath]);
+
 
   const handleWhatsAppClick = useCallback(() => {
     const whatsappNumber = '+923300111166';
