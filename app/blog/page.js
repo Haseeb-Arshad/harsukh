@@ -8,12 +8,8 @@ import styles from '@/styles/blog/blogMain.module.css'
 const Page = () => {
   return (
     <>
-    <div className={styles.main}>
-    {/* <Navbar/> */}
-
-
+    <div id="swup" className={styles.main}>
       <BlogPage posts={blogData.posts} />
-
     </div>
     </>
   );

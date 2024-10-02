@@ -219,24 +219,13 @@
   opacity: 1;
 }
 
-.ctaBtn {
-
-  /* bottom: 0rem;
-  right:0rem; */
-  /* color: #006d77; */
+/* .ctaBtn {
   position: absolute;
   z-index: 99999999999999999;
-  /* height: 40px;
-  width: 40px; */
-  /* padding: 12px 21px;
-  padding: 12px 21px; */
-
   border: none;
-  /* margin-top: 2rem; */
   border-radius: 22px;
   display: flex;
   align-items: center;
-  /* justify-content: flex-start; */
   padding-left: 14px;
   cursor: pointer;
   overflow: hidden;
@@ -249,21 +238,50 @@
   font-size: 0.8rem;
   cursor: pointer;
   padding: 12px 21px;
+} */
 
-  /* bottom: 0rem;
-  right:0rem;
+.ctaBtn {
+  position: absolute;
+  z-index: 99999999999999999;
+  border: none;
+  border-radius: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+  bottom: 70px;
+  left: 50px;
   background-color: #FCF7EB;
   color: #006D77;
-  bottom: 125px;
-  left: 40px;
-  border: none;
-  padding: 12px 21px;
-  border-radius: 1.3rem;
-  cursor: pointer;
   font-size: 0.8rem;
-  transition: all 0.3s ease;
-  user-select: none; */
+  padding: 12px 21px;
 }
+
+/* Add pseudo-element for hover effect */
+.ctaBtn span {
+  display: block;
+  transition: transform 0.2s ease-in-out;
+  position: relative;
+}
+
+.ctaBtn::after {
+  content: attr(data-title);
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: translateY(100%);
+  transition: transform 0.2s ease-in-out;
+  color: #000; /* Adjust color if needed */
+}
+
+/* Hover effect */
+.ctaBtn:hover::after {
+  transform: translateY(0%);
+}
+
 
 
 @media (max-width: 768px) {

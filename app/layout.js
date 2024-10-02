@@ -4,6 +4,9 @@ import "./globals.css";
 import { Providers } from "@/state/provider";
 import { GoogleTagManager } from '@next/third-parties/google'
 import Head from "next/head";
+import dynamic from "next/dynamic";
+
+// const SwupProvider = dynamic(() => import('./component/ui/Swup'), { ssr: false });
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -12,11 +15,11 @@ export const metadata = {
   description: 'Experience luxury living at Harsukh Residences in Galyat, Pakistan. Modern apartments with stunning views and world-class amenities.',
 };
 
-
 export default function RootLayout({ children }) {
+
+
   return (
     <html lang="en">
-
       <Head>
         <title>Luxury Apartments in Galyat | Harsukh Residences, Pakistan</title>
         <meta name="description" content="Discover luxury apartments at Harsukh Residences, Galyat, Pakistan. Modern amenities, breathtaking views, and the perfect location for serene living." />
@@ -37,19 +40,17 @@ export default function RootLayout({ children }) {
         <meta name="twitter:title" content="Luxury Apartments in Galyat | Harsukh Residences" />
         <meta name="twitter:description" content="Luxury apartments in Galyat, Pakistan with breathtaking views and top-notch amenities. Discover Harsukh Residences today." />
         <meta name="twitter:image" content="https://cdn.theharsukh.com/images/background/front-view-winter.webp" />
-
-        {/* NoScript LinkedIn and Facebook Pixels */}
-        <noscript>
-          <img height="1" width="1" style={{ display: 'none' }} alt="" src="https://px.ads.linkedin.com/collect/?pid=7619137&fmt=gif" />
-        </noscript>
-        <noscript>
-          <img height="1" width="1" style={{ display: 'none' }} src="https://www.facebook.com/tr?id=7384856538283539&ev=PageView&noscript=1" alt="" />
-        </noscript>
       </Head>
 
       <body className={inter.className}>
+        {/* Google Tag Manager (noscript) */}
+        <noscript>
+          <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MJDJH587"
+            height="0" width="0" style={{ display: 'none', visibility: 'hidden' }}></iframe>
+        </noscript>
+
         <Providers>
-          {children}
+            {children}
         </Providers>
 
         {/* LinkedIn Insight Tag */}
@@ -75,7 +76,18 @@ export default function RootLayout({ children }) {
           `}
         </Script>
 
-        {/* Google Tag Manager and Analytics */}
+        {/* Google Tag Manager */}
+        <Script id="google-tag-manager" strategy="afterInteractive">
+          {`
+            (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+            new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+            j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+            'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+            })(window,document,'script','dataLayer','GTM-MJDJH587');
+          `}
+        </Script>
+
+        {/* Google Analytics */}
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=AW-16682968635"
           strategy="afterInteractive"
@@ -105,8 +117,16 @@ export default function RootLayout({ children }) {
           `}
         </Script>
 
-        {/* Google Tag Manager */}
+        {/* Google Tag Manager component */}
         <GoogleTagManager gtmId="GTM-MJDJH587" />
+
+        {/* NoScript tags */}
+        <noscript>
+          <img height="1" width="1" style={{ display: 'none' }} alt="" src="https://px.ads.linkedin.com/collect/?pid=7619137&fmt=gif" />
+        </noscript>
+        <noscript>
+          <img height="1" width="1" style={{ display: 'none' }} src="https://www.facebook.com/tr?id=7384856538283539&ev=PageView&noscript=1" alt="" />
+        </noscript>
       </body>
     </html>
   );

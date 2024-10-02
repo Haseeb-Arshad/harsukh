@@ -2,24 +2,28 @@
   font-family: "Gill Sans Light";
   src: url("/fonts/gillsans/Gill Sans Light.otf");
   font-weight: normal;
+  font-display: swap;
 }
 
 @font-face {
   font-family: "Gill Sans Medium";
   src: url("/fonts/gillsans/Gill Sans Medium.otf");
   font-weight: normal;
+  font-display: swap;
 }
 
 @font-face {
   font-family: "Optima Bold";
   src: url("/fonts/optima/OPTIMA_B.TTF");
   font-weight: normal;
+  font-display: swap;
 }
 
 @font-face {
   font-family: "Optima";
   src: url("/fonts/optima/OPTIMA.TTF");
   font-weight: normal;
+  font-display: swap;
 }
 
 /* styles/swupAnimation.module.css */
@@ -36,13 +40,14 @@
 
 
 .main {
-  min-height: 50vh;
+  min-height: 60vh;
   width: 100vw;
   background-color: #FCF7EB;
   color: #000;
   /* padding-top: vh; */
   font-family: "Gill Sans Light";
   z-index: 9999999999999999;
+  margin-bottom: 4rem;
 }
 
 .container {
@@ -63,9 +68,11 @@
 .blogGrid {
   display: flex;
   gap: 2rem;
-  min-height: 100vh;
+  /* row-gap: 4rem; */
+  min-height: 50vh;
   /* padding: 1rem; */
   padding-top: 2rem;
+  padding-bottom: 3rem;
 }
 
 .largePostWrapper {
@@ -79,9 +86,6 @@
 .smallPostsWrapper {
   flex: 0.9;
   height: 100%;
-  /* width:50%; */
-  /* padding-left: 5rem; */
-  /* width: ; */
   padding-right: 5rem;
   overflow: hidden;
 }
@@ -89,12 +93,14 @@
 .smallPosts {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 3.25rem;
   height: 100%;
   width: fit-content;
   overflow: hidden;
   padding-right: 4rem; 
 }
+
+
 
 .card {
   width: fit-content;
@@ -105,7 +111,46 @@
   padding-top: 0rem;
   padding-left: 0rem;
   padding-bottom: 0rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.3s ease;
 }
+
+/* Hover effect on card */
+.card:hover {
+  transform: scale(1.01);  /* Slight zoom for microinteraction */
+  /* box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);  Subtle shadow effect */
+  opacity: 0.95;  /* Minimal fade effect to enhance interaction */
+}
+
+/* Smooth transitions for content inside the card */
+.card .content  {
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.card .additionalCardContent  {
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+
+.card:hover .content {
+  opacity: 1;  /* Increase opacity */
+  transform: translateY(-3px);  /* Slight upward movement */
+}
+
+.card:hover .additionalCardContent {
+  opacity: 1;  /* Increase opacity */
+  transform: translateY(-3px);  /* Slight upward movement */
+}
+
+.card:hover .imageContainer {
+  transform: scale(1.01); /* Slight zoom on image */
+  transition: transform 0.3s ease; /* Smooth zoom transition */
+}
+
+.readMore:hover {
+  text-decoration: none;  /* Ensure no underline on hover */
+  color: #005661;  /* Slight color change */
+}
+
 
 .largeCard {
   height: 100%;
@@ -127,7 +172,6 @@
   padding-bottom: 0rem;
   /* padding: 2rem;; */
 }
-
 
 .imageWrapper
 {
@@ -181,7 +225,6 @@
   width: 100%;
 }
 
-
 .LargetitleText
 {
   font-size: 1.4rem;
@@ -209,7 +252,6 @@
 .excerpt {
   font-size: 0.9rem;
   color: #666;
-  /* margin-bottom: 1rem; */
   flex: 1;
 }
 
@@ -235,12 +277,74 @@
   text-decoration: none; 
 }
 
+
+.additionalPosts {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  padding-right: 0rem;
+  width: 90%;
+  padding-top: 1rem;
+  padding-left: 1rem;
+}
+
+.smallAdditionalCard {
+  display: flex;
+  flex-direction: column;
+  height: auto;
+  width: 100%;
+}
+
+.additionalImageWrapper {
+  width: 100%;
+  padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+  position: relative;
+}
+
+.additionalImageContainer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.additionalCardContent {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem 0rem;
+}
+
+.additionalTitleText {
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+}
+
+.additionalExcerpt {
+  font-size: 0.9rem;
+  color: #666;
+  margin-bottom: 0.5rem;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+}
+
+
 @media (max-width: 950px) {
+
+  .additionalPosts {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0rem;
+    padding-right: 0;
+  }
+
   .blogGrid {
     flex-direction: column;
     height: auto;
     gap: 1rem;
-    min-height: 60vh;
+    min-height: 100vh;
   }
 
   .largePostWrapper {
@@ -268,7 +372,6 @@
     overflow: visible;
     padding-right: 0;
     width: 100%;
-    /* border: 1px solid red; */
     padding: 0rem;
   }
 

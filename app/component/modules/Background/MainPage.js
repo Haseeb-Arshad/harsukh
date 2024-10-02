@@ -265,6 +265,9 @@ export default function MainPage() {
     window.open(url, '_blank');
   };
 
+
+  
+
   useEffect(() => {
     if (isMobile) {
       setShowNavbar(true);
@@ -666,22 +669,37 @@ export default function MainPage() {
     }
   }, [overlay, filterbox, selectedAmenities.length, filterFloorMenu, params, filterBoxRef, svgHover, backView, snowMode, svgReloadTrigger]);
 
-  const handleCallClick = useCallback(() => {
-    // Add "/callus" to the URL without navigating
-    const newUrl = `${window.location.origin}${window.location.pathname}${window.location.pathname.endsWith('/') ? '' : '/'}callus`;
-    window.history.pushState({}, '', newUrl);
+  const [originalPath, setOriginalPath] = useState('');
 
-    // Attempt to open the phone dialer
-    window.location.href = 'tel:051-111-520-520';
-
-    // Set a timeout to remove "/callus" from the URL
-    setTimeout(() => {
-      if (window.location.pathname.endsWith('/callus')) {
-        const cleanUrl = window.location.href.replace('/callus', '');
-        window.history.replaceState({}, '', cleanUrl);
-      }
-    }, 1000); // Short delay to ensure the call attempt has been made
+  useEffect(() => {
+    setOriginalPath(window.location.pathname);
   }, []);
+
+
+  const updateURL = (params) => {
+    const url = new URL(window.location.href);
+    url.search = '';
+    Object.entries(params).forEach(([key, value]) => {
+      if (value !== null) {
+        url.searchParams.set(key, value);
+      }
+    });
+    const newURL = `/${url.search}`;
+    window.history.pushState({}, '', newURL);
+  };
+
+  const restoreOriginalPath = () => {
+    window.history.pushState({}, '', originalPath);
+  };
+
+  const handleCallClick = useCallback(() => {
+    updateURL({ callus: 'true' });
+    window.location.href = 'tel:051-111-520-520';
+    setTimeout(() => {
+      restoreOriginalPath();
+    }, 1000);
+  }, [originalPath]);
+
 
   useEffect(() => {
     const handleVisibilityChange = () => {

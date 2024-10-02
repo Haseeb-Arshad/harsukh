@@ -20,6 +20,13 @@ const Navbar = ({ children, currentSection, toggleContactForm, useGreenLogo, onN
   const mobileMenuRef = useRef(null);
   const menuIconRef = useRef(null);
 
+
+  const [originalPath, setOriginalPath] = useState('');
+
+  useEffect(() => {
+    setOriginalPath(window.location.pathname);
+  }, []);
+
   const languageState = useSelector((state) => {
     const languageState = state.language.lang.find((site) => site.id === "1");
     return languageState ? languageState.language : "en";
@@ -87,17 +94,32 @@ const Navbar = ({ children, currentSection, toggleContactForm, useGreenLogo, onN
     }
   };
 
+ 
+  const updateURL = (params) => {
+    const url = new URL(window.location.href);
+    url.search = '';
+    Object.entries(params).forEach(([key, value]) => {
+      if (value !== null) {
+        url.searchParams.set(key, value);
+      }
+    });
+    const newURL = `/${url.search}`;
+    window.history.pushState({}, '', newURL);
+  };
+
+  const restoreOriginalPath = () => {
+    window.history.pushState({}, '', originalPath);
+  };
+
   const handleCallClick = useCallback(() => {
-    const newUrl = `${window.location.origin}${window.location.pathname}${window.location.pathname.endsWith('/') ? '' : '/'}callus`;
-    window.history.pushState({}, '', newUrl);
+    updateURL({ callus: 'true' });
     window.location.href = 'tel:051-111-520-520';
     setTimeout(() => {
-      if (window.location.pathname.endsWith('/callus')) {
-        const cleanUrl = window.location.href.replace('/callus', '');
-        window.history.replaceState({}, '', cleanUrl);
-      }
+      restoreOriginalPath();
     }, 1000);
-  }, []);
+  }, [originalPath]);
+
+
 
   const handleWhatsAppClick = useCallback(() => {
     const whatsappNumber = '+923300111166';
@@ -218,10 +240,11 @@ const Navbar = ({ children, currentSection, toggleContactForm, useGreenLogo, onN
         <div
           className={`${styles.ctaBtn}`}
           onClick={toggleContactForm}
+          // data-title="Get in Touch"
         >
-          Get in Touch
+          <span>Get in Touch</span>
         </div>
-
+        
         <div className={styles.main}>
           {children}
         </div>

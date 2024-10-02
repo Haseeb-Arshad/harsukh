@@ -36,7 +36,7 @@ const NewsroomMain = () => {
 
   return (
     <>
-      <div className={styles.main}>
+      <div id="swup" className={styles.main}>
         {newsPosts.length > 0 ? (
           <NewsRoom posts={newsPosts} />
         ) : (

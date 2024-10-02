@@ -2,11 +2,13 @@
   font-family: "Gill Sans Light";
   src: url("/fonts/GillSansMTPro-Light.otf");
   font-weight: normal;
+  font-display: swap;
 }
 @font-face {
   font-family: "Gill Sans Medium";
   src: url("/fonts/GillSansMTPro-Medium.otf");
   font-weight: normal;
+  font-display: swap;
 }
 
 /* svg {

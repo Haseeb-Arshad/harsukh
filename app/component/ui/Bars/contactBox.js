@@ -30,7 +30,7 @@ const ApartmentCard = ({ apartment }) => {
           <span>{apartment.Type}</span>
         </div>
         <div className={styles.row}>
-          <span>Bedrooms</span>
+          <span>Bedrooms</span> 
           <span>{apartment.Bedrooms}</span>
         </div>
         <div className={styles.row}>
@@ -159,22 +159,22 @@ const RegisterRequestForm = ({ onClose, onSuccess }) => {
           data: favoriteApartments,
         };
 
-        const response = await fetch('https://almaymaar.rems.pk/api/harsukh-form', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json',
-            'Authorization': 'Bearer GjKnyjcXFImbsMxCMf0McLaQBmlHKMvGk9',
-          },
-          body: JSON.stringify(dataForBackend),
-        });
+        // const response = await fetch('https://almaymaar.rems.pk/api/harsukh-form', {
+        //   method: 'POST',
+        //   headers: {
+        //     'Content-Type': 'application/json',
+        //     'Accept': 'application/json',
+        //     'Authorization': 'Bearer GjKnyjcXFImbsMxCMf0McLaQBmlHKMvGk9',
+        //   },
+        //   body: JSON.stringify(dataForBackend),
+        // });
 
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
+        // if (!response.ok) {
+        //   throw new Error(`HTTP error! status: ${response.status}`);
+        // }
 
-        const result = await response.json();
-        console.log('Form submitted successfully:', result);
+        // const result = await response.json();
+        console.log('Form submitted successfully:', "result");
 
         onSuccess();
         setShowSuccessMessage(true);
@@ -303,6 +303,8 @@ const RegisterRequestForm = ({ onClose, onSuccess }) => {
               <button
                 onClick={handleSubmit}
                 type="submit"
+                data-gtm-click="submit-button"
+                id="submit-button-id"
                 className={`${styles.submitButton} ${currentStep === 2 && !isFormValid && !isSubmitting ? styles.disabled : ''}`}
                 disabled={currentStep === 2 && !isFormValid && !isSubmitting}
               >

@@ -14,6 +14,31 @@ import RegisterRequestForm from '@/app/component/ui/Bars/contactBox';
 const Layout = ({ children }) => {
   const { isFormOpen, isSuccess, openForm, closeForm, handleSuccess } = useRegisterForm();
 
+  useEffect(() => {
+    // Initialize GTM
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+      window.dataLayer.push(arguments);
+    }
+    gtag('js', new Date());
+    gtag('config', 'GTM-MJDJH587');
+
+    // Track clicks
+    const clickHandler = (event) => {
+      if (event.target.dataset.gtmClick) {
+        gtag('event', event.target.dataset.gtmClick, {
+          eventCategory: 'click',
+          eventAction: 'submit',
+          eventLabel: 'submit-button',
+        });
+      }
+    };
+    document.addEventListener('click', clickHandler);
+
+    return () => {
+      document.removeEventListener('click', clickHandler);
+    };
+  }, []);
 
   useEffect(() => {
     const swup = new Swup({
@@ -47,13 +72,16 @@ const Layout = ({ children }) => {
           successContactForm={isSuccess}
           handleSuccess={handleSuccess}
           toggleContactForm={openForm}
-
         />
 
       <main style={{paddng: '5rem', minHeight: '100vh'}}>{children}</main>
 
       {(isFormOpen || isSuccess) && (
-        <div className={styles.contactFormOverlay}>
+        <div 
+          data-gtm-click="submit-button"
+          id="submit-button-id"
+          className={`submit-button-id ${styles.contactFormOverlay}`}
+        >
           <RegisterRequestForm  onSuccess= {handleSuccess} onClose={closeForm} />
         </div>
       )}

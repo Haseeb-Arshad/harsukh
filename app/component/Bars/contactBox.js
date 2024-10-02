@@ -75,6 +75,34 @@ const RegisterRequestForm = ({ onClose }) => {
     validateForm();
   }, [formData]);
 
+
+
+  useEffect(() => {
+    // Initialize GTM
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+      window.dataLayer.push(arguments);
+    }
+    gtag('js', new Date());
+    gtag('config', 'GTM-MJDJH587');
+
+    // Track clicks
+    const clickHandler = (event) => {
+      if (event.target.dataset.gtmClick) {
+        gtag('event', event.target.dataset.gtmClick, {
+          eventCategory: 'click',
+          eventAction: 'submit',
+          eventLabel: 'submit-button',
+        });
+      }
+    };
+    document.addEventListener('click', clickHandler);
+
+    return () => {
+      document.removeEventListener('click', clickHandler);
+    };
+  }, []);
+
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (formRef.current && !formRef.current.contains(event.target)) {
@@ -134,21 +162,21 @@ const RegisterRequestForm = ({ onClose }) => {
           data: favoriteApartments
         };
 
-        const response = await fetch('https://almaymaar.rems.pk/api/harsukh-form', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json',
-            'Authorization': 'Bearer GjKnyjcXFImbsMxCMf0McLaQBmlHKMvGk9'
-          },
-          body: JSON.stringify(dataForBackend),
-        });
+        // const response = await fetch('https://almaymaar.rems.pk/api/harsukh-form', {
+        //   method: 'POST',
+        //   headers: {
+        //     'Content-Type': 'application/json',
+        //     'Accept': 'application/json',
+        //     'Authorization': 'Bearer GjKnyjcXFImbsMxCMf0McLaQBmlHKMvGk9'
+        //   },
+        //   body: JSON.stringify(dataForBackend),
+        // });
 
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
+        // if (!response.ok) {
+        //   throw new Error(`HTTP error! status: ${response.status}`);
+        // }
 
-        const result = await response.json();
+        // const result = await response.json();
         console.log('Form submitted successfully:', result);
         onClose();
       } catch (error) {
@@ -267,7 +295,9 @@ const RegisterRequestForm = ({ onClose }) => {
          <button 
             onClick={handleSubmit} 
             type="submit" 
-            className={`${styles.submitButton} ${(!isFormValid || isSubmitting) && currentStep === totalSteps ? styles.disabled : ''}`}
+            data-gtm-click="submit-button"
+            id="submit-button-id"
+            className={`submit-button-id ${styles.submitButton} ${(!isFormValid || isSubmitting) && currentStep === totalSteps ? styles.disabled : ''}`}
             disabled={(!isFormValid || isSubmitting) && currentStep === totalSteps}
           >
             {currentStep < totalSteps ? 'Next' : (isSubmitting ? 'Submitting...' : 'Submit')}
