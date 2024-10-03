@@ -10,10 +10,50 @@ import dynamic from "next/dynamic";
 
 const inter = Inter({ subsets: ["latin"] });
 
+// export const metadata = {
+//   title: 'Harsukh',
+//   description: 'Experience luxury living at Harsukh Residences in Galyat, Pakistan. Modern apartments with stunning views and world-class amenities.',
+// };
+
+
 export const metadata = {
+  metadataBase: new URL('https://theharsukh.com'),
   title: 'Harsukh',
-  description: 'Experience luxury living at Harsukh Residences in Galyat, Pakistan. Modern apartments with stunning views and world-class amenities.',
+  description: 'Experience luxury living at Harsukh Residences in Galyat, Pakistan. Modern apartments with panoramic mountain views, world-class amenities, and premium finishes. Book your dream home today.',
+  alternates: {
+    canonical: 'https://theharsukh.com'
+  },
+  openGraph: {
+    title: 'Luxury Apartments in Galyat | Harsukh Residences',
+    description: 'Discover premium living at Harsukh Residences - Galyat\'s most prestigious apartment complex. Featuring stunning mountain views, modern amenities, and luxury finishes.',
+    url: 'https://theharsukh.com',
+    siteName: 'Harsukh Residences',
+    images: [
+      {
+        url: 'https://cdn.theharsukh.com/images/background/front-view-winter.webp',
+        width: 1200,
+        height: 630,
+        alt: 'Harsukh Residences Front View in Winter'
+      },
+      {
+        url: 'https://cdn.theharsukh.com/images/background/front-view-summer.webp',
+        width: 1200,
+        height: 630,
+        alt: 'Harsukh Residences Front View in Summer'
+      },
+      {
+        url: 'https://cdn.theharsukh.com/images/background/back-view.webp',
+        width: 1200,
+        height: 630,
+        alt: 'Harsukh Residences Back View'
+      }
+    ],
+    locale: 'en_US',
+    type: 'website',
+  }
 };
+
+
 
 export default function RootLayout({ children }) {
 
@@ -23,17 +63,29 @@ export default function RootLayout({ children }) {
       <Head>
         <title>Luxury Apartments in Galyat | Harsukh Residences, Pakistan</title>
         <meta name="description" content="Discover luxury apartments at Harsukh Residences, Galyat, Pakistan. Modern amenities, breathtaking views, and the perfect location for serene living." />
-        <meta name="keywords" content="Luxury Apartments, Harsukh Residences, Apartments in Galyat, Pakistan Properties, Galyat Real Estate, Modern Apartments in Galyat, Best Apartments in Pakistan" />
+        <meta name="keywords" content="Luxury Apartments, Harsukh Residences, Apartments in Galyat, Pakistan Properties, Galyat Real Estate, Modern Apartments in Galyat, Best Apartments in Pakistan, Best Apartments in Galyat" />
         <meta name="robots" content="index, follow" />
         <meta name="google-site-verification" content="pdF67cKTIKSHMJM0IRkz4p7_4A2CZlKPQD22CDeK4Hs" />
         <link rel="canonical" href="https://theharsukh.com" />
 
+
+        <meta name="author" content="Harsukh Residences" />
+        <meta name="geo.region" content="PK" />
+        <meta name="geo.placename" content="Galyat" />
+        <meta name="distribution" content="global" />
+        <meta name="rating" content="general" />
+        <meta name="revisit-after" content="7 days" />
+
         {/* Open Graph meta tags for social media */}
         <meta property="og:title" content="Luxury Apartments in Galyat | Harsukh Residences" />
-        <meta property="og:description" content="Explore Harsukh Residences in Galyat, Pakistan—offering luxury living with stunning views and modern amenities." />
+        <meta property="og:description" content="Experience luxury living at its finest in Galyat. Harsukh Residences offers premium apartments with panoramic mountain views, smart home features, and world-class amenities." />
         <meta property="og:image" content="https://cdn.theharsukh.com/images/background/front-view-winter.webp" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
         <meta property="og:url" content="https://theharsukh.com" />
+        <meta property="og:site_name" content="Harsukh Residences" />
         <meta property="og:type" content="website" />
+        <meta property="og:locale" content="en_US" />
 
         {/* Twitter Card meta tags */}
         <meta name="twitter:card" content="summary_large_image" />
