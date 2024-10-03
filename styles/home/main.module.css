@@ -112,8 +112,8 @@
   }
 
   .navButton {
-    width: 20px; /* Increased touch target size */
-    height: 20px;
+    width: 24px; /* Increased touch target size */
+    height: 24px;
   }
 
   .navDot {
