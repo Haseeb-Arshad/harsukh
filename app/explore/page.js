@@ -20,16 +20,15 @@ export const metadata = {
         alt: 'Harsukh Residences Front View in Winter'
       },
       {
-        url: 'https://cdn.theharsukh.com/images/background/front-view-summer.webp',
-        width: 1200,
-        height: 630,
-        alt: 'Harsukh Residences Front View in Summer'
-      },
-      {
         url: 'https://cdn.theharsukh.com/images/background/back-view.webp',
         width: 1200,
         height: 630,
         alt: 'Harsukh Residences Back View'
+      },{
+        url: 'https://cdn.theharsukh.com/images/background/front-view-summer.webp',
+        width: 1200,
+        height: 630,
+        alt: 'Harsukh Residences Front View in Summer'
       }
     ],
     type: 'website',
