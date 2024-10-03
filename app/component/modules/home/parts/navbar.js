@@ -220,10 +220,12 @@ const Navbar = ({ children, currentSection, toggleContactForm, useGreenLogo, onN
         </div>
 
         <div
-          className={`${styles.buttonss} ${styles.whatsappButton} ${isWAHovered ? styles.expanded : ""}`}
+          className={`submit-class ${styles.buttonss} ${styles.whatsappButton} ${isWAHovered ? styles.expanded : ""}`}
           onMouseEnter={() => setIsWAHovered(true)}
           onMouseLeave={() => setIsWAHovered(false)}
           onClick={handleWhatsAppClick}
+          data-gtm-click="submit-button"
+          id="submit-button"
         >
           <Image
             src="/images/icons/homePage/whatsapp-icon.svg"
