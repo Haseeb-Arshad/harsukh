@@ -1,4 +1,5 @@
 import { notFound } from 'next/navigation';
+import { JSDOM } from 'jsdom'; // To parse the HTML content
 
 export const revalidate = 0;
 
@@ -34,31 +35,47 @@ export async function generateMetadata({ params }) {
       };
     }
 
-    // Comprehensive meta tags for SEO and social platforms
+    // Parse the HTML description to extract plain text
+    const dom = new JSDOM(blogData.description);
+    const plainText = dom.window.document.body.textContent || "";
+
+    // Split the plain text into sentences and get the first two
+    const sentences = plainText.split(/(?<=\.)\s+/); // Split by periods followed by space
+    const metaDescription = sentences.slice(0, 2).join(' '); // Join the first two sentences
+
+    // Add custom image description (e.g., based on title or content)
+    const imageDescription = `${blogData.title} - A glimpse of luxury living in Galiyat, Pakistan.`;
+
     return {
       title: blogData.title,
-      description: blogData.description,
+      description: metaDescription,
       openGraph: {
         title: blogData.title,
-        description: blogData.description,
+        description: metaDescription,
         type: 'article',
         url: `https://theharsukh.com/blog/${slug}`,
-        images: [blogData.file], // Ensure this is a full URL to the image
+        images: [{
+          url: blogData.file, // Ensure this is a full URL to the image
+          alt: imageDescription, // Custom description for the image
+        }],
       },
       twitter: {
         card: 'summary_large_image',
         title: blogData.title,
-        description: blogData.description,
-        images: [blogData.file],
+        description: metaDescription,
+        images: [{
+          url: blogData.file, // Twitter image
+          alt: imageDescription, // Custom alt for the image
+        }],
       },
-      robots: 'index, follow', // SEO: Allow search engines to index and follow the page
-      'og:type': 'article', // OpenGraph type as article for blog posts
-      'og:site_name': 'Harsukh', // Your site name
-      'og:locale': 'en_US', // Locale to target specific language audience
-      'og:image:alt': blogData.title, // Alt text for image
-      'twitter:image:alt': blogData.title, // Alt text for Twitter image
-      'og:url': `https://theharsukh.com/blog/${slug}`, // Canonical URL of the post
-      'canonical': `https://theharsukh.com/blog/${slug}`, // Canonical URL for SEO
+      robots: 'index, follow', // SEO
+      'og:type': 'article',
+      'og:site_name': 'Almaymaar',
+      'og:locale': 'en_US',
+      'og:image:alt': imageDescription,
+      'twitter:image:alt': imageDescription,
+      'og:url': `https://theharsukh.com/blog/${slug}`,
+      'canonical': `https://theharsukh.com/blog/${slug}`,
     };
   } catch (error) {
     console.error('Error in generateMetadata:', error);
