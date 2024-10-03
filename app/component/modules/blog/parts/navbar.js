@@ -218,9 +218,11 @@ const Navbar = ({ children, currentSection, toggleContactForm, useGreenLogo, onN
 
 
       <div
-          className={`${styles.buttonss} ${styles.callButton} ${isCallHovered ? styles.expanded : ""}`}
+          className={`submit-button ${styles.buttonss} ${styles.callButton} ${isCallHovered ? styles.expanded : ""}`}
           onMouseEnter={() => setIsCallHovered(true)}
           onMouseLeave={() => setIsCallHovered(false)}
+          data-gtm-click="submit-button"
+          id="submit-button"
           onClick={handleCallClick}
         >
           <Image

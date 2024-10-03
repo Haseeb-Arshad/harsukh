@@ -304,8 +304,8 @@ const RegisterRequestForm = ({ onClose, onSuccess }) => {
                 onClick={handleSubmit}
                 type="submit"
                 data-gtm-click="submit-button"
-                id="submit-button-id"
-                className={`${styles.submitButton} ${currentStep === 2 && !isFormValid && !isSubmitting ? styles.disabled : ''}`}
+                id="submit-button"
+                className={`submit-class ${styles.submitButton} ${currentStep === 2 && !isFormValid && !isSubmitting ? styles.disabled : ''}`}
                 disabled={currentStep === 2 && !isFormValid && !isSubmitting}
               >
                 {currentStep < totalSteps ? 'Next' : (isSubmitting ? 'Submitting...' : 'Submit')}
