@@ -172,11 +172,11 @@ const apartmentData = {
     'first-floor': '1st Floor',
     'second-floor': '2nd Floor',
     'third-floor': '3rd Floor',
-    'basement-1': 'Basement 1',
-    'basement-3': 'Basement 3',
-    'basement-4': 'Basement 4',
-    'basement-5': 'Basement 5',
-    'basement-6': 'Basement 6'
+    'valley-floor-1': 'Basement 1',
+    'valley-floor-3': 'Basement 3',
+    'valley-floor-4': 'Basement 4',
+    'valley-floor-5': 'Basement 5',
+    'valley-floor-6': 'Basement 6'
   };
   
   // SEO content templates
@@ -212,9 +212,13 @@ const apartmentData = {
     const floorName = floorPathToName[floor];
     if (!floorName || !apartmentData[floorName]) return notFound();
   
+    console.log("APARTMENT INFO : ", floorName);
+
     const match = apartment.match(/\d+/);
     const apartmentNumber = match ? parseInt(match[0]) : null;
     const apartmentInfo = apartmentData[floorName].find(apt => apt.Apartmentno === apartmentNumber);
+  
+    console.log("APARTMENT INFO : ", apartmentInfo);
     if (!apartmentInfo) return notFound();
   
     const type = getApartmentType(apartmentInfo.Type);
