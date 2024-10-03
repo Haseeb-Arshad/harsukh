@@ -191,7 +191,7 @@ const Navbar = ({ children, currentSection, toggleContactForm, useGreenLogo, onN
                 <button className={styles.exploreBtn}>
                   Explore Building
                 </button>
-                </div>
+              </div>
               </Link>
             </li>
           </ul>
