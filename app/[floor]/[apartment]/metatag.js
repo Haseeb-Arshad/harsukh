@@ -67,7 +67,7 @@ const apartmentData = {
       { Apartmentno: 58, Type: "Two Bed", Bedrooms: 2, Area: "1179 sqft" },
       { Apartmentno: 59, Type: "Two Bed", Bedrooms: 2, Area: "1205 sqft" },
     ],
-    "Basement 1": [
+    "Valley Floor 1": [
       { Apartmentno: 60, Type: "Two Bed", Bedrooms: 2, Area: "1200 sqft" },
       { Apartmentno: 61, Type: "Two Bed", Bedrooms: 2, Area: "1168 sqft" },
       { Apartmentno: 62, Type: "Two Bed", Bedrooms: 2, Area: "1300 sqft" },
@@ -92,7 +92,7 @@ const apartmentData = {
       { Apartmentno: 81, Type: "Two Bed", Bedrooms: 2, Area: "1200 sqft" },
     ],
   
-    "Basement 3": [
+    "Valley Floor 3": [
       { Apartmentno: 82, Type: "Two Bed", Bedrooms: 2, Area: "1102 sqft" },
       { Apartmentno: 83, Type: "Two Bed", Bedrooms: 2, Area: "1034 sqft" },
       { Apartmentno: 84, Type: "Two Bed", Bedrooms: 2, Area: "1169 sqft" },
@@ -118,7 +118,7 @@ const apartmentData = {
       { Apartmentno: 104, Type: "Two Bed", Bedrooms: 2, Area: "1024 sqft" },
       { Apartmentno: 105, Type: "Two Bed", Bedrooms: 2, Area: "1117 sqft" },
     ],
-    "Basement 4": [
+    "Valley Floor 4": [
       { Apartmentno: 106, Type: "One Bed", Bedrooms: 1, Area: "542 sqft" },
       { Apartmentno: 107, Type: "One Bed", Bedrooms: 1, Area: "492 sqft" },
       { Apartmentno: 108, Type: "Studio", Bedrooms: 1, Area: "380 sqft" },
@@ -139,7 +139,7 @@ const apartmentData = {
       { Apartmentno: 123, Type: "Two Bed", Bedrooms: 2, Area: "1046 sqft" },
       { Apartmentno: 124, Type: "Two Bed", Bedrooms: 2, Area: "1210 sqft" },
     ],
-    "Basement 5": [
+    "Valley Floor 5": [
       { Apartmentno: 125, Type: "One Bed", Bedrooms: 1, Area: "506 sqft" },
       { Apartmentno: 126, Type: "One Bed", Bedrooms: 1, Area: "508 sqft" },
       { Apartmentno: 127, Type: "One Bed", Bedrooms: 1, Area: "512 sqft" },
@@ -152,7 +152,7 @@ const apartmentData = {
       { Apartmentno: 134, Type: "One Bed", Bedrooms: 1, Area: "524 sqft" },
       { Apartmentno: 135, Type: "One Bed", Bedrooms: 1, Area: "596 sqft" },
     ],
-    "Basement 6": [
+    "Valley Floor 6": [
       { Apartmentno: 136, Type: "Studio", Bedrooms: 0, Area: "473 sqft" },
       { Apartmentno: 137, Type: "Studio", Bedrooms: 0, Area: "471 sqft" },
       { Apartmentno: 138, Type: "Studio", Bedrooms: 0, Area: "488 sqft" },
@@ -172,11 +172,11 @@ const apartmentData = {
     'first-floor': '1st Floor',
     'second-floor': '2nd Floor',
     'third-floor': '3rd Floor',
-    'valley-floor-1': 'Basement 1',
-    'valley-floor-3': 'Basement 3',
-    'valley-floor-4': 'Basement 4',
-    'valley-floor-5': 'Basement 5',
-    'valley-floor-6': 'Basement 6'
+    'valley-floor-1': 'Valley Floor 1',
+    'valley-floor-3': 'Valley Floor 3',
+    'valley-floor-4': 'Valley Floor 4',
+    'valley-floor-5': 'Valley Floor 5',
+    'valley-floor-6': 'Valley Floor 6'
   };
   
   // SEO content templates

@@ -3918,7 +3918,7 @@ export default function MainPage() {
           </div>
 
 
-          <div styles={{zIndex:'99999999999999', position:'absolute'}} >
+          <div className={styles.menuBoxmobile} styles={{zIndex:'99999999999999', position:'absolute'}} >
 
             <MenuBox
               isMobile={isMobile}
