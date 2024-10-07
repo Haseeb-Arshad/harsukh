@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
+
 const FrontPage = () => {
   const [progress, setProgress] = useState(0);
-
+  const [isMobile, setIsMobile] = useState(false);
+  
   useEffect(() => {
     const timer = setInterval(() => {
       setProgress((oldProgress) => {
@@ -20,11 +22,20 @@ const FrontPage = () => {
     };
   }, []);
 
-  return (
+  useEffect(() => {
+    const checkScreenSize = () => {
+      const isMobileView = window.innerWidth <= 768;
+      setIsMobile(isMobileView);
+    };
+  
+    checkScreenSize();
+    window.addEventListener("resize", checkScreenSize);
+    return () => window.removeEventListener("resize", checkScreenSize);
+  }, []);
 
+  return (
     <>
-    
-    <img
+      <img
         src="https://cdn.theharsukh.com/Webpage/front-page.webp"
         layout="fill"
         objectFit="cover"
@@ -34,7 +45,6 @@ const FrontPage = () => {
           position: 'absolute',
           height: '100vh',
           width: '100vw',
-
         }}
       />
 
@@ -46,37 +56,35 @@ const FrontPage = () => {
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
-        position: 'relative',
       }}>
-     
-      <h1 style={{
-        color: 'white',
-        fontSize: '40px',
-        fontWeight: 'bold',
-        marginBottom: '40px'
-      }}>
-        <img src="https://cdn.theharsukh.com/images/Logo/HarsukhLogo.webp" height={65} width={270} alt="Harsukh" />
-      </h1>
-      <div style={{
-        width: '280px',
-        height: '4px',
-        backgroundColor: 'rgba(255,255,255,0.2)',
-        borderRadius: '2px',
-        overflow: 'hidden'
-      }}>
+        <h1 style={{
+          color: 'white',
+          fontSize: '40px',
+          fontWeight: 'bold',
+          marginBottom: '40px'
+        }}>
+          {isMobile ? 
+            <img src="https://cdn.theharsukh.com/images/Logo/HarsukhLogo.webp" height={45} width={200} alt="Harsukh" /> :
+            <img src="https://cdn.theharsukh.com/images/Logo/HarsukhLogo.webp" height={65} width={270} alt="Harsukh" />
+          }
+        </h1>
+
         <div style={{
-          width: `${progress}%`,
-          height: '100%',
-          backgroundColor: 'white',
-          transition: 'width 0.1s ease-out'
-        }} />
+          width: isMobile ? '200px' : '280px', // Adjusted width for mobile
+          height: '4px',
+          backgroundColor: 'rgba(255,255,255,0.2)',
+          borderRadius: '2px',
+          overflow: 'hidden'
+        }}>
+          <div style={{
+            width: `${progress}%`,
+            height: '100%',
+            backgroundColor: 'white',
+            transition: 'width 0.1s ease-out'
+          }} />
+        </div>
       </div>
-    </div>
-    
-    
-    
     </>
- 
   );
 };
 
