@@ -60,9 +60,6 @@ const Layout = ({ children }) => {
     setFloor(floorNameDisplay[params.floor]);
 
     if (floorName && apartmentNumber) {
-      // console.log("FLOOR NAME-- " , floorName);
-      // console.log("APART NAME-- " , apartmentNumber);
-      // console.log("APARTMENT: " , apartmentData[floorName]);
       const apartmentInfo = apartmentData[floorName].find(apt => apt.Apartmentno == apartmentNumber);
       if (apartmentInfo) {
         setApartmentType(apartmentInfo.Type);
@@ -85,16 +82,11 @@ const Layout = ({ children }) => {
       );
 
       if (apartment) {
-        console.log("FLOOOR selected :", apartment);
-
         foundApartment = apartment;
         foundFloor = floorName;
         break;
       }
     }
-
-    // console.log("FLOOOR NAMEEEE :", foundFloor);
-
 
     if (foundApartment) {
       setApartmentInfo(foundApartment);
@@ -151,8 +143,6 @@ const Layout = ({ children }) => {
     }
   }, [params]);
 
-
-  
   const floorNameDisplay = {
     'third-floor': "3rd Floor",
     'second-floor': "2nd Floor",
@@ -290,10 +280,36 @@ const Layout = ({ children }) => {
     setIsContacted(false);
   };
 
+  // const handleCall = () => {
+  //   dispatch(addFavoriteApartment({ ...apartmentInfo, floor }));
+  //   setIsContacted(!isContacted);
+  // };
+
+
   const handleCall = () => {
-    dispatch(addFavoriteApartment({ ...apartmentInfo, floor }));
-    setIsContacted(!isContacted);
+    // Check if the apartment already exists in the favorites
+    const isAlreadyFavorited = favoriteApartments.some(
+      (apt) => apt.Apartmentno === apartmentInfo.Apartmentno.toString()
+    );
+  
+    if (!isAlreadyFavorited && apartmentInfo) {
+      // If not a duplicate, add the apartment to the state
+      dispatch(
+        addFavoriteApartment({
+          Apartmentno: apartmentInfo.Apartmentno.toString(),
+          floor,
+          Type: apartmentInfo.Type,
+          Bedrooms: apartmentInfo.Bedrooms,
+          Area: apartmentInfo.Area,
+        })
+      );
+      setIsContacted(!isContacted);
+    } else {
+      setIsContacted(!isContacted);
+    }
   };
+
+
 
    const [harsukhHeight, setHarsukhHeight] = useState(105);
   const [harsukhWidth, setHarsukhWidth] = useState(180);

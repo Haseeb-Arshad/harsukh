@@ -212,13 +212,11 @@ const apartmentData = {
     const floorName = floorPathToName[floor];
     if (!floorName || !apartmentData[floorName]) return notFound();
   
-    console.log("APARTMENT INFO : ", floorName);
 
     const match = apartment.match(/\d+/);
     const apartmentNumber = match ? parseInt(match[0]) : null;
     const apartmentInfo = apartmentData[floorName].find(apt => apt.Apartmentno === apartmentNumber);
   
-    console.log("APARTMENT INFO : ", apartmentInfo);
     if (!apartmentInfo) return notFound();
   
     const type = getApartmentType(apartmentInfo.Type);

@@ -107,8 +107,8 @@ const Layout = ({ children }) => {
 
   const handleCall = () => {
     openForm();
-
-    // setIsContacted(!isContacted);
+    setReservedClicked(false);
+        // setIsContacted(!isContacted);
   };
   const handleContactClose = () => {
     closeMenu();
@@ -632,15 +632,14 @@ const Layout = ({ children }) => {
         )}
 
       {reservedClicked && (
-        <div className={styles.reserveContainerBox}>
-
+          <div className={styles.reserveContainerBox}>
             <div className={styles.reservedContainer} ref={apartmentListingRef}>
               <ApartmentListing
                 onInterested={handleCall}
                 apartments={favoriteApartments}
               />
             </div>
-        </div>
+          </div>
 
           )}
         {/* <div className={styles.reserveContainerBox}> */}
