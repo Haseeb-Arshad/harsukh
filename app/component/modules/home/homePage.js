@@ -121,12 +121,12 @@ export default function HomePage({ initialSection }) {
     updateLogoColor(index);
     const maxScroll = (allSections.length - 1) * 100 - 25;
     const scrollPercentage = Math.min(index * 100, maxScroll);
-
-    containerRef.current.style.transition = 'transform 0.8s cubic-bezier(0.645, 0.045, 0.355, 1)';
+  
+    containerRef.current.style.transition = 'transform 0.8s cubic-bezier(0.25, 0.8, 0.25, 1)'; // Update transition for smoothness
     containerRef.current.style.transform = `translateY(-${scrollPercentage}vh)`;
-
+  
     updateURL(index);
-
+  
     setTimeout(() => {
       setIsScrolling(false);
       containerRef.current.style.transition = '';
@@ -390,18 +390,21 @@ export default function HomePage({ initialSection }) {
           ))}
         </nav>
 
-
-      <div ref={containerRef} className={styles.sectionContainer}>
-        {allSections.map((Section, index) => (
-          <section key={Section.id} id={Section.id} className={styles.section}>
-            {Section.id === 'footer' ? (
-              <Footer onPrivacyPolicyClick={handlePrivacyPolicyClick} />
-            ) : (
-              <Section.component />
-            )}
-          </section>
-        ))}
-      </div>
+        <div ref={containerRef} className={styles.sectionContainer}>
+          {allSections.map((Section, index) => (
+            <section 
+              key={Section.id} 
+              id={Section.id} 
+              className={`${styles.section} ${index === currentSection ? styles.active : ''}`} // Apply active class conditionally
+            >
+              {Section.id === 'footer' ? (
+                <Footer onPrivacyPolicyClick={handlePrivacyPolicyClick} />
+              ) : (
+                <Section.component />
+              )}
+            </section>
+          ))}
+        </div>
 
       {(isFormOpen || isSuccess) && (
         <div className={styles.contactFormOverlay}>
