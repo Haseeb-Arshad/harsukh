@@ -26,7 +26,7 @@ const Developer = () => {
       <div className={styles.content}>
         <div className={styles.emptyDiv}></div>
         <div className={styles.title}>
-          <div className={styles.titleText}>Developer</div>
+          <AnimatedText text={"Developer"} className={styles.titleText} />
         </div>
         <div className={styles.logoDiv}>
           <Image
