@@ -268,17 +268,12 @@ const Apartment = ({ imageName, imageLink }) => {
       const isMobileView = window.innerWidth <= 768;
       setIsMobile(isMobileView);
 
-      console.log(isMobile)
       if(isMobile)
       {
-        console.log("MOB")
       }
       else
-      console.log("LARGE")
 
-      console.log("MOBILLEE VIEWWWW")
       setZoomCoord(isMobile ? 2.6 : 0.7); 
-      console.log(zoomCoord)
 
     };
   
@@ -419,7 +414,7 @@ const Apartment = ({ imageName, imageLink }) => {
           viewer.destroy();
         }
       };
-    } }   , [imageName, isMobile,imageLink, router]);
+    } } , [imageName, isMobile,imageLink, router]);
 
   
   useEffect(() => {
