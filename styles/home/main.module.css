@@ -69,32 +69,21 @@
 
 
 .sectionContainer {
+}
+
+.sectionContainer {
   height: 100%;
   will-change: transform;
   touch-action: pan-y pinch-zoom; /* Allow vertical scrolling and pinch zoom */
-  transition: transform 0.8s cubic-bezier(0.25, 0.8, 0.25, 1); /* Smoother transition */
+
+  /* transition: transform 0.5s cubic-bezier(0.645, 0.045, 0.355, 1); */
 }
 
-/* General section styles for depth effect */
 .section {
   height: 100vh;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
   touch-action: pan-y; /* Allow vertical scrolling within sections */
-  position: relative; /* For stacking context */
-  transition: opacity 0.7s ease, transform 0.7s ease; /* Smooth opacity and transform */
-}
-
-/* Apply styles when a section is not active */
-.section:not(.active) {
-  opacity: 0.5; /* Slightly transparent when not active */
-  transform: scale(0.99); /* Slightly reduce scale for inactive sections */
-}
-
-/* Apply styles when a section is active */
-.section.active {
-  opacity: 1; /* Fully opaque for active section */
-  transform: scale(1); /* Normal scale for active section */
 }
 
 .section:last-child {
