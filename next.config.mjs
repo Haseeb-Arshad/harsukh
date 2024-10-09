@@ -15,6 +15,16 @@ const nextConfig = {
           { key: 'X-Frame-Options', value: 'DENY' },
         ],
       },
+      {
+        source: '/unity/:path*',
+        headers: [
+          {
+            key: 'Content-Encoding',
+            value: 'gzip'
+          }
+        ]
+      }
+
     ];
   },
 
