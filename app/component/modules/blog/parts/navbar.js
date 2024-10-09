@@ -178,7 +178,7 @@ const Navbar = ({ children, currentSection, toggleContactForm, useGreenLogo, onN
           <img 
             style={{ cursor: "pointer" }} 
             onClick={() => router.push('/')}
-            src="https://res.cloudinary.com/dykglphpa/image/upload/v1727174238/harsukh/Logo/ljvd3ds9mwks0lh65zab.svg"
+            src="https://cdn.theharsukh.com/media/harsukh-logo-green.svg"
             alt="Harsukh Logo" 
             width={ 330} 
             height={ 115}

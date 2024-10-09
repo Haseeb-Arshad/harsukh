@@ -149,8 +149,8 @@ const Navbar = ({ children, currentSection, toggleContactForm, useGreenLogo, onN
     }
   };
 
-  const harsukhGreenLogo = "https://res.cloudinary.com/dykglphpa/image/upload/v1727174238/harsukh/Logo/ljvd3ds9mwks0lh65zab.svg";
-  const harsukhWhiteLogo = "https://res.cloudinary.com/dykglphpa/image/upload/v1727174238/harsukh/Logo/hdcxdutxghs2lozogcqx.svg";
+  const harsukhGreenLogo = "https://cdn.theharsukh.com/media/harsukh-logo-green.svg";
+  const harsukhWhiteLogo = "https://cdn.theharsukh.com/media/harsukh-logo-white.svg";
 
   return (
     <>
