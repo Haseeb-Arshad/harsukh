@@ -3,19 +3,22 @@
 
 import { useEffect } from 'react';
 
-const UnityPage = () => {
-  useEffect(() => {
+const Page = () => {
+
+
+ // Update paths to non-compressed versions in the Unity instance config
+useEffect(() => {
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('/unity/ServiceWorker.js');
     }
-
+  
     const script = document.createElement('script');
     script.src = '/unity/Build/HarsukhWeb.loader.js';
     script.onload = () => {
       createUnityInstance(document.querySelector('#unity-canvas'), {
-        dataUrl: '/unity/Build/HarsukhWeb.data.gz',
-        frameworkUrl: '/unity/Build/HarsukhWeb.framework.js.gz',
-        codeUrl: '/unity/Build/HarsukhWeb.wasm.gz',
+        dataUrl: '/unity/Build/HarsukhWeb.data',
+        frameworkUrl: '/unity/Build/HarsukhWeb.framework.js',
+        codeUrl: '/unity/Build/HarsukhWeb.wasm',
         streamingAssetsUrl: 'StreamingAssets',
         companyName: 'MangoMango',
         productName: 'HarsukhResidencies',
@@ -31,6 +34,8 @@ const UnityPage = () => {
     };
     document.body.appendChild(script);
   }, []);
+
+  
 
   function unityShowBanner(msg, type) {
     const warningBanner = document.querySelector("#unity-warning");
@@ -67,4 +72,4 @@ const UnityPage = () => {
   );
 };
 
-export default UnityPage;
+export default Page;
