@@ -6,16 +6,23 @@ import Head from 'next/head';
 import '@/public/unity/TemplateData/style.css';
 
 const UnityPage = () => {
+
+  
   useEffect(() => {
+    // Make sure the loading bar is visible at the start
+    const loadingBar = document.querySelector("#unity-loading-bar");
+    if (loadingBar) {
+      loadingBar.style.display = "block";
+    }
+  
     // Dynamically load the Unity loader script
     const script = document.createElement('script');
     script.src = '/unity/Build/HarsukhWeb.loader.js';
     script.async = true;
-
+  
     script.onload = () => {
       console.log('Unity loader script loaded.');
       if (window.createUnityInstance) {
-        console.log('createUnityInstance is available.');
         window
           .createUnityInstance(
             document.querySelector("#unity-canvas"),
@@ -41,7 +48,7 @@ const UnityPage = () => {
           )
           .then((unityInstance) => {
             console.log('Unity instance loaded successfully.');
-            const loadingBar = document.querySelector("#unity-loading-bar");
+            // Hide the loading bar when Unity has loaded
             if (loadingBar) {
               loadingBar.style.display = "none";
             }
@@ -54,14 +61,14 @@ const UnityPage = () => {
         console.error('createUnityInstance is not available.');
       }
     };
-
+  
     script.onerror = () => {
       console.error('Failed to load the Unity loader script.');
       alert('Failed to load the Unity loader script.');
     };
-
+  
     document.body.appendChild(script);
-
+  
     // Register Service Worker
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker
@@ -74,6 +81,7 @@ const UnityPage = () => {
         });
     }
   }, []);
+  
 
   return (
     <>
@@ -98,7 +106,7 @@ const UnityPage = () => {
         <div id="unity-loading-bar" style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}>
           <div id="unity-logo"></div>
           <div id="unity-progress-bar-empty">
-            <div id="unity-progress-bar-full" style={{ width: '0%', height: '20px', background: '#fff' }}></div>
+            <div id="unity-progress-bar-full" ></div>
           </div>
         </div>
         <div id="unity-warning" style={{ position: 'absolute', top: 0, width: '100%', textAlign: 'center', color: '#fff' }}></div>
