@@ -66,11 +66,11 @@ const ApartmentPage = () => {
 
   
   const floorData = {
-    'Penthouse': { imageLink: "https://res.cloudinary.com/dykglphpa/image/upload/v1726498333/harsukh/apartment/snefqxcxhxfua9xwyyl7.webp", imageName: "penthouse" },
-    'One Bed': { imageLink: "https://res.cloudinary.com/dykglphpa/image/upload/v1726498334/harsukh/apartment/diwzwlvmgrbn9h6phetr.webp", imageName: "oneBed" },
-    'Two Bed': { imageLink: "https://res.cloudinary.com/dykglphpa/image/upload/v1726498334/harsukh/apartment/hndiuvos3igwbdbzzbni.webp", imageName: "twoBed" },
-    'Three Bed': { imageLink: "https://res.cloudinary.com/dykglphpa/image/upload/v1726498334/harsukh/apartment/p1apn4ghrjukpecfrn2k.webp", imageName: "threeBed" },
-    'Studio': { imageLink: "https://res.cloudinary.com/dykglphpa/image/upload/v1726498334/harsukh/apartment/zdeozmkgjfhwd0md83zn.webp", imageName: "studio" },
+    'Penthouse': { imageLink: "/api/proxy/Penthouse", imageName: "penthouse" },
+    'One Bed': { imageLink: "/api/proxy/OneBed", imageName: "oneBed" },
+    'Two Bed': { imageLink: "/api/proxy/TwoBed", imageName: "twoBed" },
+    'Three Bed': { imageLink: "/api/proxy/ThreeBed", imageName: "threeBed" },
+    'Studio': { imageLink: "/api/proxy/Studio", imageName: "studio" },
     // 'P': { imageLink: "/Webpage/apartments/penthouse.webp", imageName: "penthouse" },
     basement1: { imageLink: "https://res.cloudinary.com/dykglphpa/image/upload/v1726498333/harsukh/apartment/snefqxcxhxfua9xwyyl7.webp", imageName: "penthouse" },
     // basement5: { imageLink: "/Webpage/apartments/penthouse.webp", imageName: "penthouse" },
