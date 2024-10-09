@@ -418,7 +418,7 @@ const Layout = ({ children }) => {
           position: "absolute",
           background: "#013A40",
           height: "100vh",
-          width: "100%",
+          width: "100%"
         }}
       >
 
