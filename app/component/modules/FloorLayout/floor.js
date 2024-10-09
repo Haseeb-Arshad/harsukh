@@ -178,41 +178,44 @@ const Floor = ({ imageName, imageLink }) => {
   useEffect(() => {
     let viewer;
 
-    if (viewerRef.current) {
-      viewer = OpenSeadragon({
-        element: viewerRef.current,
-        tileSources: {
-          type: "image",
-          url: imageLink,
-          buildPyramid: false,
-          width: 10000,
-          height: 10000,
-        },
-        showNavigationControl: false,
-        maxZoomPixelRatio: 10,
-        smoothTileEdgesMinZoom: 1,
-        blendTime: 0.1, 
-        constrainDuringPan: true,
-        minZoomImageRatio: 1,
-        visibilityRatio: zoomCoord,
-        minZoomLevel: 0.7,
-        maxZoomLevel: 7,
-        wrapHorizontal: false,
-        defaultZoomLevel: zoomCoord,
-        zoomPerScroll: 1.2,
-        zoomPerClick: 1.5,
-        animationTime: 0.5,
-        gestureSettingsMouse: {
-          clickToZoom: false,
-          pinchToZoom: true,
-          dblClickToZoom: true,
-        },
-        loadTilesWithAjax: true,
-        ajaxHeaders: {
-          "Cache-Control": "no-cache", // Changed to no-cache for iOS
-          "Accept": "image/webp,image/apng,image/*,*/*;q=0.8", // Added Accept header
-        },
-      });
+   
+  if (viewerRef.current) {
+    viewer = OpenSeadragon({
+      element: viewerRef.current,
+      tileSources: {
+        type: "image",
+        url: imageLink, // Now points to your proxy route
+        buildPyramid: false,
+        width: 10000,
+        height: 10000,
+        crossOrigin: "anonymous", // Add this line
+      },
+      showNavigationControl: false,
+      maxZoomPixelRatio: 10,
+      smoothTileEdgesMinZoom: 1,
+      blendTime: 0.1, 
+      constrainDuringPan: true,
+      minZoomImageRatio: 1,
+      visibilityRatio: zoomCoord,
+      minZoomLevel: 0.7,
+      maxZoomLevel: 7,
+      wrapHorizontal: false,
+      defaultZoomLevel: zoomCoord,
+      zoomPerScroll: 1.2,
+      zoomPerClick: 1.5,
+      animationTime: 0.5,
+      gestureSettingsMouse: {
+        clickToZoom: false,
+        pinchToZoom: true,
+        dblClickToZoom: true,
+      },
+      loadTilesWithAjax: true,
+      ajaxHeaders: {
+        "Cache-Control": "no-cache", // Changed to no-cache for iOS
+        "Accept": "image/webp,image/apng,image/*,*/*;q=0.8", // Added Accept header
+      },
+    });
+    
 
       setViewer(viewer);
 

@@ -292,10 +292,11 @@ const Apartment = ({ imageName, imageLink }) => {
         element: viewerRef.current,
         tileSources: {
           type: 'image',
-          url: `${imageLink}`,
+          url: imageLink,
           buildPyramid: false,
           width: 10000,
           height: 10000,
+          crossOrigin: "anonymous",
         },
         showNavigationControl: false,
         maxZoomPixelRatio: 10,
