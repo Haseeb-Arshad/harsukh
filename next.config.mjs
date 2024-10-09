@@ -17,29 +17,45 @@ const nextConfig = {
       },
 
       {
-        source: '/unity/:path*',
+        // Apply these headers to all .js.gz, .framework.js.gz, .data.gz, and .wasm.gz files
+        source: "/unity/Build/:all*.gz",
         headers: [
           {
-            key: 'Content-Encoding',
-            value: 'gzip',
+            key: "Content-Encoding",
+            value: "gzip",
           },
           {
-            key: 'Content-Type',
-            value: 'application/javascript',
-          }
+            key: "Content-Type",
+            value: "application/javascript", // For .js.gz and .framework.js.gz
+          },
         ],
       },
-
-
-      // {
-      //   source: '/unity/:path*',
-      //   headers: [
-      //     {
-      //       key: 'Content-Encoding',
-      //       value: 'gzip'
-      //     }
-      //   ]
-      // }
+      {
+        source: "/unity/Build/:all*.data.gz",
+        headers: [
+          {
+            key: "Content-Encoding",
+            value: "gzip",
+          },
+          {
+            key: "Content-Type",
+            value: "application/octet-stream",
+          },
+        ],
+      },
+      {
+        source: "/unity/Build/:all*.wasm.gz",
+        headers: [
+          {
+            key: "Content-Encoding",
+            value: "gzip",
+          },
+          {
+            key: "Content-Type",
+            value: "application/wasm",
+          },
+        ],
+      },
 
     ];
   },
