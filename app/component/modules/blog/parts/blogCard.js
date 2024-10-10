@@ -30,34 +30,41 @@ const BlogCard = ({ post, isLarge }) => {
   }, []);
 
   return (
-    <div
-    onClick={() => router.push(`/blog/${post.slug}`)}
-    // href={`/blog/${post.slug}`}
-    styles={{ cursor: "pointer" }}
-    ref={cardRef}
-    className={`${styles.card} ${isLarge ? styles.largeCard : styles.smallCard} ${styles.swupFadeIn}`}
-  >
-    <div className={styles.largeimageWrapper}>
-      <div className={styles.imageContainer}>
-        <Image
-          src={post.file}
-          alt={post.title}
-          layout="fill"
-          objectFit="cover"
-          className={styles.image}
-        />
+    
+     <div
+      onClick={() => router.push(`/blog/${post.slug}`)}
+      onKeyPress={(e) => {
+        if (e.key === 'Enter') router.push(`/blog/${post.slug}`);
+      }}
+      tabIndex={0}
+      role="button"
+      style={{ cursor: 'pointer' }}
+      ref={cardRef}
+      className={`${styles.card} ${isLarge ? styles.largeCard : styles.smallCard} ${styles.swupFadeIn}`}
+    >
+      <div className={styles.largeimageWrapper}>
+        <div className={styles.imageContainer}>
+          <Image
+                    className={styles.image}
+            src={post.file}
+            alt={`Image for ${post.title}`}
+            layout="fill"
+            objectFit="cover"
+            quality={80} // Adjust quality as needed
+            priority={isLarge} // Preload large images
+          />
+        </div>
+      </div>
+      <div className={styles.content}>
+        <div className={styles.title}>
+          <div style={{ fontSize: '1.5rem' }} className={styles.LargetitleText}>
+            {post.title}
+          </div>
+        </div>
+        {isLarge && <p className={styles.excerpt}>{post.excerpt}</p>}
+        <div className={styles.readMore}>Read more</div>
       </div>
     </div>
-    <div className={styles.content}>
-      <div className={styles.title}>
-        <div style={{ fontSize: '1.5rem' }} className={styles.LargetitleText}>{post.title}</div>
-      </div>
-      {isLarge && <p className={styles.excerpt}>{post.excerpt}</p>}
-      <div className={styles.readMore}>
-        Read more
-      </div>
-    </div>
-  </div>
   );
 };
 

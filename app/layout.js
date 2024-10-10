@@ -1,10 +1,11 @@
 import { Inter } from "next/font/google";
 import Script from 'next/script';
 import "./globals.css";
-import { Providers } from "@/state/provider";
+// import { Providers } from "@/state/provider";
 import { GoogleTagManager } from '@next/third-parties/google'
 import Head from "next/head";
 import dynamic from "next/dynamic";
+import Providers from "@/state/provider";
 
 // const SwupProvider = dynamic(() => import('./component/ui/Swup'), { ssr: false });
 
@@ -94,6 +95,10 @@ export default function RootLayout({ children }) {
         <meta name="twitter:image" content="https://cdn.theharsukh.com/images/background/front-view-winter.webp" />
      
         <link rel="preconnect" href="https://www.googletagmanager.com" crossOrigin="true" />
+
+
+        <link rel="preconnect" href="https://cdn.theharsukh.com" />
+        <link rel="dns-prefetch" href="https://cdn.theharsukh.com" />
 
       </Head>
 

@@ -84,13 +84,7 @@ const Header = ({ toggleContactForm }) => {
         <motion.div className={`${styles.subtitle} ${inView ? styles.isInview : ''}`}>
           <span className={styles.lineInner}>{subtitle}</span>
         </motion.div>
-        {/* <motion.button
-          className={styles.ctaBtn}
-          variants={buttonVariants}
-          onClick={toggleContactForm}
-        >
-          Get in Touch
-        </motion.button> */}
+
       </motion.div>
     </motion.div>
           

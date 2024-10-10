@@ -34,7 +34,7 @@
   justify-content: center;
   width: 10px;
   height: 10px;
-  margin: 5px 0;
+  margin: 7px 0;
   background-color: transparent;
   border: none;
   cursor: pointer;
@@ -42,8 +42,8 @@
 }
 
 .navDot {
-  width: 5px;
-  height: 5px;
+  width: 6px;
+  height: 6px;
   border-radius: 50%;
   background-color: rgba(255, 255, 255, 0.5);
   transition: all 0.3s ease;
@@ -61,6 +61,7 @@
 
 .navButton.active .navDot {
   width: 7px;
+  transform: scale(1.2);
   height: 7px;
   background-color: #ffffff;
   box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
@@ -113,6 +114,8 @@
   .navButton {
     width: 24px; /* Increased touch target size */
     height: 24px;
+    margin: 3px 0;
+
   }
 
   .navDot {

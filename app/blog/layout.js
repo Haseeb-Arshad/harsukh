@@ -9,6 +9,7 @@ import SwupFadeTheme from '@swup/fade-theme';
 import { useRegisterForm } from "@/app/component/hooks/useRegisterForm"
 import styles from '@/styles/home/main.module.css';
 import RegisterRequestForm from '@/app/component/ui/Bars/contactBox';
+import Head from 'next/head';
 
 
 const Layout = ({ children }) => {
@@ -52,6 +53,21 @@ const Layout = ({ children }) => {
 
   return (
     <div style={{ position: 'relative' }}>
+
+      <Head>
+        {/* existing meta tags */}
+
+        {/* Preload Critical Background Image */}
+        <link
+          rel="preload"
+          href="https://cdn.theharsukh.com/images/blog/imageMask-bg.png"
+          as="image"
+          type="image/png"
+          crossOrigin="anonymous"
+        />
+      </Head>
+
+
       <div style={{
         position: 'fixed',
         left: 0,
