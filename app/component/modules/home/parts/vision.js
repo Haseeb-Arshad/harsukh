@@ -23,9 +23,10 @@ export default function VisionPage() {
       <div className={styles.visionContent}>
         <div className={styles.visionImage}>
           <Image
+            unoptimized
             src='https://cdn.theharsukh.com/images/home/vision-bg.webp'
             alt="Harsukh Residencies"
-            fill
+            layout="fill" objectFit="cover" 
             quality={100}
           />
         </div>
