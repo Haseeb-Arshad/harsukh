@@ -229,6 +229,7 @@
     padding: 5px 15px;
     border-radius: 2rem;
     background-color: #ffffff;
+    border: 1px solid #ccc;
   }
   
   .textInput {
