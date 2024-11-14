@@ -237,14 +237,42 @@
     padding: 12px 6px;
     border: none;
     border-radius: 20px;
-    resize: none;
+    resize: none; /* Prevent manual resizing */
     font-size: 1.1rem;
     outline: none;
     color: black;
     background-color: #ffffff;
     font-family: "Gotham Medium";
-
+    max-height: 150px; /* Set your desired maximum height */
+    overflow-y: auto; /* Enable vertical scrollbar when needed */
+    transition: height 0.2s ease-in-out; /* Smooth height transition */
   }
+  
+  /* Custom Scrollbar Styles for Textarea */
+  .textInput::-webkit-scrollbar {
+    width: 6px;
+  }
+  
+  .textInput::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 3px;
+  }
+  
+  .textInput::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #006D77, #005a9e);
+    border-radius: 3px;
+  }
+  
+  .textInput::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, #005a9e, #004f8a);
+  }
+  
+  /* For Firefox */
+  .textInput {
+    scrollbar-width: thin;
+    scrollbar-color: #006D77 #f1f1f1;
+  }
+  
   
   .sendButton {
     margin-left: 10px;

@@ -87,6 +87,24 @@ export default function ChatPage() {
     </svg>
   );
 
+
+  const textareaRef = useRef(null);
+
+  const adjustTextareaHeight = () => {
+    const textarea = textareaRef.current;
+    if (textarea) {
+      textarea.style.height = 'auto'; // Reset height to auto
+      textarea.style.height = `${textarea.scrollHeight}px`; // Set height based on content
+    }
+  };
+
+  useEffect(() => {
+    adjustTextareaHeight();
+  }, [input]);
+
+
+
+
   return (
     <div className={styles.container}>
       <div className={styles.chatWindow}>
@@ -122,7 +140,7 @@ export default function ChatPage() {
           <div ref={messagesEndRef} />
         </div>
       </div>
-
+{/* 
       <div className={styles.inputArea}>
         <div className={styles.inputBox}>
           <textarea
@@ -141,7 +159,31 @@ export default function ChatPage() {
             <SendIcon fill={input.trim() ? '#FFFFFF' : '#C0C0C0'} />
           </button>
         </div>
+      </div> */}
+
+    <div className={styles.inputArea}>
+      <div className={styles.inputBox}>
+        <textarea
+          ref={textareaRef}
+          className={styles.textInput}
+          placeholder="Type your message..."
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+          onKeyDown={handleKeyPress}
+          onInput={adjustTextareaHeight}
+          rows={1}
+        />
+        <button
+          className={`${styles.sendButton} ${input.trim() ? styles.sendButtonActive : ''}`}
+          onClick={handleSend}
+          disabled={!input.trim()}
+        >
+          <SendIcon fill={input.trim() ? '#FFFFFF' : '#C0C0C0'} />
+        </button>
       </div>
+    </div>
+
+
     </div>
   );
 }
