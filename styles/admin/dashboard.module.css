@@ -1,0 +1,14 @@
+/* styles/admin/adminDashboard.module.css */
+.dashboardContainer {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+.title {
+  text-align: center;
+  margin-bottom: 50px;
+  color: #006d77; /* Teal */
+  font-size: 3rem;
+  font-weight: bold;
+}

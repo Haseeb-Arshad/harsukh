@@ -1,242 +1,148 @@
-"use client";
-import apartmentData from "@/app/component/data/floorData";
-import {
-  addFavoriteApartment,
-  removeFavoriteApartment,
-} from "@/state/apartment/favApartment";
-import styles from "@/styles/Floor/floorApartment.module.css";
-import Image from "next/image";
-import { useParams, useRouter } from "next/navigation";
+// FloorViewer.js
+import React, { useEffect, useRef } from "react";
 import OpenSeadragon from "openseadragon";
-import { useEffect, useRef, useState, useMemo } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import Loading from '@/app/component/ui/Loading/Loading';
-import StarAnimate from "@/public/json/StarAnimate.json"
-import Lottie from "react-lottie";
-import { setGalleryPressed } from "@/state/gallery/GalleryState";
-import Gallery from "@/app/component/ui/Gallery/Gallery";
+// import styles from "./Floor.module.css";
+import styles from "@/styles/Floor/floorApartment.module.css";
 
-import en from '@/app/component/locales/en.json';
-import ur from '@/app/component/locales/ur.json';
+import { findApartmentByNumber } from "./dataservice";
 
-const Floor = ({ imageName, imageLink }) => {
+const FloorViewer = ({
+  imageName,
+  imageLink,
+  onPolygonClick,
+  zoomCoord,
+  isMobile,
+}) => {
   const viewerRef = useRef(null);
-  const [isLoading, setIsLoading] = useState(true);
-  const [isLaptopScreen, setIsLaptopScreen] = useState(false);
-  const [activePolygon, setActivePolygon] = useState(null);
-  const [popupPosition, setPopupPosition] = useState({ x: 0, y: 0 });
-  const [viewer, setViewer] = useState(null);
-  const [overlay, setOverlay] = useState(true);
-  const svgRef = useRef(null);
-  const [isMobile, setIsMobile] = useState(false);
-  const [floor, setFloor] = useState("");
-  const [zoomCoord, setZoomCoord] = useState(0.7);
-  const [apartmentInfo, setApartmentInfo] = useState(null);
-  const [apartmentNum, setApartmentNum] = useState(0);
-  const [popupMessage, setPopupMessage] = useState("");
-  const [showPopup, setShowPopup] = useState(false);
-  const [isPopupVisible, setIsPopupVisible] = useState(false);
+  const viewerInstance = useRef(null);
 
-  const params = useParams();
-  const router = useRouter();
-  const dispatch = useDispatch();
-
-  const languageState = useSelector((state) => {
-    const languageState = state.language.lang.find((site) => site.id === '1');
-    return languageState ? languageState.language : 'en';
-  });
-
-  const translations = useMemo(() => languageState === 'ur' ? ur : en, [languageState]);
-
-  const defaultOptions = {
-    loop: true,
-    autoplay: true, 
-    animationData: StarAnimate,
-    rendererSettings: {
-      preserveAspectRatio: "xMidYMid slice"
-    }
-  };
-
-  const floorNameMapping = {
-    "third-floor": "3rd Floor",
-    "second-floor": "2nd Floor",
-    "first-floor": "1st Floor",
-    "ground-floor": "Ground Floor",
-    "valley-floor-1": "Valley Floor 1",
-    "valley-floor-3": "Valley Floor 3",
-    "valley-floor-4": "Valley Floor 4",
-    "valley-floor-5": "Valley Floor 5",
-    "valley-floor-6": "Valley Floor 6",
-  };
+  console.log("IMAGEEEE LINK : ", imageLink)
+  console.log("imageName ", imageName)
+  console.log(zoomCoord )
 
   useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth <= 768);
-    const checkLaptop = () => setIsLaptop(window.innerWidth > 768);
-    checkMobile();
-    window.addEventListener("resize", checkMobile);
-    return () => window.removeEventListener("resize", checkMobile);
-  }, []);
-
-  const favoriteApartments = useSelector(
-    (state) => state.favoriteApartments.favoriteApartments
-  );
-
-
-  const isGalleryPressed = useSelector(state => state.gallery.isGalleryPressed);
-
-
-  useEffect(() => {
-    let foundApartment = null;
-    let foundFloor = "";
-
-    const apartmentParam = params.floor; // e.g., "Apartment1"
-    const match = apartmentParam.match(/\d+/); // Extracts the digits from the string
-    const apartmentNumber = match ? match[0] : null; // Gets the first match or null if no match
-    setApartmentNum(apartmentNumber);
-
-    // Search for the apartment in all floors
-    for (const floorName in apartmentData) {
-      const apartment = apartmentData[floorName].find(
-        (apt) => apt.Apartmentno.toString() === apartmentNumber
-      );
-      if (apartment) {
-        foundApartment = apartment;
-        foundFloor = floorName;
-        break;
-      }
-    }
-
-    if (foundApartment) {
-      setApartmentInfo(foundApartment);
-      setFloor(foundFloor);
-    } else {
-      // router.push('/thirdFloor/Apartment1');
-    }
-  }, [params.apartment, router]);
-
-  const handleIconClick = () => {
-    if (activePolygon) {
-      const apartmentId = activePolygon.id;
-      const isFavorite = favoriteApartments.some(
-        (apt) => apt.Apartmentno === apartmentId
-      );
-
-      if (isFavorite) {
-        dispatch(removeFavoriteApartment(apartmentId));
-        setPopupMessage(translations["favDelPopup"]);
-      } else {
-        const apartmentToAdd = {
-          Apartmentno: apartmentId,
-          floor: activePolygon.floor,
-          Type: activePolygon.Type,
-          Bedrooms: activePolygon.Bedrooms,
-          Area: activePolygon.Area,
-        };
-        dispatch(addFavoriteApartment(apartmentToAdd));
-        setPopupMessage(translations["favAddPopup"]);
-      }
-
-      setShowPopup(true);
-      setIsPopupVisible(true);
-      setTimeout(() => {
-        setIsPopupVisible(false);
-      }, 5000);
-      setTimeout(() => {
-        setShowPopup(false);
-      }, 5500);
-    }
-  };
-
-  function isPointInPolygon(point, polygon) {
-    const points = polygon.points;
-    let inside = false;
-    for (let i = 0, j = points.length - 1; i < points.length; j = i++) {
-      const xi = points[i].x,
-        yi = points[i].y;
-      const xj = points[j].x,
-        yj = points[j].y;
-      const intersect =
-        yi > point.y !== yj > point.y &&
-        point.x < ((xj - xi) * (point.y - yi)) / (yj - yi) + xi;
-      if (intersect) inside = !inside;
-    }
-    return inside;
-  }
-
-  useEffect(() => {
-    const checkScreenSize = () => {
-      const isMobileView = window.innerWidth <= 768;
-      setIsMobile(isMobileView);
-      setZoomCoord(isMobileView ? 1.2 : 0.7); // Adjust these values as needed
-    };
-  
-    checkScreenSize();
-    window.addEventListener("resize", checkScreenSize);
-    return () => window.removeEventListener("resize", checkScreenSize);
-  }, []);
-
-  useEffect(() => {
-    let viewer;
-
-   
-  if (viewerRef.current) {
-    viewer = OpenSeadragon({
-      element: viewerRef.current,
-      tileSources: {
-        type: "image",
-        url: imageLink, // Now points to your proxy route
-        buildPyramid: false,
-        width: 10000,
-        height: 10000,
-        crossOrigin: "anonymous", // Add this line
-      },
-      showNavigationControl: false,
-      maxZoomPixelRatio: 10,
-      smoothTileEdgesMinZoom: 1,
-      blendTime: 0.1, 
-      constrainDuringPan: true,
-      minZoomImageRatio: 1,
-      visibilityRatio: zoomCoord,
-      minZoomLevel: 0.7,
-      maxZoomLevel: 7,
-      wrapHorizontal: false,
-      defaultZoomLevel: zoomCoord,
-      zoomPerScroll: 1.2,
-      zoomPerClick: 1.5,
-      animationTime: 0.5,
-      gestureSettingsMouse: {
-        clickToZoom: false,
-        pinchToZoom: true,
-        dblClickToZoom: true,
-      },
-      loadTilesWithAjax: true,
-      ajaxHeaders: {
-        "Cache-Control": "no-cache", // Changed to no-cache for iOS
-        "Accept": "image/webp,image/apng,image/*,*/*;q=0.8", // Added Accept header
-      },
-    });
-    
-
-      setViewer(viewer);
-
-      viewer.addHandler("tile-loaded", () => {
-        setIsLoading(false);
+    if (viewerRef.current
+       && !viewerInstance.current
+    ) {
+      viewerInstance.current = OpenSeadragon({
+        element: viewerRef.current,
+        tileSources: {
+          type: "image",
+          url: imageLink,
+          buildPyramid: false,
+          width: 10000,
+          height: 10000,
+          crossOrigin: "anonymous",
+        },
+        showNavigationControl: false,
+        maxZoomPixelRatio: 10,
+        smoothTileEdgesMinZoom: 1,
+        blendTime: 0.1,
+        constrainDuringPan: true,
+        minZoomImageRatio: 1,
+        visibilityRatio: zoomCoord,
+        minZoomLevel: 0.7,
+        maxZoomLevel: 7,
+        wrapHorizontal: false,
+        defaultZoomLevel: zoomCoord,
+        zoomPerScroll: 1.2,
+        zoomPerClick: 1.5,
+        animationTime: 0.5,
+        gestureSettingsMouse: {
+          clickToZoom: false,
+          pinchToZoom: true,
+          dblClickToZoom: true,
+        },
+        loadTilesWithAjax: true,
+        ajaxHeaders: {
+          "Cache-Control": "no-cache",
+          Accept: "image/webp,image/apng,image/*,*/*;q=0.8",
+        },
       });
 
-      viewer.addHandler("open", function () {
-        if (imageName === "third-floor") {
-          const svgOverlay = document.createElement("div");
-          svgOverlay.className = "openSeadragonOverlay"; // Add this line
-          svgOverlay.style.position = "absolute";
-          svgOverlay.style.position = "absolute";
-          svgOverlay.style.left = "0";
-          svgOverlay.style.top = "0";
-          svgOverlay.style.width = "100%";
-          svgOverlay.style.height = "100%";
-      
-          const svgContent = `
-            <svg  xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 10000 10000" preserveAspectRatio="none">
-        
+      viewerInstance.current.addHandler("tile-loaded", () => {
+        // Handle loading state externally if needed
+        // setIsLoading(false);
+      });
+
+      viewerInstance.current.addHandler("open", () => {
+        addSVGOverlay(imageName, onPolygonClick);
+      });
+    }
+
+    return () => {
+      if (viewerInstance.current) {
+        viewerInstance.current.destroy();
+        viewerInstance.current = null;
+      }
+    };
+  }, [imageName, imageLink, onPolygonClick, zoomCoord]);
+
+  const addSVGOverlay = (floorName, onPolygonClick) => {
+    let svgOverlay;
+
+    if (floorName === "third-floor") {
+      svgOverlay = createSVGOverlay("Third Floor", onPolygonClick);
+    }
+
+    if (imageName === "second-floor") {
+      svgOverlay = createSVGOverlay("Second Floor", onPolygonClick);
+
+    }
+
+    if (imageName === "first-floor") {
+      svgOverlay = createSVGOverlay("First Floor", onPolygonClick);
+
+    }
+
+     else if (floorName === "ground-floor") {
+      svgOverlay = createSVGOverlay("Ground Floor", onPolygonClick);
+    }
+    
+    else if (floorName === "valley-floor-1") {
+      svgOverlay = createSVGOverlay("Valley Floor 1", onPolygonClick);
+    } 
+    
+    else if (floorName === "valley-floor-3") {
+      svgOverlay = createSVGOverlay("Valley Floor 3", onPolygonClick);
+    }
+  
+    else if (floorName === "valley-floor-4") {
+      svgOverlay = createSVGOverlay("Valley Floor 4", onPolygonClick);
+    }
+    
+    else if (floorName === "valley-floor-5") {
+      svgOverlay = createSVGOverlay("Valley Floor 5", onPolygonClick);
+    }
+    
+    else if (floorName === "valley-floor-6") {
+      svgOverlay = createSVGOverlay("Valley Floor 6", onPolygonClick);
+    }
+    // Add more floors as needed
+
+    if (svgOverlay && viewerInstance.current) {
+      viewerInstance.current.addOverlay({
+        element: svgOverlay,
+        location: new OpenSeadragon.Rect(0, 0, 5.209, 5.208),
+        placement: OpenSeadragon.Placement.CENTER,
+      });
+    }
+  };
+
+  const createSVGOverlay = (floor, onPolygonClick) => {
+    const svgOverlay = document.createElement("div");
+    svgOverlay.className = "openSeadragonOverlay";
+    svgOverlay.style.position = "absolute";
+    svgOverlay.style.left = "0";
+    svgOverlay.style.top = "0";
+    svgOverlay.style.width = "100%";
+    svgOverlay.style.height = "100%";
+    let svgContent;
+
+    if(floor === "Third Floor") {
+
+      svgContent = 
+      `      <svg  xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 10000 10000" preserveAspectRatio="none">
               <text class="${styles.st1}" transform="translate(881.77 101.41)">Road View</text>
               <path  class="${styles.st1}" d="M821.94,65.58a3.47,3.47,0,0,1,.66.79c.24.59-.06,1.08-.73,1.45-1.63.9-3.28,1.78-4.88,2.74a13.29,13.29,0,0,0-3.68,3.17,3.25,3.25,0,0,0,.34,4.89,14.67,14.67,0,0,0,5,3c2,.77,4,1.42,6,2.16a18.82,18.82,0,0,1,8.16,5.47,15.37,15.37,0,0,1,3.49,9.67A29,29,0,0,1,834,110.29c-.34.88-.76,1.72-1.1,2.6a4,4,0,0,1-2.77,2.71h-15c-.32-.24-.6-.51-.44-1s.54-.5,1-.5c3.12,0,6.25,0,9.37,0a.82.82,0,0,0,.78-.43,34.32,34.32,0,0,0,5-10.66c.15-.63.25-1.28.38-1.92a2,2,0,0,1,0-.24c.11-.5.42-.74.84-.67a.72.72,0,0,1,.6.9,23.92,23.92,0,0,1-1.66,6.05,39,39,0,0,1-3.39,6.46l-.31.49c.9,0,1.73,0,2.55,0a1.68,1.68,0,0,0,1.41-1.07,37.92,37.92,0,0,0,3-8.66,20.83,20.83,0,0,0,.31-7.75,13.63,13.63,0,0,0-6.74-9.73,30.63,30.63,0,0,0-6.64-2.76,26.69,26.69,0,0,1-7.49-3.55,7.54,7.54,0,0,1-2.3-2.5,4.05,4.05,0,0,1-.43-2.73.78.78,0,0,0,0-.37,3.59,3.59,0,0,0-.47,3,6,6,0,0,0,2.16,2.88,22.51,22.51,0,0,0,6,3.28,52,52,0,0,1,6.43,2.64,14.81,14.81,0,0,1,6.48,6.48,12.75,12.75,0,0,1,1.11,3.92,1.41,1.41,0,0,1,0,.58.67.67,0,0,1-.76.48c-.42,0-.58-.33-.67-.72a22.18,22.18,0,0,0-.66-2.79,11.93,11.93,0,0,0-4.91-5.88A28.1,28.1,0,0,0,819.42,86a26.16,26.16,0,0,1-7.24-3.63,11.16,11.16,0,0,1-2.09-2,5.18,5.18,0,0,1-.5-6,13.13,13.13,0,0,1,4.09-4.39c1.4-1,2.89-1.91,4.32-2.86a8.19,8.19,0,0,0-4.14.64,63.71,63.71,0,0,0-9.53,5.79A19.86,19.86,0,0,0,799.84,78a6.76,6.76,0,0,0-1.25,3.23A5.58,5.58,0,0,0,800.74,86c.81.73,1.75,1.3,2.61,2a37.17,37.17,0,0,1,3.47,2.76,8.7,8.7,0,0,1,1.88,10.54,22,22,0,0,1-4.88,6.53,52.56,52.56,0,0,1-7.35,5.87l-.72.49h15.92c.42,0,.79,0,1,.5s-.11.73-.45,1H789.7a4.35,4.35,0,0,1-.7-.57,1.64,1.64,0,0,1,.42-2.46c1.51-1,3.05-1.92,4.54-2.94a41.21,41.21,0,0,0,7.29-6.09,14.81,14.81,0,0,0,2.77-4,5.81,5.81,0,0,0-1-6.61,16.3,16.3,0,0,0-3-2.52,29.59,29.59,0,0,1-3.37-2.63,6.4,6.4,0,0,1-2.12-5.35,8.05,8.05,0,0,1,1.5-3.81,20.17,20.17,0,0,1,5.25-5,99.7,99.7,0,0,1,12.4-7.33,18.37,18.37,0,0,1,1.76-.62ZM797.49,79A6.61,6.61,0,0,0,796,82.5a5,5,0,0,0,1.7,4.24,27.46,27.46,0,0,0,3.08,2.38,17,17,0,0,1,3.49,2.94A7.14,7.14,0,0,1,806,97.88a10,10,0,0,1-1.52,3.87,26.78,26.78,0,0,1-6,6.38,78,78,0,0,1-8,5.52,2.79,2.79,0,0,0-.42.35l.08.14h2.77a.63.63,0,0,0,.31-.12,57.3,57.3,0,0,0,9.54-7.16,19.48,19.48,0,0,0,4.67-6.24,7.46,7.46,0,0,0-1-8.18,15.78,15.78,0,0,0-3.89-3.3,22.92,22.92,0,0,1-2.4-1.74c-2.55-2.19-3.81-4.89-2.5-8.28V79Z"/><path class="${styles.st1}" d="M819.85,97.92c0-.2,0-.39,0-.59a.74.74,0,0,1,.67-.76.71.71,0,0,1,.77.66,10.29,10.29,0,0,1,0,1.36.65.65,0,0,1-.73.63.68.68,0,0,1-.71-.67c0-.21,0-.42,0-.63Z"/><path class="${styles.st1}" d="M802.89,79.75c0-.45.12-.82.6-1a.72.72,0,0,1,.88.62c0,.4.09.81.11,1.22a.69.69,0,0,1-.58.78.69.69,0,0,1-.84-.55C803,80.5,803,80.12,802.89,79.75Z"/><path class="${styles.st1}"  d="M811.68,87.55c0,.66-.51,1-1,.82a8,8,0,0,1-1.2-.63.67.67,0,0,1-.26-.93.69.69,0,0,1,1-.33,7.87,7.87,0,0,1,1.11.59A1.65,1.65,0,0,1,811.68,87.55Z"/><path class="${styles.st1}"  d="M816.71,105.82c.15.13.42.25.51.45a.86.86,0,0,1,0,.72,5.9,5.9,0,0,1-.94,1.06.6.6,0,0,1-.88,0c-.17-.2-.33-.64-.23-.8a8.85,8.85,0,0,1,1.14-1.31C816.36,105.88,816.5,105.88,816.71,105.82Z"/><path class="${styles.st1}" d="M816.27,90a.74.74,0,0,1-1,.8A8,8,0,0,1,814,90a.66.66,0,0,1-.14-.92.63.63,0,0,1,.84-.31,8.51,8.51,0,0,1,1.29.78C816.17,89.65,816.22,89.87,816.27,90Z"/><path class="${styles.st1}"  d="M818.59,91.91l.21,0c.34.11,1.24,1.23,1.18,1.58a1,1,0,0,1-.4.69.8.8,0,0,1-.75-.09,5.29,5.29,0,0,1-.91-1.19A.71.71,0,0,1,818.59,91.91Z"/><path class="${styles.st1}" d="M805.74,74.18a.73.73,0,0,1,.65,1.14,9,9,0,0,1-.83,1,.68.68,0,0,1-.89.12.6.6,0,0,1-.3-.83,9.83,9.83,0,0,1,1.08-1.35C805.52,74.2,805.69,74.2,805.74,74.18Z"/><path class="${styles.st1}"  d="M807.37,85c-.12.15-.24.42-.44.51a.86.86,0,0,1-.72,0,4.54,4.54,0,0,1-1.05-1,.9.9,0,0,1,0-.83.86.86,0,0,1,.78-.24,9.46,9.46,0,0,1,1.29,1.16C807.32,84.66,807.31,84.81,807.37,85Z"/><path class="${styles.st1}"  d="M819.06,104.08a.74.74,0,0,1-.79-1,9.25,9.25,0,0,1,.6-1.12.67.67,0,0,1,.89-.27.65.65,0,0,1,.41.84,8.2,8.2,0,0,1-.73,1.37C819.36,104,819.13,104,819.06,104.08Z"/><path class="${styles.st1}" d="M810,72a1.25,1.25,0,0,1-1.49,1,.67.67,0,0,1-.43-.82,1.45,1.45,0,0,1,1.32-.86A.65.65,0,0,1,810,72Z"/><path class="${styles.st1}" d="M813.64,110.26a1.45,1.45,0,0,1-1.23,1.07.74.74,0,0,1-.7-.74,1.48,1.48,0,0,1,1.24-1.07A.72.72,0,0,1,813.64,110.26Z"/><text class="${styles.st1}" transform="translate(947.1 1004.14)">Hill View</text><path class="${styles.st1}" d="M881.78,1010.91H845.17a4.84,4.84,0,0,1-.85,0,.73.73,0,0,1-.54-1.07,3.2,3.2,0,0,1,.3-.45q4.24-5.88,8.49-11.77a1.49,1.49,0,0,1,1.42-.74,17.11,17.11,0,0,0,2.48,0,1.39,1.39,0,0,0,.86-.45q2.31-3.12,4.54-6.3a1.46,1.46,0,0,1,1.37-.68c1,0,2.07,0,3.11,0a1.17,1.17,0,0,0,1.09-.54c3.13-4.12,6.29-8.22,9.44-12.33.85-1.11,1.1-1.12,2-.1q5.15,5.67,10.26,11.36a1.44,1.44,0,0,0,1.2.51c1.27,0,2.54-.05,3.81,0a2.08,2.08,0,0,1,1.21.5c2.08,2,4.12,4,6.2,6a1.79,1.79,0,0,0,1.13.46c1.53.05,3.06,0,4.58.05a1.9,1.9,0,0,1,1.24.58q5.47,6.66,10.88,13.38c.23.3.45.87.31,1.13s-.71.44-1.1.45Q900.2,1010.93,881.78,1010.91ZM871.3,993.34c-.67,1.3-1.29,2.49-1.89,3.69a1.31,1.31,0,0,0-.08.53q-.15,3.72-.29,7.45c0,.53-.08,1-.69,1.13s-.82-.41-1-.89c-.31-.84-.62-1.67-1-2.66l-3.31,6.7a1.73,1.73,0,0,0,.27.06c5.21,0,10.41,0,15.62,0a1.3,1.3,0,0,0,.82-.43q2.7-3.06,5.33-6.18a1.9,1.9,0,0,0,.4-1c.21-2,.35-4,.56-6,.1-1,.66-1.18,1.44-.63l2.1,1.55c-.32-2.16-.65-4.15-.89-6.15a3,3,0,0,0-.9-1.81c-3.09-3.38-6.15-6.79-9.23-10.19-.13-.14-.29-.26-.46-.42-1.3,3.2-2.58,6.33-3.84,9.47a2.48,2.48,0,0,0-.14,1c0,2.74.08,5.49.13,8.23,0,.51,0,1-.65,1.15s-.84-.36-1-.84C872.2,995.82,871.77,994.64,871.3,993.34Zm3.27-10.8-.19-.12c-.17.21-.34.41-.5.62q-2.82,3.66-5.62,7.33A1.34,1.34,0,0,1,867,991c-1.09,0-2.18,0-3.26,0a1.42,1.42,0,0,0-.93.47q-2.31,3.12-4.54,6.29a1.36,1.36,0,0,1-1.3.66c-.8,0-1.6,0-2.4,0a1.12,1.12,0,0,0-1.09.54c-2.33,3.26-4.68,6.5-7,9.75-.13.18-.23.37-.36.57.11,0,.15.08.2.08,4.84,0,9.68,0,14.53,0a1,1,0,0,0,.67-.45c.46-.84.86-1.71,1.28-2.56,1-1.92,1.88-3.86,2.87-5.76a1.32,1.32,0,0,1,.89-.67c.24,0,.52.45.76.72a1.93,1.93,0,0,1,.23.48,12.85,12.85,0,0,0,.17-2.37,5.63,5.63,0,0,1,.17-2.07c.86-1.9,1.86-3.74,2.85-5.58a1,1,0,0,1,.75-.4c.24,0,.5.29.67.52a4.19,4.19,0,0,1,.34.81,1,1,0,0,0,.11-.6,12.94,12.94,0,0,1,1.48-7.62A13.24,13.24,0,0,0,874.57,982.54Zm21.5,9.31L896,992a1.6,1.6,0,0,1,.12.37l2.52,11.11c.12.53.38,1.12-.25,1.46s-1-.23-1.4-.65L894,1001c-1.16,1-2.17,2-2.25,3.63s-.44,3.11-.67,4.66h26.3c-3.29-4-6.52-8-9.77-12a4.1,4.1,0,0,0-1-.6c.06.58.08.88.13,1.19.34,2.46.69,4.91,1,7.37.07.5.11,1-.47,1.15s-.87-.22-1.12-.67q-2.38-4.31-4.8-8.6a3.81,3.81,0,0,0-.63-.86c-1.36-1.36-2.73-2.69-4.11-4A5.72,5.72,0,0,0,896.07,991.85Zm-14.54,17.44h8c.13-.88.29-1.7.37-2.52.25-2.8.69-5.5,3.29-7.21a.57.57,0,0,0,.11-.11c.6-.58.91-.57,1.49.06s1.06,1.16,1.59,1.74l.13-.07-2.55-11.25H890.2c.4,2.69.82,5.32,1.17,8A1.41,1.41,0,0,1,891,999c-.19.15-.77,0-1.07-.25-.81-.52-1.56-1.12-2.42-1.76-.16,1.81-.27,3.49-.47,5.16a2.59,2.59,0,0,1-.52,1.32C884.91,1005.41,883.25,1007.29,881.53,1009.29Zm21.52-12.38,2.4,4.31.17-.07-.61-4.24Zm-28.47-14.5,0,0-.1-.05,0,0Z"/>             
               <polygon data-image="1" class="${styles.st0}" points="527.49 404.15 527.49 424.8 483.69 424.8 483.69 529.52 348.98 529.52 348.98 190.73 333.04 190.04 458.47 136.61 458.47 195.31 471.31 195.31 471.31 190.96 483.69 190.96 483.69 404.15 527.49 404.15"/>
@@ -249,66 +155,12 @@ const Floor = ({ imageName, imageLink }) => {
               <polygon data-image="8" class="${styles.st0}" points="952.38 746.32 952.38 711.47 910.65 711.47 910.65 662.62 951.24 662.62 951.24 614.7 876.71 614.7 876.71 613.5 874.88 613.5 874.88 574.34 768.88 574.34 768.88 573.48 746.24 573.48 746.24 574.17 739.99 574.17 739.99 576.29 711.16 575.95 711.16 663.54 740.28 663.54 740.28 722.01 688.92 722.01 688.92 835.98 740.28 835.98 740.28 846.06 784.53 846.06 784.53 868.08 931.75 868.08 931.75 746.32 952.38 746.32"/>
               <polygon data-image="9" class="${styles.st0}" points="611.87 752.13 611.87 663.62 640.76 663.62 640.76 575.87 612.33 575.87 612.33 574.5 483.69 574.5 483.69 912.94 483.77 912.94 483.77 917.07 586.34 917.07 586.34 863.11 599.03 863.11 599.03 867.85 611.57 867.85 611.57 862.8 662.32 862.8 662.32 752.13 611.87 752.13"/>
               <polygon data-image="10" class="${styles.st0}" points="435.62 574.5 357.96 574.5 348.79 574.5 349.25 680.51 349.25 844.31 349.25 900.02 352.76 900.02 352.76 912.79 332.13 912.79 458.09 966.75 458.09 907.75 470.93 907.75 470.93 912.94 483.69 912.94 483.69 574.5 435.62 574.5"/>
-            </svg>
-          `;
-          svgOverlay.innerHTML = svgContent;
-          svgOverlay.querySelectorAll("polygon, path").forEach((polygon) => {
-            polygon.addEventListener("click", (e) => {
-              e.preventDefault();
-              e.stopPropagation();
-              const dataImage = e.target.getAttribute("data-image");
-              if (dataImage) {
-                // Find the corresponding apartment data
-                const apartmentInfo = apartmentData["3rd Floor"].find(
-                  (apt) => apt.Apartmentno.toString() === dataImage
-                );
-                if (apartmentInfo) {
-                  setActivePolygon({
-                    floor: "Third Floor",
-                    id: dataImage,
-                    Type: apartmentInfo.Type,
-                    Bedrooms: apartmentInfo.Bedrooms,
-                    Area: apartmentInfo.Area,
-                  });
+            </svg>   
+      `;
+    }
 
-                  const rect = e.target.getBoundingClientRect();
-                  setPopupPosition({
-                    x: rect.left + rect.width / 2,
-                    y: rect.top + rect.height / 2,
-                  });
-                }
-              }
-            });
-
-            polygon.addEventListener("mouseenter", () => {
-              viewer.setMouseNavEnabled(false);
-            });
-
-            polygon.addEventListener("mouseleave", () => {
-              viewer.setMouseNavEnabled(true);
-            });
-          });
-
-
-          viewer.addOverlay({
-            element: svgOverlay,
-            location: new OpenSeadragon.Rect(0, 0, 5.209, 5.208),
-            placement: OpenSeadragon.Placement.CENTER,
-          });
-
-         
-        }
-
-        if (imageName === "second-floor") {
-          const svgOverlay = document.createElement("div");
-          svgOverlay.style.position = "absolute";
-          svgOverlay.style.left = "0";
-          svgOverlay.style.top = "0";
-          svgOverlay.style.width = "100%";
-          svgOverlay.style.height = "100%";
-
-          const svgContent = `
-          <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 10000 10000" preserveAspectRatio="none">
+    else if (floor === "Second Floor") {
+      svgContent = `<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 10000 10000" preserveAspectRatio="none">
        
                    <text class="${styles.st1}" transform="translate(881.77 101.41)">Road View</text><path  class="${styles.st1}" d="M821.94,65.58a3.47,3.47,0,0,1,.66.79c.24.59-.06,1.08-.73,1.45-1.63.9-3.28,1.78-4.88,2.74a13.29,13.29,0,0,0-3.68,3.17,3.25,3.25,0,0,0,.34,4.89,14.67,14.67,0,0,0,5,3c2,.77,4,1.42,6,2.16a18.82,18.82,0,0,1,8.16,5.47,15.37,15.37,0,0,1,3.49,9.67A29,29,0,0,1,834,110.29c-.34.88-.76,1.72-1.1,2.6a4,4,0,0,1-2.77,2.71h-15c-.32-.24-.6-.51-.44-1s.54-.5,1-.5c3.12,0,6.25,0,9.37,0a.82.82,0,0,0,.78-.43,34.32,34.32,0,0,0,5-10.66c.15-.63.25-1.28.38-1.92a2,2,0,0,1,0-.24c.11-.5.42-.74.84-.67a.72.72,0,0,1,.6.9,23.92,23.92,0,0,1-1.66,6.05,39,39,0,0,1-3.39,6.46l-.31.49c.9,0,1.73,0,2.55,0a1.68,1.68,0,0,0,1.41-1.07,37.92,37.92,0,0,0,3-8.66,20.83,20.83,0,0,0,.31-7.75,13.63,13.63,0,0,0-6.74-9.73,30.63,30.63,0,0,0-6.64-2.76,26.69,26.69,0,0,1-7.49-3.55,7.54,7.54,0,0,1-2.3-2.5,4.05,4.05,0,0,1-.43-2.73.78.78,0,0,0,0-.37,3.59,3.59,0,0,0-.47,3,6,6,0,0,0,2.16,2.88,22.51,22.51,0,0,0,6,3.28,52,52,0,0,1,6.43,2.64,14.81,14.81,0,0,1,6.48,6.48,12.75,12.75,0,0,1,1.11,3.92,1.41,1.41,0,0,1,0,.58.67.67,0,0,1-.76.48c-.42,0-.58-.33-.67-.72a22.18,22.18,0,0,0-.66-2.79,11.93,11.93,0,0,0-4.91-5.88A28.1,28.1,0,0,0,819.42,86a26.16,26.16,0,0,1-7.24-3.63,11.16,11.16,0,0,1-2.09-2,5.18,5.18,0,0,1-.5-6,13.13,13.13,0,0,1,4.09-4.39c1.4-1,2.89-1.91,4.32-2.86a8.19,8.19,0,0,0-4.14.64,63.71,63.71,0,0,0-9.53,5.79A19.86,19.86,0,0,0,799.84,78a6.76,6.76,0,0,0-1.25,3.23A5.58,5.58,0,0,0,800.74,86c.81.73,1.75,1.3,2.61,2a37.17,37.17,0,0,1,3.47,2.76,8.7,8.7,0,0,1,1.88,10.54,22,22,0,0,1-4.88,6.53,52.56,52.56,0,0,1-7.35,5.87l-.72.49h15.92c.42,0,.79,0,1,.5s-.11.73-.45,1H789.7a4.35,4.35,0,0,1-.7-.57,1.64,1.64,0,0,1,.42-2.46c1.51-1,3.05-1.92,4.54-2.94a41.21,41.21,0,0,0,7.29-6.09,14.81,14.81,0,0,0,2.77-4,5.81,5.81,0,0,0-1-6.61,16.3,16.3,0,0,0-3-2.52,29.59,29.59,0,0,1-3.37-2.63,6.4,6.4,0,0,1-2.12-5.35,8.05,8.05,0,0,1,1.5-3.81,20.17,20.17,0,0,1,5.25-5,99.7,99.7,0,0,1,12.4-7.33,18.37,18.37,0,0,1,1.76-.62ZM797.49,79A6.61,6.61,0,0,0,796,82.5a5,5,0,0,0,1.7,4.24,27.46,27.46,0,0,0,3.08,2.38,17,17,0,0,1,3.49,2.94A7.14,7.14,0,0,1,806,97.88a10,10,0,0,1-1.52,3.87,26.78,26.78,0,0,1-6,6.38,78,78,0,0,1-8,5.52,2.79,2.79,0,0,0-.42.35l.08.14h2.77a.63.63,0,0,0,.31-.12,57.3,57.3,0,0,0,9.54-7.16,19.48,19.48,0,0,0,4.67-6.24,7.46,7.46,0,0,0-1-8.18,15.78,15.78,0,0,0-3.89-3.3,22.92,22.92,0,0,1-2.4-1.74c-2.55-2.19-3.81-4.89-2.5-8.28V79Z"/><path class="${styles.st1}" d="M819.85,97.92c0-.2,0-.39,0-.59a.74.74,0,0,1,.67-.76.71.71,0,0,1,.77.66,10.29,10.29,0,0,1,0,1.36.65.65,0,0,1-.73.63.68.68,0,0,1-.71-.67c0-.21,0-.42,0-.63Z"/><path class="${styles.st1}" d="M802.89,79.75c0-.45.12-.82.6-1a.72.72,0,0,1,.88.62c0,.4.09.81.11,1.22a.69.69,0,0,1-.58.78.69.69,0,0,1-.84-.55C803,80.5,803,80.12,802.89,79.75Z"/><path class="${styles.st1}"  d="M811.68,87.55c0,.66-.51,1-1,.82a8,8,0,0,1-1.2-.63.67.67,0,0,1-.26-.93.69.69,0,0,1,1-.33,7.87,7.87,0,0,1,1.11.59A1.65,1.65,0,0,1,811.68,87.55Z"/><path class="${styles.st1}"  d="M816.71,105.82c.15.13.42.25.51.45a.86.86,0,0,1,0,.72,5.9,5.9,0,0,1-.94,1.06.6.6,0,0,1-.88,0c-.17-.2-.33-.64-.23-.8a8.85,8.85,0,0,1,1.14-1.31C816.36,105.88,816.5,105.88,816.71,105.82Z"/><path class="${styles.st1}" d="M816.27,90a.74.74,0,0,1-1,.8A8,8,0,0,1,814,90a.66.66,0,0,1-.14-.92.63.63,0,0,1,.84-.31,8.51,8.51,0,0,1,1.29.78C816.17,89.65,816.22,89.87,816.27,90Z"/><path class="${styles.st1}"  d="M818.59,91.91l.21,0c.34.11,1.24,1.23,1.18,1.58a1,1,0,0,1-.4.69.8.8,0,0,1-.75-.09,5.29,5.29,0,0,1-.91-1.19A.71.71,0,0,1,818.59,91.91Z"/><path class="${styles.st1}" d="M805.74,74.18a.73.73,0,0,1,.65,1.14,9,9,0,0,1-.83,1,.68.68,0,0,1-.89.12.6.6,0,0,1-.3-.83,9.83,9.83,0,0,1,1.08-1.35C805.52,74.2,805.69,74.2,805.74,74.18Z"/><path class="${styles.st1}"  d="M807.37,85c-.12.15-.24.42-.44.51a.86.86,0,0,1-.72,0,4.54,4.54,0,0,1-1.05-1,.9.9,0,0,1,0-.83.86.86,0,0,1,.78-.24,9.46,9.46,0,0,1,1.29,1.16C807.32,84.66,807.31,84.81,807.37,85Z"/><path class="${styles.st1}"  d="M819.06,104.08a.74.74,0,0,1-.79-1,9.25,9.25,0,0,1,.6-1.12.67.67,0,0,1,.89-.27.65.65,0,0,1,.41.84,8.2,8.2,0,0,1-.73,1.37C819.36,104,819.13,104,819.06,104.08Z"/><path class="${styles.st1}" d="M810,72a1.25,1.25,0,0,1-1.49,1,.67.67,0,0,1-.43-.82,1.45,1.45,0,0,1,1.32-.86A.65.65,0,0,1,810,72Z"/><path class="${styles.st1}" d="M813.64,110.26a1.45,1.45,0,0,1-1.23,1.07.74.74,0,0,1-.7-.74,1.48,1.48,0,0,1,1.24-1.07A.72.72,0,0,1,813.64,110.26Z"/><text class="${styles.st1}" transform="translate(947.1 1004.14)">Hill View</text><path class="${styles.st1}" d="M881.78,1010.91H845.17a4.84,4.84,0,0,1-.85,0,.73.73,0,0,1-.54-1.07,3.2,3.2,0,0,1,.3-.45q4.24-5.88,8.49-11.77a1.49,1.49,0,0,1,1.42-.74,17.11,17.11,0,0,0,2.48,0,1.39,1.39,0,0,0,.86-.45q2.31-3.12,4.54-6.3a1.46,1.46,0,0,1,1.37-.68c1,0,2.07,0,3.11,0a1.17,1.17,0,0,0,1.09-.54c3.13-4.12,6.29-8.22,9.44-12.33.85-1.11,1.1-1.12,2-.1q5.15,5.67,10.26,11.36a1.44,1.44,0,0,0,1.2.51c1.27,0,2.54-.05,3.81,0a2.08,2.08,0,0,1,1.21.5c2.08,2,4.12,4,6.2,6a1.79,1.79,0,0,0,1.13.46c1.53.05,3.06,0,4.58.05a1.9,1.9,0,0,1,1.24.58q5.47,6.66,10.88,13.38c.23.3.45.87.31,1.13s-.71.44-1.1.45Q900.2,1010.93,881.78,1010.91ZM871.3,993.34c-.67,1.3-1.29,2.49-1.89,3.69a1.31,1.31,0,0,0-.08.53q-.15,3.72-.29,7.45c0,.53-.08,1-.69,1.13s-.82-.41-1-.89c-.31-.84-.62-1.67-1-2.66l-3.31,6.7a1.73,1.73,0,0,0,.27.06c5.21,0,10.41,0,15.62,0a1.3,1.3,0,0,0,.82-.43q2.7-3.06,5.33-6.18a1.9,1.9,0,0,0,.4-1c.21-2,.35-4,.56-6,.1-1,.66-1.18,1.44-.63l2.1,1.55c-.32-2.16-.65-4.15-.89-6.15a3,3,0,0,0-.9-1.81c-3.09-3.38-6.15-6.79-9.23-10.19-.13-.14-.29-.26-.46-.42-1.3,3.2-2.58,6.33-3.84,9.47a2.48,2.48,0,0,0-.14,1c0,2.74.08,5.49.13,8.23,0,.51,0,1-.65,1.15s-.84-.36-1-.84C872.2,995.82,871.77,994.64,871.3,993.34Zm3.27-10.8-.19-.12c-.17.21-.34.41-.5.62q-2.82,3.66-5.62,7.33A1.34,1.34,0,0,1,867,991c-1.09,0-2.18,0-3.26,0a1.42,1.42,0,0,0-.93.47q-2.31,3.12-4.54,6.29a1.36,1.36,0,0,1-1.3.66c-.8,0-1.6,0-2.4,0a1.12,1.12,0,0,0-1.09.54c-2.33,3.26-4.68,6.5-7,9.75-.13.18-.23.37-.36.57.11,0,.15.08.2.08,4.84,0,9.68,0,14.53,0a1,1,0,0,0,.67-.45c.46-.84.86-1.71,1.28-2.56,1-1.92,1.88-3.86,2.87-5.76a1.32,1.32,0,0,1,.89-.67c.24,0,.52.45.76.72a1.93,1.93,0,0,1,.23.48,12.85,12.85,0,0,0,.17-2.37,5.63,5.63,0,0,1,.17-2.07c.86-1.9,1.86-3.74,2.85-5.58a1,1,0,0,1,.75-.4c.24,0,.5.29.67.52a4.19,4.19,0,0,1,.34.81,1,1,0,0,0,.11-.6,12.94,12.94,0,0,1,1.48-7.62A13.24,13.24,0,0,0,874.57,982.54Zm21.5,9.31L896,992a1.6,1.6,0,0,1,.12.37l2.52,11.11c.12.53.38,1.12-.25,1.46s-1-.23-1.4-.65L894,1001c-1.16,1-2.17,2-2.25,3.63s-.44,3.11-.67,4.66h26.3c-3.29-4-6.52-8-9.77-12a4.1,4.1,0,0,0-1-.6c.06.58.08.88.13,1.19.34,2.46.69,4.91,1,7.37.07.5.11,1-.47,1.15s-.87-.22-1.12-.67q-2.38-4.31-4.8-8.6a3.81,3.81,0,0,0-.63-.86c-1.36-1.36-2.73-2.69-4.11-4A5.72,5.72,0,0,0,896.07,991.85Zm-14.54,17.44h8c.13-.88.29-1.7.37-2.52.25-2.8.69-5.5,3.29-7.21a.57.57,0,0,0,.11-.11c.6-.58.91-.57,1.49.06s1.06,1.16,1.59,1.74l.13-.07-2.55-11.25H890.2c.4,2.69.82,5.32,1.17,8A1.41,1.41,0,0,1,891,999c-.19.15-.77,0-1.07-.25-.81-.52-1.56-1.12-2.42-1.76-.16,1.81-.27,3.49-.47,5.16a2.59,2.59,0,0,1-.52,1.32C884.91,1005.41,883.25,1007.29,881.53,1009.29Zm21.52-12.38,2.4,4.31.17-.07-.61-4.24Zm-28.47-14.5,0,0-.1-.05,0,0Z"/>
             <polygon  data-image="11" data-tip="penthouse06" class="${styles.st0}" points="354.29 450.06 354.29 416.43 354.29 356.2 355.75 356.2 355.75 343.67 354.6 343.67 354.6 273.27 386.24 273.27 386.24 234.06 331.9 234.06 331.9 193.25 336.71 193.25 336.71 190.65 295.29 190.96 294.98 174.9 257.22 175.36 257.22 195.54 244.38 195.54 244.38 190.96 231.85 190.96 231.85 488.13 355.98 488.13 355.98 475.59 354.75 475.59 354.29 475.59 354.29 450.06"/>
@@ -330,68 +182,11 @@ const Floor = ({ imageName, imageLink }) => {
             <path data-image="27" data-tip="penthouse06" class="${styles.st0}" d="M392.74,637.78l-.08,13.3H354.2V743.8h1.7v12.49h-1.7v72h30.51v39.86c0-.91-52.89,0-52.89,0V909.4l4.49.06,124.4,47.93.17-52.85,12.38-.12-.43,4.4h12.38V637.63Z"/>
             <path data-image="28" data-tip="penthouse06" class="${styles.st0}" d="M384.71,868.15V828.29H354.2v-72h1.7V743.8h-1.7V624.25h1.7l-.08-12.61-124.52-.3.28,297.95,12.73,0v-4.53l12.38-.11.46,20.57,38.12-.17V908.89l36.55.51V868.15S384.71,867.24,384.71,868.15Z"/>       
           
-          </svg>
-          `;
+          </svg>`;
+    }
 
-          svgOverlay.innerHTML = svgContent;
-
-          const floorName = floorNameMapping[imageName] || imageName;
-          const floorApartments = apartmentData[floorName] || [];
-
-          viewer.addOverlay({
-            element: svgOverlay,
-            location: new OpenSeadragon.Rect(0, 0, 5.209, 5.208),
-            placement: OpenSeadragon.Placement.CENTER,
-          });
-
-          svgOverlay.querySelectorAll("polygon, path").forEach((polygon) => {
-            polygon.addEventListener("click", (e) => {
-              e.preventDefault();
-              e.stopPropagation();
-              const dataImage = e.target.getAttribute("data-image");
-              if (dataImage) {
-                // Find the corresponding apartment data
-                const apartmentInfo = apartmentData["2nd Floor"].find(
-                  (apt) => apt.Apartmentno.toString() === dataImage
-                );
-                if (apartmentInfo) {
-                  setActivePolygon({
-                    floor: "Second Floor",
-                    id: dataImage,
-                    Type: apartmentInfo.Type,
-                    Bedrooms: apartmentInfo.Bedrooms,
-                    Area: apartmentInfo.Area,
-                  });
-
-                  const rect = e.target.getBoundingClientRect();
-                  setPopupPosition({
-                    x: rect.left + rect.width / 2,
-                    y: rect.top + rect.height / 2,
-                  });
-                }
-              }
-            });
-
-            polygon.addEventListener("mouseenter", () => {
-              viewer.setMouseNavEnabled(false);
-            });
-
-            polygon.addEventListener("mouseleave", () => {
-              viewer.setMouseNavEnabled(true);
-            });
-          });
-        }
-
-        if (imageName === "first-floor") {
-          const svgOverlay = document.createElement("div");
-          svgOverlay.style.position = "absolute";
-          svgOverlay.style.left = "0";
-          svgOverlay.style.top = "0";
-          svgOverlay.style.width = "100%";
-          svgOverlay.style.height = "100%";
-
-          const svgContent = `
-          <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 10000 10000" preserveAspectRatio="none">
+    else if (floor === "First Floor") {
+      svgContent = `<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 10000 10000" preserveAspectRatio="none">
   
             <text class="${styles.st1}" transform="translate(881.77 101.41)">Road View</text><path  class="${styles.st1}" d="M821.94,65.58a3.47,3.47,0,0,1,.66.79c.24.59-.06,1.08-.73,1.45-1.63.9-3.28,1.78-4.88,2.74a13.29,13.29,0,0,0-3.68,3.17,3.25,3.25,0,0,0,.34,4.89,14.67,14.67,0,0,0,5,3c2,.77,4,1.42,6,2.16a18.82,18.82,0,0,1,8.16,5.47,15.37,15.37,0,0,1,3.49,9.67A29,29,0,0,1,834,110.29c-.34.88-.76,1.72-1.1,2.6a4,4,0,0,1-2.77,2.71h-15c-.32-.24-.6-.51-.44-1s.54-.5,1-.5c3.12,0,6.25,0,9.37,0a.82.82,0,0,0,.78-.43,34.32,34.32,0,0,0,5-10.66c.15-.63.25-1.28.38-1.92a2,2,0,0,1,0-.24c.11-.5.42-.74.84-.67a.72.72,0,0,1,.6.9,23.92,23.92,0,0,1-1.66,6.05,39,39,0,0,1-3.39,6.46l-.31.49c.9,0,1.73,0,2.55,0a1.68,1.68,0,0,0,1.41-1.07,37.92,37.92,0,0,0,3-8.66,20.83,20.83,0,0,0,.31-7.75,13.63,13.63,0,0,0-6.74-9.73,30.63,30.63,0,0,0-6.64-2.76,26.69,26.69,0,0,1-7.49-3.55,7.54,7.54,0,0,1-2.3-2.5,4.05,4.05,0,0,1-.43-2.73.78.78,0,0,0,0-.37,3.59,3.59,0,0,0-.47,3,6,6,0,0,0,2.16,2.88,22.51,22.51,0,0,0,6,3.28,52,52,0,0,1,6.43,2.64,14.81,14.81,0,0,1,6.48,6.48,12.75,12.75,0,0,1,1.11,3.92,1.41,1.41,0,0,1,0,.58.67.67,0,0,1-.76.48c-.42,0-.58-.33-.67-.72a22.18,22.18,0,0,0-.66-2.79,11.93,11.93,0,0,0-4.91-5.88A28.1,28.1,0,0,0,819.42,86a26.16,26.16,0,0,1-7.24-3.63,11.16,11.16,0,0,1-2.09-2,5.18,5.18,0,0,1-.5-6,13.13,13.13,0,0,1,4.09-4.39c1.4-1,2.89-1.91,4.32-2.86a8.19,8.19,0,0,0-4.14.64,63.71,63.71,0,0,0-9.53,5.79A19.86,19.86,0,0,0,799.84,78a6.76,6.76,0,0,0-1.25,3.23A5.58,5.58,0,0,0,800.74,86c.81.73,1.75,1.3,2.61,2a37.17,37.17,0,0,1,3.47,2.76,8.7,8.7,0,0,1,1.88,10.54,22,22,0,0,1-4.88,6.53,52.56,52.56,0,0,1-7.35,5.87l-.72.49h15.92c.42,0,.79,0,1,.5s-.11.73-.45,1H789.7a4.35,4.35,0,0,1-.7-.57,1.64,1.64,0,0,1,.42-2.46c1.51-1,3.05-1.92,4.54-2.94a41.21,41.21,0,0,0,7.29-6.09,14.81,14.81,0,0,0,2.77-4,5.81,5.81,0,0,0-1-6.61,16.3,16.3,0,0,0-3-2.52,29.59,29.59,0,0,1-3.37-2.63,6.4,6.4,0,0,1-2.12-5.35,8.05,8.05,0,0,1,1.5-3.81,20.17,20.17,0,0,1,5.25-5,99.7,99.7,0,0,1,12.4-7.33,18.37,18.37,0,0,1,1.76-.62ZM797.49,79A6.61,6.61,0,0,0,796,82.5a5,5,0,0,0,1.7,4.24,27.46,27.46,0,0,0,3.08,2.38,17,17,0,0,1,3.49,2.94A7.14,7.14,0,0,1,806,97.88a10,10,0,0,1-1.52,3.87,26.78,26.78,0,0,1-6,6.38,78,78,0,0,1-8,5.52,2.79,2.79,0,0,0-.42.35l.08.14h2.77a.63.63,0,0,0,.31-.12,57.3,57.3,0,0,0,9.54-7.16,19.48,19.48,0,0,0,4.67-6.24,7.46,7.46,0,0,0-1-8.18,15.78,15.78,0,0,0-3.89-3.3,22.92,22.92,0,0,1-2.4-1.74c-2.55-2.19-3.81-4.89-2.5-8.28V79Z"/><path class="${styles.st1}" d="M819.85,97.92c0-.2,0-.39,0-.59a.74.74,0,0,1,.67-.76.71.71,0,0,1,.77.66,10.29,10.29,0,0,1,0,1.36.65.65,0,0,1-.73.63.68.68,0,0,1-.71-.67c0-.21,0-.42,0-.63Z"/><path class="${styles.st1}" d="M802.89,79.75c0-.45.12-.82.6-1a.72.72,0,0,1,.88.62c0,.4.09.81.11,1.22a.69.69,0,0,1-.58.78.69.69,0,0,1-.84-.55C803,80.5,803,80.12,802.89,79.75Z"/><path class="${styles.st1}"  d="M811.68,87.55c0,.66-.51,1-1,.82a8,8,0,0,1-1.2-.63.67.67,0,0,1-.26-.93.69.69,0,0,1,1-.33,7.87,7.87,0,0,1,1.11.59A1.65,1.65,0,0,1,811.68,87.55Z"/><path class="${styles.st1}"  d="M816.71,105.82c.15.13.42.25.51.45a.86.86,0,0,1,0,.72,5.9,5.9,0,0,1-.94,1.06.6.6,0,0,1-.88,0c-.17-.2-.33-.64-.23-.8a8.85,8.85,0,0,1,1.14-1.31C816.36,105.88,816.5,105.88,816.71,105.82Z"/><path class="${styles.st1}" d="M816.27,90a.74.74,0,0,1-1,.8A8,8,0,0,1,814,90a.66.66,0,0,1-.14-.92.63.63,0,0,1,.84-.31,8.51,8.51,0,0,1,1.29.78C816.17,89.65,816.22,89.87,816.27,90Z"/><path class="${styles.st1}"  d="M818.59,91.91l.21,0c.34.11,1.24,1.23,1.18,1.58a1,1,0,0,1-.4.69.8.8,0,0,1-.75-.09,5.29,5.29,0,0,1-.91-1.19A.71.71,0,0,1,818.59,91.91Z"/><path class="${styles.st1}" d="M805.74,74.18a.73.73,0,0,1,.65,1.14,9,9,0,0,1-.83,1,.68.68,0,0,1-.89.12.6.6,0,0,1-.3-.83,9.83,9.83,0,0,1,1.08-1.35C805.52,74.2,805.69,74.2,805.74,74.18Z"/><path class="${styles.st1}"  d="M807.37,85c-.12.15-.24.42-.44.51a.86.86,0,0,1-.72,0,4.54,4.54,0,0,1-1.05-1,.9.9,0,0,1,0-.83.86.86,0,0,1,.78-.24,9.46,9.46,0,0,1,1.29,1.16C807.32,84.66,807.31,84.81,807.37,85Z"/><path class="${styles.st1}"  d="M819.06,104.08a.74.74,0,0,1-.79-1,9.25,9.25,0,0,1,.6-1.12.67.67,0,0,1,.89-.27.65.65,0,0,1,.41.84,8.2,8.2,0,0,1-.73,1.37C819.36,104,819.13,104,819.06,104.08Z"/><path class="${styles.st1}" d="M810,72a1.25,1.25,0,0,1-1.49,1,.67.67,0,0,1-.43-.82,1.45,1.45,0,0,1,1.32-.86A.65.65,0,0,1,810,72Z"/><path class="${styles.st1}" d="M813.64,110.26a1.45,1.45,0,0,1-1.23,1.07.74.74,0,0,1-.7-.74,1.48,1.48,0,0,1,1.24-1.07A.72.72,0,0,1,813.64,110.26Z"/><text class="${styles.st1}" transform="translate(947.1 1004.14)">Hill View</text><path class="${styles.st1}" d="M881.78,1010.91H845.17a4.84,4.84,0,0,1-.85,0,.73.73,0,0,1-.54-1.07,3.2,3.2,0,0,1,.3-.45q4.24-5.88,8.49-11.77a1.49,1.49,0,0,1,1.42-.74,17.11,17.11,0,0,0,2.48,0,1.39,1.39,0,0,0,.86-.45q2.31-3.12,4.54-6.3a1.46,1.46,0,0,1,1.37-.68c1,0,2.07,0,3.11,0a1.17,1.17,0,0,0,1.09-.54c3.13-4.12,6.29-8.22,9.44-12.33.85-1.11,1.1-1.12,2-.1q5.15,5.67,10.26,11.36a1.44,1.44,0,0,0,1.2.51c1.27,0,2.54-.05,3.81,0a2.08,2.08,0,0,1,1.21.5c2.08,2,4.12,4,6.2,6a1.79,1.79,0,0,0,1.13.46c1.53.05,3.06,0,4.58.05a1.9,1.9,0,0,1,1.24.58q5.47,6.66,10.88,13.38c.23.3.45.87.31,1.13s-.71.44-1.1.45Q900.2,1010.93,881.78,1010.91ZM871.3,993.34c-.67,1.3-1.29,2.49-1.89,3.69a1.31,1.31,0,0,0-.08.53q-.15,3.72-.29,7.45c0,.53-.08,1-.69,1.13s-.82-.41-1-.89c-.31-.84-.62-1.67-1-2.66l-3.31,6.7a1.73,1.73,0,0,0,.27.06c5.21,0,10.41,0,15.62,0a1.3,1.3,0,0,0,.82-.43q2.7-3.06,5.33-6.18a1.9,1.9,0,0,0,.4-1c.21-2,.35-4,.56-6,.1-1,.66-1.18,1.44-.63l2.1,1.55c-.32-2.16-.65-4.15-.89-6.15a3,3,0,0,0-.9-1.81c-3.09-3.38-6.15-6.79-9.23-10.19-.13-.14-.29-.26-.46-.42-1.3,3.2-2.58,6.33-3.84,9.47a2.48,2.48,0,0,0-.14,1c0,2.74.08,5.49.13,8.23,0,.51,0,1-.65,1.15s-.84-.36-1-.84C872.2,995.82,871.77,994.64,871.3,993.34Zm3.27-10.8-.19-.12c-.17.21-.34.41-.5.62q-2.82,3.66-5.62,7.33A1.34,1.34,0,0,1,867,991c-1.09,0-2.18,0-3.26,0a1.42,1.42,0,0,0-.93.47q-2.31,3.12-4.54,6.29a1.36,1.36,0,0,1-1.3.66c-.8,0-1.6,0-2.4,0a1.12,1.12,0,0,0-1.09.54c-2.33,3.26-4.68,6.5-7,9.75-.13.18-.23.37-.36.57.11,0,.15.08.2.08,4.84,0,9.68,0,14.53,0a1,1,0,0,0,.67-.45c.46-.84.86-1.71,1.28-2.56,1-1.92,1.88-3.86,2.87-5.76a1.32,1.32,0,0,1,.89-.67c.24,0,.52.45.76.72a1.93,1.93,0,0,1,.23.48,12.85,12.85,0,0,0,.17-2.37,5.63,5.63,0,0,1,.17-2.07c.86-1.9,1.86-3.74,2.85-5.58a1,1,0,0,1,.75-.4c.24,0,.5.29.67.52a4.19,4.19,0,0,1,.34.81,1,1,0,0,0,.11-.6,12.94,12.94,0,0,1,1.48-7.62A13.24,13.24,0,0,0,874.57,982.54Zm21.5,9.31L896,992a1.6,1.6,0,0,1,.12.37l2.52,11.11c.12.53.38,1.12-.25,1.46s-1-.23-1.4-.65L894,1001c-1.16,1-2.17,2-2.25,3.63s-.44,3.11-.67,4.66h26.3c-3.29-4-6.52-8-9.77-12a4.1,4.1,0,0,0-1-.6c.06.58.08.88.13,1.19.34,2.46.69,4.91,1,7.37.07.5.11,1-.47,1.15s-.87-.22-1.12-.67q-2.38-4.31-4.8-8.6a3.81,3.81,0,0,0-.63-.86c-1.36-1.36-2.73-2.69-4.11-4A5.72,5.72,0,0,0,896.07,991.85Zm-14.54,17.44h8c.13-.88.29-1.7.37-2.52.25-2.8.69-5.5,3.29-7.21a.57.57,0,0,0,.11-.11c.6-.58.91-.57,1.49.06s1.06,1.16,1.59,1.74l.13-.07-2.55-11.25H890.2c.4,2.69.82,5.32,1.17,8A1.41,1.41,0,0,1,891,999c-.19.15-.77,0-1.07-.25-.81-.52-1.56-1.12-2.42-1.76-.16,1.81-.27,3.49-.47,5.16a2.59,2.59,0,0,1-.52,1.32C884.91,1005.41,883.25,1007.29,881.53,1009.29Zm21.52-12.38,2.4,4.31.17-.07-.61-4.24Zm-28.47-14.5,0,0-.1-.05,0,0Z"/>
 
@@ -400,8 +195,8 @@ const Floor = ({ imageName, imageLink }) => {
           <polygon data-image="30" data-tip="firstFloorAp1" class="${styles.st0}"  points="335.19 454 335.19 453.01 335.19 453.01 335.19 454"/><polygon data-image="30" class="${styles.st0}" points="466.95 240.71 466.95 195.85 454.73 195.85 454.73 200.43 441.58 200.43 441.58 151.82 327.24 195.85 323.8 195.85 323.8 198.06 312.33 198.06 312.33 238.96 367.59 238.96 367.59 278.66 335.49 278.66 335.19 453.01 337.17 453.01 337.17 453.58 359.95 453.58 359.95 452.97 373.52 452.97 373.52 466.8 464.89 466.8 464.89 240.71 466.95 240.71"/>
           <polygon data-image="31" class="${styles.st0}" data-tip="firstFloorAp4"  points="594.14 444.1 594.14 227.64 581.3 227.64 581.3 232.53 568.76 232.53 568.76 188.81 466.95 188.81 466.95 195.85 466.95 240.71 464.89 240.71 464.89 466.8 464.89 532.61 623.49 532.61 623.49 444.1 594.14 444.1"/>
           <polygon data-image="32" data-tip="firstFloorAp4" class="${styles.st0}" points="933.5 471.62 933.5 435.54 892.23 435.54 892.23 397.02 934.12 397.02 934.12 362.17 912.94 362.17 912.94 227.87 766.42 227.87 766.42 263.72 728.2 263.72 728.2 271.98 722.09 271.98 722.09 443.8 693.5 443.8 693.5 532.61 887.18 532.61 939.31 532.61 939.31 471.62 933.5 471.62"/>
-          <polygon  data-image="33" data-tip="firstFloorAp5" class="${styles.st0}" points="1103.95 443.95 1103.95 263.41 1059.16 263.41 1059.16 227.87 912.94 227.87 912.94 362.17 934.12 362.17 934.12 397.02 892.23 397.02 892.23 435.54 933.5 435.54 933.5 471.62 939.31 471.62 939.31 532.61 1132.69 532.61 1132.69 443.95 1103.95 443.95"/>
-          <polygon  data-image="34" data-tip="firstFloorAp6" class="${styles.st0}"  points="1256.82 323.03 1256.82 371.03 1244.13 371.03 1244.13 379.59 1239.08 379.59 1239.08 443.49 1210.65 443.49 1210.65 532.92 1364.89 532.92 1364.89 366.9 1373.15 366.9 1256.82 323.03"/>
+          <polygon data-image="33" data-tip="firstFloorAp5" class="${styles.st0}" points="1103.95 443.95 1103.95 263.41 1059.16 263.41 1059.16 227.87 912.94 227.87 912.94 362.17 934.12 362.17 934.12 397.02 892.23 397.02 892.23 435.54 933.5 435.54 933.5 471.62 939.31 471.62 939.31 532.61 1132.69 532.61 1132.69 443.95 1103.95 443.95"/>
+          <polygon data-image="34" data-tip="firstFloorAp6" class="${styles.st0}"  points="1256.82 323.03 1256.82 371.03 1244.13 371.03 1244.13 379.59 1239.08 379.59 1239.08 443.49 1210.65 443.49 1210.65 532.92 1364.89 532.92 1364.89 366.9 1373.15 366.9 1256.82 323.03"/>
           <polygon data-image="35" data-tip="firstFloorAp7" class="${styles.st0}" points="1506.83 367.86 1506.83 392.17 1486.08 384.14 1486.08 424.73 1484.24 424.73 1484.24 481.48 1473.24 481.48 1473.24 493.4 1484.24 493.4 1484.24 504.98 1530.22 504.98 1530.22 532.84 1617.01 532.84 1617.01 501.31 1738.42 500.85 1738.42 493.29 1740.71 493.29 1740.71 480.68 1738.54 480.68 1738.54 455.34 1736.36 455.34 1736.36 424.95 1728.22 424.95 1728.22 416.7 1715.26 416.7 1715.26 395.15 1662.75 395.15 1662.98 412.46 1625.38 412.34 1506.83 367.86"/>
           <polygon data-image="36" data-tip="firstFloorAp8" class="${styles.st0}" points="1740.14 617.11 1740.14 629.26 1738.19 629.26 1738.19 678.79 1727.99 678.79 1727.99 687.16 1715.26 687.16 1715.26 708.25 1662.75 708.25 1662.75 691.06 1632.25 691.06 1571.87 713.62 1571.87 577.55 1617.12 577.55 1617.12 608.74 1738.42 608.74 1738.42 617.11 1740.14 617.11"/>
           <polygon data-image="37" data-tip="firstFloorAp9" class="${styles.st0}" points="1571.87 577.55 1571.87 713.62 1506.48 738.06 1506.83 715.59 1493.41 720.52 1486.08 721.96 1485.96 680.43 1479.24 680.43 1479.24 688.99 1443.46 688.99 1443.46 577.55 1571.87 577.55"/>
@@ -413,72 +208,10 @@ const Floor = ({ imageName, imageLink }) => {
           <polygon data-image="43" data-tip="firstFloorAp15" class="${styles.st0}" points="377.83 577.17 373.32 577.17 373.32 655.67 335.64 655.67 335.34 748.69 336.64 748.69 336.64 761.45 335.34 761.45 335.34 831.54 367.29 831.54 367.29 872.74 312.25 872.74 312.25 911.87 323.87 911.87 323.72 914.32 325.86 914.32 441.58 957.81 441.58 909.58 454.34 909.58 454.34 914.24 467.11 914.24 467.11 908.51 467.26 577.17 377.83 577.17"/><polygon class="cls-2" points="467.26 577.17 467.11 908.51 467.26 743.11 467.26 577.17"/>
           <polygon data-image="44" data-tip="firstFloorAp16" class="${styles.st0}" points="367.29 872.74 367.29 831.54 335.34 831.54 335.34 761.45 336.64 761.45 336.64 748.69 335.34 748.69 335.64 655.67 335.64 633.35 335.26 633.35 335.34 629.22 336.56 629.22 336.56 616.53 212.28 616.53 212.66 914.24 225.2 914.24 225.2 909.58 237.66 909.58 237.66 929.53 285.43 929.53 285.43 914.17 312.25 914.17 312.25 911.87 312.25 872.74 367.29 872.74"/>
 
-        </svg>
-          `;
-
-          // <polygon data-image="28" data-tip="firstFloorAp1" class="${styles.st0}" points="335.19 454 335.19 453.01 335.19 453.01 335.19 454 367.59 278.66 367.59 238.96 312.33 238.96 312.33 198.06 312.33 196.08 285.5 196.08 285.5 179.8 237.77 179.8 237.79 200.43 225.04 200.43 225.04 195.92 212.43 195.92 212.43 208.61 212.43 493.48 336.41 493.48 336.41 480.68 335.26 480.68 335.26 476.59 335.8 476.59 335.8 454 335.19 454 335.19 453.01 335.19 453.01 335.49 278.66 367.59 278.66"/>
-          // <polygon data-image="29" data-tip="firstFloorAp2" class="${styles.st0}" points="335.19 454 335.19 453.01 335.19 453.01 335.19 454 466.95 240.71 466.95 195.85 454.73 195.85 454.73 200.43 441.58 200.43 441.58 151.82 327.24 195.85 323.8 195.85 323.8 198.06 312.33 198.06 312.33 238.96 367.59 238.96 367.59 278.66 335.49 278.66 335.19 453.01 337.17 453.01 337.17 453.58 359.95 453.58 359.95 452.97 373.52 452.97 373.52 466.8 464.89 466.8 464.89 240.71 466.95 240.71"/>
-          // <polygon data-image="30" data-tip="firstFloorAp3" class="${styles.st0}" points="594.14 444.1 594.14 227.64 581.3 227.64 581.3 232.53 568.76 232.53 568.76 188.81 466.95 188.81 466.95 195.85 466.95 240.71 464.89 240.71 464.89 466.8 464.89 532.61 623.49 532.61 623.49 444.1 594.14 444.1"/>
-          // <polygon data-image="31" data-tip="firstFloorAp4" class="${styles.st0}" points="933.5 471.62 933.5 435.54 892.23 435.54 892.23 397.02 934.12 397.02 934.12 362.17 912.94 362.17 912.94 227.87 766.42 227.87 766.42 263.72 728.2 263.72 728.2 271.98 722.09 271.98 722.09 443.8 693.5 443.8 693.5 532.61 887.18 532.61 939.31 532.61 939.31 471.62 933.5 471.62"/>
-
-          svgOverlay.innerHTML = svgContent;
-
-          viewer.addOverlay({
-            element: svgOverlay,
-            location: new OpenSeadragon.Rect(0, 0, 5.209, 5.208),
-            placement: OpenSeadragon.Placement.CENTER,
-          });
-
-          svgOverlay
-            .querySelectorAll("polygon, path, polyline")
-            .forEach((polygon) => {
-              polygon.addEventListener("click", (e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                const dataImage = e.target.getAttribute("data-image");
-                if (dataImage) {
-                  // Find the corresponding apartment data
-                  const apartmentInfo = apartmentData["1st Floor"].find(
-                    (apt) => apt.Apartmentno.toString() === dataImage
-                  );
-                  if (apartmentInfo) {
-                    setActivePolygon({
-                      floor: "First Floor",
-                      id: dataImage,
-                      Type: apartmentInfo.Type,
-                      Bedrooms: apartmentInfo.Bedrooms,
-                      Area: apartmentInfo.Area,
-                    });
-
-                    const rect = e.target.getBoundingClientRect();
-                    setPopupPosition({
-                      x: rect.left + rect.width / 2,
-                      y: rect.top + rect.height / 2,
-                    });
-                  }
-                }
-              });
-
-              polygon.addEventListener("mouseenter", () => {
-                viewer.setMouseNavEnabled(false);
-              });
-
-              polygon.addEventListener("mouseleave", () => {
-                viewer.setMouseNavEnabled(true);
-              });
-            });
-        }
-
-        if (imageName === "ground-floor") {
-          const svgOverlay = document.createElement("div");
-          svgOverlay.style.position = "absolute";
-          svgOverlay.style.left = "0";
-          svgOverlay.style.top = "0";
-          svgOverlay.style.width = "100%";
-          svgOverlay.style.height = "100%";
-
-          const svgContent = `
-          <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 10000 10000" preserveAspectRatio="none">
+        </svg>`;
+    }
+    else if (floor === "Ground Floor") {
+      svgContent = ` <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 10000 10000" preserveAspectRatio="none">
 
           <text class="${styles.st1}" transform="translate(881.77 101.41)">Road View</text><path  class="${styles.st1}" d="M821.94,65.58a3.47,3.47,0,0,1,.66.79c.24.59-.06,1.08-.73,1.45-1.63.9-3.28,1.78-4.88,2.74a13.29,13.29,0,0,0-3.68,3.17,3.25,3.25,0,0,0,.34,4.89,14.67,14.67,0,0,0,5,3c2,.77,4,1.42,6,2.16a18.82,18.82,0,0,1,8.16,5.47,15.37,15.37,0,0,1,3.49,9.67A29,29,0,0,1,834,110.29c-.34.88-.76,1.72-1.1,2.6a4,4,0,0,1-2.77,2.71h-15c-.32-.24-.6-.51-.44-1s.54-.5,1-.5c3.12,0,6.25,0,9.37,0a.82.82,0,0,0,.78-.43,34.32,34.32,0,0,0,5-10.66c.15-.63.25-1.28.38-1.92a2,2,0,0,1,0-.24c.11-.5.42-.74.84-.67a.72.72,0,0,1,.6.9,23.92,23.92,0,0,1-1.66,6.05,39,39,0,0,1-3.39,6.46l-.31.49c.9,0,1.73,0,2.55,0a1.68,1.68,0,0,0,1.41-1.07,37.92,37.92,0,0,0,3-8.66,20.83,20.83,0,0,0,.31-7.75,13.63,13.63,0,0,0-6.74-9.73,30.63,30.63,0,0,0-6.64-2.76,26.69,26.69,0,0,1-7.49-3.55,7.54,7.54,0,0,1-2.3-2.5,4.05,4.05,0,0,1-.43-2.73.78.78,0,0,0,0-.37,3.59,3.59,0,0,0-.47,3,6,6,0,0,0,2.16,2.88,22.51,22.51,0,0,0,6,3.28,52,52,0,0,1,6.43,2.64,14.81,14.81,0,0,1,6.48,6.48,12.75,12.75,0,0,1,1.11,3.92,1.41,1.41,0,0,1,0,.58.67.67,0,0,1-.76.48c-.42,0-.58-.33-.67-.72a22.18,22.18,0,0,0-.66-2.79,11.93,11.93,0,0,0-4.91-5.88A28.1,28.1,0,0,0,819.42,86a26.16,26.16,0,0,1-7.24-3.63,11.16,11.16,0,0,1-2.09-2,5.18,5.18,0,0,1-.5-6,13.13,13.13,0,0,1,4.09-4.39c1.4-1,2.89-1.91,4.32-2.86a8.19,8.19,0,0,0-4.14.64,63.71,63.71,0,0,0-9.53,5.79A19.86,19.86,0,0,0,799.84,78a6.76,6.76,0,0,0-1.25,3.23A5.58,5.58,0,0,0,800.74,86c.81.73,1.75,1.3,2.61,2a37.17,37.17,0,0,1,3.47,2.76,8.7,8.7,0,0,1,1.88,10.54,22,22,0,0,1-4.88,6.53,52.56,52.56,0,0,1-7.35,5.87l-.72.49h15.92c.42,0,.79,0,1,.5s-.11.73-.45,1H789.7a4.35,4.35,0,0,1-.7-.57,1.64,1.64,0,0,1,.42-2.46c1.51-1,3.05-1.92,4.54-2.94a41.21,41.21,0,0,0,7.29-6.09,14.81,14.81,0,0,0,2.77-4,5.81,5.81,0,0,0-1-6.61,16.3,16.3,0,0,0-3-2.52,29.59,29.59,0,0,1-3.37-2.63,6.4,6.4,0,0,1-2.12-5.35,8.05,8.05,0,0,1,1.5-3.81,20.17,20.17,0,0,1,5.25-5,99.7,99.7,0,0,1,12.4-7.33,18.37,18.37,0,0,1,1.76-.62ZM797.49,79A6.61,6.61,0,0,0,796,82.5a5,5,0,0,0,1.7,4.24,27.46,27.46,0,0,0,3.08,2.38,17,17,0,0,1,3.49,2.94A7.14,7.14,0,0,1,806,97.88a10,10,0,0,1-1.52,3.87,26.78,26.78,0,0,1-6,6.38,78,78,0,0,1-8,5.52,2.79,2.79,0,0,0-.42.35l.08.14h2.77a.63.63,0,0,0,.31-.12,57.3,57.3,0,0,0,9.54-7.16,19.48,19.48,0,0,0,4.67-6.24,7.46,7.46,0,0,0-1-8.18,15.78,15.78,0,0,0-3.89-3.3,22.92,22.92,0,0,1-2.4-1.74c-2.55-2.19-3.81-4.89-2.5-8.28V79Z"/><path class="${styles.st1}" d="M819.85,97.92c0-.2,0-.39,0-.59a.74.74,0,0,1,.67-.76.71.71,0,0,1,.77.66,10.29,10.29,0,0,1,0,1.36.65.65,0,0,1-.73.63.68.68,0,0,1-.71-.67c0-.21,0-.42,0-.63Z"/><path class="${styles.st1}" d="M802.89,79.75c0-.45.12-.82.6-1a.72.72,0,0,1,.88.62c0,.4.09.81.11,1.22a.69.69,0,0,1-.58.78.69.69,0,0,1-.84-.55C803,80.5,803,80.12,802.89,79.75Z"/><path class="${styles.st1}"  d="M811.68,87.55c0,.66-.51,1-1,.82a8,8,0,0,1-1.2-.63.67.67,0,0,1-.26-.93.69.69,0,0,1,1-.33,7.87,7.87,0,0,1,1.11.59A1.65,1.65,0,0,1,811.68,87.55Z"/><path class="${styles.st1}"  d="M816.71,105.82c.15.13.42.25.51.45a.86.86,0,0,1,0,.72,5.9,5.9,0,0,1-.94,1.06.6.6,0,0,1-.88,0c-.17-.2-.33-.64-.23-.8a8.85,8.85,0,0,1,1.14-1.31C816.36,105.88,816.5,105.88,816.71,105.82Z"/><path class="${styles.st1}" d="M816.27,90a.74.74,0,0,1-1,.8A8,8,0,0,1,814,90a.66.66,0,0,1-.14-.92.63.63,0,0,1,.84-.31,8.51,8.51,0,0,1,1.29.78C816.17,89.65,816.22,89.87,816.27,90Z"/><path class="${styles.st1}"  d="M818.59,91.91l.21,0c.34.11,1.24,1.23,1.18,1.58a1,1,0,0,1-.4.69.8.8,0,0,1-.75-.09,5.29,5.29,0,0,1-.91-1.19A.71.71,0,0,1,818.59,91.91Z"/><path class="${styles.st1}" d="M805.74,74.18a.73.73,0,0,1,.65,1.14,9,9,0,0,1-.83,1,.68.68,0,0,1-.89.12.6.6,0,0,1-.3-.83,9.83,9.83,0,0,1,1.08-1.35C805.52,74.2,805.69,74.2,805.74,74.18Z"/><path class="${styles.st1}"  d="M807.37,85c-.12.15-.24.42-.44.51a.86.86,0,0,1-.72,0,4.54,4.54,0,0,1-1.05-1,.9.9,0,0,1,0-.83.86.86,0,0,1,.78-.24,9.46,9.46,0,0,1,1.29,1.16C807.32,84.66,807.31,84.81,807.37,85Z"/><path class="${styles.st1}"  d="M819.06,104.08a.74.74,0,0,1-.79-1,9.25,9.25,0,0,1,.6-1.12.67.67,0,0,1,.89-.27.65.65,0,0,1,.41.84,8.2,8.2,0,0,1-.73,1.37C819.36,104,819.13,104,819.06,104.08Z"/><path class="${styles.st1}" d="M810,72a1.25,1.25,0,0,1-1.49,1,.67.67,0,0,1-.43-.82,1.45,1.45,0,0,1,1.32-.86A.65.65,0,0,1,810,72Z"/><path class="${styles.st1}" d="M813.64,110.26a1.45,1.45,0,0,1-1.23,1.07.74.74,0,0,1-.7-.74,1.48,1.48,0,0,1,1.24-1.07A.72.72,0,0,1,813.64,110.26Z"/><text class="${styles.st1}" transform="translate(947.1 1004.14)">Hill View</text><path class="${styles.st1}" d="M881.78,1010.91H845.17a4.84,4.84,0,0,1-.85,0,.73.73,0,0,1-.54-1.07,3.2,3.2,0,0,1,.3-.45q4.24-5.88,8.49-11.77a1.49,1.49,0,0,1,1.42-.74,17.11,17.11,0,0,0,2.48,0,1.39,1.39,0,0,0,.86-.45q2.31-3.12,4.54-6.3a1.46,1.46,0,0,1,1.37-.68c1,0,2.07,0,3.11,0a1.17,1.17,0,0,0,1.09-.54c3.13-4.12,6.29-8.22,9.44-12.33.85-1.11,1.1-1.12,2-.1q5.15,5.67,10.26,11.36a1.44,1.44,0,0,0,1.2.51c1.27,0,2.54-.05,3.81,0a2.08,2.08,0,0,1,1.21.5c2.08,2,4.12,4,6.2,6a1.79,1.79,0,0,0,1.13.46c1.53.05,3.06,0,4.58.05a1.9,1.9,0,0,1,1.24.58q5.47,6.66,10.88,13.38c.23.3.45.87.31,1.13s-.71.44-1.1.45Q900.2,1010.93,881.78,1010.91ZM871.3,993.34c-.67,1.3-1.29,2.49-1.89,3.69a1.31,1.31,0,0,0-.08.53q-.15,3.72-.29,7.45c0,.53-.08,1-.69,1.13s-.82-.41-1-.89c-.31-.84-.62-1.67-1-2.66l-3.31,6.7a1.73,1.73,0,0,0,.27.06c5.21,0,10.41,0,15.62,0a1.3,1.3,0,0,0,.82-.43q2.7-3.06,5.33-6.18a1.9,1.9,0,0,0,.4-1c.21-2,.35-4,.56-6,.1-1,.66-1.18,1.44-.63l2.1,1.55c-.32-2.16-.65-4.15-.89-6.15a3,3,0,0,0-.9-1.81c-3.09-3.38-6.15-6.79-9.23-10.19-.13-.14-.29-.26-.46-.42-1.3,3.2-2.58,6.33-3.84,9.47a2.48,2.48,0,0,0-.14,1c0,2.74.08,5.49.13,8.23,0,.51,0,1-.65,1.15s-.84-.36-1-.84C872.2,995.82,871.77,994.64,871.3,993.34Zm3.27-10.8-.19-.12c-.17.21-.34.41-.5.62q-2.82,3.66-5.62,7.33A1.34,1.34,0,0,1,867,991c-1.09,0-2.18,0-3.26,0a1.42,1.42,0,0,0-.93.47q-2.31,3.12-4.54,6.29a1.36,1.36,0,0,1-1.3.66c-.8,0-1.6,0-2.4,0a1.12,1.12,0,0,0-1.09.54c-2.33,3.26-4.68,6.5-7,9.75-.13.18-.23.37-.36.57.11,0,.15.08.2.08,4.84,0,9.68,0,14.53,0a1,1,0,0,0,.67-.45c.46-.84.86-1.71,1.28-2.56,1-1.92,1.88-3.86,2.87-5.76a1.32,1.32,0,0,1,.89-.67c.24,0,.52.45.76.72a1.93,1.93,0,0,1,.23.48,12.85,12.85,0,0,0,.17-2.37,5.63,5.63,0,0,1,.17-2.07c.86-1.9,1.86-3.74,2.85-5.58a1,1,0,0,1,.75-.4c.24,0,.5.29.67.52a4.19,4.19,0,0,1,.34.81,1,1,0,0,0,.11-.6,12.94,12.94,0,0,1,1.48-7.62A13.24,13.24,0,0,0,874.57,982.54Zm21.5,9.31L896,992a1.6,1.6,0,0,1,.12.37l2.52,11.11c.12.53.38,1.12-.25,1.46s-1-.23-1.4-.65L894,1001c-1.16,1-2.17,2-2.25,3.63s-.44,3.11-.67,4.66h26.3c-3.29-4-6.52-8-9.77-12a4.1,4.1,0,0,0-1-.6c.06.58.08.88.13,1.19.34,2.46.69,4.91,1,7.37.07.5.11,1-.47,1.15s-.87-.22-1.12-.67q-2.38-4.31-4.8-8.6a3.81,3.81,0,0,0-.63-.86c-1.36-1.36-2.73-2.69-4.11-4A5.72,5.72,0,0,0,896.07,991.85Zm-14.54,17.44h8c.13-.88.29-1.7.37-2.52.25-2.8.69-5.5,3.29-7.21a.57.57,0,0,0,.11-.11c.6-.58.91-.57,1.49.06s1.06,1.16,1.59,1.74l.13-.07-2.55-11.25H890.2c.4,2.69.82,5.32,1.17,8A1.41,1.41,0,0,1,891,999c-.19.15-.77,0-1.07-.25-.81-.52-1.56-1.12-2.42-1.76-.16,1.81-.27,3.49-.47,5.16a2.59,2.59,0,0,1-.52,1.32C884.91,1005.41,883.25,1007.29,881.53,1009.29Zm21.52-12.38,2.4,4.31.17-.07-.61-4.24Zm-28.47-14.5,0,0-.1-.05,0,0Z"/>
             <polygon data-image="45" data-tip="penthouse06" class="${styles.st0}" points="333.96 353.15 334.12 340.46 332.89 340.46 332.74 270.14 364.84 270.14 364.84 230.7 309.5 230.7 309.5 188.97 321.12 188.97 321.12 186.68 292.54 186.68 292.54 170.93 234.75 170.93 234.9 191.87 221.72 191.87 221.72 199.9 209.34 199.9 209.34 486.06 334.08 486.06 334.08 473.45 332.7 473.45 332.7 445.59 332.59 353.15 333.96 353.15"/>
@@ -497,66 +230,10 @@ const Floor = ({ imageName, imageLink }) => {
             <polygon data-image="58" data-tip="penthouse06" class="${styles.st0}" points="370.88 638.7 464.82 638.7 465.58 570.45 370.88 638.7 370.88 650.01 333.96 650.01 332.36 825.66 364.92 825.66 364.92 867.16 309.88 867.16 309.88 908.66 332.59 908.66 439.44 947.87 438.98 903.85 453.2 903.85 453.2 896.05 458.7 896.05 458.7 863.95 452.28 863.95 452.28 851.34 465.35 851.34 464.82 638.7 370.88 638.7"/>
             <polygon data-image="59" data-tip="penthouse06" class="${styles.st0}" points="370.88 638.7 464.82 638.7 465.58 570.45 364.92 867.16 364.92 825.66 332.36 825.66 333.96 650.01 333.96 609.89 208.99 609.89 208.99 896.51 222.52 896.51 222.52 904.54 234.9 904.54 234.9 924.48 292.23 924.48 292.23 908.66 309.88 908.66 309.88 867.16 364.92 867.16"/>
 
-            </svg>
-          `;
-
-          svgOverlay.innerHTML = svgContent;
-
-          viewer.addOverlay({
-            element: svgOverlay,
-            location: new OpenSeadragon.Rect(0, 0, 5.209, 5.208),
-            placement: OpenSeadragon.Placement.CENTER,
-          });
-
-          // Add click event listeners to polygons
-          svgOverlay.querySelectorAll("polygon, path").forEach((polygon) => {
-            polygon.addEventListener("click", (e) => {
-              e.preventDefault();
-              e.stopPropagation();
-              const dataImage = e.target.getAttribute("data-image");
-              if (dataImage) {
-                // Find the corresponding apartment data
-                const apartmentInfo = apartmentData["Ground Floor"].find(
-                  (apt) => apt.Apartmentno.toString() === dataImage
-                );
-                if (apartmentInfo) {
-                  setActivePolygon({
-                    floor: "Ground Floor",
-                    id: dataImage,
-                    Type: apartmentInfo.Type,
-                    Bedrooms: apartmentInfo.Bedrooms,
-                    Area: apartmentInfo.Area,
-                  });
-
-                  const rect = e.target.getBoundingClientRect();
-                  setPopupPosition({
-                    x: rect.left + rect.width / 2,
-                    y: rect.top + rect.height / 2,
-                  });
-                }
-              }
-            });
-
-            polygon.addEventListener("mouseenter", () => {
-              viewer.setMouseNavEnabled(false);
-            });
-
-            polygon.addEventListener("mouseleave", () => {
-              viewer.setMouseNavEnabled(true);
-            });
-          });
-        }
-
-        if (imageName === "valley-floor-1") {
-          const svgOverlay = document.createElement("div");
-          svgOverlay.style.position = "absolute";
-          svgOverlay.style.left = "0";
-          svgOverlay.style.top = "0";
-          svgOverlay.style.width = "100%";
-          svgOverlay.style.height = "100%";
-
-          const svgContent = `
-          <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 10000 10000" preserveAspectRatio="none">
+            </svg>`;
+    }
+    else if (floor === "Valley Floor 1") {
+      svgContent = `<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 10000 10000" preserveAspectRatio="none">
             <text class="${styles.st1}" transform="translate(881.77 101.41)">Road View</text><path  class="${styles.st1}" d="M821.94,65.58a3.47,3.47,0,0,1,.66.79c.24.59-.06,1.08-.73,1.45-1.63.9-3.28,1.78-4.88,2.74a13.29,13.29,0,0,0-3.68,3.17,3.25,3.25,0,0,0,.34,4.89,14.67,14.67,0,0,0,5,3c2,.77,4,1.42,6,2.16a18.82,18.82,0,0,1,8.16,5.47,15.37,15.37,0,0,1,3.49,9.67A29,29,0,0,1,834,110.29c-.34.88-.76,1.72-1.1,2.6a4,4,0,0,1-2.77,2.71h-15c-.32-.24-.6-.51-.44-1s.54-.5,1-.5c3.12,0,6.25,0,9.37,0a.82.82,0,0,0,.78-.43,34.32,34.32,0,0,0,5-10.66c.15-.63.25-1.28.38-1.92a2,2,0,0,1,0-.24c.11-.5.42-.74.84-.67a.72.72,0,0,1,.6.9,23.92,23.92,0,0,1-1.66,6.05,39,39,0,0,1-3.39,6.46l-.31.49c.9,0,1.73,0,2.55,0a1.68,1.68,0,0,0,1.41-1.07,37.92,37.92,0,0,0,3-8.66,20.83,20.83,0,0,0,.31-7.75,13.63,13.63,0,0,0-6.74-9.73,30.63,30.63,0,0,0-6.64-2.76,26.69,26.69,0,0,1-7.49-3.55,7.54,7.54,0,0,1-2.3-2.5,4.05,4.05,0,0,1-.43-2.73.78.78,0,0,0,0-.37,3.59,3.59,0,0,0-.47,3,6,6,0,0,0,2.16,2.88,22.51,22.51,0,0,0,6,3.28,52,52,0,0,1,6.43,2.64,14.81,14.81,0,0,1,6.48,6.48,12.75,12.75,0,0,1,1.11,3.92,1.41,1.41,0,0,1,0,.58.67.67,0,0,1-.76.48c-.42,0-.58-.33-.67-.72a22.18,22.18,0,0,0-.66-2.79,11.93,11.93,0,0,0-4.91-5.88A28.1,28.1,0,0,0,819.42,86a26.16,26.16,0,0,1-7.24-3.63,11.16,11.16,0,0,1-2.09-2,5.18,5.18,0,0,1-.5-6,13.13,13.13,0,0,1,4.09-4.39c1.4-1,2.89-1.91,4.32-2.86a8.19,8.19,0,0,0-4.14.64,63.71,63.71,0,0,0-9.53,5.79A19.86,19.86,0,0,0,799.84,78a6.76,6.76,0,0,0-1.25,3.23A5.58,5.58,0,0,0,800.74,86c.81.73,1.75,1.3,2.61,2a37.17,37.17,0,0,1,3.47,2.76,8.7,8.7,0,0,1,1.88,10.54,22,22,0,0,1-4.88,6.53,52.56,52.56,0,0,1-7.35,5.87l-.72.49h15.92c.42,0,.79,0,1,.5s-.11.73-.45,1H789.7a4.35,4.35,0,0,1-.7-.57,1.64,1.64,0,0,1,.42-2.46c1.51-1,3.05-1.92,4.54-2.94a41.21,41.21,0,0,0,7.29-6.09,14.81,14.81,0,0,0,2.77-4,5.81,5.81,0,0,0-1-6.61,16.3,16.3,0,0,0-3-2.52,29.59,29.59,0,0,1-3.37-2.63,6.4,6.4,0,0,1-2.12-5.35,8.05,8.05,0,0,1,1.5-3.81,20.17,20.17,0,0,1,5.25-5,99.7,99.7,0,0,1,12.4-7.33,18.37,18.37,0,0,1,1.76-.62ZM797.49,79A6.61,6.61,0,0,0,796,82.5a5,5,0,0,0,1.7,4.24,27.46,27.46,0,0,0,3.08,2.38,17,17,0,0,1,3.49,2.94A7.14,7.14,0,0,1,806,97.88a10,10,0,0,1-1.52,3.87,26.78,26.78,0,0,1-6,6.38,78,78,0,0,1-8,5.52,2.79,2.79,0,0,0-.42.35l.08.14h2.77a.63.63,0,0,0,.31-.12,57.3,57.3,0,0,0,9.54-7.16,19.48,19.48,0,0,0,4.67-6.24,7.46,7.46,0,0,0-1-8.18,15.78,15.78,0,0,0-3.89-3.3,22.92,22.92,0,0,1-2.4-1.74c-2.55-2.19-3.81-4.89-2.5-8.28V79Z"/><path class="${styles.st1}" d="M819.85,97.92c0-.2,0-.39,0-.59a.74.74,0,0,1,.67-.76.71.71,0,0,1,.77.66,10.29,10.29,0,0,1,0,1.36.65.65,0,0,1-.73.63.68.68,0,0,1-.71-.67c0-.21,0-.42,0-.63Z"/><path class="${styles.st1}" d="M802.89,79.75c0-.45.12-.82.6-1a.72.72,0,0,1,.88.62c0,.4.09.81.11,1.22a.69.69,0,0,1-.58.78.69.69,0,0,1-.84-.55C803,80.5,803,80.12,802.89,79.75Z"/><path class="${styles.st1}"  d="M811.68,87.55c0,.66-.51,1-1,.82a8,8,0,0,1-1.2-.63.67.67,0,0,1-.26-.93.69.69,0,0,1,1-.33,7.87,7.87,0,0,1,1.11.59A1.65,1.65,0,0,1,811.68,87.55Z"/><path class="${styles.st1}"  d="M816.71,105.82c.15.13.42.25.51.45a.86.86,0,0,1,0,.72,5.9,5.9,0,0,1-.94,1.06.6.6,0,0,1-.88,0c-.17-.2-.33-.64-.23-.8a8.85,8.85,0,0,1,1.14-1.31C816.36,105.88,816.5,105.88,816.71,105.82Z"/><path class="${styles.st1}" d="M816.27,90a.74.74,0,0,1-1,.8A8,8,0,0,1,814,90a.66.66,0,0,1-.14-.92.63.63,0,0,1,.84-.31,8.51,8.51,0,0,1,1.29.78C816.17,89.65,816.22,89.87,816.27,90Z"/><path class="${styles.st1}"  d="M818.59,91.91l.21,0c.34.11,1.24,1.23,1.18,1.58a1,1,0,0,1-.4.69.8.8,0,0,1-.75-.09,5.29,5.29,0,0,1-.91-1.19A.71.71,0,0,1,818.59,91.91Z"/><path class="${styles.st1}" d="M805.74,74.18a.73.73,0,0,1,.65,1.14,9,9,0,0,1-.83,1,.68.68,0,0,1-.89.12.6.6,0,0,1-.3-.83,9.83,9.83,0,0,1,1.08-1.35C805.52,74.2,805.69,74.2,805.74,74.18Z"/><path class="${styles.st1}"  d="M807.37,85c-.12.15-.24.42-.44.51a.86.86,0,0,1-.72,0,4.54,4.54,0,0,1-1.05-1,.9.9,0,0,1,0-.83.86.86,0,0,1,.78-.24,9.46,9.46,0,0,1,1.29,1.16C807.32,84.66,807.31,84.81,807.37,85Z"/><path class="${styles.st1}"  d="M819.06,104.08a.74.74,0,0,1-.79-1,9.25,9.25,0,0,1,.6-1.12.67.67,0,0,1,.89-.27.65.65,0,0,1,.41.84,8.2,8.2,0,0,1-.73,1.37C819.36,104,819.13,104,819.06,104.08Z"/><path class="${styles.st1}" d="M810,72a1.25,1.25,0,0,1-1.49,1,.67.67,0,0,1-.43-.82,1.45,1.45,0,0,1,1.32-.86A.65.65,0,0,1,810,72Z"/><path class="${styles.st1}" d="M813.64,110.26a1.45,1.45,0,0,1-1.23,1.07.74.74,0,0,1-.7-.74,1.48,1.48,0,0,1,1.24-1.07A.72.72,0,0,1,813.64,110.26Z"/><text class="${styles.st1}" transform="translate(947.1 1004.14)">Hill View</text><path class="${styles.st1}" d="M881.78,1010.91H845.17a4.84,4.84,0,0,1-.85,0,.73.73,0,0,1-.54-1.07,3.2,3.2,0,0,1,.3-.45q4.24-5.88,8.49-11.77a1.49,1.49,0,0,1,1.42-.74,17.11,17.11,0,0,0,2.48,0,1.39,1.39,0,0,0,.86-.45q2.31-3.12,4.54-6.3a1.46,1.46,0,0,1,1.37-.68c1,0,2.07,0,3.11,0a1.17,1.17,0,0,0,1.09-.54c3.13-4.12,6.29-8.22,9.44-12.33.85-1.11,1.1-1.12,2-.1q5.15,5.67,10.26,11.36a1.44,1.44,0,0,0,1.2.51c1.27,0,2.54-.05,3.81,0a2.08,2.08,0,0,1,1.21.5c2.08,2,4.12,4,6.2,6a1.79,1.79,0,0,0,1.13.46c1.53.05,3.06,0,4.58.05a1.9,1.9,0,0,1,1.24.58q5.47,6.66,10.88,13.38c.23.3.45.87.31,1.13s-.71.44-1.1.45Q900.2,1010.93,881.78,1010.91ZM871.3,993.34c-.67,1.3-1.29,2.49-1.89,3.69a1.31,1.31,0,0,0-.08.53q-.15,3.72-.29,7.45c0,.53-.08,1-.69,1.13s-.82-.41-1-.89c-.31-.84-.62-1.67-1-2.66l-3.31,6.7a1.73,1.73,0,0,0,.27.06c5.21,0,10.41,0,15.62,0a1.3,1.3,0,0,0,.82-.43q2.7-3.06,5.33-6.18a1.9,1.9,0,0,0,.4-1c.21-2,.35-4,.56-6,.1-1,.66-1.18,1.44-.63l2.1,1.55c-.32-2.16-.65-4.15-.89-6.15a3,3,0,0,0-.9-1.81c-3.09-3.38-6.15-6.79-9.23-10.19-.13-.14-.29-.26-.46-.42-1.3,3.2-2.58,6.33-3.84,9.47a2.48,2.48,0,0,0-.14,1c0,2.74.08,5.49.13,8.23,0,.51,0,1-.65,1.15s-.84-.36-1-.84C872.2,995.82,871.77,994.64,871.3,993.34Zm3.27-10.8-.19-.12c-.17.21-.34.41-.5.62q-2.82,3.66-5.62,7.33A1.34,1.34,0,0,1,867,991c-1.09,0-2.18,0-3.26,0a1.42,1.42,0,0,0-.93.47q-2.31,3.12-4.54,6.29a1.36,1.36,0,0,1-1.3.66c-.8,0-1.6,0-2.4,0a1.12,1.12,0,0,0-1.09.54c-2.33,3.26-4.68,6.5-7,9.75-.13.18-.23.37-.36.57.11,0,.15.08.2.08,4.84,0,9.68,0,14.53,0a1,1,0,0,0,.67-.45c.46-.84.86-1.71,1.28-2.56,1-1.92,1.88-3.86,2.87-5.76a1.32,1.32,0,0,1,.89-.67c.24,0,.52.45.76.72a1.93,1.93,0,0,1,.23.48,12.85,12.85,0,0,0,.17-2.37,5.63,5.63,0,0,1,.17-2.07c.86-1.9,1.86-3.74,2.85-5.58a1,1,0,0,1,.75-.4c.24,0,.5.29.67.52a4.19,4.19,0,0,1,.34.81,1,1,0,0,0,.11-.6,12.94,12.94,0,0,1,1.48-7.62A13.24,13.24,0,0,0,874.57,982.54Zm21.5,9.31L896,992a1.6,1.6,0,0,1,.12.37l2.52,11.11c.12.53.38,1.12-.25,1.46s-1-.23-1.4-.65L894,1001c-1.16,1-2.17,2-2.25,3.63s-.44,3.11-.67,4.66h26.3c-3.29-4-6.52-8-9.77-12a4.1,4.1,0,0,0-1-.6c.06.58.08.88.13,1.19.34,2.46.69,4.91,1,7.37.07.5.11,1-.47,1.15s-.87-.22-1.12-.67q-2.38-4.31-4.8-8.6a3.81,3.81,0,0,0-.63-.86c-1.36-1.36-2.73-2.69-4.11-4A5.72,5.72,0,0,0,896.07,991.85Zm-14.54,17.44h8c.13-.88.29-1.7.37-2.52.25-2.8.69-5.5,3.29-7.21a.57.57,0,0,0,.11-.11c.6-.58.91-.57,1.49.06s1.06,1.16,1.59,1.74l.13-.07-2.55-11.25H890.2c.4,2.69.82,5.32,1.17,8A1.41,1.41,0,0,1,891,999c-.19.15-.77,0-1.07-.25-.81-.52-1.56-1.12-2.42-1.76-.16,1.81-.27,3.49-.47,5.16a2.59,2.59,0,0,1-.52,1.32C884.91,1005.41,883.25,1007.29,881.53,1009.29Zm21.52-12.38,2.4,4.31.17-.07-.61-4.24Zm-28.47-14.5,0,0-.1-.05,0,0Z"/>
             <path data-image="60" data-tip="groundFloorAp1" class="${styles.st0}" d="M182.21,178.13H208V161.28l67.15-.29.09,16,8.59,0v42.48h53.11v39.83H305V475H182.21Z"/>
             <polygon data-image="61" data-tip="penthouse06" class="${styles.st0}" points="283.83 177.01 315.81 177.01 413.28 143.06 413.28 181.19 436.94 181.19 436.94 514.89 345.11 514.89 345.11 434.21 305.02 434.21 305.02 259.32 336.94 259.32 336.94 219.49 283.83 219.49 283.83 177.01"/>
@@ -581,66 +258,13 @@ const Floor = ({ imageName, imageLink }) => {
             <path data-image="80" data-tip="penthouse06" class="${styles.st0}" d="M283.83,898.82h32l97.08,34.67V894l24.05.6V560.94H345.11v80.68H305V816.51h31.92v39.83H283.83Z"/>
             <path data-image="81" data-tip="penthouse06" class="${styles.st0}" d="M182.21,886.29H195.3l-.07,8.06,12.83-.13L208,914.55l67.15.29.09-16.05,8.59,0V856.34h53.11V816.51H305V600.85H182.21Z"/>
 
-        </svg>
-          `;
-
-          svgOverlay.innerHTML = svgContent;
-
-          viewer.addOverlay({
-            element: svgOverlay,
-            location: new OpenSeadragon.Rect(0, 0, 5.209, 5.208),
-            placement: OpenSeadragon.Placement.CENTER,
-          });
-
-          // Add click event listeners to polygons
-          svgOverlay.querySelectorAll("polygon, path").forEach((polygon) => {
-            polygon.addEventListener("click", (e) => {
-              e.preventDefault();
-              e.stopPropagation();
-              const dataImage = e.target.getAttribute("data-image");
-              if (dataImage) {
-                // Find the corresponding apartment data
-                const apartmentInfo = apartmentData["Basement 1"].find(
-                  (apt) => apt.Apartmentno.toString() === dataImage
-                );
-                if (apartmentInfo) {
-                  setActivePolygon({
-                    floor: "Valley Floor 1",
-                    id: dataImage,
-                    Type: apartmentInfo.Type,
-                    Bedrooms: apartmentInfo.Bedrooms,
-                    Area: apartmentInfo.Area,
-                  });
-
-                  const rect = e.target.getBoundingClientRect();
-                  setPopupPosition({
-                    x: rect.left + rect.width / 2,
-                    y: rect.top + rect.height / 2,
-                  });
-                }
-              }
-            });
-
-            polygon.addEventListener("mouseenter", () => {
-              viewer.setMouseNavEnabled(false);
-            });
-
-            polygon.addEventListener("mouseleave", () => {
-              viewer.setMouseNavEnabled(true);
-            });
-          });
-        }
-
-        if (imageName === "valley-floor-3") {
-          const svgOverlay = document.createElement("div");
-          svgOverlay.style.position = "absolute";
-          svgOverlay.style.left = "0";
-          svgOverlay.style.top = "0";
-          svgOverlay.style.width = "100%";
-          svgOverlay.style.height = "100%";
-
-          const svgContent = `
-        <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 10000 10000" preserveAspectRatio="none">
+        </svg>`;
+    }
+    else if (floor === "Valley Floor 2") {
+      svgContent = `5`;
+    }
+    else if (floor === "Valley Floor 3") {
+      svgContent = `<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 10000 10000" preserveAspectRatio="none">
                   <text class="${styles.st1}" transform="translate(881.77 101.41)">Road View</text><path  class="${styles.st1}" d="M821.94,65.58a3.47,3.47,0,0,1,.66.79c.24.59-.06,1.08-.73,1.45-1.63.9-3.28,1.78-4.88,2.74a13.29,13.29,0,0,0-3.68,3.17,3.25,3.25,0,0,0,.34,4.89,14.67,14.67,0,0,0,5,3c2,.77,4,1.42,6,2.16a18.82,18.82,0,0,1,8.16,5.47,15.37,15.37,0,0,1,3.49,9.67A29,29,0,0,1,834,110.29c-.34.88-.76,1.72-1.1,2.6a4,4,0,0,1-2.77,2.71h-15c-.32-.24-.6-.51-.44-1s.54-.5,1-.5c3.12,0,6.25,0,9.37,0a.82.82,0,0,0,.78-.43,34.32,34.32,0,0,0,5-10.66c.15-.63.25-1.28.38-1.92a2,2,0,0,1,0-.24c.11-.5.42-.74.84-.67a.72.72,0,0,1,.6.9,23.92,23.92,0,0,1-1.66,6.05,39,39,0,0,1-3.39,6.46l-.31.49c.9,0,1.73,0,2.55,0a1.68,1.68,0,0,0,1.41-1.07,37.92,37.92,0,0,0,3-8.66,20.83,20.83,0,0,0,.31-7.75,13.63,13.63,0,0,0-6.74-9.73,30.63,30.63,0,0,0-6.64-2.76,26.69,26.69,0,0,1-7.49-3.55,7.54,7.54,0,0,1-2.3-2.5,4.05,4.05,0,0,1-.43-2.73.78.78,0,0,0,0-.37,3.59,3.59,0,0,0-.47,3,6,6,0,0,0,2.16,2.88,22.51,22.51,0,0,0,6,3.28,52,52,0,0,1,6.43,2.64,14.81,14.81,0,0,1,6.48,6.48,12.75,12.75,0,0,1,1.11,3.92,1.41,1.41,0,0,1,0,.58.67.67,0,0,1-.76.48c-.42,0-.58-.33-.67-.72a22.18,22.18,0,0,0-.66-2.79,11.93,11.93,0,0,0-4.91-5.88A28.1,28.1,0,0,0,819.42,86a26.16,26.16,0,0,1-7.24-3.63,11.16,11.16,0,0,1-2.09-2,5.18,5.18,0,0,1-.5-6,13.13,13.13,0,0,1,4.09-4.39c1.4-1,2.89-1.91,4.32-2.86a8.19,8.19,0,0,0-4.14.64,63.71,63.71,0,0,0-9.53,5.79A19.86,19.86,0,0,0,799.84,78a6.76,6.76,0,0,0-1.25,3.23A5.58,5.58,0,0,0,800.74,86c.81.73,1.75,1.3,2.61,2a37.17,37.17,0,0,1,3.47,2.76,8.7,8.7,0,0,1,1.88,10.54,22,22,0,0,1-4.88,6.53,52.56,52.56,0,0,1-7.35,5.87l-.72.49h15.92c.42,0,.79,0,1,.5s-.11.73-.45,1H789.7a4.35,4.35,0,0,1-.7-.57,1.64,1.64,0,0,1,.42-2.46c1.51-1,3.05-1.92,4.54-2.94a41.21,41.21,0,0,0,7.29-6.09,14.81,14.81,0,0,0,2.77-4,5.81,5.81,0,0,0-1-6.61,16.3,16.3,0,0,0-3-2.52,29.59,29.59,0,0,1-3.37-2.63,6.4,6.4,0,0,1-2.12-5.35,8.05,8.05,0,0,1,1.5-3.81,20.17,20.17,0,0,1,5.25-5,99.7,99.7,0,0,1,12.4-7.33,18.37,18.37,0,0,1,1.76-.62ZM797.49,79A6.61,6.61,0,0,0,796,82.5a5,5,0,0,0,1.7,4.24,27.46,27.46,0,0,0,3.08,2.38,17,17,0,0,1,3.49,2.94A7.14,7.14,0,0,1,806,97.88a10,10,0,0,1-1.52,3.87,26.78,26.78,0,0,1-6,6.38,78,78,0,0,1-8,5.52,2.79,2.79,0,0,0-.42.35l.08.14h2.77a.63.63,0,0,0,.31-.12,57.3,57.3,0,0,0,9.54-7.16,19.48,19.48,0,0,0,4.67-6.24,7.46,7.46,0,0,0-1-8.18,15.78,15.78,0,0,0-3.89-3.3,22.92,22.92,0,0,1-2.4-1.74c-2.55-2.19-3.81-4.89-2.5-8.28V79Z"/><path class="${styles.st1}" d="M819.85,97.92c0-.2,0-.39,0-.59a.74.74,0,0,1,.67-.76.71.71,0,0,1,.77.66,10.29,10.29,0,0,1,0,1.36.65.65,0,0,1-.73.63.68.68,0,0,1-.71-.67c0-.21,0-.42,0-.63Z"/><path class="${styles.st1}" d="M802.89,79.75c0-.45.12-.82.6-1a.72.72,0,0,1,.88.62c0,.4.09.81.11,1.22a.69.69,0,0,1-.58.78.69.69,0,0,1-.84-.55C803,80.5,803,80.12,802.89,79.75Z"/><path class="${styles.st1}"  d="M811.68,87.55c0,.66-.51,1-1,.82a8,8,0,0,1-1.2-.63.67.67,0,0,1-.26-.93.69.69,0,0,1,1-.33,7.87,7.87,0,0,1,1.11.59A1.65,1.65,0,0,1,811.68,87.55Z"/><path class="${styles.st1}"  d="M816.71,105.82c.15.13.42.25.51.45a.86.86,0,0,1,0,.72,5.9,5.9,0,0,1-.94,1.06.6.6,0,0,1-.88,0c-.17-.2-.33-.64-.23-.8a8.85,8.85,0,0,1,1.14-1.31C816.36,105.88,816.5,105.88,816.71,105.82Z"/><path class="${styles.st1}" d="M816.27,90a.74.74,0,0,1-1,.8A8,8,0,0,1,814,90a.66.66,0,0,1-.14-.92.63.63,0,0,1,.84-.31,8.51,8.51,0,0,1,1.29.78C816.17,89.65,816.22,89.87,816.27,90Z"/><path class="${styles.st1}"  d="M818.59,91.91l.21,0c.34.11,1.24,1.23,1.18,1.58a1,1,0,0,1-.4.69.8.8,0,0,1-.75-.09,5.29,5.29,0,0,1-.91-1.19A.71.71,0,0,1,818.59,91.91Z"/><path class="${styles.st1}" d="M805.74,74.18a.73.73,0,0,1,.65,1.14,9,9,0,0,1-.83,1,.68.68,0,0,1-.89.12.6.6,0,0,1-.3-.83,9.83,9.83,0,0,1,1.08-1.35C805.52,74.2,805.69,74.2,805.74,74.18Z"/><path class="${styles.st1}"  d="M807.37,85c-.12.15-.24.42-.44.51a.86.86,0,0,1-.72,0,4.54,4.54,0,0,1-1.05-1,.9.9,0,0,1,0-.83.86.86,0,0,1,.78-.24,9.46,9.46,0,0,1,1.29,1.16C807.32,84.66,807.31,84.81,807.37,85Z"/><path class="${styles.st1}"  d="M819.06,104.08a.74.74,0,0,1-.79-1,9.25,9.25,0,0,1,.6-1.12.67.67,0,0,1,.89-.27.65.65,0,0,1,.41.84,8.2,8.2,0,0,1-.73,1.37C819.36,104,819.13,104,819.06,104.08Z"/><path class="${styles.st1}" d="M810,72a1.25,1.25,0,0,1-1.49,1,.67.67,0,0,1-.43-.82,1.45,1.45,0,0,1,1.32-.86A.65.65,0,0,1,810,72Z"/><path class="${styles.st1}" d="M813.64,110.26a1.45,1.45,0,0,1-1.23,1.07.74.74,0,0,1-.7-.74,1.48,1.48,0,0,1,1.24-1.07A.72.72,0,0,1,813.64,110.26Z"/><text class="${styles.st1}" transform="translate(947.1 1004.14)">Hill View</text><path class="${styles.st1}" d="M881.78,1010.91H845.17a4.84,4.84,0,0,1-.85,0,.73.73,0,0,1-.54-1.07,3.2,3.2,0,0,1,.3-.45q4.24-5.88,8.49-11.77a1.49,1.49,0,0,1,1.42-.74,17.11,17.11,0,0,0,2.48,0,1.39,1.39,0,0,0,.86-.45q2.31-3.12,4.54-6.3a1.46,1.46,0,0,1,1.37-.68c1,0,2.07,0,3.11,0a1.17,1.17,0,0,0,1.09-.54c3.13-4.12,6.29-8.22,9.44-12.33.85-1.11,1.1-1.12,2-.1q5.15,5.67,10.26,11.36a1.44,1.44,0,0,0,1.2.51c1.27,0,2.54-.05,3.81,0a2.08,2.08,0,0,1,1.21.5c2.08,2,4.12,4,6.2,6a1.79,1.79,0,0,0,1.13.46c1.53.05,3.06,0,4.58.05a1.9,1.9,0,0,1,1.24.58q5.47,6.66,10.88,13.38c.23.3.45.87.31,1.13s-.71.44-1.1.45Q900.2,1010.93,881.78,1010.91ZM871.3,993.34c-.67,1.3-1.29,2.49-1.89,3.69a1.31,1.31,0,0,0-.08.53q-.15,3.72-.29,7.45c0,.53-.08,1-.69,1.13s-.82-.41-1-.89c-.31-.84-.62-1.67-1-2.66l-3.31,6.7a1.73,1.73,0,0,0,.27.06c5.21,0,10.41,0,15.62,0a1.3,1.3,0,0,0,.82-.43q2.7-3.06,5.33-6.18a1.9,1.9,0,0,0,.4-1c.21-2,.35-4,.56-6,.1-1,.66-1.18,1.44-.63l2.1,1.55c-.32-2.16-.65-4.15-.89-6.15a3,3,0,0,0-.9-1.81c-3.09-3.38-6.15-6.79-9.23-10.19-.13-.14-.29-.26-.46-.42-1.3,3.2-2.58,6.33-3.84,9.47a2.48,2.48,0,0,0-.14,1c0,2.74.08,5.49.13,8.23,0,.51,0,1-.65,1.15s-.84-.36-1-.84C872.2,995.82,871.77,994.64,871.3,993.34Zm3.27-10.8-.19-.12c-.17.21-.34.41-.5.62q-2.82,3.66-5.62,7.33A1.34,1.34,0,0,1,867,991c-1.09,0-2.18,0-3.26,0a1.42,1.42,0,0,0-.93.47q-2.31,3.12-4.54,6.29a1.36,1.36,0,0,1-1.3.66c-.8,0-1.6,0-2.4,0a1.12,1.12,0,0,0-1.09.54c-2.33,3.26-4.68,6.5-7,9.75-.13.18-.23.37-.36.57.11,0,.15.08.2.08,4.84,0,9.68,0,14.53,0a1,1,0,0,0,.67-.45c.46-.84.86-1.71,1.28-2.56,1-1.92,1.88-3.86,2.87-5.76a1.32,1.32,0,0,1,.89-.67c.24,0,.52.45.76.72a1.93,1.93,0,0,1,.23.48,12.85,12.85,0,0,0,.17-2.37,5.63,5.63,0,0,1,.17-2.07c.86-1.9,1.86-3.74,2.85-5.58a1,1,0,0,1,.75-.4c.24,0,.5.29.67.52a4.19,4.19,0,0,1,.34.81,1,1,0,0,0,.11-.6,12.94,12.94,0,0,1,1.48-7.62A13.24,13.24,0,0,0,874.57,982.54Zm21.5,9.31L896,992a1.6,1.6,0,0,1,.12.37l2.52,11.11c.12.53.38,1.12-.25,1.46s-1-.23-1.4-.65L894,1001c-1.16,1-2.17,2-2.25,3.63s-.44,3.11-.67,4.66h26.3c-3.29-4-6.52-8-9.77-12a4.1,4.1,0,0,0-1-.6c.06.58.08.88.13,1.19.34,2.46.69,4.91,1,7.37.07.5.11,1-.47,1.15s-.87-.22-1.12-.67q-2.38-4.31-4.8-8.6a3.81,3.81,0,0,0-.63-.86c-1.36-1.36-2.73-2.69-4.11-4A5.72,5.72,0,0,0,896.07,991.85Zm-14.54,17.44h8c.13-.88.29-1.7.37-2.52.25-2.8.69-5.5,3.29-7.21a.57.57,0,0,0,.11-.11c.6-.58.91-.57,1.49.06s1.06,1.16,1.59,1.74l.13-.07-2.55-11.25H890.2c.4,2.69.82,5.32,1.17,8A1.41,1.41,0,0,1,891,999c-.19.15-.77,0-1.07-.25-.81-.52-1.56-1.12-2.42-1.76-.16,1.81-.27,3.49-.47,5.16a2.59,2.59,0,0,1-.52,1.32C884.91,1005.41,883.25,1007.29,881.53,1009.29Zm21.52-12.38,2.4,4.31.17-.07-.61-4.24Zm-28.47-14.5,0,0-.1-.05,0,0Z"/>
         <polyline
           data-image="82"
@@ -672,69 +296,10 @@ const Floor = ({ imageName, imageLink }) => {
         <polygon data-image="104" data-tip="penthouse06" class="${styles.st0}" points="429.49 940.17 429.49 911.32 453.49 911.32 454.21 911.32 454.21 644.83 410.6 644.83 410.6 658.55 321.53 658.55 321.53 833.79 300.77 833.79 300.77 869.87 354.55 869.87 354.55 916.17 354.55 916.68 429.49 940.17"/>
         <polyline data-image="105" data-tip="penthouse06" class="${styles.st0}" points="211.91 911.57 224.85 911.57 224.85 940.17 311.15 940.17 311.15 916.17 354.55 916.17 354.55 869.87 300.77 869.87 300.77 833.79 321.53 833.79 321.53 614.3 203.66 614.3 203.66 617.19 199.19 617.32 199.19 903.53 211.91 903.53"/>
 
-            </svg>
-          `;
-
-          svgOverlay.innerHTML = svgContent;
-
-          viewer.addOverlay({
-            element: svgOverlay,
-            location: new OpenSeadragon.Rect(0, 0, 5.209, 5.208),
-            placement: OpenSeadragon.Placement.CENTER,
-          });
-
-          // Add click event listeners to polygons
-
-          svgOverlay
-            .querySelectorAll("polygon, path, polyline")
-            .forEach((polygon) => {
-              polygon.addEventListener("click", (e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                const dataImage = e.target.getAttribute("data-image");
-                if (dataImage) {
-                  // Find the corresponding apartment data
-                  const apartmentInfo = apartmentData["Basement 3"].find(
-                    (apt) => apt.Apartmentno.toString() === dataImage
-                  );
-                  if (apartmentInfo) {
-                    setActivePolygon({
-                      floor: "Valley Floor 3",
-                      id: dataImage,
-                      Type: apartmentInfo.Type,
-                      Bedrooms: apartmentInfo.Bedrooms,
-                      Area: apartmentInfo.Area,
-                    });
-
-                    const rect = e.target.getBoundingClientRect();
-                    setPopupPosition({
-                      x: rect.left + rect.width / 2,
-                      y: rect.top + rect.height / 2,
-                    });
-                  }
-                }
-              });
-
-              polygon.addEventListener("mouseenter", () => {
-                viewer.setMouseNavEnabled(false);
-              });
-
-              polygon.addEventListener("mouseleave", () => {
-                viewer.setMouseNavEnabled(true);
-              });
-            });
-        }
-
-        if (imageName === "valley-floor-4") {
-          const svgOverlay = document.createElement("div");
-          svgOverlay.style.position = "absolute";
-          svgOverlay.style.left = "0";
-          svgOverlay.style.top = "0";
-          svgOverlay.style.width = "100%";
-          svgOverlay.style.height = "100%";
-
-          const svgContent = `
-          <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 10000 10000" preserveAspectRatio="none">
+            </svg>`;
+    } 
+    else if (floor === "Valley Floor 4") {
+      svgContent = ` <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 10000 10000" preserveAspectRatio="none">
           
           
           <text class="${styles.st1}" transform="translate(881.77 101.41)">Road View</text><path  class="${styles.st1}" d="M821.94,65.58a3.47,3.47,0,0,1,.66.79c.24.59-.06,1.08-.73,1.45-1.63.9-3.28,1.78-4.88,2.74a13.29,13.29,0,0,0-3.68,3.17,3.25,3.25,0,0,0,.34,4.89,14.67,14.67,0,0,0,5,3c2,.77,4,1.42,6,2.16a18.82,18.82,0,0,1,8.16,5.47,15.37,15.37,0,0,1,3.49,9.67A29,29,0,0,1,834,110.29c-.34.88-.76,1.72-1.1,2.6a4,4,0,0,1-2.77,2.71h-15c-.32-.24-.6-.51-.44-1s.54-.5,1-.5c3.12,0,6.25,0,9.37,0a.82.82,0,0,0,.78-.43,34.32,34.32,0,0,0,5-10.66c.15-.63.25-1.28.38-1.92a2,2,0,0,1,0-.24c.11-.5.42-.74.84-.67a.72.72,0,0,1,.6.9,23.92,23.92,0,0,1-1.66,6.05,39,39,0,0,1-3.39,6.46l-.31.49c.9,0,1.73,0,2.55,0a1.68,1.68,0,0,0,1.41-1.07,37.92,37.92,0,0,0,3-8.66,20.83,20.83,0,0,0,.31-7.75,13.63,13.63,0,0,0-6.74-9.73,30.63,30.63,0,0,0-6.64-2.76,26.69,26.69,0,0,1-7.49-3.55,7.54,7.54,0,0,1-2.3-2.5,4.05,4.05,0,0,1-.43-2.73.78.78,0,0,0,0-.37,3.59,3.59,0,0,0-.47,3,6,6,0,0,0,2.16,2.88,22.51,22.51,0,0,0,6,3.28,52,52,0,0,1,6.43,2.64,14.81,14.81,0,0,1,6.48,6.48,12.75,12.75,0,0,1,1.11,3.92,1.41,1.41,0,0,1,0,.58.67.67,0,0,1-.76.48c-.42,0-.58-.33-.67-.72a22.18,22.18,0,0,0-.66-2.79,11.93,11.93,0,0,0-4.91-5.88A28.1,28.1,0,0,0,819.42,86a26.16,26.16,0,0,1-7.24-3.63,11.16,11.16,0,0,1-2.09-2,5.18,5.18,0,0,1-.5-6,13.13,13.13,0,0,1,4.09-4.39c1.4-1,2.89-1.91,4.32-2.86a8.19,8.19,0,0,0-4.14.64,63.71,63.71,0,0,0-9.53,5.79A19.86,19.86,0,0,0,799.84,78a6.76,6.76,0,0,0-1.25,3.23A5.58,5.58,0,0,0,800.74,86c.81.73,1.75,1.3,2.61,2a37.17,37.17,0,0,1,3.47,2.76,8.7,8.7,0,0,1,1.88,10.54,22,22,0,0,1-4.88,6.53,52.56,52.56,0,0,1-7.35,5.87l-.72.49h15.92c.42,0,.79,0,1,.5s-.11.73-.45,1H789.7a4.35,4.35,0,0,1-.7-.57,1.64,1.64,0,0,1,.42-2.46c1.51-1,3.05-1.92,4.54-2.94a41.21,41.21,0,0,0,7.29-6.09,14.81,14.81,0,0,0,2.77-4,5.81,5.81,0,0,0-1-6.61,16.3,16.3,0,0,0-3-2.52,29.59,29.59,0,0,1-3.37-2.63,6.4,6.4,0,0,1-2.12-5.35,8.05,8.05,0,0,1,1.5-3.81,20.17,20.17,0,0,1,5.25-5,99.7,99.7,0,0,1,12.4-7.33,18.37,18.37,0,0,1,1.76-.62ZM797.49,79A6.61,6.61,0,0,0,796,82.5a5,5,0,0,0,1.7,4.24,27.46,27.46,0,0,0,3.08,2.38,17,17,0,0,1,3.49,2.94A7.14,7.14,0,0,1,806,97.88a10,10,0,0,1-1.52,3.87,26.78,26.78,0,0,1-6,6.38,78,78,0,0,1-8,5.52,2.79,2.79,0,0,0-.42.35l.08.14h2.77a.63.63,0,0,0,.31-.12,57.3,57.3,0,0,0,9.54-7.16,19.48,19.48,0,0,0,4.67-6.24,7.46,7.46,0,0,0-1-8.18,15.78,15.78,0,0,0-3.89-3.3,22.92,22.92,0,0,1-2.4-1.74c-2.55-2.19-3.81-4.89-2.5-8.28V79Z"/><path class="${styles.st1}" d="M819.85,97.92c0-.2,0-.39,0-.59a.74.74,0,0,1,.67-.76.71.71,0,0,1,.77.66,10.29,10.29,0,0,1,0,1.36.65.65,0,0,1-.73.63.68.68,0,0,1-.71-.67c0-.21,0-.42,0-.63Z"/><path class="${styles.st1}" d="M802.89,79.75c0-.45.12-.82.6-1a.72.72,0,0,1,.88.62c0,.4.09.81.11,1.22a.69.69,0,0,1-.58.78.69.69,0,0,1-.84-.55C803,80.5,803,80.12,802.89,79.75Z"/><path class="${styles.st1}"  d="M811.68,87.55c0,.66-.51,1-1,.82a8,8,0,0,1-1.2-.63.67.67,0,0,1-.26-.93.69.69,0,0,1,1-.33,7.87,7.87,0,0,1,1.11.59A1.65,1.65,0,0,1,811.68,87.55Z"/><path class="${styles.st1}"  d="M816.71,105.82c.15.13.42.25.51.45a.86.86,0,0,1,0,.72,5.9,5.9,0,0,1-.94,1.06.6.6,0,0,1-.88,0c-.17-.2-.33-.64-.23-.8a8.85,8.85,0,0,1,1.14-1.31C816.36,105.88,816.5,105.88,816.71,105.82Z"/><path class="${styles.st1}" d="M816.27,90a.74.74,0,0,1-1,.8A8,8,0,0,1,814,90a.66.66,0,0,1-.14-.92.63.63,0,0,1,.84-.31,8.51,8.51,0,0,1,1.29.78C816.17,89.65,816.22,89.87,816.27,90Z"/><path class="${styles.st1}"  d="M818.59,91.91l.21,0c.34.11,1.24,1.23,1.18,1.58a1,1,0,0,1-.4.69.8.8,0,0,1-.75-.09,5.29,5.29,0,0,1-.91-1.19A.71.71,0,0,1,818.59,91.91Z"/><path class="${styles.st1}" d="M805.74,74.18a.73.73,0,0,1,.65,1.14,9,9,0,0,1-.83,1,.68.68,0,0,1-.89.12.6.6,0,0,1-.3-.83,9.83,9.83,0,0,1,1.08-1.35C805.52,74.2,805.69,74.2,805.74,74.18Z"/><path class="${styles.st1}"  d="M807.37,85c-.12.15-.24.42-.44.51a.86.86,0,0,1-.72,0,4.54,4.54,0,0,1-1.05-1,.9.9,0,0,1,0-.83.86.86,0,0,1,.78-.24,9.46,9.46,0,0,1,1.29,1.16C807.32,84.66,807.31,84.81,807.37,85Z"/><path class="${styles.st1}"  d="M819.06,104.08a.74.74,0,0,1-.79-1,9.25,9.25,0,0,1,.6-1.12.67.67,0,0,1,.89-.27.65.65,0,0,1,.41.84,8.2,8.2,0,0,1-.73,1.37C819.36,104,819.13,104,819.06,104.08Z"/><path class="${styles.st1}" d="M810,72a1.25,1.25,0,0,1-1.49,1,.67.67,0,0,1-.43-.82,1.45,1.45,0,0,1,1.32-.86A.65.65,0,0,1,810,72Z"/><path class="${styles.st1}" d="M813.64,110.26a1.45,1.45,0,0,1-1.23,1.07.74.74,0,0,1-.7-.74,1.48,1.48,0,0,1,1.24-1.07A.72.72,0,0,1,813.64,110.26Z"/><text class="${styles.st1}" transform="translate(947.1 1004.14)">Hill View</text><path class="${styles.st1}" d="M881.78,1010.91H845.17a4.84,4.84,0,0,1-.85,0,.73.73,0,0,1-.54-1.07,3.2,3.2,0,0,1,.3-.45q4.24-5.88,8.49-11.77a1.49,1.49,0,0,1,1.42-.74,17.11,17.11,0,0,0,2.48,0,1.39,1.39,0,0,0,.86-.45q2.31-3.12,4.54-6.3a1.46,1.46,0,0,1,1.37-.68c1,0,2.07,0,3.11,0a1.17,1.17,0,0,0,1.09-.54c3.13-4.12,6.29-8.22,9.44-12.33.85-1.11,1.1-1.12,2-.1q5.15,5.67,10.26,11.36a1.44,1.44,0,0,0,1.2.51c1.27,0,2.54-.05,3.81,0a2.08,2.08,0,0,1,1.21.5c2.08,2,4.12,4,6.2,6a1.79,1.79,0,0,0,1.13.46c1.53.05,3.06,0,4.58.05a1.9,1.9,0,0,1,1.24.58q5.47,6.66,10.88,13.38c.23.3.45.87.31,1.13s-.71.44-1.1.45Q900.2,1010.93,881.78,1010.91ZM871.3,993.34c-.67,1.3-1.29,2.49-1.89,3.69a1.31,1.31,0,0,0-.08.53q-.15,3.72-.29,7.45c0,.53-.08,1-.69,1.13s-.82-.41-1-.89c-.31-.84-.62-1.67-1-2.66l-3.31,6.7a1.73,1.73,0,0,0,.27.06c5.21,0,10.41,0,15.62,0a1.3,1.3,0,0,0,.82-.43q2.7-3.06,5.33-6.18a1.9,1.9,0,0,0,.4-1c.21-2,.35-4,.56-6,.1-1,.66-1.18,1.44-.63l2.1,1.55c-.32-2.16-.65-4.15-.89-6.15a3,3,0,0,0-.9-1.81c-3.09-3.38-6.15-6.79-9.23-10.19-.13-.14-.29-.26-.46-.42-1.3,3.2-2.58,6.33-3.84,9.47a2.48,2.48,0,0,0-.14,1c0,2.74.08,5.49.13,8.23,0,.51,0,1-.65,1.15s-.84-.36-1-.84C872.2,995.82,871.77,994.64,871.3,993.34Zm3.27-10.8-.19-.12c-.17.21-.34.41-.5.62q-2.82,3.66-5.62,7.33A1.34,1.34,0,0,1,867,991c-1.09,0-2.18,0-3.26,0a1.42,1.42,0,0,0-.93.47q-2.31,3.12-4.54,6.29a1.36,1.36,0,0,1-1.3.66c-.8,0-1.6,0-2.4,0a1.12,1.12,0,0,0-1.09.54c-2.33,3.26-4.68,6.5-7,9.75-.13.18-.23.37-.36.57.11,0,.15.08.2.08,4.84,0,9.68,0,14.53,0a1,1,0,0,0,.67-.45c.46-.84.86-1.71,1.28-2.56,1-1.92,1.88-3.86,2.87-5.76a1.32,1.32,0,0,1,.89-.67c.24,0,.52.45.76.72a1.93,1.93,0,0,1,.23.48,12.85,12.85,0,0,0,.17-2.37,5.63,5.63,0,0,1,.17-2.07c.86-1.9,1.86-3.74,2.85-5.58a1,1,0,0,1,.75-.4c.24,0,.5.29.67.52a4.19,4.19,0,0,1,.34.81,1,1,0,0,0,.11-.6,12.94,12.94,0,0,1,1.48-7.62A13.24,13.24,0,0,0,874.57,982.54Zm21.5,9.31L896,992a1.6,1.6,0,0,1,.12.37l2.52,11.11c.12.53.38,1.12-.25,1.46s-1-.23-1.4-.65L894,1001c-1.16,1-2.17,2-2.25,3.63s-.44,3.11-.67,4.66h26.3c-3.29-4-6.52-8-9.77-12a4.1,4.1,0,0,0-1-.6c.06.58.08.88.13,1.19.34,2.46.69,4.91,1,7.37.07.5.11,1-.47,1.15s-.87-.22-1.12-.67q-2.38-4.31-4.8-8.6a3.81,3.81,0,0,0-.63-.86c-1.36-1.36-2.73-2.69-4.11-4A5.72,5.72,0,0,0,896.07,991.85Zm-14.54,17.44h8c.13-.88.29-1.7.37-2.52.25-2.8.69-5.5,3.29-7.21a.57.57,0,0,0,.11-.11c.6-.58.91-.57,1.49.06s1.06,1.16,1.59,1.74l.13-.07-2.55-11.25H890.2c.4,2.69.82,5.32,1.17,8A1.41,1.41,0,0,1,891,999c-.19.15-.77,0-1.07-.25-.81-.52-1.56-1.12-2.42-1.76-.16,1.81-.27,3.49-.47,5.16a2.59,2.59,0,0,1-.52,1.32C884.91,1005.41,883.25,1007.29,881.53,1009.29Zm21.52-12.38,2.4,4.31.17-.07-.61-4.24Zm-28.47-14.5,0,0-.1-.05,0,0Z"/>
@@ -759,69 +324,10 @@ const Floor = ({ imageName, imageLink }) => {
         <polygon data-image="123" data-tip="penthouse06" class="${styles.st0}" points="350.78 567.47 451.06 567.47 451.06 551.26 502.27 551.26 503.03 799.06 503.03 865.4 488.05 865.4 488.05 860.36 473.53 860.36 473.53 888.18 379.67 865.86 351.85 865.86 351.85 863.11 386.85 863.11 386.85 812.05 325.71 812.05 325.71 769.25 350.47 769.25 350.47 688.23 352.08 688.23 352.08 673.86 350.78 673.86 350.78 567.47"/>
         <polygon data-image="124" data-tip="penthouse06" class="${styles.st0}" points="208 516.1 350.55 516.1 350.55 520.69 352.08 520.69 352.08 535.36 350.78 535.36 350.78 569.45 350.78 673.86 352.08 673.86 352.08 688.23 350.47 688.23 350.47 769.25 325.71 769.25 325.71 812.05 386.85 812.05 386.85 863.11 351.85 863.11 351.85 865.55 348.02 865.55 348.02 894.9 237.5 894.9 237.5 860.05 222.06 860.05 222.06 851.03 208.31 851.03 208 516.1"/>
 
-            </svg>
-          `;
-
-          svgOverlay.innerHTML = svgContent;
-
-          viewer.addOverlay({
-            element: svgOverlay,
-            location: new OpenSeadragon.Rect(0, 0, 5.209, 5.208),
-            placement: OpenSeadragon.Placement.CENTER,
-          });
-
-          // Add click event listeners to polygons
-
-          svgOverlay
-            .querySelectorAll("polygon, path, rect, polyline")
-            .forEach((polygon) => {
-              polygon.addEventListener("click", (e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                const dataImage = e.target.getAttribute("data-image");
-                if (dataImage) {
-                  // Find the corresponding apartment data
-                  const apartmentInfo = apartmentData["Basement 4"].find(
-                    (apt) => apt.Apartmentno.toString() === dataImage
-                  );
-                  if (apartmentInfo) {
-                    setActivePolygon({
-                      floor: "Valley Floor 4",
-                      id: dataImage,
-                      Type: apartmentInfo.Type,
-                      Bedrooms: apartmentInfo.Bedrooms,
-                      Area: apartmentInfo.Area,
-                    });
-
-                    const rect = e.target.getBoundingClientRect();
-                    setPopupPosition({
-                      x: rect.left + rect.width / 2,
-                      y: rect.top + rect.height / 2,
-                    });
-                  }
-                }
-              });
-
-              polygon.addEventListener("mouseenter", () => {
-                viewer.setMouseNavEnabled(false);
-              });
-
-              polygon.addEventListener("mouseleave", () => {
-                viewer.setMouseNavEnabled(true);
-              });
-            });
-        }
-
-        if (imageName === "valley-floor-5") {
-          const svgOverlay = document.createElement("div");
-          svgOverlay.style.position = "absolute";
-          svgOverlay.style.left = "0";
-          svgOverlay.style.top = "0";
-          svgOverlay.style.width = "100%";
-          svgOverlay.style.height = "100%";
-
-          const svgContent = `
-          <svg       ref=${svgRef} xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 10000 10000" preserveAspectRatio="none">
+            </svg>`;
+    }
+    else if (floor === "Valley Floor 5") {
+      svgContent = `  <svg       ref=${svgRef} xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 10000 10000" preserveAspectRatio="none">
 
            <text class="${styles.st1}" transform="translate(881.77 101.41)">Road View</text><path  class="${styles.st1}" d="M821.94,65.58a3.47,3.47,0,0,1,.66.79c.24.59-.06,1.08-.73,1.45-1.63.9-3.28,1.78-4.88,2.74a13.29,13.29,0,0,0-3.68,3.17,3.25,3.25,0,0,0,.34,4.89,14.67,14.67,0,0,0,5,3c2,.77,4,1.42,6,2.16a18.82,18.82,0,0,1,8.16,5.47,15.37,15.37,0,0,1,3.49,9.67A29,29,0,0,1,834,110.29c-.34.88-.76,1.72-1.1,2.6a4,4,0,0,1-2.77,2.71h-15c-.32-.24-.6-.51-.44-1s.54-.5,1-.5c3.12,0,6.25,0,9.37,0a.82.82,0,0,0,.78-.43,34.32,34.32,0,0,0,5-10.66c.15-.63.25-1.28.38-1.92a2,2,0,0,1,0-.24c.11-.5.42-.74.84-.67a.72.72,0,0,1,.6.9,23.92,23.92,0,0,1-1.66,6.05,39,39,0,0,1-3.39,6.46l-.31.49c.9,0,1.73,0,2.55,0a1.68,1.68,0,0,0,1.41-1.07,37.92,37.92,0,0,0,3-8.66,20.83,20.83,0,0,0,.31-7.75,13.63,13.63,0,0,0-6.74-9.73,30.63,30.63,0,0,0-6.64-2.76,26.69,26.69,0,0,1-7.49-3.55,7.54,7.54,0,0,1-2.3-2.5,4.05,4.05,0,0,1-.43-2.73.78.78,0,0,0,0-.37,3.59,3.59,0,0,0-.47,3,6,6,0,0,0,2.16,2.88,22.51,22.51,0,0,0,6,3.28,52,52,0,0,1,6.43,2.64,14.81,14.81,0,0,1,6.48,6.48,12.75,12.75,0,0,1,1.11,3.92,1.41,1.41,0,0,1,0,.58.67.67,0,0,1-.76.48c-.42,0-.58-.33-.67-.72a22.18,22.18,0,0,0-.66-2.79,11.93,11.93,0,0,0-4.91-5.88A28.1,28.1,0,0,0,819.42,86a26.16,26.16,0,0,1-7.24-3.63,11.16,11.16,0,0,1-2.09-2,5.18,5.18,0,0,1-.5-6,13.13,13.13,0,0,1,4.09-4.39c1.4-1,2.89-1.91,4.32-2.86a8.19,8.19,0,0,0-4.14.64,63.71,63.71,0,0,0-9.53,5.79A19.86,19.86,0,0,0,799.84,78a6.76,6.76,0,0,0-1.25,3.23A5.58,5.58,0,0,0,800.74,86c.81.73,1.75,1.3,2.61,2a37.17,37.17,0,0,1,3.47,2.76,8.7,8.7,0,0,1,1.88,10.54,22,22,0,0,1-4.88,6.53,52.56,52.56,0,0,1-7.35,5.87l-.72.49h15.92c.42,0,.79,0,1,.5s-.11.73-.45,1H789.7a4.35,4.35,0,0,1-.7-.57,1.64,1.64,0,0,1,.42-2.46c1.51-1,3.05-1.92,4.54-2.94a41.21,41.21,0,0,0,7.29-6.09,14.81,14.81,0,0,0,2.77-4,5.81,5.81,0,0,0-1-6.61,16.3,16.3,0,0,0-3-2.52,29.59,29.59,0,0,1-3.37-2.63,6.4,6.4,0,0,1-2.12-5.35,8.05,8.05,0,0,1,1.5-3.81,20.17,20.17,0,0,1,5.25-5,99.7,99.7,0,0,1,12.4-7.33,18.37,18.37,0,0,1,1.76-.62ZM797.49,79A6.61,6.61,0,0,0,796,82.5a5,5,0,0,0,1.7,4.24,27.46,27.46,0,0,0,3.08,2.38,17,17,0,0,1,3.49,2.94A7.14,7.14,0,0,1,806,97.88a10,10,0,0,1-1.52,3.87,26.78,26.78,0,0,1-6,6.38,78,78,0,0,1-8,5.52,2.79,2.79,0,0,0-.42.35l.08.14h2.77a.63.63,0,0,0,.31-.12,57.3,57.3,0,0,0,9.54-7.16,19.48,19.48,0,0,0,4.67-6.24,7.46,7.46,0,0,0-1-8.18,15.78,15.78,0,0,0-3.89-3.3,22.92,22.92,0,0,1-2.4-1.74c-2.55-2.19-3.81-4.89-2.5-8.28V79Z"/><path class="${styles.st1}" d="M819.85,97.92c0-.2,0-.39,0-.59a.74.74,0,0,1,.67-.76.71.71,0,0,1,.77.66,10.29,10.29,0,0,1,0,1.36.65.65,0,0,1-.73.63.68.68,0,0,1-.71-.67c0-.21,0-.42,0-.63Z"/><path class="${styles.st1}" d="M802.89,79.75c0-.45.12-.82.6-1a.72.72,0,0,1,.88.62c0,.4.09.81.11,1.22a.69.69,0,0,1-.58.78.69.69,0,0,1-.84-.55C803,80.5,803,80.12,802.89,79.75Z"/><path class="${styles.st1}"  d="M811.68,87.55c0,.66-.51,1-1,.82a8,8,0,0,1-1.2-.63.67.67,0,0,1-.26-.93.69.69,0,0,1,1-.33,7.87,7.87,0,0,1,1.11.59A1.65,1.65,0,0,1,811.68,87.55Z"/><path class="${styles.st1}"  d="M816.71,105.82c.15.13.42.25.51.45a.86.86,0,0,1,0,.72,5.9,5.9,0,0,1-.94,1.06.6.6,0,0,1-.88,0c-.17-.2-.33-.64-.23-.8a8.85,8.85,0,0,1,1.14-1.31C816.36,105.88,816.5,105.88,816.71,105.82Z"/><path class="${styles.st1}" d="M816.27,90a.74.74,0,0,1-1,.8A8,8,0,0,1,814,90a.66.66,0,0,1-.14-.92.63.63,0,0,1,.84-.31,8.51,8.51,0,0,1,1.29.78C816.17,89.65,816.22,89.87,816.27,90Z"/><path class="${styles.st1}"  d="M818.59,91.91l.21,0c.34.11,1.24,1.23,1.18,1.58a1,1,0,0,1-.4.69.8.8,0,0,1-.75-.09,5.29,5.29,0,0,1-.91-1.19A.71.71,0,0,1,818.59,91.91Z"/><path class="${styles.st1}" d="M805.74,74.18a.73.73,0,0,1,.65,1.14,9,9,0,0,1-.83,1,.68.68,0,0,1-.89.12.6.6,0,0,1-.3-.83,9.83,9.83,0,0,1,1.08-1.35C805.52,74.2,805.69,74.2,805.74,74.18Z"/><path class="${styles.st1}"  d="M807.37,85c-.12.15-.24.42-.44.51a.86.86,0,0,1-.72,0,4.54,4.54,0,0,1-1.05-1,.9.9,0,0,1,0-.83.86.86,0,0,1,.78-.24,9.46,9.46,0,0,1,1.29,1.16C807.32,84.66,807.31,84.81,807.37,85Z"/><path class="${styles.st1}"  d="M819.06,104.08a.74.74,0,0,1-.79-1,9.25,9.25,0,0,1,.6-1.12.67.67,0,0,1,.89-.27.65.65,0,0,1,.41.84,8.2,8.2,0,0,1-.73,1.37C819.36,104,819.13,104,819.06,104.08Z"/><path class="${styles.st1}" d="M810,72a1.25,1.25,0,0,1-1.49,1,.67.67,0,0,1-.43-.82,1.45,1.45,0,0,1,1.32-.86A.65.65,0,0,1,810,72Z"/><path class="${styles.st1}" d="M813.64,110.26a1.45,1.45,0,0,1-1.23,1.07.74.74,0,0,1-.7-.74,1.48,1.48,0,0,1,1.24-1.07A.72.72,0,0,1,813.64,110.26Z"/><text class="${styles.st1}" transform="translate(947.1 1004.14)">Hill View</text><path class="${styles.st1}" d="M881.78,1010.91H845.17a4.84,4.84,0,0,1-.85,0,.73.73,0,0,1-.54-1.07,3.2,3.2,0,0,1,.3-.45q4.24-5.88,8.49-11.77a1.49,1.49,0,0,1,1.42-.74,17.11,17.11,0,0,0,2.48,0,1.39,1.39,0,0,0,.86-.45q2.31-3.12,4.54-6.3a1.46,1.46,0,0,1,1.37-.68c1,0,2.07,0,3.11,0a1.17,1.17,0,0,0,1.09-.54c3.13-4.12,6.29-8.22,9.44-12.33.85-1.11,1.1-1.12,2-.1q5.15,5.67,10.26,11.36a1.44,1.44,0,0,0,1.2.51c1.27,0,2.54-.05,3.81,0a2.08,2.08,0,0,1,1.21.5c2.08,2,4.12,4,6.2,6a1.79,1.79,0,0,0,1.13.46c1.53.05,3.06,0,4.58.05a1.9,1.9,0,0,1,1.24.58q5.47,6.66,10.88,13.38c.23.3.45.87.31,1.13s-.71.44-1.1.45Q900.2,1010.93,881.78,1010.91ZM871.3,993.34c-.67,1.3-1.29,2.49-1.89,3.69a1.31,1.31,0,0,0-.08.53q-.15,3.72-.29,7.45c0,.53-.08,1-.69,1.13s-.82-.41-1-.89c-.31-.84-.62-1.67-1-2.66l-3.31,6.7a1.73,1.73,0,0,0,.27.06c5.21,0,10.41,0,15.62,0a1.3,1.3,0,0,0,.82-.43q2.7-3.06,5.33-6.18a1.9,1.9,0,0,0,.4-1c.21-2,.35-4,.56-6,.1-1,.66-1.18,1.44-.63l2.1,1.55c-.32-2.16-.65-4.15-.89-6.15a3,3,0,0,0-.9-1.81c-3.09-3.38-6.15-6.79-9.23-10.19-.13-.14-.29-.26-.46-.42-1.3,3.2-2.58,6.33-3.84,9.47a2.48,2.48,0,0,0-.14,1c0,2.74.08,5.49.13,8.23,0,.51,0,1-.65,1.15s-.84-.36-1-.84C872.2,995.82,871.77,994.64,871.3,993.34Zm3.27-10.8-.19-.12c-.17.21-.34.41-.5.62q-2.82,3.66-5.62,7.33A1.34,1.34,0,0,1,867,991c-1.09,0-2.18,0-3.26,0a1.42,1.42,0,0,0-.93.47q-2.31,3.12-4.54,6.29a1.36,1.36,0,0,1-1.3.66c-.8,0-1.6,0-2.4,0a1.12,1.12,0,0,0-1.09.54c-2.33,3.26-4.68,6.5-7,9.75-.13.18-.23.37-.36.57.11,0,.15.08.2.08,4.84,0,9.68,0,14.53,0a1,1,0,0,0,.67-.45c.46-.84.86-1.71,1.28-2.56,1-1.92,1.88-3.86,2.87-5.76a1.32,1.32,0,0,1,.89-.67c.24,0,.52.45.76.72a1.93,1.93,0,0,1,.23.48,12.85,12.85,0,0,0,.17-2.37,5.63,5.63,0,0,1,.17-2.07c.86-1.9,1.86-3.74,2.85-5.58a1,1,0,0,1,.75-.4c.24,0,.5.29.67.52a4.19,4.19,0,0,1,.34.81,1,1,0,0,0,.11-.6,12.94,12.94,0,0,1,1.48-7.62A13.24,13.24,0,0,0,874.57,982.54Zm21.5,9.31L896,992a1.6,1.6,0,0,1,.12.37l2.52,11.11c.12.53.38,1.12-.25,1.46s-1-.23-1.4-.65L894,1001c-1.16,1-2.17,2-2.25,3.63s-.44,3.11-.67,4.66h26.3c-3.29-4-6.52-8-9.77-12a4.1,4.1,0,0,0-1-.6c.06.58.08.88.13,1.19.34,2.46.69,4.91,1,7.37.07.5.11,1-.47,1.15s-.87-.22-1.12-.67q-2.38-4.31-4.8-8.6a3.81,3.81,0,0,0-.63-.86c-1.36-1.36-2.73-2.69-4.11-4A5.72,5.72,0,0,0,896.07,991.85Zm-14.54,17.44h8c.13-.88.29-1.7.37-2.52.25-2.8.69-5.5,3.29-7.21a.57.57,0,0,0,.11-.11c.6-.58.91-.57,1.49.06s1.06,1.16,1.59,1.74l.13-.07-2.55-11.25H890.2c.4,2.69.82,5.32,1.17,8A1.41,1.41,0,0,1,891,999c-.19.15-.77,0-1.07-.25-.81-.52-1.56-1.12-2.42-1.76-.16,1.81-.27,3.49-.47,5.16a2.59,2.59,0,0,1-.52,1.32C884.91,1005.41,883.25,1007.29,881.53,1009.29Zm21.52-12.38,2.4,4.31.17-.07-.61-4.24Zm-28.47-14.5,0,0-.1-.05,0,0Z"/>
 
@@ -837,73 +343,10 @@ const Floor = ({ imageName, imageLink }) => {
           <polygon data-image="134" data-tip="penthouse06" class="${styles.st0}" points="1536.41 443.49 1401.12 443.49 1401.12 577.55 1362.83 577.55 1362.83 641.3 1422.9 641.3 1422.9 704.13 1362.83 704.13 1362.83 738.06 1470.6 738.06 1470.6 702.75 1518.75 702.75 1518.75 708.94 1538.01 708.94 1536.41 443.49"/>
           <polygon data-image="135" data-tip="penthouse06" class="${styles.st0}" points="1744.61 366.83 1562.78 366.83 1562.78 532.61 1536.95 532.61 1537.35 601.11 1565.99 601.25 1566.06 644.51 1671.69 644.51 1671.69 608.05 1744.61 608.05 1744.61 366.83"/>
 
-            </svg>
-          `;
-
-          svgOverlay.innerHTML = svgContent;
-
-          viewer.addOverlay({
-            element: svgOverlay,
-            location: new OpenSeadragon.Rect(0, 0, 5.209, 5.208),
-            placement: OpenSeadragon.Placement.CENTER,
-          });
-
-          // Add click event listeners to polygons
-          svgOverlay
-            .querySelectorAll("polygon, path, polyline, rect")
-            .forEach((polygon) => {
-              polygon.addEventListener("click", (e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                const dataImage = e.target.getAttribute("data-image");
-                if (dataImage) {
-                  // Find the corresponding apartment data
-                  const apartmentInfo = apartmentData["Basement 5"].find(
-                    (apt) => apt.Apartmentno.toString() === dataImage
-                  );
-
-                  if (apartmentInfo) {
-                    setActivePolygon({
-                      floor: "Valley Floor 5",
-                      id: dataImage,
-                      Type: apartmentInfo.Type,
-                      Bedrooms: apartmentInfo.Bedrooms,
-                      Area: apartmentInfo.Area,
-                    });
-
-                    const rect = e.target.getBoundingClientRect();
-                    setPopupPosition({
-                      x: rect.left + rect.width / 2,
-                      y: rect.top + rect.height / 2,
-                    });
-                  }
-                }
-              });
-
-              polygon.addEventListener("mouseenter", () => {
-                viewer.setMouseNavEnabled(false);
-              });
-
-              polygon.addEventListener("mouseleave", () => {
-                viewer.setMouseNavEnabled(true);
-              });
-            });
-        }
-
-        if (imageName === "valley-floor-6") {
-          const svgOverlay = document.createElement("div");
-          svgOverlay.style.position = "absolute";
-          svgOverlay.style.left = "0";
-          svgOverlay.style.outline = "none";
-          svgOverlay.style.border = "none";
-          svgOverlay.style.pointerEvents = "none";
-          
-          svgOverlay.style.top = "0";
-          svgOverlay.style.width = "100%";
-          svgOverlay.style.height = "100%";
-
-          const svgContent = `
-          <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 10000 10000" preserveAspectRatio="none">
+            </svg>`;
+    }
+    else if (floor === "Valley Floor 6") {
+      svgContent = `<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 10000 10000" preserveAspectRatio="none">
             <text class="${styles.st1}" transform="translate(881.77 101.41)">Road View</text><path  class="${styles.st1}" d="M821.94,65.58a3.47,3.47,0,0,1,.66.79c.24.59-.06,1.08-.73,1.45-1.63.9-3.28,1.78-4.88,2.74a13.29,13.29,0,0,0-3.68,3.17,3.25,3.25,0,0,0,.34,4.89,14.67,14.67,0,0,0,5,3c2,.77,4,1.42,6,2.16a18.82,18.82,0,0,1,8.16,5.47,15.37,15.37,0,0,1,3.49,9.67A29,29,0,0,1,834,110.29c-.34.88-.76,1.72-1.1,2.6a4,4,0,0,1-2.77,2.71h-15c-.32-.24-.6-.51-.44-1s.54-.5,1-.5c3.12,0,6.25,0,9.37,0a.82.82,0,0,0,.78-.43,34.32,34.32,0,0,0,5-10.66c.15-.63.25-1.28.38-1.92a2,2,0,0,1,0-.24c.11-.5.42-.74.84-.67a.72.72,0,0,1,.6.9,23.92,23.92,0,0,1-1.66,6.05,39,39,0,0,1-3.39,6.46l-.31.49c.9,0,1.73,0,2.55,0a1.68,1.68,0,0,0,1.41-1.07,37.92,37.92,0,0,0,3-8.66,20.83,20.83,0,0,0,.31-7.75,13.63,13.63,0,0,0-6.74-9.73,30.63,30.63,0,0,0-6.64-2.76,26.69,26.69,0,0,1-7.49-3.55,7.54,7.54,0,0,1-2.3-2.5,4.05,4.05,0,0,1-.43-2.73.78.78,0,0,0,0-.37,3.59,3.59,0,0,0-.47,3,6,6,0,0,0,2.16,2.88,22.51,22.51,0,0,0,6,3.28,52,52,0,0,1,6.43,2.64,14.81,14.81,0,0,1,6.48,6.48,12.75,12.75,0,0,1,1.11,3.92,1.41,1.41,0,0,1,0,.58.67.67,0,0,1-.76.48c-.42,0-.58-.33-.67-.72a22.18,22.18,0,0,0-.66-2.79,11.93,11.93,0,0,0-4.91-5.88A28.1,28.1,0,0,0,819.42,86a26.16,26.16,0,0,1-7.24-3.63,11.16,11.16,0,0,1-2.09-2,5.18,5.18,0,0,1-.5-6,13.13,13.13,0,0,1,4.09-4.39c1.4-1,2.89-1.91,4.32-2.86a8.19,8.19,0,0,0-4.14.64,63.71,63.71,0,0,0-9.53,5.79A19.86,19.86,0,0,0,799.84,78a6.76,6.76,0,0,0-1.25,3.23A5.58,5.58,0,0,0,800.74,86c.81.73,1.75,1.3,2.61,2a37.17,37.17,0,0,1,3.47,2.76,8.7,8.7,0,0,1,1.88,10.54,22,22,0,0,1-4.88,6.53,52.56,52.56,0,0,1-7.35,5.87l-.72.49h15.92c.42,0,.79,0,1,.5s-.11.73-.45,1H789.7a4.35,4.35,0,0,1-.7-.57,1.64,1.64,0,0,1,.42-2.46c1.51-1,3.05-1.92,4.54-2.94a41.21,41.21,0,0,0,7.29-6.09,14.81,14.81,0,0,0,2.77-4,5.81,5.81,0,0,0-1-6.61,16.3,16.3,0,0,0-3-2.52,29.59,29.59,0,0,1-3.37-2.63,6.4,6.4,0,0,1-2.12-5.35,8.05,8.05,0,0,1,1.5-3.81,20.17,20.17,0,0,1,5.25-5,99.7,99.7,0,0,1,12.4-7.33,18.37,18.37,0,0,1,1.76-.62ZM797.49,79A6.61,6.61,0,0,0,796,82.5a5,5,0,0,0,1.7,4.24,27.46,27.46,0,0,0,3.08,2.38,17,17,0,0,1,3.49,2.94A7.14,7.14,0,0,1,806,97.88a10,10,0,0,1-1.52,3.87,26.78,26.78,0,0,1-6,6.38,78,78,0,0,1-8,5.52,2.79,2.79,0,0,0-.42.35l.08.14h2.77a.63.63,0,0,0,.31-.12,57.3,57.3,0,0,0,9.54-7.16,19.48,19.48,0,0,0,4.67-6.24,7.46,7.46,0,0,0-1-8.18,15.78,15.78,0,0,0-3.89-3.3,22.92,22.92,0,0,1-2.4-1.74c-2.55-2.19-3.81-4.89-2.5-8.28V79Z"/><path class="${styles.st1}" d="M819.85,97.92c0-.2,0-.39,0-.59a.74.74,0,0,1,.67-.76.71.71,0,0,1,.77.66,10.29,10.29,0,0,1,0,1.36.65.65,0,0,1-.73.63.68.68,0,0,1-.71-.67c0-.21,0-.42,0-.63Z"/><path class="${styles.st1}" d="M802.89,79.75c0-.45.12-.82.6-1a.72.72,0,0,1,.88.62c0,.4.09.81.11,1.22a.69.69,0,0,1-.58.78.69.69,0,0,1-.84-.55C803,80.5,803,80.12,802.89,79.75Z"/><path class="${styles.st1}"  d="M811.68,87.55c0,.66-.51,1-1,.82a8,8,0,0,1-1.2-.63.67.67,0,0,1-.26-.93.69.69,0,0,1,1-.33,7.87,7.87,0,0,1,1.11.59A1.65,1.65,0,0,1,811.68,87.55Z"/><path class="${styles.st1}"  d="M816.71,105.82c.15.13.42.25.51.45a.86.86,0,0,1,0,.72,5.9,5.9,0,0,1-.94,1.06.6.6,0,0,1-.88,0c-.17-.2-.33-.64-.23-.8a8.85,8.85,0,0,1,1.14-1.31C816.36,105.88,816.5,105.88,816.71,105.82Z"/><path class="${styles.st1}" d="M816.27,90a.74.74,0,0,1-1,.8A8,8,0,0,1,814,90a.66.66,0,0,1-.14-.92.63.63,0,0,1,.84-.31,8.51,8.51,0,0,1,1.29.78C816.17,89.65,816.22,89.87,816.27,90Z"/><path class="${styles.st1}"  d="M818.59,91.91l.21,0c.34.11,1.24,1.23,1.18,1.58a1,1,0,0,1-.4.69.8.8,0,0,1-.75-.09,5.29,5.29,0,0,1-.91-1.19A.71.71,0,0,1,818.59,91.91Z"/><path class="${styles.st1}" d="M805.74,74.18a.73.73,0,0,1,.65,1.14,9,9,0,0,1-.83,1,.68.68,0,0,1-.89.12.6.6,0,0,1-.3-.83,9.83,9.83,0,0,1,1.08-1.35C805.52,74.2,805.69,74.2,805.74,74.18Z"/><path class="${styles.st1}"  d="M807.37,85c-.12.15-.24.42-.44.51a.86.86,0,0,1-.72,0,4.54,4.54,0,0,1-1.05-1,.9.9,0,0,1,0-.83.86.86,0,0,1,.78-.24,9.46,9.46,0,0,1,1.29,1.16C807.32,84.66,807.31,84.81,807.37,85Z"/><path class="${styles.st1}"  d="M819.06,104.08a.74.74,0,0,1-.79-1,9.25,9.25,0,0,1,.6-1.12.67.67,0,0,1,.89-.27.65.65,0,0,1,.41.84,8.2,8.2,0,0,1-.73,1.37C819.36,104,819.13,104,819.06,104.08Z"/><path class="${styles.st1}" d="M810,72a1.25,1.25,0,0,1-1.49,1,.67.67,0,0,1-.43-.82,1.45,1.45,0,0,1,1.32-.86A.65.65,0,0,1,810,72Z"/><path class="${styles.st1}" d="M813.64,110.26a1.45,1.45,0,0,1-1.23,1.07.74.74,0,0,1-.7-.74,1.48,1.48,0,0,1,1.24-1.07A.72.72,0,0,1,813.64,110.26Z"/><text class="${styles.st1}" transform="translate(947.1 1004.14)">Hill View</text><path class="${styles.st1}" d="M881.78,1010.91H845.17a4.84,4.84,0,0,1-.85,0,.73.73,0,0,1-.54-1.07,3.2,3.2,0,0,1,.3-.45q4.24-5.88,8.49-11.77a1.49,1.49,0,0,1,1.42-.74,17.11,17.11,0,0,0,2.48,0,1.39,1.39,0,0,0,.86-.45q2.31-3.12,4.54-6.3a1.46,1.46,0,0,1,1.37-.68c1,0,2.07,0,3.11,0a1.17,1.17,0,0,0,1.09-.54c3.13-4.12,6.29-8.22,9.44-12.33.85-1.11,1.1-1.12,2-.1q5.15,5.67,10.26,11.36a1.44,1.44,0,0,0,1.2.51c1.27,0,2.54-.05,3.81,0a2.08,2.08,0,0,1,1.21.5c2.08,2,4.12,4,6.2,6a1.79,1.79,0,0,0,1.13.46c1.53.05,3.06,0,4.58.05a1.9,1.9,0,0,1,1.24.58q5.47,6.66,10.88,13.38c.23.3.45.87.31,1.13s-.71.44-1.1.45Q900.2,1010.93,881.78,1010.91ZM871.3,993.34c-.67,1.3-1.29,2.49-1.89,3.69a1.31,1.31,0,0,0-.08.53q-.15,3.72-.29,7.45c0,.53-.08,1-.69,1.13s-.82-.41-1-.89c-.31-.84-.62-1.67-1-2.66l-3.31,6.7a1.73,1.73,0,0,0,.27.06c5.21,0,10.41,0,15.62,0a1.3,1.3,0,0,0,.82-.43q2.7-3.06,5.33-6.18a1.9,1.9,0,0,0,.4-1c.21-2,.35-4,.56-6,.1-1,.66-1.18,1.44-.63l2.1,1.55c-.32-2.16-.65-4.15-.89-6.15a3,3,0,0,0-.9-1.81c-3.09-3.38-6.15-6.79-9.23-10.19-.13-.14-.29-.26-.46-.42-1.3,3.2-2.58,6.33-3.84,9.47a2.48,2.48,0,0,0-.14,1c0,2.74.08,5.49.13,8.23,0,.51,0,1-.65,1.15s-.84-.36-1-.84C872.2,995.82,871.77,994.64,871.3,993.34Zm3.27-10.8-.19-.12c-.17.21-.34.41-.5.62q-2.82,3.66-5.62,7.33A1.34,1.34,0,0,1,867,991c-1.09,0-2.18,0-3.26,0a1.42,1.42,0,0,0-.93.47q-2.31,3.12-4.54,6.29a1.36,1.36,0,0,1-1.3.66c-.8,0-1.6,0-2.4,0a1.12,1.12,0,0,0-1.09.54c-2.33,3.26-4.68,6.5-7,9.75-.13.18-.23.37-.36.57.11,0,.15.08.2.08,4.84,0,9.68,0,14.53,0a1,1,0,0,0,.67-.45c.46-.84.86-1.71,1.28-2.56,1-1.92,1.88-3.86,2.87-5.76a1.32,1.32,0,0,1,.89-.67c.24,0,.52.45.76.72a1.93,1.93,0,0,1,.23.48,12.85,12.85,0,0,0,.17-2.37,5.63,5.63,0,0,1,.17-2.07c.86-1.9,1.86-3.74,2.85-5.58a1,1,0,0,1,.75-.4c.24,0,.5.29.67.52a4.19,4.19,0,0,1,.34.81,1,1,0,0,0,.11-.6,12.94,12.94,0,0,1,1.48-7.62A13.24,13.24,0,0,0,874.57,982.54Zm21.5,9.31L896,992a1.6,1.6,0,0,1,.12.37l2.52,11.11c.12.53.38,1.12-.25,1.46s-1-.23-1.4-.65L894,1001c-1.16,1-2.17,2-2.25,3.63s-.44,3.11-.67,4.66h26.3c-3.29-4-6.52-8-9.77-12a4.1,4.1,0,0,0-1-.6c.06.58.08.88.13,1.19.34,2.46.69,4.91,1,7.37.07.5.11,1-.47,1.15s-.87-.22-1.12-.67q-2.38-4.31-4.8-8.6a3.81,3.81,0,0,0-.63-.86c-1.36-1.36-2.73-2.69-4.11-4A5.72,5.72,0,0,0,896.07,991.85Zm-14.54,17.44h8c.13-.88.29-1.7.37-2.52.25-2.8.69-5.5,3.29-7.21a.57.57,0,0,0,.11-.11c.6-.58.91-.57,1.49.06s1.06,1.16,1.59,1.74l.13-.07-2.55-11.25H890.2c.4,2.69.82,5.32,1.17,8A1.41,1.41,0,0,1,891,999c-.19.15-.77,0-1.07-.25-.81-.52-1.56-1.12-2.42-1.76-.16,1.81-.27,3.49-.47,5.16a2.59,2.59,0,0,1-.52,1.32C884.91,1005.41,883.25,1007.29,881.53,1009.29Zm21.52-12.38,2.4,4.31.17-.07-.61-4.24Zm-28.47-14.5,0,0-.1-.05,0,0Z"/>
     
           <path data-image="136" data-tip="penthouse06" class="${styles.st0}" d="M180.79,398.7H411.46V549.12H180.79Z"/>
@@ -918,449 +361,39 @@ const Floor = ({ imageName, imageLink }) => {
             <polygon data-image="145" data-tip="penthouse06" class="${styles.st0}" points="1350.52 751.52 1524.48 751.52 1524.48 631.36 1524.48 509.99 1524.48 483.31 1387.67 483.31 1387.67 620.2 1410.6 620.2 1410.6 683.64 1350.52 683.64 1350.52 751.52"/>
             <polygon data-image="146" data-tip="penthouse06" class="${styles.st0}" points="1548.33 408.79 1730.8 408.85 1730.55 650.78 1524.48 650.78 1524.48 575.78 1551.71 575.78 1551.71 483.31 1548.62 483.31 1548.33 408.79"/>
         
-            </svg>
-          `;
+            </svg>`;
+    }
 
-          svgOverlay.innerHTML = svgContent;
+   
 
-          viewer.addOverlay({
-            element: svgOverlay,
-            location: new OpenSeadragon.Rect(0, 0, 5.209, 5.208),
-            placement: OpenSeadragon.Placement.CENTER,
-          });
+    svgOverlay.innerHTML = svgContent;
 
-          // Add click event listeners to polygons
-          svgOverlay.querySelectorAll("polygon, path").forEach((polygon) => {
-            polygon.addEventListener("click", (e) => {
-              e.preventDefault();
-              e.stopPropagation();
-              const dataImage = e.target.getAttribute("data-image");
-              if (dataImage) {
-                // Find the corresponding apartment data
-                const apartmentInfo = apartmentData["Basement 6"].find(
-                  (apt) => apt.Apartmentno.toString() === dataImage
-                );
-
-                if (apartmentInfo) {
-                  setActivePolygon({
-                    floor: "Valley Floor 6",
-                    id: dataImage,
-                    Type: apartmentInfo.Type,
-                    Bedrooms: apartmentInfo.Bedrooms,
-                    Area: apartmentInfo.Area,
-                  });
-
-                  const rect = e.target.getBoundingClientRect();
-                  setPopupPosition({
-                    x: rect.left + rect.width / 2,
-                    y: rect.top + rect.height / 2,
-                  });
-                }
-              }
-            });
-
-            polygon.addEventListener("mouseenter", () => {
-              viewer.setMouseNavEnabled(false);
-            });
-
-            polygon.addEventListener("mouseleave", () => {
-              viewer.setMouseNavEnabled(true);
-            });
-          });
+    svgOverlay.querySelectorAll("polygon, path").forEach((polygon) => {
+      polygon.addEventListener("click", (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        const dataImage = e.target.getAttribute("data-image");
+        if (dataImage) {
+          const apartmentInfo = findApartmentByNumber(floor, dataImage);
+          if (apartmentInfo) {
+            onPolygonClick(apartmentInfo);
+          }
         }
       });
 
-      const zoomControls = document.createElement("div");
-      zoomControls.className = styles.zoomControls;
-
-      const zoomInButton = document.createElement("div");
-      zoomInButton.className = styles.ZoomInbuttonStyle;
-      zoomInButton.innerHTML =
-        '<img src="/images/icons/zoomIn.svg" alt="Zoom In" width="24" height="24" />';
-      zoomInButton.onclick = () => viewer.viewport.zoomBy(1.5);
-
-      const zoomOutButton = document.createElement("div");
-      zoomOutButton.className = styles.ZoomOutbuttonStyle;
-      zoomOutButton.innerHTML =
-        '<img src="/images/icons/zoomOut.svg" alt="Zoom Out" width="24" height="24" />';
-      zoomOutButton.onclick = () => viewer.viewport.zoomBy(0.667);
-
-      const resetZoomButton = document.createElement("div");
-      resetZoomButton.className = styles.ZoonOutbuttonStyle;
-      resetZoomButton.innerHTML =
-        '<img src="/images/icons/resetZoom.svg" alt="Reset Zoom" width="24" height="24" />';
-      resetZoomButton.onclick = () => viewer.viewport.goHome();
-
-      // zoomControls.appendChild(zoomInButton);
-      // zoomControls.appendChild(zoomOutButton);
-      // zoomControls.appendChild(resetZoomButton);
-
-      viewer.addControl(zoomControls, {
-        anchor: OpenSeadragon.ControlAnchor.TOP_LEFT,
+      polygon.addEventListener("mouseenter", () => {
+        viewerInstance.current.setMouseNavEnabled(false);
       });
-    }
 
-    return () => {
-      if (viewer) {
-        viewer.destroy();
-      }
-    };
-  }, [imageName, imageLink, router , zoomCoord]);
+      polygon.addEventListener("mouseleave", () => {
+        viewerInstance.current.setMouseNavEnabled(true);
+      });
+    });
 
-
-
-  useEffect(() => {
-    const handleResize = () => {
-      setIsLaptopScreen(window.innerWidth >= 1100);
-    };
-
-    window.addEventListener("resize", handleResize);
-    handleResize();
-
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
-
-  useEffect(() => {
-    const handleOutsideClick = (e) => {
-      if (
-        !e.target.closest("polygon") &&
-        !e.target.closest(`.${styles.popupMenu}`)
-      ) {
-        setActivePolygon(null);
-      }
-    };
-
-    document.addEventListener("click", handleOutsideClick);
-
-    return () => {
-      document.removeEventListener("click", handleOutsideClick);
-    };
-  }, []);
-
-  // const handleExplorePlan = () => {
-  //   if (activePolygon) {
-  //     router.push(`/thirdFloor/${activePolygon.id}`);
-  //   }
-  // };
-
-  const [selectedArea, setSelectedArea] = useState(null);
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
-
-  const galleryImagesMap = {
-    Studio: [
-      "/images/gallery/Studio/studio-1.webp",
-      "/images/gallery/studio/studio-2.webp",
-      "/images/gallery/studio/studio-3.webp",
-    ],
-    "One Bed": [
-      "/images/gallery/OneBed/oneBed-1.webp",
-      "/images/gallery/OneBed/oneBed-2.webp",
-      "/images/gallery/OneBed/oneBed-3.webp",
-      "/images/gallery/OneBed/oneBed-4.webp",
-    ],
-    "Two Bed": [
-      "/images/gallery/TwoBed/twoBed-1.webp",
-      "/images/gallery/TwoBed/twoBed-2.webp",
-      "/images/gallery/TwoBed/twoBed-3.webp",
-      "/images/gallery/TwoBed/twoBed-4.webp",
-      "/images/gallery/TwoBed/twoBed-5.webp",
-      "/images/gallery/TwoBed/twoBed-6.webp",
-    ],
-    "Three Bed": [
-      "/images/gallery/ThreeBed/threeBed-1.webp",
-      "/images/gallery/ThreeBed/threeBed-2.webp",
-      "/images/gallery/ThreeBed/threeBed-3.webp",
-      "/images/gallery/ThreeBed/threeBed-4.webp",
-      "/images/gallery/ThreeBed/threeBed-5.webp",
-    ],
-    Penthouse: [
-      "/images/gallery/Penthouse/penthouse-1.webp",
-      "/images/gallery/Penthouse/penthouse-2.webp",
-      "/images/gallery/Penthouse/penthouse-3.webp",
-      "/images/gallery/Penthouse/penthouse-4.webp",
-      "/images/gallery/Penthouse/penthouse-5.webp",
-      "/images/gallery/Penthouse/penthouse-6.webp",
-      "/images/gallery/Penthouse/penthouse-7.webp",
-      "/images/gallery/Penthouse/penthouse-8.webp",
-    ],
+    return svgOverlay;
   };
 
-  const handleResetZoom = () => {
-    if (viewer) {
-      viewer.viewport.goHome();
-    }
-  };
-
-  const handleZoomIn = () => {
-    if (viewer) {
-      const currentZoom = viewer.viewport.getZoom();
-      const maxZoom = viewer.viewport.getMaxZoom();
-      const newZoom = Math.min(currentZoom * 1.5, maxZoom);
-      viewer.viewport.zoomTo(newZoom);
-    }
-  };
-
-  const handleZoomOut = () => {
-    if (viewer) {
-      const currentZoom = viewer.viewport.getZoom();
-      const minZoom = viewer.viewport.getMinZoom();
-      const newZoom = Math.max(currentZoom / 1.5, minZoom);
-      viewer.viewport.zoomTo(newZoom);
-    }
-  };
-
-  const handleExplorePlan = () => {
-    if (activePolygon) {
-      router.push(`/${imageName}/Apartment${activePolygon.id}`);
-    }
-  };
-
-  const handleCloseMenu = () => {
-    setActivePolygon(null);
-  };
-
-  const menuVariants = {
-    hidden: { opacity: 0, scale: 0.8 },
-    visible: {
-      opacity: 1,
-      scale: 1,
-      transition: { type: "spring", stiffness: 300, damping: 30 },
-    },
-  };
-
-  const closeGallery = () => {
-    dispatch(setGalleryPressed(false));
-  };
-
-  const [activePolygonType, setActivePolygonType] = useState(null);
-
-  const openImageBox = (apartmentType) => {
-
-    setActivePolygonType(apartmentType);
-    dispatch(setGalleryPressed(true));
-
-  };
-
-  const closeImageBox = () => {
-    setSelectedArea(null);
-  };
-
-  const nextImage = () => {
-    if (selectedArea) {
-      const totalImages = selectedArea.details.length;
-      if (currentImageIndex < totalImages - 1) {
-        setCurrentImageIndex((prevIndex) => prevIndex + 1);
-      } else {
-        // Loop back to the first image
-        setCurrentImageIndex(0);
-      }
-    }
-  };
-
-  const prevImage = () => {
-    if (selectedArea) {
-      const totalImages = selectedArea.details.length;
-      if (currentImageIndex > 0) {
-        setCurrentImageIndex((prevIndex) => prevIndex - 1);
-      } else {
-        // Loop back to the last image
-        setCurrentImageIndex(totalImages - 1);
-      }
-    }
-  };
-
-  return (
-    // <Suspense fallback={<div className={styles.loadingOverlay}><Loading /></div>}>
-
-    <>
-      {!isMobile ? (
-        <>
-          <div className={styles.ZoomInbuttonStyle} onClick={handleZoomIn}>
-            <img
-              src="/images/icons/zoomIn.svg"
-              alt="Zoom Out"
-              width="24"
-              height="24"
-            />
-          </div>
-
-          <div className={styles.ZoomOutbuttonStyle} onClick={handleZoomOut}>
-            <img
-              src="/images/icons/zoomOut.svg"
-              alt="Zoom Out"
-              width="24"
-              height="24"
-            />
-          </div>
-        </>
-      ) : (
-        <>
-          <div className={styles.ZoomInMobbuttonStyle} onClick={handleZoomIn}>
-            <img
-              src="/images/icons/zoomIn.svg"
-              alt="Zoom Out"
-              width="24"
-              height="24"
-            />
-          </div>
-
-          <div className={styles.ZoomOutMobbuttonStyle} onClick={handleZoomOut}>
-            <img
-              src="/images/icons/zoomOut.svg"
-              alt="Zoom Out"
-              width="24"
-              height="24"
-            />
-          </div>
-        </>
-      )}
-
-      {!isMobile && (
-
-      <div className={styles.BottomZoomexitBack}>
-        <div className={styles.ButtomZoomExitBtns}>
-          <div className={styles.zoomReset} onClick={handleResetZoom}>
-            <div className={styles.zoomResetInside}>{translations["zoomout"]}</div>
-          </div>
-
-          <div
-            className={styles.backToBuilding}
-            onClick={() => router.push("/explore")}
-          >
-            <div className={styles.backToBuildingInside}>{translations["backTobuilding"]}</div>
-          </div>
-        </div>
-      </div>
-       
-      )}
-
-      <div className={styles.floorContainer}>
-        {isLoading && <Loading />}
-        <div
-          ref={viewerRef}
-          style={{
-            width: "100%",
-            height: "100vh",
-            visibility: isLoading ? "hidden" : "visible",
-          }}
-        />
-
-        {activePolygon && (
-          <div
-            className={styles.popupMenu}
-            style={{
-              left: `${popupPosition.x}px`,
-              top: `${popupPosition.y}px`,
-            }}
-          >
-            <div className={styles.popupTop}>
-              <div className={styles.popupTopBtns} onClick={handleExplorePlan}>
-                {/* Explore Plan */}
-                {translations["exploreplan"]}
-
-              </div>
-              <div
-                className={styles.popupTopBtnsGallery}
-                style={{cursor:'pointer'}}
-                onClick={() => openImageBox(activePolygon.Type)}
-              >
-                {/* Gallery */}
-                {translations["gallery"]}
-              </div>
-            </div>
-
-            <div className={styles.apartmentInterestBox}>
-              <div className={styles.apartmentInterestInside}>
-                <div className={styles.apartmentInterestTitle}>
-                  <div className={styles.apartmentInterestTitleText}>
-                    {/* {translations.apartmentInterest || 'Apartment Interest'} */}
-                    {translations["apartmentNo"]} {activePolygon.id}
-                  </div>
-                  <div
-                    className={styles.apartmentInterestTitleIcon}
-                    onClick={handleIconClick}
-                  >
-                    <Image
-                      // src="/images/icons/favIconFilled.svg"
-                      src={
-                        favoriteApartments.some(
-                          (apt) => apt.Apartmentno === activePolygon.id
-                        )
-                          ? "/images/icons/favIconFilled.svg"
-                          : "/images/icons/favIcon.svg"
-                      }
-                      quality={100}
-                      alt="Favorite"
-                      height={22}
-                      width={22}
-                    />
-                  </div>
-                </div>
-                <div className={styles.apartmentInterestList}>
-                  <div className={styles.apartmentInterestItem}>
-                    <div className={styles.apartmentInterestItemKey}>{translations["Floor"]}</div>
-                    <div className={styles.apartmentInterestItemValue}>
-                      {activePolygon.floor || ""}
-                    </div>
-                  </div>
-
-                  <div className={styles.apartmentInterestItem}>
-                    <div className={styles.apartmentInterestItemKey}>{translations["Type"]}</div>
-                    <div className={styles.apartmentInterestItemValue}>
-                      {activePolygon.Type || ""}
-                    </div>
-                  </div>
-                  <div className={styles.apartmentInterestItem}>
-                    <div className={styles.apartmentInterestItemKey}>
-                      {translations["Bedrooms"]}
-                    </div>
-                    <div className={styles.apartmentInterestItemValue}>
-                      {activePolygon.Bedrooms || ""}
-                    </div>
-                  </div>
-                  <div className={styles.apartmentInterestItem}>
-                    <div className={styles.apartmentInterestItemKey}>{translations["Area"]}</div>
-                    <div className={styles.apartmentInterestItemValue}>
-                      {activePolygon?.Area || ""}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
-
-      {showPopup && (
-        <div
-          className={`${styles.favpopupMenu} ${
-            isPopupVisible ? styles.visible : ""
-          }`}
-        >
-          <div className={styles.favpopupMenuIcon}>
-            <Lottie 
-              options={defaultOptions}
-
-              height={30}
-              width={30}
-            />
-            
-          </div>
-          <div className={styles.favpopupMenuContent}>{popupMessage}</div>
-        </div>
-      )}
-
-      </div>
-
-
-      <div style={{overflow:"none", zIndex: '10000'}}>
-        <Gallery
-            apartmentType={activePolygonType} 
-            isOpen={isGalleryPressed} 
-            onClose={closeGallery}
-        />
-      </div>
-    </>
-  );
+  return <div ref={viewerRef} style={{ width: "100%", height: "100vh" }} />;
 };
 
-export default Floor;
+export default FloorViewer;

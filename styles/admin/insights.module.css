@@ -1,0 +1,31 @@
+/* styles/admin/insights.module.css */
+.insightsContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-bottom: 40px;
+}
+
+.chartBox {
+  background-color: #FCF7EB; /* Light Beige */
+  padding: 30px;
+  border-radius: 16px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  width: 48%;
+  min-width: 300px;
+}
+
+.chartTitle {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #006d77; /* Teal */
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+@media (max-width: 768px) {
+  .chartBox {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+}

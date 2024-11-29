@@ -1,0 +1,6 @@
+/* styles/admin/adminPage.module.css */
+.adminPageContainer {
+  padding: 40px 20px;
+  background-color: #FCF7EB; /* Light Beige */
+  min-height: 100vh;
+}

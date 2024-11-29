@@ -1,0 +1,393 @@
+@font-face {
+    font-family: "Gill Sans Light";
+    src: url("/fonts/gillsans/Gill Sans Light.otf");
+    font-weight: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: "Gotham Medium";
+    src: url("/fonts/Gotham-Font/GothamMedium.otf");
+    font-weight: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: "Gill Sans Light";
+    src: url("/fonts/gillsans/Gill Sans Light.otf");
+    font-weight: normal;
+    font-display: swap;
+  }
+
+
+  
+  @font-face {
+    font-family: "Gill Sans Medium";
+    src: url("/fonts/gillsans/Gill Sans Medium.otf");
+    font-weight: normal;
+    font-display: swap;
+  }
+  
+  @font-face {
+    font-family: "Optima Bold";
+    src: url("/fonts/optima/OPTIMA_B.TTF");
+    font-weight: normal;
+    font-display: swap;
+  }
+  
+  @font-face {
+    font-family: "Optima";
+    src: url("/fonts/optima/OPTIMA.TTF");
+    font-weight: normal;
+    font-display: swap;
+  }
+  
+  /* Container */
+  .container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    background: #fcf7eb;
+    font-family: "Gill Sans Medium";
+  }
+  
+  /* Chat Window */
+  .chatWindow {
+    flex: 1;
+    padding: 20px;
+    width: 100%;
+    padding-top: 10rem;
+    overflow-y: auto;
+    background-color: #fcf7eb;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .chatWindowInside {
+    width: 100%;
+    max-width: 700px;
+    padding: 0 20px;
+    font-size: 1.2rem;
+  }
+  
+  /* User Message Container */
+  .userMessageContainer {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 15px;
+    animation: slideUpUser 0.5s ease-out;
+  }
+  
+  @keyframes slideUpUser {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  /* User Message Bubble */
+  .userMessageBubble {
+    background-color: #006D77;
+    color: #fcf7eb ;
+    padding: 12px 18px;
+    border-radius: 15px;
+    max-width: 70%;
+    font-size: 1.2rem;
+    font-weight: 500;
+    margin-top: 1rem;
+    word-wrap: break-word;
+    position: relative;
+    animation: bubbleUp 0.4s ease-out;
+  }
+  
+  @keyframes bubbleUp {
+    from {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+  
+  /* Bot Message Container */
+  .botMessageContainer {
+    display: flex;
+    justify-content: flex-start;
+    margin-bottom: 15px;
+    margin-top: 1rem;
+    animation: slideUpBot 0.5s ease-out;
+  }
+  
+  @keyframes slideUpBot {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  /* Bot Message Bubble */
+  
+.hiddenText {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  
+  .fadeInText {
+    opacity: 0;
+    transform: translateY(10px);
+    animation: fadeInMessage 0.8s ease-out forwards;
+  }
+  
+  @keyframes fadeInMessage {
+    0% {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  /* Update the existing botMessageBubble style */
+  .botMessageBubble {
+    color: #000000;
+    padding: 12px 18px;
+    max-width: 70%;
+    word-wrap: break-word;
+    position: relative;
+    transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+  }
+  
+  /* Typing Indicator */
+  .typingIndicator {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 10px 14px;
+    gap: 6px;
+  }
+  
+  .typingIndicator span {
+    display: block;
+    width: 8px;
+    height: 8px;
+    background-color: #006D77;
+    border-radius: 50%;
+    opacity: 0.6;
+    animation: typing 1.4s infinite both;
+  }
+  
+  .typingIndicator span:nth-child(1) {
+    animation-delay: -0.32s;
+  }
+  
+  .typingIndicator span:nth-child(2) {
+    animation-delay: -0.16s;
+  }
+  
+  @keyframes typing {
+    0%,
+    80%,
+    100% {
+      transform: scale(0.6);
+      opacity: 0.6;
+    }
+    40% {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+  
+  /* Input Area */
+  .inputArea {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px;
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+  
+  .inputBox {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 700px;
+    padding: 5px 15px;
+    border-radius: 2rem;
+    background-color: #ffffff;
+    border: 1px solid #ccc;
+  }
+  
+  .textInput {
+    flex: 1;
+    padding: 12px 6px;
+    border: none;
+    border-radius: 20px;
+    resize: none; /* Prevent manual resizing */
+    font-size: 1.1rem;
+    outline: none;
+    color: black;
+    background-color: #ffffff;
+    font-family: "Gill Sans Medium";
+    max-height: 150px; /* Set your desired maximum height */
+    overflow-y: auto; /* Enable vertical scrollbar when needed */
+    transition: height 0.2s ease-in-out; /* Smooth height transition */
+  }
+  
+  /* Custom Scrollbar Styles for Textarea */
+  .textInput::-webkit-scrollbar {
+    width: 6px;
+  }
+  
+  .textInput::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 3px;
+  }
+  
+  .textInput::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #006D77, #005a9e);
+    border-radius: 3px;
+  }
+  
+  .textInput::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, #005a9e, #004f8a);
+  }
+  
+  /* For Firefox */
+  .textInput {
+    scrollbar-width: thin;
+    scrollbar-color: #006D77 #f1f1f1;
+  }
+  
+  
+  .sendButton {
+    margin-left: 10px;
+    width: 40px;
+    height: 40px;
+    background-color: #FAF3EA;
+    color: #ffffff;
+    border: none;
+    border-radius: 50%;
+    cursor: not-allowed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s;
+  }
+  
+  .sendButtonActive {
+    background-color: #006D77;
+    cursor: pointer;
+  }
+  
+  .sendButtonActive:hover {
+    background-color: #005a9e;
+  }
+  
+  /* Scrollbar Styles */
+  .chatWindow::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  .chatWindow::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+  
+  .chatWindow::-webkit-scrollbar-thumb {
+    background-color: #cccccc;
+    border-radius: 4px;
+  }
+  
+  .chatWindow::-webkit-scrollbar-thumb:hover {
+    background-color: #aaaaaa;
+  }
+  
+  /* Responsive Styles */
+  @media (max-width: 768px) {
+    .chatWindowInside {
+      padding: 0 10px;
+    }
+  
+    .userMessageBubble,
+    .botMessageBubble {
+      font-size: 1rem;
+      max-width: 85%;
+    }
+  
+    .inputBox {
+      width: 100%;
+      margin: 0 10px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .chatWindow {
+      padding: 10px;
+    }
+  
+    .inputArea {
+      margin-bottom: 0.5rem;
+    }
+  
+    .inputBox {
+      padding: 5px 10px;
+    }
+  
+    .textInput {
+      font-size: 1rem;
+    }
+  }
+  
+
+
+
+
+  .fadeInText {
+    opacity: 0; /* Start invisible */
+    animation: fadeIn 0.5s forwards ease-in-out;
+  }
+  
+  @keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+  }
+  
+  /* Vendor Prefixes for Cross-Browser Support */
+  @-webkit-keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+  }
+  
+  @-moz-keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+  }
+  
+  @-o-keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+  }
+  
+  @-ms-keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+  }
+  
+
+
+  

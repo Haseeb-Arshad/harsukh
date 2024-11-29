@@ -7,20 +7,20 @@ import ElevStyles from "@/styles/elevation.module.css";
 import Image from "next/image";
 import { useRouter } from 'next/navigation';
 import { useMediaQuery } from 'react-responsive';
-import MenuBox from '../component/Bars/menuBox';
+import MenuBox from './component/Bars/menuBox';
 import { useSelector, useDispatch } from 'react-redux';
 import en from '../locales/en.json';
 import ur from '../locales/ur.json';
 import { modifyLanguage } from '@/state/language/languageState';
-import TopbarMenu from '../component/buttons/topBarMenu';
+import TopbarMenu from './component/buttons/topBarMenu';
 import MenubarButton from '@/app/component/Icons/menuBarBtn';
 import FavButton from '@/app/component/Icons/favButton';
 import BackgroundMode from '@/app/component/Icons/BackgroundMode';
-import FilterBox from '../component/Bars/filterBox';
-import ContactBox from '../component/Bars/contactBox';
-import ApartmentListing from '../component/Reserve/ApartmentListing';
-import AmenityGrid from '../component/Amenities/AmenityGrid';
-import AmenityBtn from '../component/Icons/AmenityBtn';
+import FilterBox from './component/Bars/filterBox';
+import ContactBox from './component/Bars/contactBox';
+import ApartmentListing from './component/Reserve/ApartmentListing';
+import AmenityGrid from './component/Amenities/AmenityGrid';
+import AmenityBtn from './component/Icons/AmenityBtn';
 import { motion } from 'framer-motion';
 
 

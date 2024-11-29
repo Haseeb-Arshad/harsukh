@@ -14,6 +14,12 @@ const Floor = dynamic(() => import('@/app/component/modules/FloorLayout/floor'),
   ssr: false,
 });
 
+// const Floor = dynamic(() => import('@/app/component/FLOOR/Floor'), {
+//   loading: () => <Loading />,
+//   ssr: false,
+// });
+
+
 // const floorData = {
 //   "valley-floor-1": { imageLink: "https://cdn.theharsukh.com/images/floors/basement1.webp", floorname: 'Valley Floor 1', imageName: "valley-floor-1", svgFile: "/svg/basement1/B1.1-01.svg" },
 //   "valley-floor-3": { imageLink: "https://cdn.theharsukh.com/images/floors/basement3.webp", floorname: 'Valley Floor 3', imageName: "valley-floor-3", svgFile: "/svg/basement3/B3-01.svg" },
