@@ -120,7 +120,11 @@ export default function ChatPage() {
 
   return (
     <div className={styles.container}>
+
       <div className={styles.chatWindow}>
+        {/* Overlay for the top gradient */}
+        <div className={styles.overlay}></div>
+
         <div className={styles.chatWindowInside}>
           {messages.map((msg, index) =>
             msg.sender === 'user' ? (

@@ -1,7 +1,7 @@
 
 'use client'
 import React from 'react'
-import Navbar from '@/app/component/modules/blog/parts/navbar'
+// import Navbar from '../../component/modules/blog/parts/navbar'
 import Image from 'next/image'
 import { useEffect } from 'react';
 import Swup from 'swup';
@@ -12,6 +12,7 @@ import styles from '@/styles/home/main.module.css';
 import Head from 'next/head';
 import { useRegisterForm } from '../component/hooks/useRegisterForm';
 import RegisterRequestForm from '../component/ui/Bars/contactBox';
+import Navbar from '../component/modules/blog/parts/navbar';
 
 
 const Layout = ({ children }) => {
