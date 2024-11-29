@@ -93,7 +93,7 @@ const Layout = ({ children }) => {
         />
 
       <main style={{paddng: '5rem', minHeight: '100vh'}}>{children}</main>
-{/* 
+
       {(isFormOpen || isSuccess) && (
         <div 
           data-gtm-click="submit-button"
@@ -102,7 +102,7 @@ const Layout = ({ children }) => {
         >
           <RegisterRequestForm  onSuccess= {handleSuccess} onClose={closeForm} />
         </div>
-      )} */}
+      )}
 
 
     </div>
