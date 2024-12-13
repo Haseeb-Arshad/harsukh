@@ -50,9 +50,7 @@ export default function Home() {
 
   return (
 
-
-<>
-      
+    <>
       <Head>
         <title>Harsukh Residences | The Best Apartment in Galyat, Pakistan</title>
         <meta name="description" content="Experience luxury living at Harsukh Residences, the best apartments in Galyat, Pakistan. Modern, spacious, and serene." />

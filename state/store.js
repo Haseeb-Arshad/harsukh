@@ -1,3 +1,5 @@
+// src/state/store.js
+
 import { configureStore } from '@reduxjs/toolkit';
 import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
@@ -5,13 +7,14 @@ import storage from 'redux-persist/lib/storage';
 import languageReducer from './language/languageState';
 import svgVisibilityReducer from './mapView/mapViewState';
 import favoriteApartmentsReducer from './apartment/favApartment';
-import elevation  from './Elevation/ElevationState';
+import elevation from './Elevation/ElevationState';
 import floorMenuReducer from './floor/FloorMenu'; // Corrected import name
 import amenitiesReducer from './Amenity/amenityState';
 import GalleryReducer from './gallery/GalleryState';
 import fullscreenReducer from './fullScreen/fullScreen';
-import blogReducer from './blog/blogSlice'
-import newsRoomReducer from './newsroom/newsroomSlice'
+import blogReducer from './blog/blogSlice';
+import newsRoomReducer from './newsroom/newsroomSlice';
+import unitsReducer from './units/unitsSlice'; // Import the units reducer
 
 const persistConfig = {
   key: 'root',
@@ -33,7 +36,7 @@ export const store = configureStore({
     fullscreen: fullscreenReducer,
     blogs: blogReducer,
     news: newsRoomReducer,
-
+    units: unitsReducer, // Add the units reducer
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
