@@ -47,6 +47,7 @@
     display: flex;
     flex-direction: column;
     height: 100vh;
+<<<<<<< HEAD
     background: #fcf7eb;
     font-family: "Gill Sans Medium";
   }
@@ -71,6 +72,10 @@
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px); /* For Safari */
     z-index: 2; /* Ensures the overlay is above the messages */
+=======
+    background: #FAF3EA;
+    font-family: "Gotham Medium";
+>>>>>>> 2d3aa3649fea816d338b0c16555f5299b70efab5
   }
   
   /* Chat Window */
@@ -78,9 +83,14 @@
     flex: 1;
     padding: 20px;
     width: 100%;
+<<<<<<< HEAD
     padding-top: 10rem;
     overflow-y: auto;
     background-color: #fcf7eb;
+=======
+    overflow-y: auto;
+    background-color: #FAF3EA;
+>>>>>>> 2d3aa3649fea816d338b0c16555f5299b70efab5
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -114,10 +124,17 @@
   
   /* User Message Bubble */
   .userMessageBubble {
+<<<<<<< HEAD
     background-color: #006D77;
     color: #fcf7eb ;
     padding: 12px 18px;
     border-radius: 15px;
+=======
+    background-color: #F5EADC;
+    color: #006D77;
+    padding: 12px 18px;
+    border-radius: 10px;
+>>>>>>> 2d3aa3649fea816d338b0c16555f5299b70efab5
     max-width: 70%;
     font-size: 1.2rem;
     font-weight: 500;
@@ -141,7 +158,10 @@
   /* Bot Message Container */
   .botMessageContainer {
     display: flex;
+<<<<<<< HEAD
     /* border: 1px solid red; */
+=======
+>>>>>>> 2d3aa3649fea816d338b0c16555f5299b70efab5
     justify-content: flex-start;
     margin-bottom: 15px;
     margin-top: 1rem;
@@ -187,7 +207,11 @@
   .botMessageBubble {
     color: #000000;
     padding: 12px 18px;
+<<<<<<< HEAD
     max-width: 90%;
+=======
+    max-width: 70%;
+>>>>>>> 2d3aa3649fea816d338b0c16555f5299b70efab5
     word-wrap: break-word;
     position: relative;
     transition: opacity 0.3s ease-out, transform 0.3s ease-out;
@@ -266,7 +290,11 @@
     outline: none;
     color: black;
     background-color: #ffffff;
+<<<<<<< HEAD
     font-family: "Gill Sans Medium";
+=======
+    font-family: "Gotham Medium";
+>>>>>>> 2d3aa3649fea816d338b0c16555f5299b70efab5
     max-height: 150px; /* Set your desired maximum height */
     overflow-y: auto; /* Enable vertical scrollbar when needed */
     transition: height 0.2s ease-in-out; /* Smooth height transition */
@@ -349,7 +377,11 @@
     .userMessageBubble,
     .botMessageBubble {
       font-size: 1rem;
+<<<<<<< HEAD
       max-width: 90%;
+=======
+      max-width: 85%;
+>>>>>>> 2d3aa3649fea816d338b0c16555f5299b70efab5
     }
   
     .inputBox {
@@ -375,6 +407,13 @@
       font-size: 1rem;
     }
   }
+<<<<<<< HEAD
+=======
+  
+
+
+
+>>>>>>> 2d3aa3649fea816d338b0c16555f5299b70efab5
 
   .fadeInText {
     opacity: 0; /* Start invisible */

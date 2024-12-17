@@ -30,7 +30,7 @@ export async function generateMetadata({ params }) {
 
     if (!blogData || !blogData.title) {
       return {
-        title: 'Blog Post',
+        title: 'Harsukh Residencies, a project by Almaymaar is located in the serene hills of Galiyat',
         description: 'A blog post.',
       };
     }

@@ -1,10 +1,11 @@
 import { Inter } from "next/font/google";
 import Script from 'next/script';
 import "./globals.css";
-import { Providers } from "@/state/provider";
+// import { Providers } from "@/state/provider";
 import { GoogleTagManager } from '@next/third-parties/google'
 import Head from "next/head";
 import dynamic from "next/dynamic";
+import Providers from "@/state/provider";
 
 // const SwupProvider = dynamic(() => import('./component/ui/Swup'), { ssr: false });
 
@@ -18,7 +19,7 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
   metadataBase: new URL('https://theharsukh.com'),
-  title: 'Harsukh',
+  title: 'Harsukh Residencies - Luxury Apartments in Galiyat | Official Site',
   description: 'Experience luxury living at Harsukh Residences in Galyat, Pakistan. Modern apartments with panoramic mountain views, world-class amenities, and premium finishes. Book your dream home today.',
   alternates: {
     canonical: 'https://theharsukh.com'
@@ -64,8 +65,8 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <Head>
         <title>Luxury Apartments in Galyat | Harsukh Residences, Pakistan</title>
-        <meta name="description" content="Discover luxury apartments at Harsukh Residences, Galyat, Pakistan. Modern amenities, breathtaking views, and the perfect location for serene living." />
-        <meta name="keywords" content="Luxury Apartments, Harsukh Residences, Apartments in Galyat, Pakistan Properties, Galyat Real Estate, Modern Apartments in Galyat, Best Apartments in Pakistan, Best Apartments in Galyat" />
+        <meta name="description" content="Harsukh Residencies offers luxurious living spaces in Galiyat, designed with modern architecture and surrounded by natural beauty. Ideal for families and investors alike." />
+        <meta name="keywords" content="Luxury Apartments, Harsukh Residences, family homes, investment opportunities, vacation homes, Pakistan Properties, Galyat Real Estate, Modern Apartments in Galyat, Best in Galyat, Best Apartments in Pakistan, Best Apartments in Galyat" />
         <meta name="robots" content="index, follow" />
         <meta name="google-site-verification" content="pdF67cKTIKSHMJM0IRkz4p7_4A2CZlKPQD22CDeK4Hs" />
         <link rel="canonical" href="https://theharsukh.com" />
@@ -94,21 +95,33 @@ export default function RootLayout({ children }) {
         <meta name="twitter:title" content="Luxury Apartments in Galyat | Harsukh Residences" />
         <meta name="twitter:description" content="Luxury apartments in Galyat, Pakistan with breathtaking views and top-notch amenities. Discover Harsukh Residences today." />
         <meta name="twitter:image" content="https://cdn.theharsukh.com/images/background/front-view-winter.webp" />
+     
+        <link rel="preconnect" href="https://www.googletagmanager.com" crossOrigin="true" />
+
+
+        <link rel="preconnect" href="https://cdn.theharsukh.com" />
+        <link rel="dns-prefetch" href="https://cdn.theharsukh.com" />
+
       </Head>
 
       <body className={inter.className}>
         {/* Google Tag Manager (noscript) */}
         <noscript>
-          <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MJDJH587"
-            height="0" width="0" style={{ display: 'none', visibility: 'hidden' }}></iframe>
+          <iframe
+            src="https://www.googletagmanager.com/ns.html?id=GTM-MJDJH587"
+            height="0"
+            width="0"
+            style={{ display: 'none', visibility: 'hidden' }}
+            title="Google Tag Manager"
+          ></iframe>
         </noscript>
 
         <Providers>
-            {children}
+          {children}
         </Providers>
 
         {/* LinkedIn Insight Tag */}
-        <Script id="linkedin-insight-tag" strategy="afterInteractive">
+        <Script id="linkedin-insight-tag" strategy="lazyOnload">
           {`
             _linkedin_partner_id = "7619137";
             window._linkedin_data_partner_ids = window._linkedin_data_partner_ids || [];
@@ -125,28 +138,33 @@ export default function RootLayout({ children }) {
               b.type = "text/javascript";
               b.async = true;
               b.src = "https://snap.licdn.com/li.lms-analytics/insight.min.js";
-              s.parentNode.insertBefore(b, s);
+              s.parentNode.insertBefore(b,s);
             })(window.lintrk);
           `}
         </Script>
 
         {/* Google Tag Manager */}
-        <Script id="google-tag-manager" strategy="afterInteractive">
+        <Script id="google-tag-manager" strategy="lazyOnload">
           {`
-            (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-            new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-            j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-            'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-            })(window,document,'script','dataLayer','GTM-MJDJH587');
+            (function(w,d,s,l,i){
+              w[l]=w[l]||[];
+              w[l].push({'gtm.start': new Date().getTime(), event:'gtm.js'});
+              var f = d.getElementsByTagName(s)[0],
+                  j = d.createElement(s),
+                  dl = l != 'dataLayer' ? '&l=' + l : '';
+              j.async = true;
+              j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+              f.parentNode.insertBefore(j, f);
+            })(window, document, 'script', 'dataLayer', 'GTM-MJDJH587');
           `}
         </Script>
 
         {/* Google Analytics */}
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=AW-16682968635"
-          strategy="afterInteractive"
+          strategy="lazyOnload"
         />
-        <Script id="google-analytics" strategy="afterInteractive">
+        <Script id="google-analytics" strategy="lazyOnload">
           {`
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
@@ -156,7 +174,7 @@ export default function RootLayout({ children }) {
         </Script>
 
         {/* Facebook Pixel */}
-        <Script id="facebook-pixel" strategy="afterInteractive">
+        <Script id="facebook-pixel" strategy="lazyOnload">
           {`
             !function(f,b,e,v,n,t,s)
             {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
@@ -171,15 +189,24 @@ export default function RootLayout({ children }) {
           `}
         </Script>
 
-        {/* Google Tag Manager component */}
-        <GoogleTagManager gtmId="GTM-MJDJH587" />
-
         {/* NoScript tags */}
         <noscript>
-          <img height="1" width="1" style={{ display: 'none' }} alt="" src="https://px.ads.linkedin.com/collect/?pid=7619137&fmt=gif" />
+          <img
+            height="1"
+            width="1"
+            style={{ display: 'none' }}
+            alt=""
+            src="https://px.ads.linkedin.com/collect/?pid=7619137&fmt=gif"
+          />
         </noscript>
         <noscript>
-          <img height="1" width="1" style={{ display: 'none' }} src="https://www.facebook.com/tr?id=7384856538283539&ev=PageView&noscript=1" alt="" />
+          <img
+            height="1"
+            width="1"
+            style={{ display: 'none' }}
+            src="https://www.facebook.com/tr?id=7384856538283539&ev=PageView&noscript=1"
+            alt=""
+          />
         </noscript>
       </body>
     </html>

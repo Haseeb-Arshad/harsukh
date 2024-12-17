@@ -13,7 +13,7 @@
     "@barba/core": "^2.10.3",
     "@fullpage/react-fullpage": "^0.1.44",
     "@next/third-parties": "^14.2.11",
-    "@reduxjs/toolkit": "^2.2.6",
+    "@reduxjs/toolkit": "^2.2.8",
     "@swup/fade-theme": "^2.0.1",
     "@swup/preload-plugin": "^3.2.10",
     "@swup/scroll-plugin": "^3.3.2",
@@ -29,9 +29,9 @@
     "jquery": "^3.7.1",
     "jsdom": "^25.0.1",
     "locomotive-scroll": "^4.1.4",
-    "lodash.debounce": "^4.0.8",
     "lucide-react": "^0.408.0",
     "next": "^14.2.8",
+    "next-redux-wrapper": "^8.1.0",
     "npkill": "^0.12.2",
     "openseadragon": "^4.1.1",
     "pagepiling.js": "^1.5.6",
@@ -54,7 +54,11 @@
     "swup": "^4.7.0"
   },
   "devDependencies": {
+    "autoprefixer": "^10.4.20",
     "eslint": "^8",
-    "eslint-config-next": "14.2.5"
+    "eslint-config-next": "14.2.5",
+    "postcss": "^8.4.49",
+    "tailwindcss": "^3.4.14",
+    "webpack-bundle-analyzer": "^4.10.2"
   }
 }
