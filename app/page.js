@@ -4,7 +4,7 @@
 import React, { useState, useEffect } from 'react';
 import Head from 'next/head';
 import styles from '@/styles/home/main.module.css';
-import FrontPage from './frontpage';
+import FrontPage from '@/app/FrontPage';
 import HomePage from '@/component/sections/home/HomePage';
 // import stylesMain from '@/styles/home/main.module.css';
 
