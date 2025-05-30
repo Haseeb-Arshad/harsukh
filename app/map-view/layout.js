@@ -1,33 +1,33 @@
 'use client';
 import React, { Suspense, useState, useEffect, useRef, useCallback} from 'react';
 import { usePathname } from 'next/navigation';
-import Loading from '@/app/component/ui/Loading/Loading';
+import Loading from '@/component/ui/Loading/Loading';
 import styles2 from "@/styles/Floor/floorMenu.module.css";
 import styles from "@/styles/maps/mapsLayout.module.css";
 import ElevStyles from "@/styles/elevation.module.css";
 import Image from 'next/image';
-import FloorMenu from '@/app/component/ui/floor/floorMenu'
+import FloorMenu from '@/component/ui/floor/floorMenu'
 // '@/app/component/floorMenu';
 import { useSelector, useDispatch } from 'react-redux';
 import { modifyLanguage } from '../../state/language/languageState';
 import { useRouter } from 'next/navigation';    
-import MenubarButton from '@/app/component/Icons/menuBarBtn';
-import FavButton from '@/app/component/Icons/favButton';
-import BackgroundMode from '@/app/component/Icons/BackgroundMode';
-import MenuBox from '@/app/component/ui/Bars/menuBox';
+import MenubarButton from '@/component/Icons/menuBarBtn';
+import FavButton from '@/component/Icons/favButton';
+import BackgroundMode from '@/component/Icons/BackgroundMode';
+import MenuBox from '@/component/ui/Bars/menuBox';
 import { toggleFullScreen } from '@/state/fullScreen/fullScreen';
 
 import { toggleVisibility } from '@/state/mapView/mapViewState'; 
-import { useRegisterForm } from "@/app/component/hooks/useRegisterForm"
+import { useRegisterForm } from "@/hooks/useRegisterForm"
 
 // Import translations
-import en from '@/app/component/locales/en.json';
-import ur from '@/app/component/locales/ur.json';
-import ContactBox from '../component/ui/Bars/contactBox';
-import MapMenuBox from '../component/ui/Bars/mapMenuBox';
+import en from '@/component/locales/en.json';
+import ur from '@/component/locales/ur.json';
+import ContactBox from '../../component/ui/Bars/contactBox';
+import MapMenuBox from '../../component/ui/Bars/mapMenuBox';
 import { motion, AnimatePresence } from 'framer-motion';
-import ElevationBox from '../component/ui/Bars/elevationBox';
-import ContactUsPopup from '../component/modules/contactus/page';
+import ElevationBox from '../../component/ui/Bars/elevationBox';
+import ContactUsPopup from '../../component/modules/contactus/page';
 
 // Move this outside of the component function
 

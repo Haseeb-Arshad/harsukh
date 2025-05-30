@@ -6,7 +6,7 @@ import styles from '@/styles/maps/mapview.module.css';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import Loader from '../component/ui/Loading/Loading';
+import Loader from '../../component/ui/Loading/Loading';
 
 const MapView = () => {
   const containerRef = useRef(null);

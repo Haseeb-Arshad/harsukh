@@ -1,8 +1,8 @@
 'use client'
 
 import React from 'react';
-import BlogPage from '@/app/component/modules/blog/blogMain';
-import blogData from '@/app/component/data/blog/blogData.json';
+import BlogPage from '@/component/modules/blog/blogMain';
+import blogData from '@/component/data/blog/blogData.json';
 import styles from '@/styles/blog/blogMain.module.css'
 
 const Page = () => {

@@ -1,11 +1,11 @@
 'use client'
 
 import React from 'react'
-import Navbar from '../component/modules/blog/parts/navbar'
+import Navbar from '../../component/modules/blog/parts/navbar'
 import Image from 'next/image'
 
-import RegisterRequestForm from '@/app/component/ui/Bars/contactBox';
-import { useRegisterForm } from "@/app/component/hooks/useRegisterForm"
+import RegisterRequestForm from '@/component/ui/Bars/contactBox';
+import { useRegisterForm } from "@/hooks/useRegisterForm"
 import styles from '@/styles/home/main.module.css';
 
 

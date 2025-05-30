@@ -1,7 +1,7 @@
 
 
 import React from 'react'
-import ExplorePage from '@/app/component/modules/explore/explorePage'
+import ExplorePage from '@/component/modules/explore/explorePage'
 
 
 

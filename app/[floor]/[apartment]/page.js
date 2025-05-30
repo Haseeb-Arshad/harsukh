@@ -1,6 +1,6 @@
 import { generateMetadata } from './metatag';
 
-import ApartmentPage from '@/app/component/modules/ApartmentLayout/apartmentPage'
+import ApartmentPage from '@/component/modules/ApartmentLayout/apartmentPage'
 import React from 'react'
 
 export { generateMetadata };

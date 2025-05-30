@@ -47,8 +47,8 @@
     display: flex;
     flex-direction: column;
     height: 100vh;
-    background: #FAF3EA;
-    font-family: "Gotham Medium";
+    background: #fcf7eb;
+    font-family: "Gill Sans Medium";
   }
   
   /* Chat Window */
@@ -56,8 +56,9 @@
     flex: 1;
     padding: 20px;
     width: 100%;
+    padding-top: 10rem;
     overflow-y: auto;
-    background-color: #FAF3EA;
+    background-color: #fcf7eb;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -91,10 +92,10 @@
   
   /* User Message Bubble */
   .userMessageBubble {
-    background-color: #F5EADC;
-    color: #006D77;
+    background-color: #006D77;
+    color: #fcf7eb ;
     padding: 12px 18px;
-    border-radius: 10px;
+    border-radius: 15px;
     max-width: 70%;
     font-size: 1.2rem;
     font-weight: 500;
@@ -242,7 +243,7 @@
     outline: none;
     color: black;
     background-color: #ffffff;
-    font-family: "Gotham Medium";
+    font-family: "Gill Sans Medium";
     max-height: 150px; /* Set your desired maximum height */
     overflow-y: auto; /* Enable vertical scrollbar when needed */
     transition: height 0.2s ease-in-out; /* Smooth height transition */

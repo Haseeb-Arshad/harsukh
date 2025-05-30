@@ -166,7 +166,7 @@ export default function ChatPage() {
         <textarea
           ref={textareaRef}
           className={styles.textInput}
-          placeholder="Type your message..."
+          placeholder="Ask anything about Harsukh..."
           value={input}
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={handleKeyPress}

@@ -8,26 +8,26 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { modifyLanguage } from "../../state/language/languageState";
 
-import FavButton from "@/app/component/Icons/favButton";
-import MenubarButton from "@/app/component/Icons/menuBarBtn";
+import FavButton from "@/component/Icons/favButton";
+import MenubarButton from "@/component/Icons/menuBarBtn";
 import { useRouter } from "next/navigation";
-import { useRegisterForm } from "@/app/component/hooks/useRegisterForm"
+import { useRegisterForm } from "@/hooks/useRegisterForm"
 
 // Import translations
-import AmenityGrid from "../component/ui/Amenities/AmenityGrid";
-import ContactBox from "../component/ui/Bars/contactBox";
-import FloorMenuBox from "../component/ui/Bars/FloorMenuBox";
-import AmenityBtn from "../component/Icons/AmenityBtn";
-import ApartmentListing from "../component/ui/Reserve/ApartmentListing";
-import en from "@/app/component/locales/en.json";
-import ur from "@/app/component/locales/ur.json";
-import ElevationBox from "../component/ui/Bars/elevationBox";
+import AmenityGrid from "../../component/ui/Amenities/AmenityGrid";
+import ContactBox from "../../component/ui/Bars/contactBox";
+import FloorMenuBox from "../../component/ui/Bars/FloorMenuBox";
+import AmenityBtn from "../../component/Icons/AmenityBtn";
+import ApartmentListing from "../../component/ui/Reserve/ApartmentListing";
+import en from "@/component/locales/en.json";
+import ur from "@/component/locales/ur.json";
+import ElevationBox from "../../component/ui/Bars/elevationBox";
 import { toggleElevation  } from "@/state/Elevation/ElevationState";
 import { toggleFloorMenu } from "@/state/floor/FloorMenu";
 import { useParams } from 'next/navigation';
-import ContactUsPopup from "../component/modules/contactus/page";
+import ContactUsPopup from "../../component/modules/contactus/page";
 import { toggleFullScreen } from '@/state/fullScreen/fullScreen';
-import FloorMenu from "../component/ui/floor/floorMenu";
+import FloorMenu from "../../component/ui/floor/floorMenu";
 
 const Layout = ({ children }) => {
   

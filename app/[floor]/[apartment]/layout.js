@@ -1,8 +1,8 @@
 "use client";
-import ContactBox from "@/app/component/ui/Bars/contactBox";
-import apartmentData from "@/app/component/data/floorData";
-import en from "@/app/component/locales/en.json";
-import ur from "@/app/component/locales/ur.json";
+import ContactBox from "@/component/ui/Bars/contactBox";
+import apartmentData from "@/component/data/floorData";
+import en from "@/component/locales/en.json";
+import ur from "@/component/locales/ur.json";
 import { modifyLanguage } from "@/state/language/languageState";
 import styles from "@/styles/apartment/apartmentLayout.module.css";
 import ElevStyles from "@/styles/elevation.module.css";
@@ -17,8 +17,8 @@ import {
   addFavoriteApartment,
   removeFavoriteApartment,
 } from "@/state/apartment/favApartment";
-import ElevationBox from "@/app/component/ui/Bars/elevationBox";
-import Gallery from "@/app/component/ui/Gallery/Gallery";
+import ElevationBox from "@/component/ui/Bars/elevationBox";
+import Gallery from "@/component/ui/Gallery/Gallery";
 import { setGalleryPressed } from "@/state/gallery/GalleryState";
 
 const Layout = ({ children }) => {
