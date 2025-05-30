@@ -3,7 +3,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
-import styles from '@/styles/frontpage.module.css';
+import styles from '@/styles/home/main.module.css';
 
 const FrontPage = ({ progress }) => {
   const [isMobile, setIsMobile] = useState(false);
