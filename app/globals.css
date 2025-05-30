@@ -27,6 +27,14 @@
   --max-width: 100%;
   --border-radius: 12px;
   --font-sans: 'GillSans', sans-serif;
+  
+  /* FAQ Component Theme Variables */
+  --faq-bg-color: #EBDED2; /* Site theme background */
+  --faq-text-dark: #3A3A3A; /* Dark text for questions/answers */
+  --faq-text-light: #555555; /* Lighter text for answers */
+  --faq-primary-green: #5A8B73; /* Site-themed Green */
+  --faq-primary-gold: #C89B6C; /* Site-themed Gold/Orange */
+  --faq-separator-color: #D0C0B0; /* Separator color derived from bg */
 
   /* --font-mono: ui-monospace, Menlo, Monaco, "Cascadia Mono", "Segoe UI Mono",
     "Roboto Mono", "Oxygen Mono", "Ubuntu Monospace", "Source Code Pro",

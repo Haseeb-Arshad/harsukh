@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import BarbaWrapper from './component/ui/barba/barbaWrapper';
+import BarbaWrapper from '../component/ui/barba/barbaWrapper';
 import { usePathname, useLoaderData } from 'next/navigation';
 
 export default function Template({ children }) {

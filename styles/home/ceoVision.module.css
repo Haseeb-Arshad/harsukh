@@ -54,7 +54,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 2rem;
+  padding: 1rem;
 }
 
 .textContainer {
@@ -69,7 +69,7 @@
   font-family: "Optima Bold", serif;
   font-size: 2rem;
   color: #000;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
 }
 
 .animatedTextContainer {
@@ -89,6 +89,10 @@
 .visionTextSpace {
   display: inline-block;
   width: 0.25em;
+}
+
+.signatureContainer {
+  margin-top: 1rem;
 }
 
 @media (max-width: 880px) and (min-width: 769px) {
@@ -128,10 +132,23 @@
   .animatedTextContainer {
     font-size: 1rem;
   }
+
+  .signatureContainer {
+    justify-content: center;
+    margin-top: 1rem;
+  }
+  
+  .signature {
+    max-width: 120px;
+  }
 }
 
 @media (max-width: 480px) {
   .animatedTextContainer {
     font-size: 0.9rem;
+  }
+  
+  .signature {
+    max-width: 100px;
   }
 }

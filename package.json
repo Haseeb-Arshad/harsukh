@@ -18,7 +18,7 @@
     "axios": "^1.7.7",
     "barba": "^1.0.0",
     "barba.js": "^1.0.0",
-    "framer-motion": "^11.5.2",
+    "framer-motion": "^11.18.2",
     "gsap": "^3.12.5",
     "jquery": "^3.7.1",
     "jsdom": "^25.0.1",

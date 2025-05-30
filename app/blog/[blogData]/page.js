@@ -1,7 +1,7 @@
 import { generateMetadata } from './metadata';
 
 import React from 'react';
-import BlogPostPage from '@/app/component/modules/blog/parts/blogPostPage';
+import BlogPostPage from '@/component/modules/blog/parts/blogPostPage';
 
 export { generateMetadata };
 

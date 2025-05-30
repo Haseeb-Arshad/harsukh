@@ -1,7 +1,7 @@
 import { generateMetadata } from './metadata';
 
 import React from 'react';
-import NewroomPage from '@/app/component/modules/newsroom/parts/newroomPage';
+import NewroomPage from '@/component/modules/newsroom/parts/newroomPage';
 
 export { generateMetadata };
 
