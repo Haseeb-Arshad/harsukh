@@ -34,3 +34,12 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Large files
+/public/unity/Build/*.data.gz
+/public/unity/Build/*.wasm.gz
+/public/video/*.webm
+/public/Webpage/floor/floor*
+/public/images/maps/SVG/Artboard*
+/public/svg/harsukhBuilding/*.svg
+/public/svg/building/building.svg
