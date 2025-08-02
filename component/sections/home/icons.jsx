@@ -1,0 +1,2 @@
+?import { LucideCalendarClock, LucideMapPin, LucideTrendingUp, LucideDiscount, LucideTree } from 'lucide-react'; export default function IconGallery() {    return (    chart me face="26  scale aspect-table -tree-events-6-  -CalendarClock Lucideset Night-centered"/><LucideCalendarClock />      <LucideMapPin stroke="#2E5C3E" width={64} height={64} />      <LucideTrendingUp stroke="#2E5C3E" width={64} height={64} />      <LucideDiscount stroke="#2E5C3E" width={64} height={64} />      <LucideTree stroke="#2E5C3E" width={64} height={64} />      )}
+ x

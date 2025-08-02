@@ -12,6 +12,30 @@ const AnimatedText = ({ text, className }) => {
     threshold: 0.2,
   });
 
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  // For mobile, keep text as paragraph; for desktop, break into lines
+  if (isMobile && className === styles.desc) {
+    return (
+      <div ref={ref} className={className}>
+        <div className={`${styles.titleLines} ${inView ? styles.isInview : ''}`}>
+          <span className={styles.lineInner}>{text}</span>
+        </div>
+      </div>
+    );
+  }
+
   const createLines = (text) => {
     const words = text.split(' ');
     const lines = [];
@@ -47,23 +71,8 @@ const AnimatedText = ({ text, className }) => {
 };
 
 const AboutUs = () => {
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth <= 768);
-    };
-
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-
-    return () => window.removeEventListener('resize', checkMobile);
-  }, []);
-
   return (
-    
     <section className={styles.container}>
-
       <Head>
         <title>Harsukh Residencies - Luxury Apartments in Ayubia | About Us</title>
         <meta name="description" content="Discover Harsukh Residencies, a luxury living experience in Ayubia. Designed for the high-end market, it blends modern comfort with nature, offering an investment like no other." />
@@ -80,33 +89,24 @@ const AboutUs = () => {
         <meta name="twitter:image" content="https://cdn.theharsukh.com/images/home/aboutusHarsukh.webp" />
       </Head>
 
-      <div className={styles.imageSection}>
-        {!isMobile && (
-          <Image
-            src="https://cdn.theharsukh.com/images/home/aboutusHarsukh.webp"
-            alt="Harsukh Residencies"
-            fill
-            sizes="100vw"
-            quality={85}
-            priority
-            className={styles.backgroundImage}
-          />
-        )}
-        <Image
-          src="https://cdn.theharsukh.com/images/home/aboutUsback.webp"
-          alt="Harsukh Residencies Background"
-          fill
-          sizes="100vw"
-          quality={85}
-          className={styles.backgroundImageLines}
-        />
-      </div>
-      <div className={styles.contentOverlay}>
-        <div className={styles.content}>
-          <AnimatedText text="ABOUT US" className={styles.title} />
+      <div className={styles.content}>
+        <div className={styles.emptyDiv}></div>
+        <div className={styles.titleSection}>
+          <AnimatedText text="VISION" className={styles.title} />
+        </div>
+        <div className={styles.subtitleSection}>
+          <AnimatedText text="A NEW PARADIGM OF LUXURY LIVING IN NATURE" className={styles.subtitle} />
+        </div>
+        <div className={styles.description}>
           <AnimatedText
-            text="Setting an example of grandeur and luxury in Ayubia, Harsukh Residencies is designed for the high-end market. Blending the comfort of nature and beauty. Finishing it to perfection, this project is a combination of modern living within nature, making it an investment like no other."
-            className={styles.description}
+            text="Nestled between Nathiagali and Ayubia in the heart of the Galyat region, Harsukh Residencies redefines elevated living by fusing architectural sophistication with the untouched serenity of the hills. Conceived as a high-rise sanctuary in Kuza Gali, Ayubia, Harsukh is more than a residential project—it is a masterfully orchestrated blend of premium apartments, immersive nature, and curated wellness."
+            className={styles.desc}
+          />
+          <br />
+          {/* <br /> */}
+          <AnimatedText
+            text="Crafted for those who seek elegance and peace, Harsukh is a lifestyle that transcends the ordinary. Designed with precision and guided by a vision to deliver luxury living amidst nature, Harsukh sets a new standard of high-altitude refinement for a discerning few—making it not only a lifestyle choice, but an investment unlike any other."
+            className={styles.desc}
           />
         </div>
       </div>

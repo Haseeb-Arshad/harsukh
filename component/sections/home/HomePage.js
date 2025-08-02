@@ -4,7 +4,6 @@
 import React, { useRef, useState, useEffect } from 'react';
 import styles from '@/styles/home/main.module.css';
 import Header from './header';
-import Vision from './vision';
 import AboutUs from './aboutus';
 import CeoVision from './ceoVision';
 import FAQ from './FAQ';
@@ -14,6 +13,7 @@ import Navbar from './navbar';
 import Developer from './developer';
 import Developer1 from './developer1';
 import Developer2 from './developer2';
+import WhyHarsukh from './WhyHarsukh';
 // import RegisterRequestForm from '@/components/ui/RegisterRequestForm';
 import PrivacyPolicy from './privacyPolicy';
 import { useRegisterForm } from '@/hooks/useRegisterForm';
@@ -44,9 +44,9 @@ const HomePage = ({ initialSection }) => {
   // Define Sections
   const sections = [
     { id: 'header', component: Header, path: '/' },
+    { id: 'why-harsukh', component: WhyHarsukh, path: '/' },
     { id: 'video', component: VideoContent, path: '/' },
     { id: 'about', component: AboutUs, path: '/about' },
-    { id: 'vision', component: Vision, path: '/about' },
     { id: 'ceo-vision', component: CeoVision, path: '/developer' },
     { id: 'faq', component: FAQ, path: '/developer' },
     { id: 'footer', component: Footer, path: '/developer' },
@@ -58,10 +58,16 @@ const HomePage = ({ initialSection }) => {
       ? [{ id: 'developer', component: Developer1, path: '/developer' }]
       : [{ id: 'developer', component: Developer, path: '/developer' }];
 
+  // Combine all sections ensuring proper order
   const allSections = [
-    ...sections.slice(0, 4),
-    ...developerSections,
-    ...sections.slice(4),
+    sections[0], // header
+    sections[1], // why-harsukh
+    sections[2], // video
+    sections[3], // about (now includes vision)
+    ...developerSections, // developer
+    sections[4], // ceo-vision
+    sections[5], // faq
+    sections[6], // footer
   ];
 
   const [currentSection, setCurrentSection] = useState(
@@ -80,14 +86,13 @@ const HomePage = ({ initialSection }) => {
     const currentSectionId = allSections[index].id;
     setUseGreenLogo(
       currentSectionId === 'header' ||
-        currentSectionId === 'video' ||
-        currentSectionId === 'vision'
+        currentSectionId === 'video'
     );
   };
 
   const updateURL = (index) => {
     const currentSection = allSections[index];
-    if (currentSection.id === 'vision' || currentSection.id === 'about') {
+    if (currentSection.id === 'about') {
       window.history.replaceState(null, '', '/about');
     } else if (
       currentSection.id === 'developer' ||

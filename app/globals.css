@@ -1,5 +1,7 @@
 
 
+
+
 @font-face {
   font-family: 'GillSans';
   src: url('/fonts/GillSansDisplayMTPro-BdCn.otf') format('otf'),
@@ -26,7 +28,9 @@
 :root {
   --max-width: 100%;
   --border-radius: 12px;
-  --font-sans: 'GillSans', sans-serif;
+  
+  /* Modern Font Variables */
+ --font-sans: 'GillSans', sans-serif;
   
   /* FAQ Component Theme Variables */
   --faq-bg-color: #EBDED2; /* Site theme background */

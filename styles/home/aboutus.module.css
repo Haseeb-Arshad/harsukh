@@ -16,74 +16,88 @@
   font-weight: normal;
 }
 
+@font-face {
+  font-family: "Gill Sans Medium";
+  src: url("/fonts/gillsans/Gill Sans Medium.otf");
+  font-weight: normal;
+}
+
 .container {
-  font-family: "Optima", sans-serif;
-  position: relative;
-  width: 100%;
-  height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
   background-color: #EBDED2;
-  user-select: none;
-}
-
-.imageSection {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 77%;
-  z-index: 1;
-}
-
-.backgroundImage,
-.backgroundImageLines {
-  object-fit: cover;
-  object-position: center;
-}
-
-.backgroundImageLines {
-  transform: rotate(5deg) scale(1.2);
-  margin-left: 5rem;
-  margin-top: -10rem;
-}
-
-.contentOverlay {
+  font-family: "Gill Sans Medium";
   position: relative;
-  z-index: 2;
-  width: 100%;
-  height: 100%;
   display: flex;
+  justify-content: center;
   align-items: center;
-  padding-left: 40px;
+  height: 100vh;
+  background-image: url('https://cdn.theharsukh.com/images/blog/imageMask-bg.png');
+  background-repeat: no-repeat;
+  background-position: left top;
+  background-size: 30% 100%;
 }
 
 .content {
-  color: #000;
-  text-align: left;
-  padding: 2rem;
-  max-width: 410px;
+  max-width: 100%;
+  height: 100%;
+  text-align: center;
+  display: grid;
+  grid-template-rows: 0.8fr 0.1fr 0.1fr fr;
+  width: 80vw;
+}
+
+.emptyDiv {
+  /* Empty div for spacing */
+}
+
+.titleSection {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.subtitleSection {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
 }
 
 .title {
   font-size: 2rem;
   font-family: "Optima Bold", sans-serif;
-  margin-bottom: 1rem;
+  color: #333;
+  margin: 0;
+  text-align: center;
+}
+
+.subtitle {
+  font-size: 1.3rem;
+  font-family: "Optima Bold", sans-serif;
+  color: #333;
+  margin: 0;
+  text-align: center;
+  font-weight: bold;
+  margin-top: -1rem;
 }
 
 .description {
+  /* padding: 1rem; */
+  padding-top: 0rem;
+}
+
+.desc {
   font-size: 1rem;
+  font-family: "Gill Sans Light";
   line-height: 1.6;
   color: #000;
+  text-align: center;
 }
 
 /* Animation Classes */
 .titleLines {
   display: block;
   overflow: hidden;
-  text-align: justify;
+  text-align: center;
   width: 100%;
 }
 
@@ -97,43 +111,80 @@
   transform: translateY(0);
 }
 
-@media (max-width: 768px) {
+@media (max-width: 858px) {
   .container {
-    height: auto;
-    min-height: 100vh;
-  }
-
-  .imageSection {
-    height: 100%;
-  }
-
-  .contentOverlay {
-    padding: 2rem 1rem;
+    background-size: 100%;
+    height: 100vh;
+    padding: 2rem;
   }
 
   .content {
+    width: 100%;
+    grid-template-rows: 0.2fr 0.3fr 0.2fr 1fr;
+    max-width: 95%;
+  }
+
+  .title {
+    font-size: 1.5rem;
+  }
+
+  .subtitle {
+    font-size: 0.95rem;
+    line-height: 1.2;
+  }
+
+  .subtitleSection {
+    margin-bottom: 0.5rem;
+  }
+
+  .description {
+    padding: 1rem 0.5rem;
+    padding-top: 0rem;
+  }
+
+  .desc {
+    font-size: 0.95rem;
+    line-height: 1.5;
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 430px) {
+  .container {
+    padding: 0.5rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
+
+    height: 100vh;
+  }
+
+  .content {
+    grid-template-rows: 0.15fr 0.25fr 0.15fr 1fr;
     max-width: 100%;
   }
 
   .title {
-    font-size: 2rem;
-    margin-bottom: 1rem;
+    font-size: 1.3rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .subtitle {
+    font-size: 0.9rem;
+    line-height: 1.3;
+  }
+
+  .subtitleSection {
+    margin-bottom: 0.3rem;
   }
 
   .description {
-    font-size: 1rem;
-    line-height: 1.5;
+    padding: 0.5rem 0.3rem;
+    padding-top: 0;
+
   }
 
-  .titleLines,
-  .description {
-    text-align: center;
+  .desc {
+    font-size: 0.85rem;
+    line-height: 1.3;
   }
-
-  .backgroundImageLines {
-    transform: rotate(100deg) scale(1.2);
-    margin-left: 5rem;
-    margin-top: 0rem;
-  }
-
 }

@@ -31,10 +31,12 @@ const Developer = () => {
         <div className={styles.logoDiv}>
           <Image
             className={styles.logo}
+            styles={{ objectFit: 'contain', "cursor": "pointer" }}
             src="https://cdn.theharsukh.com/images/ContactUs/Almaymaar.png"
             alt="Harsukh Residencies"
             width={190}
             height={45}
+            onClick={() => window.open('https://almaymaar.com/', '_blank')}
           />
         </div>
         <div className={styles.description}>

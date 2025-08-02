@@ -5,65 +5,63 @@
 }
 
 @font-face {
-  font-family: "Gill Sans";
-  src: url("/fonts/gillsans/Gill Sans Light.otf");
+  font-family: "Optima";
+  src: url("/fonts/optima/OPTIMA.TTF");
   font-weight: normal;
 }
 
 .container {
-  font-family: "Gill Sans";
-  height: 100vh;
-  width: 100%;
   position: relative;
+  width: 100%;
+  height: 100vh;
   overflow: hidden;
+  user-select: none;
 }
 
 .visionContent {
   position: relative;
-  height: 100%;
   width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-
-/* .imageWrapper {
-    user-select: none;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    opacity: 0;
-  } */
 
 .visionImage {
   position: absolute;
   top: 0;
   left: 0;
-  height: 100%;
   width: 100%;
+  height: 100%;
   z-index: 1;
 }
 
 .visionText {
-  position: absolute;
-  bottom: 0;
-  left: 25%;
-  transform: translateX(-50%);
+  position: relative;
   z-index: 2;
-  height: 70%;
-  background-color: rgba(252, 247, 235, 0.2);
-  padding: 80px 50px;
-  border-radius: 6px 6px 0px 0px;
-  max-width: 350px;
-  text-align: left;
-  backdrop-filter: blur(25px);
-  -webkit-backdrop-filter: blur(25px);
+  color: white;
+  text-align: center;
+  padding: 2rem;
+  max-width: 600px;
 }
 
-/* Animation styles */
+.title {
+  font-size: 3rem;
+  font-family: "Optima Bold", sans-serif;
+  margin-bottom: 2rem;
+  letter-spacing: 2px;
+}
+
+.content {
+  font-size: 1.2rem;
+  line-height: 1.8;
+  font-family: "Optima", sans-serif;
+}
+
+/* Animation Classes */
 .animatedText {
   overflow: hidden;
-  text-align: left;
-  width: 100%;
+  display: block;
 }
 
 .textInner {
@@ -76,41 +74,32 @@
   transform: translateY(0);
 }
 
-.title {
-  font-family: "Optima Bold";
-  font-size: 2rem;
-  margin-bottom: 1rem;
-  color: #FCF7EB;
-}
-
-.content {
-  color: rgba(252, 247, 235, 0.68);
-  font-size: 16px;
-  line-height: 1.6;
-}
-
+/* Responsive Design */
 @media (max-width: 768px) {
   .visionText {
-    background-color: rgba(252, 247, 235, 0.16);
-    left: 30%;
-    backdrop-filter: blur(30px);
-    width: 60%;
-    padding: 50px 30px;
-    font-size: 1.1rem;
-  }
-
-  
- 
-
-  .visionImage img {
-    object-position: 42% center;
+    padding: 1rem;
+    max-width: 90%;
   }
 
   .title {
-    font-size: 1.8rem;
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
   }
 
   .content {
-    font-size: 14px;
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+}
+
+@media (max-width: 480px) {
+  .title {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .content {
+    font-size: 0.9rem;
+    line-height: 1.5;
   }
 }

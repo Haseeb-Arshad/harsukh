@@ -1,0 +1,7 @@
+<!-- Based on Feather Icons - Tag -->
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" fill="none">
+  <path d="M12 20V12C12 10.9 12.9 10 14 10H22L52 40L40 52L12 20Z" stroke="#2E5C3E" stroke-width="2.5" fill="none" stroke-linejoin="round"/>
+  <circle cx="18" cy="18" r="2" fill="#2E5C3E"/>
+  <path d="M36 28L40 32" stroke="#2E5C3E" stroke-width="2" stroke-linecap="round"/>
+  <path d="M32 32L36 36" stroke="#2E5C3E" stroke-width="2" stroke-linecap="round"/>
+</svg>

@@ -2,7 +2,6 @@
 
 import React, { useEffect, useRef, useState } from 'react';
 import Header from '../../sections/home/header';
-import Vision from '../../sections/home/vision';
 import AboutUs from '../../sections/home/aboutus';
 import CeoVision from '../../sections/home/ceoVision';
 import Footer from '../../sections/home/footer';
@@ -43,7 +42,6 @@ const sections = [
   { id: 'header', component: Header, path: '/' },
   { id: 'video', component: VideoContent, path: '/' },
   { id: 'about', component: AboutUs, path: '/about' },
-  { id: 'vision', component: Vision, path: '/about' },
   { id: 'ceo-vision', component: CeoVision, path: '/developer' },
   { id: 'footer', component: Footer, path: '/developer' },
 ];
@@ -85,9 +83,9 @@ export default function HomePage({ initialSection }) {
   : [{ id: 'developer', component: Developer, path: '/developer' }];
 
   const allSections = [
-    ...sections.slice(0, 4),
+    ...sections.slice(0, 3),
     ...developerSections,
-    ...sections.slice(4),
+    ...sections.slice(3),
   ];
 
   const [useGreenLogo, setUseGreenLogo] = useState(true);
@@ -97,7 +95,7 @@ export default function HomePage({ initialSection }) {
     setUseGreenLogo(
       currentSectionId === 'header' ||
       currentSectionId === 'video' ||
-      currentSectionId === 'vision'
+      currentSectionId === 'about'
     );
   };
 
@@ -105,7 +103,7 @@ export default function HomePage({ initialSection }) {
   
   const updateURL = (index) => {
     const currentSection = allSections[index];
-    if (currentSection.id === 'vision' || currentSection.id === 'about') {
+    if (currentSection.id === 'about') {
       window.history.replaceState(null, '', '/about');
     } else if (currentSection.id === 'developer' || currentSection.id === 'ceo-vision') {
       window.history.replaceState(null, '', '/developer');

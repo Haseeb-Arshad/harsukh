@@ -220,6 +220,30 @@ export default async function sitemap() {
       priority: 1,
     },
     {
+      url: 'https://theharsukh.com/apartments',
+      lastModified: today,
+      changeFrequency: 'monthly',
+      priority: 0.9,
+    },
+    {
+      url: 'https://theharsukh.com/location',
+      lastModified: today,
+      changeFrequency: 'monthly',
+      priority: 0.9,
+    },
+    {
+      url: 'https://theharsukh.com/investment',
+      lastModified: today,
+      changeFrequency: 'monthly',
+      priority: 0.9,
+    },
+    {
+      url: 'https://theharsukh.com/contact',
+      lastModified: today,
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    },
+    {
       url: 'https://theharsukh.com/about',
       lastModified: today,
       changeFrequency: 'monthly',
@@ -235,19 +259,13 @@ export default async function sitemap() {
       url: 'https://theharsukh.com/callus',
       lastModified: today,
       changeFrequency: 'yearly',
-      priority: 0.3,
-    },
-    {
-      url: 'https://theharsukh.com/news-room',
-      lastModified: today,
-      changeFrequency: 'daily',
-      priority: 0.7,
+      priority: 0.5,
     },
     {
       url: 'https://theharsukh.com/map-view',
       lastModified: today,
       changeFrequency: 'yearly',
-      priority: 0.3,
+      priority: 0.6,
     },
     {
       url: 'https://theharsukh.com/explore',
@@ -259,7 +277,7 @@ export default async function sitemap() {
       url: 'https://theharsukh.com/developer',
       lastModified: today,
       changeFrequency: 'monthly',
-      priority: 0.3,
+      priority: 0.6,
     },
   ];
 

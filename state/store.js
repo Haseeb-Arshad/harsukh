@@ -11,7 +11,6 @@ import amenitiesReducer from './Amenity/amenityState';
 import GalleryReducer from './gallery/GalleryState';
 import fullscreenReducer from './fullScreen/fullScreen';
 import blogReducer from './blog/blogSlice'
-import newsRoomReducer from './newsroom/newsroomSlice'
 
 const persistConfig = {
   key: 'root',
@@ -32,7 +31,6 @@ export const store = configureStore({
     gallery: GalleryReducer,
     fullscreen: fullscreenReducer,
     blogs: blogReducer,
-    news: newsRoomReducer,
 
   },
   middleware: (getDefaultMiddleware) =>

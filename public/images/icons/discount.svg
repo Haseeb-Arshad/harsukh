@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" fill="none">
+  <!-- Tag shape -->
+  <path d="M10 20C10 16.686 12.686 14 16 14H36L54 32L36 50H16C12.686 50 10 47.314 10 44V20Z" stroke="#2E5C3E" stroke-width="2" fill="rgba(46, 92, 62, 0.1)"/>
+  
+  <!-- Tag hole -->
+  <circle cx="22" cy="26" r="3" fill="white" stroke="#2E5C3E" stroke-width="1"/>
+  
+  <!-- Percentage symbol -->
+  <circle cx="26" cy="34" r="3" fill="#2E5C3E"/>
+  <circle cx="38" cy="30" r="3" fill="#2E5C3E"/>
+  <path d="M24 36L40 28" stroke="#2E5C3E" stroke-width="2" stroke-linecap="round"/>
+  
+  <!-- Sparkle effects -->
+  <path d="M46 20L48 18L50 20L48 22L46 20Z" fill="#2E5C3E" opacity="0.6"/>
+  <path d="M20 38L21 37L22 38L21 39L20 38Z" fill="#2E5C3E" opacity="0.8"/>
+</svg>

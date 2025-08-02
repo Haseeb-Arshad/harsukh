@@ -1,0 +1,14 @@
+<!-- Based on Heroicons - Academic Cap + Check -->
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" fill="none">
+  <!-- Tree trunk -->
+  <rect x="30" y="36" width="4" height="16" fill="#2E5C3E" rx="2"/>
+  
+  <!-- Tree layers -->
+  <path d="M32 8 L24 20 L40 20 Z" fill="#2E5C3E"/>
+  <path d="M32 16 L26 26 L38 26 Z" fill="#2E5C3E"/>
+  <path d="M32 24 L28 32 L36 32 Z" fill="#2E5C3E"/>
+  
+  <!-- Approval badge -->
+  <circle cx="46" cy="18" r="10" fill="#2E5C3E"/>
+  <path d="M42 18 L45 21 L50 15" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

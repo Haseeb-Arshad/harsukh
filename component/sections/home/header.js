@@ -20,10 +20,14 @@ const Header = ({ toggleContactForm }) => {
   const TitleOne = "THE BEST APARTMENT OF GALYAT"
   const titleOneLines = TitleOne.split('\n');
 
-  const titleText = 'HARSUKH - The Best of Both Worlds';
+  
+  
+  
+
+  const titleText = 'HARSUKH - Luxury in the Heart of Galiyat';
   const titleLines = titleText.split('\n');
 
-  const subtitle = "Luxury in the heart of Galyat";
+  const subtitle = "A Mountain-Front Investment Promising Up to 25% Annual ROI";
 
   const containerVariants = {
     hidden: { opacity: 0 },

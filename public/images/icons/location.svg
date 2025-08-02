@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" fill="none">
+  <!-- Map pin with roads -->
+  <path d="M32 6C24.268 6 18 12.268 18 20C18 30 32 52 32 52C32 52 46 30 46 20C46 12.268 39.732 6 32 6ZM32 26C28.686 26 26 23.314 26 20C26 16.686 28.686 14 32 14C35.314 14 38 16.686 38 20C38 23.314 35.314 26 32 26Z" fill="#2E5C3E"/>
+  
+  <!-- Road lines -->
+  <path d="M12 56L24 48M40 48L52 56" stroke="#2E5C3E" stroke-width="2" stroke-linecap="round" opacity="0.6"/>
+  <path d="M8 50L20 42M44 42L56 50" stroke="#2E5C3E" stroke-width="2" stroke-linecap="round" opacity="0.4"/>
+</svg>

@@ -1,0 +1,5 @@
+<!-- Based on Heroicons Outline for Map -->
+<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2E5C3E" class="w-6 h-6">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M9 10.5l1.5 1.5-1.5 1.5m9-3l-15-15-3 3L3 2.25l18 18-1.5-1.5 1.5 1.5m-9 9l1.5-1.5L9 21m9-9l-1.5 1.5L21 3m-6 6l-3-3 3 3z" />
+</svg>
+

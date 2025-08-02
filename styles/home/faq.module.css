@@ -1,3 +1,26 @@
+
+
+
+@font-face {
+  font-family: "Gill Sans Light";
+  src: url("/fonts/GillSansMTPro-Light.otf");
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: "Optima Bold";
+  src: url("/fonts/optima/OPTIMA_B.TTF");
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: "Optima";
+  src: url("/fonts/optima/OPTIMA.TTF");
+  font-weight: normal;
+}
+
+
+
 .faqSection {
   padding: 5rem 0;
   padding-bottom: 5.5rem;
@@ -7,7 +30,7 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  font-family: var(--font-sans, "Gill Sans MT", "Gill Sans", "Gill Sans Medium", Calibri, sans-serif);
+  font-family: "Gill Sans Light";
 }
 
 .container {
@@ -28,6 +51,8 @@
   font-weight: 600; /* Gill Sans Medium is often not super bold */
   opacity: 0;
   transform: translateY(20px);
+  font-family: "Optima";
+
   transition: opacity 0.6s ease-out, transform 0.6s ease-out;
 }
 

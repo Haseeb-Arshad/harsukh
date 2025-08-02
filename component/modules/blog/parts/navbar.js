@@ -73,8 +73,6 @@ const Navbar = ({ children, currentSection, toggleContactForm, useGreenLogo, onN
 
       if (path.includes('/blog')) {
         setActiveMenuItem('Blogs');
-      } else if (path.includes('/news-room')) {
-        setActiveMenuItem('News Room');
       } else if (path === '/') {
         setActiveMenuItem('Home');
       } else if (path.includes('/about')) {
@@ -124,9 +122,6 @@ const Navbar = ({ children, currentSection, toggleContactForm, useGreenLogo, onN
     switch (menuItem) {
       case 'Blogs':
         router.push('/blog');
-        break;
-      case 'News Room':
-        router.push('/news-room');
         break;
       case 'Home':
         router.push('/');
@@ -190,7 +185,7 @@ const Navbar = ({ children, currentSection, toggleContactForm, useGreenLogo, onN
         </div>
         
         <ul ref={mobileMenuRef} className={`${styles.menu} ${isMobileMenuOpen ? styles.mobileMenuOpen : ''}`}>
-          {['Home', 'About', 'Developer', 'Blogs', 'News Room'].map((item) => (
+{['Home', 'About', 'Developer', 'Blogs'].map((item) => (
             <li
               key={item}
               className={`${styles.menuitems} ${activeMenuItem === item ? styles.activeMenuItem : ''}`}

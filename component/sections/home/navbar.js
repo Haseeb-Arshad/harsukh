@@ -76,8 +76,6 @@ const Navbar = ({ children, currentSection, toggleContactForm, useGreenLogo, onN
   
     if (menuItem === 'Blogs') {
       router.push('/blog');
-    } else if (menuItem === 'News Room') {
-      router.push('/news-room');
     } else {
       onNavClick(menuItem);
     }
@@ -160,7 +158,7 @@ const Navbar = ({ children, currentSection, toggleContactForm, useGreenLogo, onN
         <div className={styles.logo}>
           <img 
             style={{cursor:"pointer"}} 
-            src={useGreenLogo ? harsukhGreenLogo : harsukhWhiteLogo} 
+            src={!useGreenLogo ? harsukhGreenLogo : harsukhWhiteLogo} 
             alt="Harsukh Logo" 
             width={ 330} 
             height={ 115} 
@@ -173,7 +171,7 @@ const Navbar = ({ children, currentSection, toggleContactForm, useGreenLogo, onN
             <Menu color={useGreenLogo ? '#006D77' : '#FCF7EB'} size={24} />
           </div>
           <ul ref={mobileMenuRef} className={`${styles.menu} ${isMobileMenuOpen ? styles.mobileMenuOpen : ''}`}>
-            {['Home', 'About', 'Developer', 'Blogs', 'News Room'].map((item) => (
+{['Home', 'About', 'Developer', 'Blogs'].map((item) => (
               <li
                 key={item}
                 className={`${styles.menuitems} ${activeMenuItem === item ? styles.activeMenuItem : ''}`}

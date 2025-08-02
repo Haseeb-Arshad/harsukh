@@ -1,0 +1,10 @@
+<!-- Based on Lucide Icons - Calendar Clock -->
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" fill="none">
+  <rect x="8" y="14" width="48" height="40" rx="6" stroke="#2E5C3E" stroke-width="2.5" fill="none"/>
+  <path d="m18 6 0 12" stroke="#2E5C3E" stroke-width="2.5" stroke-linecap="round"/>
+  <path d="m46 6 0 12" stroke="#2E5C3E" stroke-width="2.5" stroke-linecap="round"/>
+  <path d="M8 26h48" stroke="#2E5C3E" stroke-width="2.5" stroke-linecap="round"/>
+  <circle cx="44" cy="42" r="12" stroke="#2E5C3E" stroke-width="2" fill="rgba(46, 92, 62, 0.05)"/>
+  <path d="m44 36 0 6 4 2" stroke="#2E5C3E" stroke-width="1.5" stroke-linecap="round"/>
+</svg>
+

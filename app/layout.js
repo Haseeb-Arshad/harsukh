@@ -7,7 +7,7 @@ import Head from "next/head";
 import dynamic from "next/dynamic";
 import Providers from "@/state/provider";
 
-// const SwupProvider = dynamic(() => import('./component/ui/Swup'), { ssr: false });
+// const SwupProvider = dynamic(() =e import('./component/ui/Swup'), { ssr: false });
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -102,7 +102,7 @@ export default function RootLayout({ children }) {
 
       </Head>
 
-      <body className={inter.className}>
+<body className={inter.className}>
         {/* Google Tag Manager (noscript) */}
         <noscript>
           <iframe
