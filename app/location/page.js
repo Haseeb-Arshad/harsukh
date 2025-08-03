@@ -8,7 +8,7 @@ export default function Location() {
   return (
     <>
       <Head>
-        <title>Nathiagali's Prime Location – Harsukh Residencies</title>
+        <title>Nathiagali&apos;s Prime Location – Harsukh Residencies</title>
         <meta 
           name="description" 
           content="Buy your dream apartment in Nathiagali's most prime location. Harsukh Residencies is set in the heart of Galyat with unbeatable scenic beauty." 

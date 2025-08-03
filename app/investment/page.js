@@ -57,7 +57,7 @@ export default function Investment() {
 
       <main className={styles.main}>
         <h1>Invest in Apartments with the Best ROI in Galyat</h1>
-        <p>Whether you're buying to rent out or for capital appreciation, Harsukh Residencies offers unmatched return on investment (ROI) in the entire Nathiagali and Galyat region. With limited supply and rising demand, this is your chance to invest smartly.</p>
+        <p>Whether you&apos;re buying to rent out or for capital appreciation, Harsukh Residencies offers unmatched return on investment (ROI) in the entire Nathiagali and Galyat region. With limited supply and rising demand, this is your chance to invest smartly.</p>
         
         <div className={styles.investmentBenefits}>
           <div className={styles.investmentBenefit}>

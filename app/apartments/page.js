@@ -55,7 +55,7 @@ export default function Apartments() {
 
       <main className={styles.main}>
         <h1>Our Luxury Apartments in Galyat</h1>
-        <p>Choose from 1, 2, and 3-bedroom luxury apartments at Harsukh. Each unit is designed to offer the perfect blend of comfort, design, and mountain views in Galyat's most premium location — Nathiagali.</p>
+        <p>Choose from 1, 2, and 3-bedroom luxury apartments at Harsukh. Each unit is designed to offer the perfect blend of comfort, design, and mountain views in Galyat&apos;s most premium location — Nathiagali.</p>
 
         <div className={styles.apartmentTypes}>
           <div className={styles.apartmentType}>

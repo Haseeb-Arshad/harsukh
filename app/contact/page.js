@@ -98,7 +98,7 @@ export default function Contact() {
 
       <main className={styles.main}>
         <h1>Contact Harsukh to Book Your Apartment</h1>
-        <p>Have questions? Need help choosing the perfect apartment? Reach out to our team today and we'll guide you every step of the way.</p>
+        <p>Have questions? Need help choosing the perfect apartment? Reach out to our team today and we&apos;ll guide you every step of the way.</p>
 
         <div className={styles.contactContainer}>
           <div className={styles.contactInfo}>
