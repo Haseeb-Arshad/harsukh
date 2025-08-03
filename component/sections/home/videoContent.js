@@ -83,7 +83,9 @@ const VideoContent = () => {
         playsInline
         preload="auto"
       >
-        <source src="https://cdn.theharsukh.com/media/homePage.webm" type="video/webm" />
+        <source src="/video/harsukh-intro.webm" type="video/webm" />
+
+        {/* <source src="https://cdn.theharsukh.com/media/homePage.webm" type="video/webm" /> */}
         Your browser does not support the video tag.
       </video>
     </div>

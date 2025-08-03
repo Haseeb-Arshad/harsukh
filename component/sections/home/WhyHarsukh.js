@@ -2,9 +2,29 @@
 
 import React from 'react';
 import Image from 'next/image';
+import { useInView } from 'react-intersection-observer';
 import styles from '@/styles/home/whyHarsukh.module.css';
 
+// AnimatedText Component for text staggering animation
+const AnimatedText = ({ text, className }) => {
+  const { ref, inView } = useInView({
+    triggerOnce: true,
+    threshold: 0.2,
+  });
+
+  return (
+    <div ref={ref} className={`${className} ${styles.animatedText} ${inView ? styles.isInview : ''}`}>
+      <span className={styles.textInner}>{text}</span>
+    </div>
+  );
+};
+
 const WhyHarsukh = () => {
+  const { ref: gridRef, inView: gridInView } = useInView({
+    triggerOnce: true,
+    threshold: 0.2,
+  });
+
   const features = [
     { id: 1, title: '', subtitle: 'GDA APPROVED', icon: '/images/icons/gda-approved-new.svg' },
     { id: 2, title: '', subtitle: 'FLEXIBLE PAYMENT PLANS', icon: '/images/icons/payment-plans-new.svg' },
@@ -20,11 +40,11 @@ const WhyHarsukh = () => {
     <div className={styles.whyHarsukhContainer}>
       <div className={styles.contentWrapper}>
         <div className={styles.titleContainer}>
-          <h2 className={styles.titleWhy}>WHY</h2>
-          <h2 className={styles.titleName}>HARSUKH Residencies?</h2>
+          <AnimatedText text="WHY" className={styles.titleWhy} />
+          <AnimatedText text="HARSUKH Residencies?" className={styles.titleName} />
         </div>
         
-        <div className={styles.featuresGrid}>
+        <div ref={gridRef} className={`${styles.featuresGrid} ${gridInView ? styles.gridVisible : ''}`}>
           {features.map((feature) => (
             <div key={feature.id} className={styles.featureItem}>
               <div className={styles.iconContainer}>
