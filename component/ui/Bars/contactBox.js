@@ -55,7 +55,8 @@ const RegisterRequestForm = ({ onClose, onSuccess }) => {
   const formRef = useRef(null);
 
   const [formData, setFormData] = useState({
-    name: '',
+    firstName: '',
+    lastName: '',
     phone: '',
     email: '',
     comment: '',
@@ -68,7 +69,8 @@ const RegisterRequestForm = ({ onClose, onSuccess }) => {
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
 
   const [touchedFields, setTouchedFields] = useState({
-    name: false,
+    firstName: false,
+    lastName: false,
     phone: false,
     email: false,
   });
@@ -97,8 +99,8 @@ const RegisterRequestForm = ({ onClose, onSuccess }) => {
     const newErrors = {};
     let isValid = true;
 
-    if (formData.name.trim() === '') {
-      newErrors.name = 'Name is required';
+    if (formData.firstName.trim() === '') {
+      newErrors.firstName = 'First name is required';
       isValid = false;
     }
 
@@ -154,12 +156,62 @@ const RegisterRequestForm = ({ onClose, onSuccess }) => {
     } else {
       try {
         setIsSubmitting(true);
+        const currentDate = new Date();
+        const fallDate = new Date(currentDate.getTime() + 24 * 60 * 60 * 1000); // Add 24 hours
+        
         const dataForBackend = {
-          ...formData,
-          data: favoriteApartments,
+          firstName: formData.firstName,
+          lastName: formData.lastName || "",
+          personalEmail: formData.email,
+          userName: "admin@almaymaar.com",
+          fingerPrint: "jIzLvlIb41TDVxGP3sXkH7GuzJIpExUJZUzr6cylfPGawwRVn2KGQvHD1GTWU8FXcvxTB3HXVHjZMRHTLHLZNZkVU9Q9pomMEU3n",
+          personalMobile: formData.phone,
+          personalMobileCountryCode: "+92",
+          whatsapp: formData.phone,
+          whatsappCountryCode: "+92",
+          personalPhoneCountryCode: "",
+          personalPhone: "",
+          rmIDs: "",
+          sendWelcomeLetter: false,
+          linkedIn: "",
+          address: "",
+          city: "",
+          isSocialMedia: true,
+          contactTypeIDs: "357",
+          lead: {
+            dealSize: null,
+            platformIDs: "1486",
+            referralContactID: null,
+            siteIDs: "1",
+            fallDate: fallDate.toISOString(),
+            referralCompanyID: null,
+            shareRatio: null,
+            dynamicFields: null
+          },
+          company: {
+            companyName: "Harsukh",
+            position: "",
+            website: "",
+            companyID: null,
+            businessMobile: ""
+          },
+          leadStatus: [
+            {
+              message: formData.comment || "Comments",
+              contactusStatusID: 1289,
+              currentTaskID: null,
+              assignedTo: null,
+              assignedToBy: 1,
+              date: currentDate.toISOString(),
+              attachments: null
+            }
+          ]
         };
+        
+        // Log the payload for debugging
+        console.log('Sending payload:', JSON.stringify(dataForBackend, null, 2));
 
-        const response = await fetch('https://almaymaar.rems.pk/api/harsukh-form', {
+        const response = await fetch('https://core.fortify.biz/api/Contact/SetContact', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -170,7 +222,12 @@ const RegisterRequestForm = ({ onClose, onSuccess }) => {
         });
 
         if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
+          // Get the error response details
+          const errorText = await response.text();
+          console.error('Server error response:', errorText);
+          console.error('Response status:', response.status);
+          console.error('Response headers:', [...response.headers.entries()]);
+          throw new Error(`HTTP error! status: ${response.status}, message: ${errorText}`);
         }
 
         const result = await response.json();
@@ -203,19 +260,36 @@ const RegisterRequestForm = ({ onClose, onSuccess }) => {
 
   const renderInputForm = () => (
     <div className={styles.inputGrids}>
-      <div className={styles.inputBox}>
-        <div className={styles.inputTitle}>Name</div>
-        <div className={styles.inputGroup}>
-          <input
-            type="text"
-            name="name"
-            value={formData.name}
-            onChange={handleChange}
-            onBlur={handleBlur}
-            required
-            autoComplete="new-password"
-          />
-          {touchedFields.name && errors.name && <div className={styles.errorMessage}>{errors.name}</div>}
+      <div style={{ display: 'flex', gap: '1rem' }}>
+        <div className={styles.inputBox} style={{ flex: 1 }}>
+          <div className={styles.inputTitle}>First Name</div>
+          <div className={styles.inputGroup}>
+            <input
+              type="text"
+              name="firstName"
+              value={formData.firstName}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              required
+              autoComplete="new-password"
+            />
+            {touchedFields.firstName && errors.firstName && <div className={styles.errorMessage}>{errors.firstName}</div>}
+          </div>
+        </div>
+
+        <div className={styles.inputBox} style={{ flex: 1 }}>
+          <div className={styles.inputTitle}>Last Name</div>
+          <div className={styles.inputGroup}>
+            <input
+              type="text"
+              name="lastName"
+              value={formData.lastName}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              autoComplete="new-password"
+            />
+            {touchedFields.lastName && errors.lastName && <div className={styles.errorMessage}>{errors.lastName}</div>}
+          </div>
         </div>
       </div>
 
