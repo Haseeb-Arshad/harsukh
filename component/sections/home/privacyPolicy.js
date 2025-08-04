@@ -95,7 +95,6 @@ const PrivacyPolicy = ({ isOpen, onClose }) => {
               className={styles.content}
             >
               <motion.div className={styles.title} variants={itemVariants}>{data.title}</motion.div>
-              <motion.div className={styles.dateTitle} variants={itemVariants}>Effective Date: {data.effectiveDate}</motion.div>
               <motion.p variants={itemVariants}>{data.introduction}</motion.p>
               
               <motion.div className={styles.headings} variants={itemVariants}>Scope</motion.div>
@@ -114,6 +113,12 @@ const PrivacyPolicy = ({ isOpen, onClose }) => {
                 ))}
               </motion.ul>
 
+              <motion.div className={styles.headings} variants={itemVariants}>How We Collect Personal Data</motion.div>
+              <motion.ul>
+                {data.howWeCollectPersonalData.map((item, index) => (
+                  <motion.li key={index} variants={itemVariants}>{item}</motion.li>
+                ))}
+              </motion.ul>
 
             <div className={styles.headings}>Purposes of Personal Data Collection</div>
             <ul>
@@ -141,6 +146,25 @@ const PrivacyPolicy = ({ isOpen, onClose }) => {
                 <li key={index}>{item}</li>
               ))}
             </ul>
+            
+            <div className={styles.headings}>{data.cookiePolicy.title}</div>
+            <p>{data.cookiePolicy.description}</p>
+            <ul>
+              {data.cookiePolicy.types.map((type, index) => (
+                <li key={index}>{type}</li>
+              ))}
+            </ul>
+            <p>{data.cookiePolicy.management}</p>
+            
+            <div className={styles.headings}>{data.childrensPrivacy.title}</div>
+            <p>{data.childrensPrivacy.description}</p>
+            
+            <div className={styles.headings}>{data.thirdPartyLinks.title}</div>
+            <p>{data.thirdPartyLinks.description}</p>
+            
+            <div className={styles.headings}>{data.policyChanges.title}</div>
+            <p>{data.policyChanges.description}</p>
+            
             <motion.div className={styles.headings} variants={itemVariants}>Contact Us</motion.div>
               <motion.p variants={itemVariants}>{data.contactUs}</motion.p>
             </motion.div>

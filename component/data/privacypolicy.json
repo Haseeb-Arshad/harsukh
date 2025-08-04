@@ -1,54 +1,80 @@
 {
-    "title": "Harsukh Residences Privacy Policy",
-    "effectiveDate": "9-11-2024",
-    "introduction": "At Harsukh Residences, a project by Almaymaar, we value your trust and respect your right to privacy. This Privacy Policy is designed to inform you about how we collect, use, and protect your personal data when you interact with our website, visit our premises, or engage with our services.",
-    "scope": [
-      "This Privacy Policy applies to all individuals who visit our website (www.theharsukh.com) or any other website or mobile application owned or operated by Almaymaar.",
-      "Interact with our social media accounts or online advertising campaigns.",
-      "Provide personal data to us through various means, such as email, phone, or in-person interactions.",
-      "Purchase or express interest in purchasing an apartment at Harsukh Residences."
+"title": "Harsukh Residences Privacy Policy",
+  "introduction": "This Privacy Policy outlines the practices of The Harsukh Residencies (\"we,\" \"us,\" or \"our\") concerning the collection, use, and protection of your personal information when you visit our website, theharsukh.com (the \"Site\"), and utilize our services. We are committed to protecting your privacy and ensuring that your personal information is handled in a safe and responsible manner.",
+  "scope": [
+    "This Privacy Policy applies to all individuals who visit our website (theharsukh.com).",
+    "Interact with our social media accounts or online advertising campaigns.",
+    "Fill out a contact or inquiry form.",
+    "Subscribe to our newsletter or mailing lists.",
+    "Create an account on our Site.",
+    "Engage in property searches or save preferences.",
+    "Contact us via email, phone, or in writing.",
+    "Purchase or express interest in purchasing an apartment at Harsukh Residences.",
+    "Interact with our Unity-based experiences on the website (e.g., 3D building explorer via WebGL)."
+  ],
+  "personalDataCollection": {
+    "contactInformation": "Name, email address, phone number, and postal address.",
+    "identificationInformation": "Passport number, driver's license number, or other government-issued ID.",
+    "financialInformation": "Bank account details, payment history, and credit score.",
+    "demographicInformation": "Age, occupation, income level, and marital status.",
+    "preferences": "Apartment type (e.g., Penthouse, Studio, Three-Bed, Two-Bed, One-Bed), floor preference, and other interests.",
+    "browsingHistory": "Information about your interactions with our website, including pages visited, time spent, and search queries."
+  },
+  "howWeCollectPersonalData": [
+    "Website Forms: Online forms, such as contact forms, registration forms, and purchase applications.",
+    "Phone and Email Interactions: Conversations with our sales team, customer support, or other representatives.",
+    "In-Person Interactions: Meetings with our sales team, visits to our premises, or events.",
+    "Social Media: Social media platforms, such as Facebook, Instagram, or LinkedIn.",
+    "Cookies and Tracking Technologies: Cookies, web beacons, and other tracking technologies to monitor website interactions."
+  ],
+  "purposesOfPersonalDataCollection": [
+    "Sales and Marketing: To promote Harsukh Residences, communicate with potential buyers, and facilitate sales transactions.",
+    "Customer Service: To respond to inquiries, resolve issues, and provide support.",
+    "Financial Transactions: To process payments, manage accounts, and conduct financial analysis.",
+    "Compliance: To meet regulatory requirements, such as anti-money laundering and know-your-customer obligations.",
+    "Improving Our Services: To analyze website interactions, identify trends, and optimize our services."
+  ],
+  "sharingPersonalData": [
+    "Service Providers: Third-party vendors, consultants, and other service providers who perform services on our behalf, such as website hosting, data analysis, marketing services, and customer service.",
+    "Legal Reasons: We may disclose your information if we are required to do so by law or in the good faith belief that such action is necessary to comply with a legal obligation, protect and defend our rights or property.",
+    "Almaymaar Group Companies: Other companies within the Almaymaar group, including subsidiaries and affiliates.",
+    "Regulatory Authorities: Government agencies, regulatory bodies, or law enforcement agencies, as required by law.",
+    "Other Parties: In the event of a merger, acquisition, or sale of assets, your personal information may be transferred as part of that transaction."
+  ],
+  "securityMeasures": [
+    "We have implemented robust technical and organizational security measures designed to protect your personal information from unauthorized access, use, alteration, and disclosure. These measures include encryption, access controls, and regular security assessments."
+  ],
+  "retentionPeriod": "We will retain your personal information only for as long as is necessary for the purposes set out in this Privacy Policy. We will retain and use your information to the extent necessary to comply with our legal obligations, resolve disputes, and enforce our agreements.",
+  "yourRights": [
+    "Access: Request access to your personal data.",
+    "Correction: Update or correct your personal data.",
+    "Erasure: Request deletion of your personal data.",
+    "Restriction: Restrict processing of your personal data.",
+    "Opt-Out of Marketing Communications: You can opt-out of receiving promotional emails from us at any time by following the unsubscribe instructions in those emails.",
+    "Cookie Preferences: You can manage your cookie preferences through your browser settings."
+  ],
+  "cookiePolicy": {
+    "title": "Cookie Policy",
+    "description": "Our Site uses cookies to enhance your browsing experience. A cookie is a small text file that a website saves on your computer or mobile device when you visit the site.",
+    "types": [
+      "Strictly Necessary Cookies: These are essential for the operation of our Site.",
+      "Performance and Analytics Cookies: These help us understand how visitors interact with our Site by collecting and reporting information anonymously.",
+      "Functionality Cookies: These are used to recognize you when you return to our Site and to remember your preferences.",
+      "Targeting Cookies: These cookies record your visit to our Site, the pages you have visited, and the links you have followed. We may use this information to make our Site and the advertising displayed on it more relevant to your interests."
     ],
-    "personalDataCollection": {
-      "contactInformation": "Name, email address, phone number, and postal address.",
-      "identificationInformation": "Passport number, driver's license number, or other government-issued ID.",
-      "financialInformation": "Bank account details, payment history, and credit score.",
-      "demographicInformation": "Age, occupation, income level, and marital status.",
-      "preferences": "Apartment type (e.g., Penthouse, Studio, Three-Bed, Two-Bed, One-Bed), floor preference, and other interests.",
-      "browsingHistory": "Information about your interactions with our website, including pages visited, time spent, and search queries."
-    },
-    "howWeCollectPersonalData": [
-      "Website Forms: Online forms, such as contact forms, registration forms, and purchase applications.",
-      "Phone and Email Interactions: Conversations with our sales team, customer support, or other representatives.",
-      "In-Person Interactions: Meetings with our sales team, visits to our premises, or events.",
-      "Social Media: Social media platforms, such as Facebook, Instagram, or LinkedIn.",
-      "Cookies and Tracking Technologies: Cookies, web beacons, and other tracking technologies to monitor website interactions."
-    ],
-    "purposesOfPersonalDataCollection": [
-      "Sales and Marketing: To promote Harsukh Residences, communicate with potential buyers, and facilitate sales transactions.",
-      "Customer Service: To respond to inquiries, resolve issues, and provide support.",
-      "Financial Transactions: To process payments, manage accounts, and conduct financial analysis.",
-      "Compliance: To meet regulatory requirements, such as anti-money laundering and know-your-customer obligations.",
-      "Improving Our Services: To analyze website interactions, identify trends, and optimize our services."
-    ],
-    "sharingPersonalData": [
-      "Almaymaar Group Companies: Other companies within the Almaymaar group, including subsidiaries and affiliates.",
-      "Service Providers: Third-party service providers, such as marketing agencies, IT providers, and financial institutions.",
-      "Regulatory Authorities: Government agencies, regulatory bodies, or law enforcement agencies, as required by law.",
-      "Other Parties: In the event of a merger, acquisition, or sale of assets, we may share personal data with the relevant parties."
-    ],
-    "securityMeasures": [
-      "Encryption: Encrypting sensitive data, such as financial information.",
-      "Access Controls: Restricting access to authorized personnel.",
-      "Firewalls and Intrusion Detection: Implementing firewalls and intrusion detection systems to prevent unauthorized access.",
-      "Data Backups: Regularly backing up data to prevent loss or corruption."
-    ],
-    "retentionPeriod": "We retain personal data for as long as necessary to achieve the purposes outlined in this Privacy Policy, unless a longer retention period is required by law.",
-    "yourRights": [
-      "Access: Request access to your personal data.",
-      "Correction: Update or correct your personal data.",
-      "Erasure: Request deletion of your personal data.",
-      "Restriction: Restrict processing of your personal data.",
-      "Objection: Object to processing of your personal data."
-    ],
-    "contactUs": "If you have any questions, concerns, or requests regarding this Privacy Policy or your personal data, please contact us at info@theharsukh.com"
-  }
+    "management": "You can control and/or delete cookies as you wish. For more details, see aboutcookies.org."
+  },
+  "childrensPrivacy": {
+    "title": "Children's Privacy",
+    "description": "Our Site is not intended for individuals under the age of 18. We do not knowingly collect personally identifiable information from children under 18. If we become aware that we have collected personal information from a child under 18 without verification of parental consent, we will take steps to remove that information from our servers."
+  },
+  "thirdPartyLinks": {
+    "title": "Links to Other Websites",
+    "description": "Our Site may contain links to other websites that are not operated by us. If you click on a third-party link, you will be directed to that third party's site. We strongly advise you to review the Privacy Policy of every site you visit. We have no control over and assume no responsibility for the content, privacy policies, or practices of any third-party sites or services."
+  },
+  "policyChanges": {
+    "title": "Changes to This Privacy Policy",
+    "description": "We may update our Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page and updating the 'Last Updated' date at the top of this Privacy Policy. You are advised to review this Privacy Policy periodically for any changes."
+  },
+  "contactUs": "If you have any questions about this Privacy Policy, please contact us: Email: info@theharsukh.com, Phone: 051-111-520-520, Address: 24-D, 2nd floor, Rashid Plaza, Main Jinnah Avenue, Blue Area, G-6/3, Islamabad."
+ }

@@ -1,4 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { motion } from 'framer-motion';
+import Image from 'next/image';
 import { useInView } from 'react-intersection-observer';
 import styles from '@/styles/home/videoContent.module.css';
 
@@ -16,37 +18,6 @@ const AnimatedText = ({ text, className }) => {
 };
 
 const VideoContent = () => {
-  const [isVideoLoaded, setIsVideoLoaded] = useState(false);
-  const [isAutoplayError, setIsAutoplayError] = useState(false);
-  const videoRef = useRef(null);
-
-  useEffect(() => {
-    const video = videoRef.current;
-
-    if (video) {
-      // When video data is loaded
-      const handleLoadedData = () => setIsVideoLoaded(true);
-      video.addEventListener('loadeddata', handleLoadedData);
-
-      // Try to play video programmatically
-      const playVideo = async () => {
-        try {
-          await video.play();
-          setIsAutoplayError(false);  // Video played successfully
-        } catch (error) {
-          // Autoplay failed - browser blocked the play
-          console.error('Auto-play failed:', error);
-          setIsAutoplayError(true);  // Trigger the error state
-        }
-      };
-
-      // Attempt to auto-play the video
-      playVideo();
-
-      // Clean up the event listener when component unmounts
-      return () => video.removeEventListener('loadeddata', handleLoadedData);
-    }
-  }, []);
 
   return (
     <div className={styles.main}>
@@ -67,27 +38,10 @@ const VideoContent = () => {
         </div>
       </div>
 
-      {/* Show loading placeholder until video is ready */}
-      {!isVideoLoaded && <div className={styles.videoPlaceholder}>Loading video...</div>}
 
-      {/* Hide play button (try to auto-play in the background) */}
-      {isAutoplayError && <div className={styles.playButton}>▶ Play Video</div>}
-
-      <video 
-        ref={videoRef}
-        className={styles.videoBackground}
-        autoPlay
-        loop
-        muted
-        priority={true}
-        playsInline
-        preload="auto"
-      >
-        <source src="/video/harsukh-intro.webm" type="video/webm" />
-
-        {/* <source src="https://cdn.theharsukh.com/media/homePage.webm" type="video/webm" /> */}
-        Your browser does not support the video tag.
-      </video>
+        <motion.div className={styles.imageWrapper} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5, ease: [0.49, 0.23, 0, 1] }}>
+          <Image  unoptimized src="https://cdn.theharsukh.com/images/home/harsukhImage1.webp" layout="fill" objectFit="cover" quality={100} priority alt="Luxury hotel in mountains" />
+        </motion.div>
     </div>
   );
 };

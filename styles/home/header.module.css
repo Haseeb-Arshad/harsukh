@@ -30,14 +30,15 @@
   background-color: #006D77;
 }
 
-.imageWrapper {
+.videoWrapper {
   user-select: none;
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  opacity: 0;
+  object-fit: cover;
+  z-index: 0;
 }
 
 .overlay {
@@ -127,7 +128,7 @@
 /* Responsive styles */
 
 @media (max-width: 768px) {
-  .imageWrapper img {
+  .videoWrapper {
     object-position: 30% center;
   }
   .content {
@@ -185,7 +186,7 @@
     font-size: 0.7rem;
     margin-bottom: 30px;
   }
-  .imageWrapper img {
+  .videoWrapper {
     object-position: 42% center;
   }
 }

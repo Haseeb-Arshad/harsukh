@@ -307,7 +307,8 @@ const RegisterRequestForm = ({ onClose, onSuccess }) => {
               '--PhoneInputCountrySelectArrow-opacity': '0.8',
               '--PhoneInputCountryFlag-aspectRatio': '1.5',
               '--PhoneInputCountryFlag-height': '1em',
-              '--PhoneInput-color--focus': '#3B82F6'
+              '--PhoneInput-color--focus': '#3B82F6',
+              "padding-left": "1rem"
             }}
           />
           {touchedFields.phone && errors.phone && <div className={styles.errorMessage}>{errors.phone}</div>}

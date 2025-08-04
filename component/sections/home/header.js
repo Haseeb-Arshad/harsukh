@@ -1,4 +1,4 @@
-import React, {useState, useCallback} from 'react';
+import React, {useState, useCallback, useRef, useEffect} from 'react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import styles from '@/styles/home/header.module.css';
@@ -7,7 +7,9 @@ import { useInView } from 'react-intersection-observer';
 import RegisterRequestForm from '@/component/ui/Bars/contactBox';
 
 const Header = ({ toggleContactForm }) => {
-
+  const [isVideoLoaded, setIsVideoLoaded] = useState(false);
+  const [isAutoplayError, setIsAutoplayError] = useState(false);
+  const videoRef = useRef(null);
   const [isCallHovered, setIsCallHovered] = useState(false);
   const [isWAHovered, setIsWAHovered] = useState(false);
   const [isContacted, setIsContacted] = useState(false);
@@ -69,12 +71,41 @@ const Header = ({ toggleContactForm }) => {
     setIsContacted(false);
   };
 
+  useEffect(() => {
+    const video = videoRef.current;
+
+    if (video) {
+      // When video data is loaded
+      const handleLoadedData = () => setIsVideoLoaded(true);
+      video.addEventListener('loadeddata', handleLoadedData);
+
+      // Try to play video programmatically
+      const playVideo = async () => {
+        try {
+          await video.play();
+          setIsAutoplayError(false);  // Video played successfully
+        } catch (error) {
+          // Autoplay failed - browser blocked the play
+          console.error('Auto-play failed:', error);
+          setIsAutoplayError(true);  // Trigger the error state
+        }
+      };
+
+      // Attempt to auto-play the video
+      playVideo();
+
+      // Clean up the event listener when component unmounts
+      return () => video.removeEventListener('loadeddata', handleLoadedData);
+    }
+  }, []);
+
   return (
     <>
     <motion.div id="header" className={styles.container} variants={containerVariants} initial="hidden" animate={inView ? "visible" : "hidden"}>
-      <motion.div className={styles.imageWrapper} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5, ease: [0.49, 0.23, 0, 1] }}>
-        <Image  unoptimized src="https://cdn.theharsukh.com/images/home/harsukhImage1.webp" layout="fill" objectFit="cover" quality={100} priority alt="Luxury hotel in mountains" />
-      </motion.div>
+    <video ref={videoRef} className={styles.videoWrapper} autoPlay loop muted playsInline preload="auto">
+      <source src="/video/harsukh-intro.webm" type="video/webm" />
+      Your browser does not support the video tag.
+    </video>
       <div className={styles.overlay}></div>
       <motion.div className={styles.content}>
 
