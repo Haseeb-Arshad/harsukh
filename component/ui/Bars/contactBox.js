@@ -5,6 +5,9 @@ import { useSelector, useDispatch } from 'react-redux';
 import { removeFavoriteApartment } from '@/state/apartment/favApartment';
 import CloseIcon from '../../Icons/closeBtn';
 import Swup from 'swup';
+import PhoneInput from 'react-phone-number-input';
+import 'react-phone-number-input/style.css';
+import '@/styles/phoneInput.css';
 
 const ApartmentCard = ({ apartment }) => {
   const dispatch = useDispatch();
@@ -104,11 +107,8 @@ const RegisterRequestForm = ({ onClose, onSuccess }) => {
       isValid = false;
     }
 
-
-    const phoneRegex = /^[+]?[0-9\s()-]*$/; // Allows more formats, including local styles
-    
-    if (!phoneRegex.test(formData.phone) || formData.phone.length < 4) {
-      newErrors.phone = 'Invalid phone number. It must be at least 4 characters long.';
+    if (!formData.phone || formData.phone.length < 10) {
+      newErrors.phone = 'Please enter a valid phone number';
       isValid = false;
     }
     
@@ -125,14 +125,14 @@ const RegisterRequestForm = ({ onClose, onSuccess }) => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    if (name === 'phone') {
-      // Only allow numbers and '+' for phone field
-      const sanitizedValue = value.replace(/[^\d+]/g, '');
-      setFormData({ ...formData, [name]: sanitizedValue });
-    } else {
-      setFormData({ ...formData, [name]: value });
-    }
+    setFormData({ ...formData, [name]: value });
     setTouchedFields({ ...touchedFields, [name]: true });
+    validateForm();
+  };
+
+  const handlePhoneChange = (value) => {
+    setFormData({ ...formData, phone: value || '' });
+    setTouchedFields({ ...touchedFields, phone: true });
     validateForm();
   };
 
@@ -165,10 +165,10 @@ const RegisterRequestForm = ({ onClose, onSuccess }) => {
           personalEmail: formData.email,
           userName: "admin@almaymaar.com",
           fingerPrint: "jIzLvlIb41TDVxGP3sXkH7GuzJIpExUJZUzr6cylfPGawwRVn2KGQvHD1GTWU8FXcvxTB3HXVHjZMRHTLHLZNZkVU9Q9pomMEU3n",
-          personalMobile: formData.phone,
-          personalMobileCountryCode: "+92",
-          whatsapp: formData.phone,
-          whatsappCountryCode: "+92",
+          personalMobile: formData.phone ? formData.phone.replace(/[^\d]/g, '').slice(-10) : '', // Get last 10 digits (local number)
+          personalMobileCountryCode: formData.phone && formData.phone.startsWith('+') ? '+' + formData.phone.replace(/[^\d]/g, '').slice(0, -10) : '+92', // Extract country code
+          whatsapp: formData.phone ? formData.phone.replace(/[^\d]/g, '').slice(-10) : '', // Get last 10 digits (local number)
+          whatsappCountryCode: formData.phone && formData.phone.startsWith('+') ? '+' + formData.phone.replace(/[^\d]/g, '').slice(0, -10) : '+92', // Extract country code
           personalPhoneCountryCode: "",
           personalPhone: "",
           rmIDs: "",
@@ -296,14 +296,19 @@ const RegisterRequestForm = ({ onClose, onSuccess }) => {
       <div className={styles.inputBox}>
         <div className={styles.inputTitle}>Phone Number</div>
         <div className={styles.inputGroup}>
-          <input
-            type="tel"
-            name="phone"
+          <PhoneInput
+            placeholder="Enter phone number"
             value={formData.phone}
-            onChange={handleChange}
-            onBlur={handleBlur}
-            required
-            autoComplete="new-password"
+            onChange={handlePhoneChange}
+            defaultCountry="PK"
+            international
+            countryCallingCodeEditable={false}
+            style={{
+              '--PhoneInputCountrySelectArrow-opacity': '0.8',
+              '--PhoneInputCountryFlag-aspectRatio': '1.5',
+              '--PhoneInputCountryFlag-height': '1em',
+              '--PhoneInput-color--focus': '#3B82F6'
+            }}
           />
           {touchedFields.phone && errors.phone && <div className={styles.errorMessage}>{errors.phone}</div>}
         </div>
