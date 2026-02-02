@@ -110,7 +110,7 @@ export const localBlogs = [
     title: 'The Magic of Thermal Pools in the Mountains',
     slug: 'magic-of-thermal-pools-in-mountains-ayubia',
     url: '/magic-of-thermal-pools-in-mountains-ayubia',
-    file: 'https://cdn.theharsukh.com/images/background/thermal-pool-view.webp',
+    file: 'https://cdn.theharsukh.com/images/background/front-view-winter.webp',
     type: 'blog',
     status: 1,
     description: `
