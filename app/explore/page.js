@@ -6,11 +6,11 @@ import ExplorePage from '@/component/modules/explore/explorePage'
 
 
 export const metadata = {
-  title: 'Explore Harsukh Residences Galyat',
-  description: 'Explore Harsukh Residences floor by floor with our interactive 3D building explorer. View apartment layouts, floor plans, and panoramic views from each level of our luxury residential complex in Galyat.',
+  title: 'Explore Ayubia & Galiyat | Top Tourist Spots Near Harsukh',
+  description: 'Discover top attractions near Harsukh. Visit Ayubia Chairlift, Pipeline Track, and Nathia Gali just minutes from your apartment.',
   openGraph: {
-    title: 'Explore Harsukh Residences Galyat',
-    description: 'Take an interactive tour of Harsukh Residences. Explore floor plans, views, and apartment layouts in our luxury mountain retreat.',
+    title: 'Explore Ayubia & Galiyat | Top Tourist Spots Near Harsukh',
+    description: 'Discover top attractions near Harsukh. Visit Ayubia Chairlift, Pipeline Track, and Nathia Gali just minutes from your apartment.',
     url: 'https://theharsukh.com/explore',
     images: [
       {
@@ -24,7 +24,7 @@ export const metadata = {
         width: 1200,
         height: 630,
         alt: 'Harsukh Residences Back View'
-      },{
+      }, {
         url: 'https://cdn.theharsukh.com/images/background/front-view-summer.webp',
         width: 1200,
         height: 630,
@@ -40,9 +40,9 @@ export const metadata = {
 
 const page = () => {
   return (
-   <>
-    <ExplorePage />
-   </>
+    <>
+      <ExplorePage />
+    </>
   )
 }
 

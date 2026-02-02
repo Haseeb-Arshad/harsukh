@@ -4,6 +4,7 @@
   font-weight: normal;
   font-display: swap;
 }
+
 @font-face {
   font-family: "Gill Sans Medium";
   src: url("/fonts/GillSansMTPro-Medium.otf");
@@ -18,8 +19,7 @@
 
 svg */
 
-.loadingWrapper
-{
+.loadingWrapper {
   position: absolute;
   z-index: 10000000;
   height: 100vh;
@@ -48,7 +48,7 @@ svg */
   width: 100vw;
   height: 100vh;
   overflow: hidden;
-  user-select: none; 
+  user-select: none;
   pointer-events: auto;
 }
 
@@ -76,6 +76,7 @@ svg */
   from {
     opacity: 0;
   }
+
   to {
     opacity: 1;
   }
@@ -85,6 +86,7 @@ svg */
   from {
     opacity: 1;
   }
+
   to {
     opacity: 0;
   }
@@ -199,8 +201,7 @@ svg */
   grid-template-columns: 0.8fr 0.4fr 0.4fr 0.4fr;
 }
 
-.amenityContainer
-{
+.amenityContainer {
   z-index: 0;
   user-select: none;
   top: 119px;
@@ -211,8 +212,7 @@ svg */
   border-radius: 50%;
 }
 
-.snowContainer
-{
+.snowContainer {
   z-index: 0;
   user-select: none;
   top: 119px;
@@ -234,20 +234,18 @@ svg */
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(
-    197,
-    166,
-    151,
-    0.7
-  ); /* Matches the layout background color with some transparency */
+  background-color: rgba(197,
+      166,
+      151,
+      0.7);
+  /* Matches the layout background color with some transparency */
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 1000;
 }
 
-.aboutHarsukhContainer
-{
+.aboutHarsukhContainer {
   top: 120px;
   right: 48px;
   position: fixed;
@@ -264,8 +262,7 @@ svg */
   cursor: pointer;
 }
 
-.aboutHarsukhContainerLeft
-{
+.aboutHarsukhContainerLeft {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -277,8 +274,7 @@ svg */
   transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
-.aboutHarsukhContainerRight
-{
+.aboutHarsukhContainerRight {
   display: flex;
   align-items: center;
   justify-content: left;
@@ -303,7 +299,8 @@ svg */
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: #f0f0f0; /* Light grey placeholder */
+  background-color: #f0f0f0;
+  /* Light grey placeholder */
   /* Alternatively, use a low-res background image */
   /* background-image: url('/path-to-low-res-image.jpg'); */
   background-size: cover;
@@ -378,6 +375,7 @@ svg */
   grid-template-columns: 0.7fr 1fr;
   transition: opacity 0.3s ease, transform 0.3s ease;
 }
+
 .buttonFilters.hide {
   opacity: 0;
   transform: translateX(-20px);
@@ -437,6 +435,7 @@ svg */
   transform: translateX(-20px);
   pointer-events: none;
 }
+
 /* 
 .elevationBox
 {
@@ -625,6 +624,7 @@ svg */
   border-radius: 0.4rem;
   /* font-weight: 600; */
 }
+
 .menuButton {
   background-color: #fcf7eb;
   color: #006d77;
@@ -638,7 +638,7 @@ svg */
   align-items: center;
   text-align: center;
   align-self: center;
-    user-select: none;
+  user-select: none;
   user-select: none;
   cursor: pointer;
   outline: 'none';
@@ -654,7 +654,7 @@ svg */
 }
 
 .menuButton:focus {
-background-color: none;
+  background-color: none;
 }
 
 .menuButton.active {
@@ -835,12 +835,11 @@ background-color: none;
   left: 0;
   width: 100%;
   min-height: 100vh;
-  background: rgba(
-    0,
-    0,
-    0,
-    0.5
-  ); /* Optional: for a semi-transparent background */
+  background: rgba(0,
+      0,
+      0,
+      0.5);
+  /* Optional: for a semi-transparent background */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -1075,6 +1074,7 @@ background-color: none;
   height: 100%;
   padding: 0.5rem;
 }
+
 .filterFloorBoxInside {
   display: grid;
   grid-template-rows: repeat(6, 1fr);
@@ -1127,12 +1127,14 @@ background-color: none;
 
 .tooltip {
   position: absolute;
-  transition: left 0.2s ease-out, top 0.2s ease-out, opacity 0.5s ease-out; /* Smooth transition for position and opacity changes */
-  pointer-events: none; /* Ensure tooltip doesn't interfere with mouse events */
+  transition: left 0.2s ease-out, top 0.2s ease-out, opacity 0.5s ease-out;
+  /* Smooth transition for position and opacity changes */
+  pointer-events: none;
+  /* Ensure tooltip doesn't interfere with mouse events */
   opacity: 1;
 }
 
-.tooltip.fadeOut  {
+.tooltip.fadeOut {
   opacity: 0;
 }
 
@@ -1144,7 +1146,8 @@ background-color: none;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   padding: 7px;
   position: relative;
-  max-width: 200px; /* Adjust as necessary */
+  max-width: 200px;
+  /* Adjust as necessary */
 }
 
 
@@ -1155,7 +1158,8 @@ background-color: none;
   content: "";
   position: absolute;
   top: 50%;
-  right: -10px; /* Adjust this value based on the desired triangle position */
+  right: -10px;
+  /* Adjust this value based on the desired triangle position */
   transform: translateY(-50%);
   border-width: 6px;
   border-style: solid;
@@ -1163,15 +1167,17 @@ background-color: none;
 }
 
 .tooltipLetter {
-  color: #006d77;
-  width: 30px;
-  height: 30px;
+  background-color: #006d77;
+  color: #fcf7eb;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
   font-weight: bold;
-  margin-right: 5px;
+  margin-right: 8px;
+  overflow: hidden;
 }
 
 .tooltipInfo {
@@ -1209,8 +1215,10 @@ background-color: none;
 
 .mapsViewContainer:hover {
   cursor: pointer;
-  transform: translateY(-22px) scale(1.05); /* Slightly larger hover effect */
-  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15); /* Enhanced shadow on hover */
+  transform: translateY(-22px) scale(1.05);
+  /* Slightly larger hover effect */
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+  /* Enhanced shadow on hover */
 }
 
 .container {
@@ -1243,8 +1251,7 @@ background-color: none;
   transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
-.mapButton 
-{
+.mapButton {
   bottom: 158px;
   padding-left: 12px;
   right: 48px;
@@ -1302,15 +1309,14 @@ background-color: none;
   .filterElevationContainer {
     width: 180px;
   }
-  .backViewButton
-  {
+
+  .backViewButton {
     right: 25vw;
   }
 }
 
 @media (max-width: 900px) {
-  .backViewButton
-  {
+  .backViewButton {
     right: 40vw;
   }
 }
@@ -1346,8 +1352,8 @@ background-color: none;
     right: 28px;
     background: linear-gradient(135deg, #fcf7eb, #f0f0f0);
     border: 1px solid #dcdcdc;
-  
-  }  
+
+  }
 
   .mapButton {
     bottom: 158px;
@@ -1356,8 +1362,7 @@ background-color: none;
     border: 1px solid #dcdcdc;
   }
 
-  .snowContainer
-  {
+  .snowContainer {
     z-index: 0;
     user-select: none;
     top: 119px;
@@ -1387,7 +1392,7 @@ background-color: none;
     display: flex;
     flex-direction: column;
   }
-  
+
   .bottomLogoContainerTitle {
     position: absolute;
     font-family: "Gill Sans Medium";
@@ -1419,7 +1424,7 @@ background-color: none;
     align-items: center;
     flex-direction: row-reverse;
   }
-  
+
 
   .backViewButton {
     user-select: none;
@@ -1456,8 +1461,7 @@ background-color: none;
     -webkit-overflow-scrolling: touch;
   }
 
-  .backgroundImageContainer::selection
-  {
+  .backgroundImageContainer::selection {
     background-color: none;
   }
 

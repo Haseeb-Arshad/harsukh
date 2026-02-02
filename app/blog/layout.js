@@ -84,21 +84,21 @@ const Layout = ({ children }) => {
           quality={100}
         />
       </div>
-        <Navbar
-          successContactForm={isSuccess}
-          handleSuccess={handleSuccess}
-          toggleContactForm={openForm}
-        />
+      <Navbar
+        successContactForm={isSuccess}
+        handleSuccess={handleSuccess}
+        toggleContactForm={openForm}
+      />
 
-      <main style={{paddng: '5rem', minHeight: '100vh'}}>{children}</main>
+      <main style={{ paddng: '5rem', minHeight: '100vh' }}>{children}</main>
 
       {(isFormOpen || isSuccess) && (
-        <div 
+        <div
           data-gtm-click="submit-button"
           id="submit-button-id"
           className={`submit-button-id ${styles.contactFormOverlay}`}
         >
-          <RegisterRequestForm  onSuccess= {handleSuccess} onClose={closeForm} />
+          <RegisterRequestForm onSuccess={handleSuccess} onClose={closeForm} />
         </div>
       )}
 

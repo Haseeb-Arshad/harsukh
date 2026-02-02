@@ -36,8 +36,7 @@
   transition: transform 0.35s cubic-bezier(0.49, 0.23, 0, 1);
 }
 
-.logo
-{
+.logo {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -63,14 +62,14 @@
   margin-top: 0.2rem;
 } */
 
-.menu {     
-  padding: 0.7rem 4rem;     
-  display: flex;     
-  list-style-type: none;     
-  background-color: rgb(252, 247, 235, 0.2);     
-  backdrop-filter: blur(5.27488px);     
-  border-radius: 3rem;     
-  gap: 1.5rem;   
+.menu {
+  padding: 0.7rem 4rem;
+  display: flex;
+  list-style-type: none;
+  background-color: rgb(252, 247, 235, 0.2);
+  backdrop-filter: blur(5.27488px);
+  border-radius: 3rem;
+  gap: 1.5rem;
 }
 
 .menuitems {
@@ -156,11 +155,11 @@
 
 
 .buttonss {
-  
+
   bottom: 0rem;
-  right:0rem;
+  right: 0rem;
   color: #006d77;
-  position: absolute;
+  position: fixed;
   z-index: 99999999999999999;
   height: 40px;
   width: 40px;
@@ -189,7 +188,7 @@
 }
 
 
-.callButton {  
+.callButton {
   bottom: 125px;
   right: 40px;
   background-color: #fcf7eb;
@@ -241,7 +240,7 @@
 } */
 
 .ctaBtn {
-  position: absolute;
+  position: fixed;
   z-index: 99999999999999999;
   border: none;
   border-radius: 22px;
@@ -274,7 +273,8 @@
   left: 0;
   transform: translateY(100%);
   transition: transform 0.2s ease-in-out;
-  color: #000; /* Adjust color if needed */
+  color: #000;
+  /* Adjust color if needed */
 }
 
 /* Hover effect */
@@ -308,7 +308,7 @@
     color: #006D77 !important;
     position: relative;
   }
-  
+
   /* Underline the active menu item */
   .activeMenuItem::after {
     content: '';
@@ -340,7 +340,7 @@
   }
 
   .desktopExploreBtn {
- 
+
     display: none;
   }
 
@@ -349,8 +349,7 @@
     margin-top: 10px;
   }
 
-  .explorebtnOutside
-  {
+  .explorebtnOutside {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -362,8 +361,8 @@
     /* width: 80%; */
   }
 
-  .menu{
-    border-radius: 1rem;     
+  .menu {
+    border-radius: 1rem;
 
   }
 
@@ -375,11 +374,11 @@
     right: 24px;
     background: linear-gradient(135deg, #fcf7eb, #f0f0f0);
     border: 1px solid #dcdcdc;
-  
+
   }
-  
-  
-  .callButton {  
+
+
+  .callButton {
     bottom: 125px;
     right: 24px;
     background-color: #fcf7eb;
@@ -415,15 +414,14 @@
     right: 24px;
     background: linear-gradient(135deg, #fcf7eb, #f0f0f0);
     border: 1px solid #dcdcdc;
-  
+
   }
-  
-  
-  .callButton {  
+
+
+  .callButton {
     bottom: 135px;
     right: 24px;
     background-color: #fcf7eb;
   }
 
 }
-

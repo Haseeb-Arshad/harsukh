@@ -33,7 +33,7 @@ const Navbar = ({ children, currentSection, toggleContactForm, useGreenLogo, onN
   });
 
   const [language, setLanguage] = useState(languageState === "ur");
- 
+
   const [translations, setTranslations] = useState(
     languageState === "ur" ? ur : en
   );
@@ -51,7 +51,7 @@ const Navbar = ({ children, currentSection, toggleContactForm, useGreenLogo, onN
   }, [currentSection]);
 
   useEffect(() => {
-    
+
     const handleClickOutside = (event) => {
       if (
         mobileMenuRef.current &&
@@ -73,7 +73,7 @@ const Navbar = ({ children, currentSection, toggleContactForm, useGreenLogo, onN
   const handleMenuItemClick = (menuItem) => {
     setActiveMenuItem(menuItem);
     setIsMobileMenuOpen(false);
-  
+
     if (menuItem === 'Blogs') {
       router.push('/blog');
     } else {
@@ -92,7 +92,7 @@ const Navbar = ({ children, currentSection, toggleContactForm, useGreenLogo, onN
     }
   };
 
- 
+
   const updateURL = (params) => {
     const url = new URL(window.location.href);
     url.search = '';
@@ -110,7 +110,7 @@ const Navbar = ({ children, currentSection, toggleContactForm, useGreenLogo, onN
   };
 
   const handleCallClick = useCallback(() => {
-    updateURL({ callus: 'true' });
+    updateURL({ 'call-us': 'true' });
     window.location.href = 'tel:051-111-520-520';
     setTimeout(() => {
       restoreOriginalPath();
@@ -154,24 +154,24 @@ const Navbar = ({ children, currentSection, toggleContactForm, useGreenLogo, onN
     <>
       <div>
         <div className={`${styles.nav} ${visible ? styles.visible : styles.hidden}`}>
-        
-        <div className={styles.logo}>
-          <img 
-            style={{cursor:"pointer"}} 
-            src={!useGreenLogo ? harsukhGreenLogo : harsukhWhiteLogo} 
-            alt="Harsukh Logo" 
-            width={ 330} 
-            height={ 115} 
-          />
 
-        </div>
-       
-                   
+          <div className={styles.logo}>
+            <img
+              style={{ cursor: "pointer" }}
+              src={!useGreenLogo ? harsukhGreenLogo : harsukhWhiteLogo}
+              alt="Harsukh Logo"
+              width={330}
+              height={115}
+            />
+
+          </div>
+
+
           <div ref={menuIconRef} className={styles.mobileMenuIcon} onClick={toggleMobileMenu}>
             <Menu color={useGreenLogo ? '#006D77' : '#FCF7EB'} size={24} />
           </div>
           <ul ref={mobileMenuRef} className={`${styles.menu} ${isMobileMenuOpen ? styles.mobileMenuOpen : ''}`}>
-{['Home', 'About', 'Developer', 'Blogs'].map((item) => (
+            {['Home', 'About', 'Developer', 'Blogs'].map((item) => (
               <li
                 key={item}
                 className={`${styles.menuitems} ${activeMenuItem === item ? styles.activeMenuItem : ''}`}
@@ -184,20 +184,20 @@ const Navbar = ({ children, currentSection, toggleContactForm, useGreenLogo, onN
             ))}
             <li className={styles.mobileExploreBtn}>
               <Link href="/explore">
-              <div className={styles.explorebtnOutside}>
+                <div className={styles.explorebtnOutside}>
 
-                <button className={styles.exploreBtn}>
-                  Explore Building
-                </button>
-              </div>
+                  <button className={styles.exploreBtn}>
+                    Explore Building
+                  </button>
+                </div>
               </Link>
             </li>
           </ul>
-          
+
           <Link href="/explore" className={styles.desktopExploreBtn}>
-              <button className={styles.exploreBtn}>
-                Explore Building
-              </button>
+            <button className={styles.exploreBtn}>
+              Explore Building
+            </button>
           </Link>
         </div>
 
@@ -233,18 +233,18 @@ const Navbar = ({ children, currentSection, toggleContactForm, useGreenLogo, onN
             width={19}
           />
           <div className={styles.buttonText}>WhatsApp us</div>
-       
-        
+
+
         </div>
-          
+
         <div
           className={`${styles.ctaBtn}`}
           onClick={toggleContactForm}
-          // data-title="Get in Touch"
+        // data-title="Get in Touch"
         >
           <span>Get in Touch</span>
         </div>
-        
+
         <div className={styles.main}>
           {children}
         </div>

@@ -1,4 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { localBlogs } from '@/component/data/blog/localBlogs';
 
 // Async thunk to fetch blog posts
 export const fetchBlogs = createAsyncThunk('blogs/fetchBlogs', async () => {
@@ -78,9 +79,10 @@ const blogSlice = createSlice({
       })
       .addCase(fetchBlogs.fulfilled, (state, action) => {
         // Filter blog type posts, sort by ID in descending order, then reverse the array
-        state.blogPosts = action.payload
+        const apiBlogs = action.payload
           .filter((blog) => blog.type === 'blog')
           .sort((a, b) => b.id - a.id);
+        state.blogPosts = [...localBlogs, ...apiBlogs];
         state.loading = false;
       })
       .addCase(fetchBlogs.rejected, (state, action) => {

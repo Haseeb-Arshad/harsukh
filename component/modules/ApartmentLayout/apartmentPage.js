@@ -10,7 +10,6 @@ import styles from "@/styles/ImageBackground.module.css";
 import styles2 from "@/styles/apartment/apartmentLayout.module.css";
 import Loading from '@/component/ui/Loading/Loading';
 import { Suspense } from "react";
-import Apartment from '@/component/modules/ApartmentLayout/apartment';
 import ElevStyles from "@/styles/elevation.module.css";
 import { useSelector, useDispatch } from 'react-redux';
 import { modifyLanguage } from '@/state/language/languageState';
@@ -28,8 +27,8 @@ const ApartmentPage = () => {
   const router = useRouter();
   const dispatch = useDispatch();
 
-  const params = useParams();  
-  
+  const params = useParams();
+
   const pathname = usePathname();
   const floor_text = pathname.split('/')[1];
   const floor = floor_text.toLowerCase();
@@ -61,10 +60,10 @@ const ApartmentPage = () => {
         setApartmentType(apartment.Type)
       }
     }
-  
+
   }, [params.apartment]);
 
-  
+
   const floorData = {
     'Penthouse': { imageLink: "/api/proxy/Penthouse", imageName: "penthouse" },
     'One Bed': { imageLink: "/api/proxy/OneBed", imageName: "oneBed" },
@@ -75,18 +74,18 @@ const ApartmentPage = () => {
     basement1: { imageLink: "https://res.cloudinary.com/dykglphpa/image/upload/v1726498333/harsukh/apartment/snefqxcxhxfua9xwyyl7.webp", imageName: "penthouse" },
     // basement5: { imageLink: "/Webpage/apartments/penthouse.webp", imageName: "penthouse" },
     // basement: { imageLink: "/Webpage/apartments/penthouse.webp", imageName: "penthouse" },
-  
+
   };
 
   const handleMenu = () => {
     setMenuBox(!menuBox);
   }
-  
+
   const handleOverlay = () => {
     setOverlay(!overlay);
 
   }
-  
+
   const toggleFullScreen = () => {
     if (!document.fullscreenElement) {
       setFullScreen(!fullScreen);
@@ -94,12 +93,12 @@ const ApartmentPage = () => {
     } else {
       if (document.exitFullscreen) {
         document.exitFullscreen();
-              setFullScreen(!fullScreen);
+        setFullScreen(!fullScreen);
       }
     }
   }
-  
-  const currentFloor = floorData[apartmentType] || floorData.basement1; 
+
+  const currentFloor = floorData[apartmentType] || floorData.basement1;
   const handleResetZoom = () => {
     if (viewer) {
       viewer.viewport.goHome();
@@ -108,18 +107,18 @@ const ApartmentPage = () => {
 
   return (
     <>
-     <Suspense fallback={
+      <Suspense fallback={
         <div className={styles.loadingOverlay}>
           <Loading />
         </div>
       }>
 
-      <div style={{ height: '100vh' }}>
-        <ApartmentComponent imageLink={currentFloor.imageLink} imageName={currentFloor.imageName} />
-      </div>
+        <div style={{ height: '100vh' }}>
+          <ApartmentComponent imageLink={currentFloor.imageLink} imageName={currentFloor.imageName} />
+        </div>
 
       </Suspense>
-     
+
     </>
   );
 };

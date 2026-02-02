@@ -256,7 +256,7 @@ export default async function sitemap() {
       priority: 0.7,
     },
     {
-      url: 'https://theharsukh.com/callus',
+      url: 'https://theharsukh.com/call-us',
       lastModified: today,
       changeFrequency: 'yearly',
       priority: 0.5,
@@ -278,6 +278,30 @@ export default async function sitemap() {
       lastModified: today,
       changeFrequency: 'monthly',
       priority: 0.6,
+    },
+    {
+      url: 'https://theharsukh.com/ameneties',
+      lastModified: today,
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    },
+    {
+      url: 'https://theharsukh.com/blog/harsukh-residencies-luxury-living-ayubia-2026-guide',
+      lastModified: today,
+      changeFrequency: 'weekly',
+      priority: 0.7,
+    },
+    {
+      url: 'https://theharsukh.com/blog/why-ayubia-is-the-best-place-for-vacation-homes-2026',
+      lastModified: today,
+      changeFrequency: 'weekly',
+      priority: 0.7,
+    },
+    {
+      url: 'https://theharsukh.com/blog/magic-of-thermal-pools-in-mountains-ayubia',
+      lastModified: today,
+      changeFrequency: 'weekly',
+      priority: 0.7,
     },
   ];
 
@@ -328,5 +352,5 @@ export default async function sitemap() {
   }
 
   // Combine static and dynamic routes
-  return [...staticRoutes, ...dynamicRoutes, ... blogRoutes];
+  return [...staticRoutes, ...dynamicRoutes, ...blogRoutes];
 }

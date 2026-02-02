@@ -1,18 +1,22 @@
-'use client'
-
 import React from 'react';
-import BlogPage from '@/component/modules/blog/blogMain';
-import blogData from '@/component/data/blog/blogData.json';
-import styles from '@/styles/blog/blogMain.module.css'
+import BlogPageClient from '@/component/modules/blog/BlogPageClient';
+
+export const metadata = {
+  title: 'Real Estate Insights & Investment Tips | The Harsukh Blog',
+  description: 'Read expert guides on Galiyat real estate. Get investment tips, construction updates, and tourism news for Ayubia and Nathia Gali.',
+  alternates: {
+    canonical: 'https://theharsukh.com/blog',
+  },
+  openGraph: {
+    title: 'Real Estate Insights & Investment Tips | The Harsukh Blog',
+    description: 'Read expert guides on Galiyat real estate. Get investment tips, construction updates, and tourism news for Ayubia and Nathia Gali.',
+    url: 'https://theharsukh.com/blog',
+    type: 'website',
+  },
+};
 
 const Page = () => {
-  return (
-    <>
-    <div id="swup" className={styles.main}>
-      <BlogPage posts={blogData.posts} />
-    </div>
-    </>
-  );
+  return <BlogPageClient />;
 };
 
 export default Page;

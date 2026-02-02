@@ -1,10 +1,32 @@
 import { notFound } from 'next/navigation';
 import { JSDOM } from 'jsdom'; // To parse the HTML content
+import { localBlogs } from '@/component/data/blog/localBlogs';
 
 export const revalidate = 0;
 
 export async function generateMetadata({ params }) {
   const { blogData: slug } = params;
+
+  // Check local blogs first
+  const localBlog = localBlogs.find(b => b.slug === slug);
+  if (localBlog) {
+    const metaDescription = localBlog.meta?.description || localBlog.title;
+    return {
+      title: localBlog.title,
+      description: metaDescription,
+      openGraph: {
+        title: localBlog.title,
+        description: metaDescription,
+        type: 'article',
+        url: `https://theharsukh.com/blog/${slug}`,
+        images: [{
+          url: localBlog.file,
+          alt: localBlog.title,
+        }],
+      },
+    };
+  }
+
   try {
     const detailResponse = await fetch(`https://almaymaar.rems.pk/api/blog/${slug}`, {
       method: 'GET',

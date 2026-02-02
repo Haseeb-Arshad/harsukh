@@ -1,0 +1,279 @@
+.pageWrapper {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #fcf7eb;
+}
+
+.heroSection {
+  height: 60vh;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background-color: #013a40;
+}
+
+.heroImage {
+  object-fit: cover;
+  opacity: 0.6;
+}
+
+.heroContent {
+  position: relative;
+  z-index: 10;
+  text-align: center;
+  color: #fcf7eb;
+  padding: 0 20px;
+}
+
+.title {
+  font-family: 'Optima Bold', serif;
+  font-size: 4rem;
+  margin-bottom: 1rem;
+  letter-spacing: 0.2rem;
+  text-transform: uppercase;
+  opacity: 0;
+  transform: translateY(30px);
+  animation: fadeUp 1s forwards cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.subtitle {
+  font-family: 'Gill Sans Light', sans-serif;
+  font-size: 1.5rem;
+  max-width: 800px;
+  margin: 0 auto;
+  letter-spacing: 0.05rem;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeUp 1s 0.3s forwards cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.contentContainer {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 80px 40px;
+  width: 100%;
+}
+
+.categorySection {
+  margin-bottom: 100px;
+}
+
+.categoryHeader {
+  margin-bottom: 40px;
+  border-left: 4px solid #006d77;
+  padding-left: 20px;
+}
+
+.categoryTitle {
+  font-family: 'Optima Bold', serif;
+  font-size: 2.5rem;
+  color: #006d77;
+  margin-bottom: 10px;
+}
+
+.categoryDesc {
+  font-family: 'Gill Sans Medium', sans-serif;
+  font-size: 1.1rem;
+  color: #013a40;
+  opacity: 0.8;
+  max-width: 600px;
+}
+
+.amenityGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 30px;
+}
+
+.amenityCard {
+  background-color: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  flex-direction: column;
+}
+
+.amenityCard:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+}
+
+.cardImageWrapper {
+  position: relative;
+  width: 100%;
+  height: 250px;
+  overflow: hidden;
+}
+
+.cardImage {
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.amenityCard:hover .cardImage {
+  transform: scale(1.1);
+}
+
+.cardContent {
+  padding: 25px;
+}
+
+.itemName {
+  font-family: 'Optima Bold', serif;
+  font-size: 1.4rem;
+  color: #006d77;
+  margin-bottom: 10px;
+}
+
+.itemDesc {
+  font-family: 'Gill Sans Light', sans-serif;
+  font-size: 1rem;
+  color: #333;
+  line-height: 1.5;
+}
+
+.iconWrapper {
+  height: 250px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #e8f1f2;
+}
+
+.zoomOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(1, 58, 64, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  cursor: pointer;
+}
+
+.zoomOverlay span {
+  color: #fcf7eb;
+  font-family: 'Gill Sans Light', sans-serif;
+  font-size: 0.9rem;
+  border: 1px solid #fcf7eb;
+  padding: 8px 16px;
+  border-radius: 20px;
+  backdrop-filter: blur(4px);
+}
+
+.amenityCard:hover .zoomOverlay {
+  opacity: 1;
+}
+
+/* Image Modal */
+.imageModal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 20000;
+  cursor: zoom-out;
+  animation: fadeIn 0.3s forwards;
+}
+
+.modalContent {
+  width: 90%;
+  height: 90%;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: default;
+}
+
+.modalImageWrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.closeModal {
+  position: absolute;
+  top: -40px;
+  right: 0;
+  background: none;
+  border: none;
+  color: #fcf7eb;
+  font-size: 2.5rem;
+  cursor: pointer;
+  z-index: 21000;
+  transition: transform 0.3s ease;
+}
+
+.closeModal:hover {
+  transform: scale(1.2);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 768px) {
+  .title {
+    font-size: 2.5rem;
+  }
+
+  .subtitle {
+    font-size: 1.1rem;
+  }
+
+  .contentContainer {
+    padding: 60px 20px;
+  }
+
+  .categorySection {
+    margin-bottom: 60px;
+  }
+
+  .categoryTitle {
+    font-size: 2rem;
+  }
+
+  .amenityGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.contactFormOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10000;
+}
